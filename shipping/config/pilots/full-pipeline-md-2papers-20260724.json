@@ -1,0 +1,14 @@
+{
+  "schema_version": "review_pipeline_collection.v1",
+  "topic": "三峡船舶积压疏导策略与长江航运组织",
+  "papers": [
+    {
+      "paper_id": "三峡航运遇瓶颈",
+      "source": "../../workspace/三峡航运遇瓶颈/normalized/document.md"
+    },
+    {
+      "paper_id": "长江上游地区产业布局及航运适应性研究",
+      "source": "../../workspace/长江上游地区产业布局及航运适应性研究/normalized/document.md"
+    }
+  ]
+}

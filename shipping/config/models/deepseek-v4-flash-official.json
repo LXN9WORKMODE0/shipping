@@ -1,0 +1,29 @@
+{
+  "schema_version": "llm.model_profile.v4",
+  "profile_id": "deepseek-v4-flash-official",
+  "provider": "openai-compatible",
+  "request_model": "deepseek-v4-flash",
+  "tokenizer_repo": "deepseek-ai/DeepSeek-V4-Pro",
+  "tokenizer_revision": "0e1a0e5e52aea73055f50fef6f2423db370265b6",
+  "prompt_token_overhead": 20,
+  "context_window_tokens": 1000000,
+  "model_max_output_tokens": 384000,
+  "safety_margin_tokens": 10000,
+  "evidence_output_base_tokens": 2048,
+  "evidence_output_tokens_per_card": 1024,
+  "evidence_max_output_tokens": 65536,
+  "large_paper_evidence_batch_max_cards": 12,
+  "section_summary_max_output_tokens": 32768,
+  "paper_synthesis_max_output_tokens": 32768,
+  "evidence_claim_batch_size": 12,
+  "evidence_claim_output_base_tokens": 1024,
+  "evidence_claim_output_tokens_per_unit": 512,
+  "evidence_claim_support_max_output_tokens": 8192,
+  "evidence_revision_max_output_tokens": 8192,
+  "statement_revision_max_output_tokens": 8192,
+  "statement_role_max_output_tokens": 16384,
+  "statement_support_max_output_tokens": 16384,
+  "thinking": {
+    "type": "disabled"
+  }
+}

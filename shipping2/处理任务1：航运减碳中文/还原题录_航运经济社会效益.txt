@@ -1,0 +1,2196 @@
+﻿{Reference Type}: Journal Article
+{Author}: 金卓.
+{Year}: 2010
+{Title}: 三峡过坝货运情况解析
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahJKlkd-7owN6-H9oVLX3tD1L_sRlaJFWHZKZ6CyBVgVi0CWkZKtD-cX10CH8tY9h2P-X2EUJwNBA_AXOUZuhMbEUTUe-RcU734_JiG_2ChvWP1UriovLaxKb3HJ1GfkTroOChAdiprvDbesmbPjG2jMunJyos5djNM0WV4r4Mbvew==&uniplatform=NZKPT&language=CHS
+{Date}: 2010-06-15
+{Volume}: 12
+{Journal}: 武汉交通职业学院学报
+{Issue}: 02
+{Pages}: 1-4
+{Keywords}: 长江航运;过坝运输;葛洲坝;三峡通航枢纽
+{Abstract}: 概述三峡过坝货运三十年状况,总结成功经验,分析2009年三峡过坝货运情况,探析过坝运量回升的成因。
+
+{Reference Type}: Journal Article
+{Author}: 马海峰;
+{Year}: 2015
+{Title}: 三峡枢纽过闸货运量预测分析及对策研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbPQ1p4Wu4wBobPAX8hzi69nL4MMWkgEoLQjhtKhAgjQkYKpqGeBizIPvGZvdhhB1L46ygYPk5B7qon8aVVXKjub7K9aW7E2F13ueNFJN6OHcd2cR1DY9Wxw37pb6dPP4j1XU9nSTsDFzqwmN1VrpC5mbrrKLHz7sYjQIc9BQyM5Wv7DiRbKodSn6-Uerb9-QatJ6RxulKP37w==&uniplatform=NZKPT&language=CHS
+{Date}: 2015-03-10
+{Volume}: No.468
+{Journal}: 中国水运
+{Issue}: 05
+{Pages}: 23-25
+{Keywords}: 三峡枢纽;货运量预测分析;对策研究
+{Abstract}: 三峡枢纽工程建成发电通航后,改善了长江上游库区航道,极大促进了长江上游水路货运市场的发展,而三峡船闸逐渐不能满足船舶通行的要求,成为长江上游水路货运市场发展的瓶颈,本文通过对三峡船闸现状的分析,三峡过闸货运量的预测分析,三峡船闸通航能力的分析,提出解决三峡船闸通过能力不足对策和建议,供行政主管部门决策参考。
+
+{Reference Type}: Journal Article
+{Author}: 黄若雪;汪健;韩杰;伍信怡;
+{Year}: 2024
+{Title}: 三峡通航态势统计指标体系优化研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbMUnfPZ2CcJKnkuPlpw-TlWKgVp9zUiK47MJo70kjE4q_yulWdZFH2fmEtS6yCGG31KtzkN5KWT1zP9PQaUCM8Fovl3OZknStp4eB4BTNY_zsb0TTHVQa55p7YWmZsBhOw58z5Ki9e7xopigMVlV2eNmrf2Dn0tFIklsJ-xZ2lvySDpRzEMM3J8wCSflyN8zfzOKfnj-mBblQ==&uniplatform=NZKPT&language=CHS
+{Date}: 2024-01-30
+{Volume}: No.594
+{Journal}: 珠江水运
+{Issue}: 02
+{Pages}: 61-63
+{Keywords}: 通航态势;统计优化;指标体系
+{Abstract}: 交通运输是国民经济各个领域之间联系的纽带，三峡通航的统计数据能够较为准确地反映长江航运经济形势，反映沿江经济的发展水平。随着新一代信息技术的发展趋势和国家及行业的发展建设要求，三峡通航的统计工作遇到了新的情况和问题，本文就现有的三峡通航态势统计指标现状进行分析，明确优化原则，结合三峡通航发展趋势，对现有的统计指标体系进行优化。
+
+{Reference Type}: Journal Article
+{Author}: 吴小涛;袁晓辉;袁艳斌;
+{Year}: 2017
+{Title}: 三峡水利枢纽货运过闸/翻坝线路优选模型及其应用
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbOOntb2LAN6HWe2tpBPY88_iBFABUdhvzjF-U4DmoGbV6QdKOTEaEhpnYptoabJQ50BPfODKcaiyMdLkTglsUAk-Rqtd_REG4NlBrLq8c_A0wO3tG8N0PPZfJcGcu893bq5DdUEpDwFOcujPZhWSADFAT-ZY-LD7CZNtms9xpYNw0H7kwB_1TNzgnKprgdDVYrVxQUJKzxx0g==&uniplatform=NZKPT&language=CHS
+{Date}: 2017-01-25
+{Volume}: 35
+{Journal}: 水电能源科学
+{Issue}: 01
+{Pages}: 93-96
+{Keywords}: 过闸/翻坝线路;运输成本;时间成本;中转成本
+{Abstract}: 三峡船闸自2003年通航以来,其货运量快速增长,2011年已达到1×108t,提前19年达到了设计年通过能力,成为制约长江黄金水道发展的瓶颈。翻坝是提高三峡枢纽通航能力最为切实有效的办法。为此,首先分析了载货汽车通过三峡大坝的五条过闸/翻坝线路;然后综合考虑运输成本、时间成本和中转成本,建立了以总成本最小为目标的过闸/翻坝线路选择模型,并分析了该模型的求解过程;最后通过算例表明,所建模型简单实用,有助于货主选择经济、合理的运输线路。
+
+{Reference Type}: Journal Article
+{Author}: 戴昌军;安荟菁;钱俊;
+{Year}: 2014
+{Title}: 三峡区域水运物流现状及发展对策研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbOwoMlFiO7VIE2176gIpNs93cepbIrftr2ao-wtkrY3e4hna1NasXt2lAb-lJsPTL0wYoKElKgWe8zpNqt1FV8hNl9eHnFa5oo-6p7IIYQUUrptPaXJaSysaT2bmJoTODKxdsHVYZ5auL9VlGqatWJlmP9VWj292Ygaox_K8rX7eobeMC0z6ufT1dVD_RWdxFE=&uniplatform=NZKPT&language=CHS
+{Date}: 2014-06-14
+{Volume}: 45
+{Journal}: 人民长江
+{Issue}: 11
+{Pages}: 23-25
+{Keywords}: 水运;物流;通航;三峡船闸
+{Abstract}: 三峡水库蓄水后,随着经济社会的快速发展,三峡船闸货运量增长较快,目前已基本达到原设计双向1亿t的通过能力,三峡及葛洲坝船闸的通过能力日趋紧张,难以满足过闸物流量进一步发展的要求。根据长江三峡区域的物流现状,分析了三峡水库蓄水前后货运量增长趋势、货种组成和上下行货运量比例变化情况。初步研究了三峡区域水运物流与区域经济发展的关系。提出了提高三峡区域水运物流效率的对策措施,包括加快西部地区物流基础设施建设,完善物流网络;以现有船闸各项参数和指标为基础,积极推进过闸船舶的标准化、专业化和大型化;开展增建船闸新线方案的研究等。
+
+{Reference Type}: Journal Article
+{Author}: 俞洋洋;祝宝靖;
+{Year}: 2010
+{Title}: 基于SWOT方法探讨翻坝长效机制下长江汽车滚装运输的发展
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=oGHOruzuSDMbfqzVMv3mddS39uRJfPPuCmciIH5xvfg4kYMTOXBz6rEnuJGTY4yblC0wEbwfdWiUAcSYT92FaDJ81Fd_uBFGDuZka7Oun3RCWVljg0S7-myzoh9WFgSmeVuyxA-XPNpG5MpLQXB67eC11-0Bi0-jdcuV5PLGNzWmO-Oa320SngKWCke5kpkIANPYBCPKEOc=&uniplatform=NZKPT&language=CHS
+{Date}: 2010-11-10
+{Volume}: 33
+{Journal}: 物流科技
+{Issue}: 11
+{Pages}: 96-98
+{Keywords}: 长期翻坝方案;汽车滚装运输;SWOT方法
+{Abstract}: 在三峡断航期作为缓解长江航运压力的应急翻坝措施目前已确定为长期转运方案,其中长江汽车滚装运输已经全部执行翻坝作业。通过记录三峡航运的现状,提出实施长期翻坝转运方案的必要性,并以SWOT方法来分析长期翻坝转运对长江汽车滚装运输未来发展可能产生的影响,进而提出可行的对策建议,促进长江沿岸汽车产业的运输发展。
+
+{Reference Type}: Thesis
+{Author}: 程梦瑶
+{Year}: 2019
+{Title}: 三峡船闸通过能力评价与影响因子研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahLGnDd6mZKDxD8uFd-QKoCA5MHebhhe1Ly5I_EC1WIRdE3aqV9lEeEu7VMM9MWI3z0dyw3--lKhtREIr9XSjxO3zPYD-JYd6UDXGncvDtVobWvUeX0XXm-5qtfZOGbOvHHBhZeAhFMfQPOiPD5IKLU82HtHyA28XbkqQLh-2AXH2s1Fn7wSh3_DL1vmIq2Fpk8ZLXxJeLHOgQ==&uniplatform=NZKPT&language=CHS
+{Date}: 2019-06-05
+{Journal}: 重庆交通大学
+{Issue}: 06
+{Keywords}: 三峡船闸;通过能力;影响因素;评价体系;计算方法
+{Abstract}: 长江经济带横跨我国东中西部三大地区,在区域发展总体格局中占有重要的地位。三峡船闸通航为长江中上游地区经济社会发展做出了巨大的贡献,但随着长江上游地区社会经济的快速发展,过闸货运需求迅速增加,三峡船闸通过能力不足的问题也逐步显现。因此,探讨如何解决三峡船闸通过能力不足的问题显得尤为必要,针对三峡船闸对长江航运带来的影响进行深入系统的研究,进而开展三峡船闸通过能力挖潜。本文以国家重点研发计划项目“重大水利枢纽通航建筑物建设与提升技术”为背景,主要开展了如下研究:(1)介绍了提高三峡船闸通过能力的背景及意义,分析国内外船闸通过能力研究的发展现状及研究成果,总结出我国在船闸通过能力评价方面还有待进一步深入的研究。详细描述了船闸通过能力各影响因子的特点,并构建了船闸通过能力影响因素总体框架,针对各影响因素的内涵分别做了详细阐述。(2)对常用的几种综合评价方法进行论述,采用层次分析法与德尔菲法相结合的方法来进行船闸通过能力的综合评价。介绍了层次分析法的基本原理与解决问题的基本步骤,构建了制约船闸通过能力提升的影响因素体系。通过收集专家调查问卷,构造判断矩阵,并对数据进行处理。分析得到船闸通过能力各影响因素的影响程度,即因素的影响权重。(3)针对船闸通过能力计算方面的研究,根据规范中船闸通过能力计算公式,提出了基于多年上下游通航水位与船闸门槛水深,来修正现行的船闸通过能力计算方法。提出了船舶年分时段配载运输和船闸运营动态管理的概念,通过算例分析得知,该方法可有效地对船闸通过能力进行挖潜。(4)基于船闸、船舶与管理的角度,探讨了提高三峡船闸通过能力的措施与方法。主要体现在以下几个方面:提高三峡坝区综合运输发展水平、建立船闸优化调度系统、提高船舶实载率、合理发展过闸船型、船舶年分时段运载、提高船闸管理水平、建立智能化管理系统等。
+{DOI}: 10.27671/d.cnki.gcjtc.2019.000074
+
+{Reference Type}: Journal Article
+{Author}: 张浩;肖金龙;温泉;刘凤琳;
+{Year}: 2019
+{Title}: 基于长江上游区域产业结构测度的三峡枢纽货运量预测
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbMH4Wg1Q7x6I2lAkpCL4q048FxZyXuCmtFnsWI82r0dr4CmzXtd3z71OPbVXOO412X_y5psiB1GE-S2qEaiekRm8QygsbG0AQnSDyG6m6E7OANn-HZU47aviatgolX1aX_6wQcsAIqe42Ph-VEnv_OZ4bmiEIIyhphJd6yMK-gW6Bl46yufhnw9T4vxQzx9lo8lTJiGICYANQ==&uniplatform=NZKPT&language=CHS
+{Date}: 2019-11-05
+{Volume}: No.562
+{Journal}: 水运工程
+{Issue}: 11
+{Pages}: 58-62
+{Keywords}: 长江上游区域;产业结构测度;三峡枢纽;货运量预测
+{Abstract}: 针对长江三峡枢纽通过能力提升的过坝运输需求预测问题,研究长江上游区域经济发展、产业结构与三峡枢纽过坝货运量的发展变化关系,构建基于长江上游区域产业结构测度的三峡枢纽过坝货运量预测模型,预计2020、2030、2040和2050年长江三峡枢纽货运量分别约为1. 61、2. 54、3. 10和3. 17亿t。研究表明:采用基于区域产业结构测度的方法预测三峡枢纽过坝货运量具有一定的参考意义;同时,发现长江三峡枢纽过坝货运量约在2040年左右将进入平稳发展阶段,该结论有待进一步探讨。
+{DOI}: 10.16233/j.cnki.issn1002-4972.20191104.006
+
+{Reference Type}: Journal Article
+{Author}: 张义军.
+{Year}: 2012
+{Title}: 过闸船舶吃水控制标准对三峡船闸通过量的影响
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahJPxm-B8vHX4K5Mbr5porB_8-o0-p4gVIF0Np70oJMxEbfTXh58ffSBAp0mk4F1Az5bvSaIfKCtGmWTibSMmoZYbVmwrWoEqwbNd58IemzGDsxugy8NarFlCnvJ7qRlfj1kpTUvFqRJtVWYhOe7X3cIY6MrY3_J0tywJ4O1ECdPpg==&uniplatform=NZKPT&language=CHS
+{Date}: 2012-03-10
+{Volume}: 34
+{Journal}: 水运管理
+{Issue}: 03
+{Pages}: 12-14
+{Keywords}: 航运;船舶;三峡船闸;吃水控制标准;通过量
+{Abstract}: 针对三峡船闸运行以来,过闸货运量快速增长,过闸船舶大型化趋势明显的问题,建立三峡船闸通过量与过闸船舶吃水控制标准关系数学模型,并以2010年过闸船舶数据为基础,测算不同吃水控制标准条件下的船闸通过量,提出利用三峡河段丰富的水资源优势,合理挖掘船舶吃水深度潜力,充分发挥过闸船舶的装载能力,进而有效提高三峡船闸通过量的建议。
+
+{Reference Type}: Thesis
+{Author}: 郑冲
+{Year}: 2016
+{Title}: 三峡—葛洲坝枢纽坝前船舶积压指数研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahIz2_OlR0r7TvTkOXYQhLvcmObSctdIJ-F_HBLLcbIxIuC0iUVKG1xtynkZT67TGI__IR2ia7UHnc-9VyNJW294f7UDKtu71nNAkok_izAGOrKin91uYx_0quLNllpTG_3lcOzFo2zVToYWT9dEQ-QJuwjInF7v8i0KByUT1n4HkUhCnddSIjfByo9msdOqdKW9w9mv32TTzw==&uniplatform=NZKPT&language=CHS
+{Date}: 2016-04-01
+{Journal}: 武汉理工大学
+{Issue}: 05
+{Keywords}: 船舶积压;三峡—葛洲坝枢纽;积压指数
+{Abstract}: 长江航运的快速发展,有效推动了区域优势产业带的形成,显著带动了流域经济社会发展。依托黄金水道推动长江经济带发展,是党中央、国务院依据当前国家发展形势作出的利当前、惠长远的重大战略决策。三峡—葛洲坝枢纽是集航运、水利、发电效益为一体的国家重大水利工程,极大改善了长江中上游区域通航条件,有力带动了长江航运业乃至区域社会、经济的发展。近年来长江上游地区经济发展日益快速,承接东中部产业转移日益增多,三峡—葛洲坝枢纽过闸货物需求量日益增大,枢纽通过能力不足的问题凸显,待闸船舶积压现象已呈现常态化趋势。三峡—葛洲坝枢纽船舶积压问题为坝区通航管理工作带来了较大压力,直接影响了坝区的船舶通航的安全和有序,对区域环境、经济、社会均造成了一定程度的不良影响。深入研究三峡—葛洲坝枢纽船舶积压问题,建立科学可行的船舶积压问题分析方法,客观掌握枢纽船舶积压问题发展态势和内在规律,是挖掘船闸通航潜力、提高坝区通航效率及缓解坝前船舶拥堵状况的前提和基础,是长江航运更好服务长江经济带建设的客观要求。本文以三峡—葛洲坝枢纽船舶积压问题为主要研究对象,在实地调研及查阅国内外现有文献资料的基础上,分析三峡—葛洲坝枢纽船舶通航及积压现状,指出积压问题造成的不良影响,提出构建三峡—葛洲坝枢纽坝前船舶积压指数的必要性,界定船舶积压指数的内涵和属性;依据三峡—葛洲坝枢纽船舶积压问题主要影响因素,从船舶积压的时间特性和空间特性出发,选取了涵盖积压船舶数量、船舶积压时间、区间运行强度等类别的船舶积压指数测算因子,采用基于概率的权重计算方法,进行因子权重计算;运用模糊综合评价构建了船舶积压指数测算模型,利用SPSS和Excel软件对2012年和2013年的船舶积压指数进行了测算,使用数据拟合方法建立了非正常积压状态下的船舶积压指数修正函数,并对积压指数阈值及船舶积压条件进行了界定;最后运用Microsoft Visual Basic编程软件开发设计了三峡—葛洲坝枢纽坝前船舶积压指数编制软件,实现了船舶积压指数在日常工作中的应用。
+
+{Reference Type}: Journal Article
+{Author}: 尹政兴;钱俊;厉泽逸;
+{Year}: 2019
+{Title}: 新形势下矿建材料三峡过闸运量趋势研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahLU4q9yZYOn9t-P2rnx_wv4ApA2d3m3W2Up9PF5ewCVvdyPr0Jfe05KYwglTNIbAkqh_OFKDV-S4ubiN-be-oqKj1rzJCX7gTPziGdywXhlcBD-xYIWrSwbcWGmQFGbSgIo1LwY2icFKq9i23EikbbncQ3uNSeApdCnW5bUCkwosZdyiut7UCFNwLDtT1XJFKpSJ1OVU89SxA==&uniplatform=NZKPT&language=CHS
+{Date}: 2019-12-28
+{Volume}: 50
+{Journal}: 人民长江
+{Issue}: 12
+{Pages}: 125-129
+{Keywords}: 矿建材料;过闸运量;内河航运;经济新常态;三峡水运新通道
+{Abstract}: 矿建材料是支撑经济社会发展和城镇化建设的重要资源,是长江三峡过闸运输的第一大货类。当前,我国进入适应经济新常态的实质阶段,长江经济带建设走上了"生态优先、绿色发展"的道路,影响矿建材料供需的外部环境已发生了重大变化。通过分析矿建材料三峡过闸运输的现状以及影响矿建材料供需的新形势,借鉴发达国家城镇化进程对矿建材料内河运量的影响规律,研究了新形势下矿建材料三峡过闸运输的发展趋势。研究表明:上游四省市城镇化进程将保障矿建材料过闸运量的增长空间,而长江大保护等相关政策会给矿建材料供给带来短期影响,但随着砂石行业完成转型发展,实现新旧动能转换,供给质量和能力将会得到有效补充和提升。因此,2035年以前,预计矿建材料过闸运量仍将逐步增长,2035～2050年才逐步回落,过闸运量稳定在2 000万～3 000万t的水平。研究成果将为三峡水运新通道工程的规模论证提供理论参考。
+
+{Reference Type}: Thesis
+{Author}: 孙洁
+{Year}: 2021
+{Title}: 三峡枢纽过坝货运量预测及路径选择研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbM6l-FblMTmTx7gbP3XKm8tIbDfd-gmDy2DgJdCsvJ0QSu-njwZIhjBiaeFxeTLYYL3g5WRUabQ6e4ECGHiqjVMCvEMtZtruQ0oX9Z5muFtxrYXBbvwoPYYHAVTNaK6jKUqZDVTw6P5iUYlWNBEtHpXTVEEqqVikaqMvZiq4857GY-5TMhm8pW7bxZ5GH2H5yHzlowYx2LYOw==&uniplatform=NZKPT&language=CHS
+{Date}: 2021-06-01
+{Journal}: 内蒙古工业大学
+{Issue}: 01
+{Keywords}: 三峡过坝;路径选择;运输成本;Logit模型;货运量
+{Abstract}: 长江三峡上的三峡大坝是全世界最大的水利工程,在中国水路运输中占据着非常重要的位置。但三峡船闸设计通航能力有限,过闸需求与船闸通航能力的矛盾日益尖锐,三峡枢纽坝前的船舶积压已成常态。基于此,迫切需要对过坝货运量需求进行预测分析,充分了解每条过坝路径运输需求的变化。翻坝运输是一种可以缓解五级船闸和升船机通航压力的一种运输方式,同时也是通航过坝方式的有效补充。为了减少交通基础设施条件对长江经济带发展造成的制约,需要采用科学的预测方法对过坝货运量需求进行分析,对每条过坝路径的货运量进行预测可以给货主在选择运输路径的时候提供依据,这样可以避免货主仅凭经验选择运输路径从而造成的过坝拥堵及运输成本过高的问题,在实际情况中,合理高效的运输路径可以保证各运输方式之间的衔接畅通,并且还能节约成本,对三峡如何实现船闸、船道畅通有重要的现实意义。首先,本文在分析货运量影响因素的基础上利用灰色关联分析发得出影响因素与过坝货运量之间的关联度。其次运用运输弹性系数法、水运系数法、回归分析预测法以及组合预测法对三峡过坝运输需求量进行预测,结果表明三峡过坝货运量2020年就达到11914.76万吨,远超三峡船闸设计的通航能力。针对三峡货物过坝问题,提出五条过坝路径并建立每条路径单位运输成本函数,利用成本函数建立基于Logit模型的过坝路径选择模型,利用SPSS软件对模型的未知参数进行标定,根据SPSS运行结果分析各影响因素对过坝货运量的影响,软件结果显示运输时间、等待时间以及单位运输费用对于路径选择有着显著性影响;最后基于路径选择的概率对过坝货运量进行动态变化分析,并针对三峡过坝运输的管理问题提出相关的政策建议。
+{DOI}: 10.27225/d.cnki.gnmgu.2021.000444
+
+{Reference Type}: Journal Article
+{Author}: 蒋军;付晓娜;李甜;
+{Year}: 2017
+{Title}: 三峡枢纽碍航性分析及对策建议
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbPwneg2O2oevCOV7wIaa2hCi2D4i7UNThMYtdrGIA_uwda1sViTNs01-u8RyCC8mL_RGDG-nEdVu9ah1ASeDhdRpUpWSqV3N9-cljx3QhprR-Q3ggH-Nn7_BMkWiMpE3q9Ct4TxNhnradE1IiQBhEURsvcuqL6Q6oJ77qMjdlPu_gz7dKovgbZnzdiEzAj5CSrVLbQ_oli_LA==&uniplatform=NZKPT&language=CHS
+{Date}: 2017-03-15
+{Volume}: 17
+{Journal}: 中国水运(下半月)
+{Issue}: 06
+{Pages}: 38-40+43
+{Keywords}: 三峡枢纽;碍航性;对策建议;翻坝转运;新建船闸
+{Abstract}: 三峡工程建设使长江上游通航条件得到了极大改善,有力促进了长江流域经济社会发展。但是,由于过坝货运量的持续增加,导致三峡船闸提前19年达到了设计通航能力,碍航效应愈加明显。文章从时间、成本和环境影响等方面系统分析了三峡枢纽的碍航特性,并有针对性的提出了对策建议。
+
+{Reference Type}: Journal Article
+{Author}: 王海江;
+{Year}: 2010
+{Title}: 提升三峡枢纽综合通过能力对策研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbO121Qv829SogwWxb5JB8MwItZBj_A1dcf6h98VzWn72j4VDmBkmlx6EHLVN97bPPmsdoi11QYyatT6_XJOVHHgoHU21YQFvwQm82qNYEKEF7xTLdqlFeF5XKkgEVJkZwOYJShgaX51MSUYfU1opzw1Os8kncpZBLrHtAO8rT5unK95i8jFlh8v0AaiUfN-uC4=&uniplatform=NZKPT&language=CHS
+{Date}: 2010-12-20
+{Volume}: 28
+{Journal}: 交通信息与安全
+{Issue}: 06
+{Pages}: 11-13
+{Keywords}: 三峡枢纽;通过能力;对策
+{Abstract}: 针对三峡枢纽通过能力不足与日益增长的运输需求之间的矛盾,经分析研究,提出了推进过闸船舶船型标准化、提高过闸船舶装载率等主要措施以及完善翻坝基础设施等工程手段,以期提高三峡枢纽综合通过能力,促进三峡枢纽航运效益的发挥。
+
+{Reference Type}: Thesis
+{Author}: 付晓娜
+{Year}: 2019
+{Title}: 三峡枢纽碍航性分析及船闸收费缓堵模式研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahJMOHc2JhAHNgxrdo5nRAuVV7V_SJ-45q93JzS9e6L-s6sTdmFNpbLT46Z2DHIRdbF7Vvz44tCHlnimbgzIVvHRjWelPv9n7oNZ4rwSop5HwZItH2F2st279N0ouzANIEdNTPpX2hzjhaTRwSrHEmqVZ7iyirZNm1Yvh6hJUc-d-4TCM1nhnFDzyF5pea9960zzJ8G_R5h77A==&uniplatform=NZKPT&language=CHS
+{Date}: 2019-09-28
+{Journal}: 重庆交通大学
+{Issue}: 05
+{Keywords}: 水运管理;三峡枢纽;组合预测;碍航度;拥堵收费
+{Abstract}: 内河水运具有运能大、占地少、能耗低、污染小等优势,长江干线是世界上运量最大、运输最繁忙的通航河流,对促进流域经济协调发展发挥了重要作用。习近平总书记提出要打造“长江全流域黄金水道”,依托黄金水道建设长江经济带已上升为国家战略。但是,当前长江航运的潜力远没有充分发挥,还存在着长江中下游的低净空桥梁碍航、长江中游的三峡枢纽碍航、长江上游的低等级航道碍航等三大制约因素,其中,三峡枢纽碍航问题最为明显和迫切,严重影响了长江航运和沿江地区经济社会发展。但是,当前人们对三峡枢纽的碍航特性定性认识较多,定量分析不足,提出很多缓堵方案大多是长远彻底解决的工程技术方案,投资大,周期长,缺乏近期可操作的有效实施方案。因此,开展相关研究具有较好的理论意义与现实价值。以三峡枢纽碍航特性和缓堵方案为研究对象,采用资料检索、现场调研、专家咨询、理论分析、数学建模等方法,首先系统梳理了三峡枢纽船闸理论通航能力和通航与碍航现状;其次,在全面分析三峡枢纽区域经济发展和货物流量流向的基础上,采用回归分析法、时间序列预测法、运输弹性系数法、组合预测法等定量预测方法,预测了三峡枢纽2 0 2 5年和2 0 3 0年的过坝水路客货运输量;再次,定量测算了碍航能力缺口、碍航时间延误和碍航经济损失,定性分析了碍航带来的安全影响和环境污染影响,并基于模糊综合评价法,构建了“碍航度”测算模型,计算了2 0 0 3年到2 0 1 8年三峡枢纽的碍航度,定量清晰揭示了三峡枢纽的碍航程度。最后,在综合评价现有缓堵方案利弊的基础上,借鉴国内外船闸收费和道路运输拥堵收费的成功经验,从货物分类、船舶分类、收费标准、计算公式等方面提出了三峡枢纽收费缓堵新模式,并阐述了三峡枢纽拥堵收费的理论基础、必要性和可行性。研究成果定量揭示了三峡枢纽的碍航特性,提出了以经济手段来缓解船闸拥堵的新模式,将为公众进一步提高对三峡枢纽碍航严重程度的认识提供参考,将对行业主管机关实施三峡枢纽碍航缓解工程提供决策参考。
+{DOI}: 10.27671/d.cnki.gcjtc.2019.000944
+
+{Reference Type}: Journal Article
+{Author}: 蒋江松;
+{Year}: 2016
+{Title}: 扩大三峡船闸通航能力的措施研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbNBW-RaZVSHM0V0_RG-1zDuHgX50zucqJ74f7yVTBz7fq71R2IsAjjh1NQeiIR6U8Ovfe5NwwfGifw3HDV1hNgfDcpMkWPF07EmwZWdoImuDHxkZH2epVrumeNnkjHdNJv5jXraMKeVTr8N_c-KorGwGi-CBYWBrCQZIwdjCqPXQ9GxBU1R1RqqDowkAwRotpPtXNupUfNd0Q==&uniplatform=NZKPT&language=CHS
+{Date}: 2016-10-15
+{Volume}: No.131
+{Journal}: 低碳世界
+{Issue}: 29
+{Pages}: 211-212
+{Keywords}: 三峡船闸;通航能力;措施研究
+{Abstract}: 当前,我国长江上游区域经济发展迅速,长江货运量急剧增长,三峡船闸的通过能力逐渐显现出不足,为了更好地支持重庆等地区经济的发展,本文结合三峡船闸通航的现状以及未来经济的发展需求,提出了6条扩大三峡船闸通航能力的措施,以进一步推动沿江区域经济发展。
+
+{Reference Type}: Journal Article
+{Author}: 杨邦杰;严以新;安雪晖;
+{Year}: 2015
+{Title}: 长江流域“黄金水道”问题分析及对策建议
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbOp4Nc33Cutd-LO-Buppg5jQj3OcLHXD9voNvoXkGG1u6OFNHPNXHPE-0XaeIBLYVG6MCG5-D3Q7PXH2yYm-EG2ptnF3IMFZQWhHa2sfh5zc4hICyEtfVJFI1nn3UFyaOD7W0kb3vqIxG_8D4kuqt7JMWHRSqTrmXS4c1_2ore5Dlb-2d0uJiOiI25ze3qZBpNklCAID3QSYg==&uniplatform=NZKPT&language=CHS
+{Date}: 2015-02-25
+{Volume}: 15
+{Journal}: 中国发展
+{Issue}: 01
+{Pages}: 1-7
+{Keywords}: 长江流域;黄金水道;长江经济带
+{Abstract}: 随着国务院出台《关于依托黄金水道推动长江经济带发展的指导意见》,建设黄金水道的战略地位进一步提升。依托黄金水道推动长江经济带发展,打造中国经济新支撑带,成为既利当前又惠长远的重大战略决策。该文基于实地调研,阐述了长江流域航道的基本情况,分析了长江黄金水道存在的突出问题及其原因,并结合相关部门的实践经验,提出了完善长江黄金水道建设,打造长江经济带的对策建议。
+
+{Reference Type}: Journal Article
+{Author}: 姜磊;骆义;陈攀;
+{Year}: 2015
+{Title}: 长江黄金水道发展新动力——三峡升船机
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbOqYT3YBRX3RjJrVoSjKPCqosZ2qGIxX8eBJh2i5mMWG_pA7yPgFnmWv54Fikel-Sv3nfYCK0FSyVIQQ7VJkfRROyoj-_Nj6eYkteSIeEuVBLEDX2w7N1CWZQlZe7RzDvCpyfZ2I1Hii6kSvbiT_YYzqcp9tLYwPR9cXaUVI0Y4TVQcY_71e-vvBWD5tCUwWflHK_vRnV5uKA==&uniplatform=NZKPT&language=CHS
+{Date}: 2015-09-15
+{Volume}: 6
+{Journal}: 黑龙江科学
+{Issue}: 09
+{Pages}: 156
+{Keywords}: 三峡;升船机;过闸船舶;待闸时间
+{Abstract}: 文章根据三峡升船机设计参数及过坝船舶统计数据分析,依据船闸总体设计规范对其通过能力进行计算,结果表明三峡升船机通过能力潜力巨大,可有效破解三峡过闸船舶待闸的瓶颈。
+
+{Reference Type}: Journal Article
+{Author}: 闫文收;黄开兴;林发勤;游雅萱;郝晓宁;
+{Year}: 2024
+{Title}: 航运能力对企业出口的影响——基于三峡大坝蓄水通航的准自然实验
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahJ476Fe-MPMeG26mFJqmbKrtUJZnGKihBXbTaClqG5hKCuR5TMFphU1BGnphEEUhyBgBPti8ndZvwtT-4nETtAkn4HxtGIq-B2kav6Rli51C_66Zg7pPBfKEU-y_nkNVEt9rtl32WcThh7Q7735I6JIsM-opiyP19kSnTE-FYbqKGDNIH40JwXzUmt5Pn0epHwCEQe8bOvvYw==&uniplatform=NZKPT&language=CHS
+{Date}: 2024-11-30
+{Volume}: 24
+{Journal}: 经济学(季刊)
+{Issue}: 06
+{Pages}: 1798-1815
+{Keywords}: 基础设施建设;企业出口;三峡大坝
+{Abstract}: 本文以长江三峡蓄水通航为准自然实验,识别航运能力与企业出口之间的因果关系。结果显示,航运能力提升只会影响企业出口的深度边际,而对广延边际并没有显著影响。异质性分析发现其主要影响长江中上游企业和大型企业出口。机制分析显示,三峡大坝修建通过提升长江航运能力,降低企业出口成本,对水运依赖程度高的企业影响更大。同时,水运成本降低增加了企业通过水路运输出口的概率,进而促进企业出口。
+
+{Reference Type}: Thesis
+{Author}: 周志寰
+{Year}: 2020
+{Title}: 长江三峡枢纽水域通航管理研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbMPeOPsMP5fthAxrhCxsFwl5oyw4GRrmEkiokvWK07Icsroxq_qnh486wJyNd0qOPpWv3hjO4KaC745lhpzWckf_GvsKWmYfoLmjmdkKDDkDJBm_DCJ25lHE8IESUfgiHKMRj59doPz7ouZ_UNz65vY4c8MaquNxkSJtx_3PVH-0rGMlgMA_B__YSU_64M8k5DD4BnaLdjmmQ==&uniplatform=NZKPT&language=CHS
+{Date}: 2020-05-01
+{Journal}: 三峡大学
+{Issue}: 06
+{Keywords}: 三峡水域;通航管理;公共服务;管理理念
+{Abstract}: 长江流域作为我国经济产业、科学技术最为发达的地区之一,具有十分重要的经济价值和战略地位,依托长江黄金水道推动长江经济带发展的重大决策部署,走生态优先、绿色发展之路。长江三峡枢纽水域作为长江黄金水道的关键节点、重要组成部分,是贯穿长江中、上游地区的重要通航水域,已然成为连接我国中、西部地区发展的纽带,成为助推长江经济社会发展的重要一环,为全国统筹协调发展提供了新支撑。本文从提升长江三峡枢纽水域通航管理水平的角度出发,运用对比分析、文献分析等方法,运用公共管理、公共服务理念和通航管理知识,结合现阶段三峡枢纽水域通航管理需求,查找三峡枢纽水域通航管理存在的问题,并分析产生问题的原因,主要包括管理机制尚不健全、通航资源紧缺、公共服务意识不足等方面因素,进一步有针对性地提出,通过构建通航管理机制、深化综合安全管理、优化通航资源、加大资源共享力度、提升公共服务能力等相应的具体措施加以解决。提升通航管理水平,树立公共管理意识,构建和谐、统一的通航管理新模式,以发挥长江经济新支撑、新纽带的作用。本文的研究成果对于促进三峡枢纽水域通航管理水平的提升,进一步推动长江黄金水道建设和长江经济带发展具有积极意义。
+{DOI}: 10.27270/d.cnki.gsxau.2020.000506
+
+{Reference Type}: Journal Article
+{Author}: 侯建;丁俊敏;胡祖硕;
+{Year}: 2024
+{Title}: 水利工程对航运的影响——以长江航运为例
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=oGHOruzuSDMrKA7mUpvSdgl4_YE8-stSa0R0i70H9PwiJrHqY0dHDq02lR-0FM_rUtgqzQnTSAj6LCoXEkQryKyarXNXSBtp1r2ytHHHgfLxGn_q5UPE6jIGiD5eynDfPMU9KuXELUMh6vUsUNt64E7aSPNvggO4ckCDk2ciRHb3J4vQLoDldd9ZrfKJGwSjDpg5qF_cUEhFVKJExGRRfA==&uniplatform=NZKPT&language=CHS
+{Date}: 2024-06-15
+{Volume}: 8
+{Journal}: 长江技术经济
+{Issue}: 03
+{Pages}: 72-75+98
+{Keywords}: 水利工程;长江经济带;三峡工程;航运;防洪工程
+{Abstract}: 结合长江航运，系统分析了水利工程对航运发展的影响。以三峡工程为例，进一步探讨水利工程如何通过流量调控、航道疏浚和船闸建设等手段，提升航道通航能力和航运安全性，促进区域经济发展。结果表明，水利工程不仅改善了航运环境，还在防洪、发电等方面发挥着重要作用，为实现长江经济带高质量发展提供了坚实支撑。
+
+{Reference Type}: Journal Article
+{Author}: 李灼;石兴勇;于黎;
+{Year}: 2013
+{Title}: 扩大三峡船闸通航能力研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbO3RVm6BGLUGZU3BIwDjF5VZUXrvaTvIUyAHFYFheW-Nntf4t6OCs2SdWHjd1tVPr6Y9RlmGxIiE38GOOGeCc6S-OWYUqslecs6J2qq1kNRiQRCp3Weho4TaIXGwA_pX0lXb3Gncl6sAL81_tI40c5503vwYRwwBxQkM9yT0J_shAmgRlF1qtSusq5fphcWvuczzDq8tVuN8A==&uniplatform=NZKPT&language=CHS
+{Date}: 2013-06-15
+{Volume}: 13
+{Journal}: 中国水运(下半月)
+{Issue}: 12
+{Pages}: 29-31
+{Keywords}: 三峡船闸;通航能力;存在的问题;货运量预测;对策建议
+{Abstract}: 为减轻三峡船闸通过能力不足将带来的不利影响,更好的利用水运优势促进重庆及长江上游地区经济社会发展。本课题在结合三峡船闸通航现状和未来经济发展需求,对比分析三峡船闸的设计与实际运行差异性的基础上,研究三峡船闸通航存在的主要问题,采用回归分析法与弹性系数法结合的定量预测方法,预测了三峡过坝的货运量,提出了扩大三峡船闸通过能力的相关对策建议,以加快推进三峡通航扩能工作,减轻因三峡船闸通过能力不足带来的影响,推动长江上游地区经济社会发展。
+
+{Reference Type}: Conference
+{Author}: 周建武;汪璐;
+{Year}: 2019
+{Title}: 三峡—葛洲坝水利枢纽通航联合调度技术研究与实践
+{Date}: 2019-10-22
+{Journal}: 中国水利学会2019学术年会论文集第一分册
+{Pages}: 670-675
+{Keywords}: 联合调度;水库调度;电力调度;通航调度技术
+{Abstract}: 本文从目前三峡—葛洲坝水利枢纽水库调度、电力调度、航运调度之间的关系与调度模式分析入手,从航运管理部门的角度出发,探讨和梳理了在水库汛期防洪调度、枯水期航运补偿调度、电站调峰以及成库后异常气象条件下的通航调度技术和手段,以期在发挥枢纽整体效益最大化的基础上,尽可能提高航运效益,并为未来枢纽联合统一调度的发展方向提出了思考。
+{DOI}: 10.26914/c.cnkihy.2019.097803
+
+{Reference Type}: Journal Article
+{Author}: 尹维清;戴昌军;钱俊.
+{Year}: 2011
+{Title}: 综合利用水资源,拓展三峡工程航运效益
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahKFhYbafAs5rA4SvIFm3XJIBEVID5nEBmuaRMvenp5M0kf49Dlem_mHeAnD6rY77fEH52Ri7jrfQwOGk-oxUGitO4iUkv3pRq9EFYWtYQeid_Azq4kujxiXfDwTbMvkPQmbMO9WoN4cpTA1fzu1nWwMWEwE7_ig2HSYfvWy0yBtNA==&uniplatform=NZKPT&language=CHS
+{Date}: 2011-11-15
+{Volume}: 11
+{Journal}: 中国水运(下半月)
+{Issue}: 22
+{Pages}: 51-52+71
+{Keywords}: 三峡工程;效益拓展;水资源;对策措施
+{Abstract}: 阐述了水资源综合利用框架下长江航运规划历史沿革,分析了三峡工程在长江航运发展中的战略地位;结合统计资料分析了三峡工程蓄水运行后的航运效益;针对航运进一步发展存在的问题和新的要求,研究提出了进一步拓展三峡航运效益的对策措施;围绕水资源综合利用的原则,提出了拓展三峡工程航运效益的有关建议。
+
+{Reference Type}: Journal Article
+{Author}: 龙浩;李文杰;杨胜发;张璠;
+{Year}: 2019
+{Title}: 长江朝涪段航道建设工程经济效益分析研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbPj_RL8PgX7-mXlzZYYS8-2Qyu2khmrP53hhmIYSuJEo2Tuj7v7_pEkh4tx2qfhKWDuh_BEKvq1nGtsSco4w4kuBAxOZiZ1So_mkOyeemASc3WmTIwdzo1xnmrKKtLeQz10nZNBBhBjIzYF957WFgxctfvDr0VDTUjWHBLZOX7ekCoKq8_fRAAYq_mDsg3jeTfTp2LtBUOBew==&uniplatform=NZKPT&language=CHS
+{Date}: 2019-07-01
+{Volume}: 40
+{Journal}: 人民珠江
+{Issue}: 07
+{Pages}: 110-114+127
+{Keywords}: 4.5 m水深航道建设工程;效益分析;“有-无”对比法;长江朝涪段
+{Abstract}: 统计分析长江朝天门至涪陵段水运量的发展变化趋势,利用了回归分析、弹性系数和指数平滑等方法对未来水运量进行组合预测。基于预测结果采用"有-无"对比法对正处论证阶段的朝天门至涪陵段4.5 m水深航道建设工程经济效益进行识别测算。识别发现,工程的经济效益主要体现在节约社会运输成本和环境处置成本。初步测算结果表明,截至2040年,累计产生经济效益达22.02亿元,工程具备较强经济合理性,可供决策参考。
+
+{Reference Type}: Journal Article
+{Author}: 赵云发;张继顺.
+{Year}: 2003
+{Title}: 三峡水库135m运行期枯季补偿航运效益分析
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahLadewNQitENfaMbdda_hPu2aYS_MyYwCLIKvR1OEpghhqzxxt7fdFisYT01f3zCqpxNVGiCp0p7dqjJZUCNOMPY5pQ2t7nMxqgoUfvh1VyGVcSJHAlQQ3cGV0KT9w-PkJsSv3dmy-1EzVuJ3QnjAo13KkxA3MNcI1dUKzfSfissg==&uniplatform=NZKPT&language=CHS
+{Date}: 2003-12-21
+{Journal}: 水力发电
+{Issue}: 12
+{Pages}: 34-36
+{Keywords}: 蓄水;航运;补偿流量;枯水季;效益分析;三峡水库
+{Abstract}: 三峡工程蓄水运行后,泥沙沉积库区,水库清水下泄,水库初期运用期间会引起葛洲坝下游河道冲刷,造成宜昌枯水位下降,影响航道水深和船舶过坝。通过对航运和发电效益进行分析计算,表明解决这一问题的最好办法是实施枯季航运补偿流量调度方案。采用这一方案不但可增加葛洲坝电站下游的航道水深,还可增加梯级电站的发电量,其效益是十分明显的。
+
+{Reference Type}: Thesis
+{Author}: 祝润卿
+{Year}: 2019
+{Title}: 长江中游新旧水道船型与航行路径研究及仿真
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=oGHOruzuSDNrdUV_XzXUPMh1FR4OR9tUmeLBXbfvV1Nj0GC7xMj0FFHvw1OLL89nbb3th4S5HkE_SpoTfj7xDx03puil7MUcktJloklSggfelK77SnATfEPI7_8Ty0hGfVLKLy6adetwLMqYpOBr3QAPPoxoAYeBt_GJ_j08gCaxBBzV9EdDvyXRKhywrQj9ujc9vV-9mXfR_sElzFeHBw==&uniplatform=NZKPT&language=CHS
+{Date}: 2019-04-01
+{Journal}: 武汉理工大学
+{Issue}: 07
+{Keywords}: 长江中游新旧水道;动态广义费用;船型及其航行路径优化;实时仿真优化
+{Abstract}: 长江素有“黄金水道”美誉,在我国内河航运中发挥着举足轻重的作用。为满足日益增长的运输需求,解决三峡枢纽拥堵和长江中游“梗塞”问题,三峡新通道和长江中游人工水道建设均已提上议事日程。拟规划建设的长江中游人工水道位于三峡枢纽下游的湖北枝城至簰洲湾间,水道全长约230km,运距将比现有长江中游自然航道缩短约260km,其建成后长江中游将形成由自然航道和人工水道共同构成的新旧水道。通行于新旧水道的船舶主要来源于长江干线通过三峡枢纽的船舶和湖北省内进行区间短途运输的船舶。随着长江经济发展和通航环境条件的不断改善,以及三峡水运新通道的建成,三峡过闸运量将会大幅增长,同时湖北省内水路运输需求也将持续增长,未来长江中游新旧水道将会面临水路货运压力。长江中游人工水道和自然航道具有不同的通航环境属性,各船型选择不同的航行路径,不但对自身的综合效益产生影响,当断面货运量增大时,还可能造成长江中游新旧水道的拥堵。为未雨绸缪,实现新旧水道断面通过能力最大化、总运输成本最小化、船舶通过时间最短化,确保长江干线航运系统的通畅、高效,长江中游新旧水道船型及其航行路径的优化显得极为关键。针对这类问题,目前主要是采用理论方法建立数学模型,并用合适的算法求解优化方案,也有部分学者利用计算机仿真技术对数学方法得到的优化方案进行进一步验证并提出改进策略,但基本都没有实现实时仿真求解。为弥补现有方法的不足,本文结合船型特点和航道特征,构建动态广义费用模型以得到每艘来船选择不同航行路径时将会产生的动态广义成本;同时基于Anylogic软件建立长江中游新旧水道实时仿真平台,并嵌入动态广义费用模型,实现了长江中游新旧水道船舶航行路径的实时仿真优化,最终提出了各货运量水平年人工水道收费标准建议,以及对应的船型与航行路径优化方案。论文研究成果可为管理部门进行船舶优化调度时提供支撑,也可为同类研究提供新的思路和方法。
+{DOI}: 10.27381/d.cnki.gwlgu.2019.001715
+
+{Reference Type}: Journal Article
+{Author}: 张哲辉;卢成.
+{Year}: 2010
+{Title}: 提高长江三峡枢纽综合通过能力的对策
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahJRHuMVQKZN7_EA77FimgrrzrJVK0qfqLqZgWpCP645BXf9QXYGwI0Y36KDAmN43Wr8rt0PrXkz6gf7Wce6oGVivf8L7pICb_l1EBps_W53fGg5UNw7OrJhKMsOr-hTq7nIY2KvnuivFQv_tG8NDcPwl5A4j_OsP7msUvGfagp2Qw==&uniplatform=NZKPT&language=CHS
+{Date}: 2010-06-10
+{Volume}: No.346
+{Journal}: 综合运输
+{Issue}: 06
+{Pages}: 30-35
+{Keywords}: 三峡枢纽;通过能力;对策
+{Abstract}: 本文针对三峡枢纽通过能力不足与日益增长的运输需求之间的矛盾,研究提出了推进过闸船舶船型标准化、提高过闸船舶装载率等主要措施以及新建三峡三线船闸、完善翻坝基础设施等工程手段,以期提高三峡枢纽综合通过能力,促进三峡枢纽航运效益的发挥。
+
+{Reference Type}: Journal Article
+{Author}: 刘晓玲;王海霞;吴澎;
+{Year}: 2018
+{Title}: 新时代三峡过闸货运需求发展趋势展望
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahLdevdKBqY0AWkcRHq_2PRgEcq9INkJtLyfyUtNpzkee03087ctGIHH2MOEI_OKzgpjEbOzxA1I6AseBL5VrmJWBnLUf7YcAKp6ltB4svbBW-qPVzqXhHIyEUf6e2wG9luPEPy1w_nv-jCInFCCiscnO9WGwqYJH3Rp0mZ2a-W6D6mJ-9bnPd1sXBqZ1RNIdF9tvRLn-g1SfA==&uniplatform=NZKPT&language=CHS
+{Date}: 2018-09-15
+{Volume}: 2
+{Journal}: 长江技术经济
+{Issue}: 03
+{Pages}: 44-50
+{Keywords}: 三峡枢纽;过闸运输需求;分析预测;三峡新通道建设
+{Abstract}: 三峡枢纽自运行以来,三峡船闸过闸货运量快速增长,迅速超过船闸通过能力,不仅抑制了潜在过闸运输需求的释放,也增加了过闸船舶等待时间,无形之中增加了社会物流成本,日益成为长江上游水路货运市场发展的瓶颈。本文对三峡枢纽过闸运输发展特点和欧美等发达国家内河航运发展经验进行了归纳、总结,并结合腹地经济发展阶段与运量发展速度的关系以及新时代产业发展特点,分析预测三峡枢纽过闸运输需求,研判三峡新通道建设的必要性和迫切性。
+
+{Reference Type}: Journal Article
+{Author}: 任静;
+{Year}: 2014
+{Title}: 川渝地区产业结构升级、交通格局优化对三峡过闸运量需求发展趋势的影响分析
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbPMIN9dkSRVsOCENHcCDvgWRemsAnvqeTC0K2sSKWpkjQfBCs8qsZs3l7PqGKR8tNsWQhb54KmYjAX7BqMtKjyMDPvj0S5UgsKe8ZVoztD_zAMLWrD5BFXe_wGls9i8atx4FunL5Ackwz3pwRwORJSKiwu8l5HVxQ97BaeGuNpa5XXpzuWmP8Tw6gTQAYuoZmTVzsylEc-lZA==&uniplatform=NZKPT&language=CHS
+{Date}: 2014-09-15
+{Volume}: 14
+{Journal}: 中国水运(下半月)
+{Issue}: 18
+{Pages}: 102-103
+{Keywords}: 三峡船闸产业结构运输需求发展趋势
+{Abstract}: 三峡过闸运输货物中90%以上来自于川渝地区,川渝地区对外综合运输通道的建设、沿江产业布局的优化将直接影响到三峡船闸运输需求规模和货物结构变化。今后,新长江经济带等战略的实施将进一步促进川渝地区水运需求的持续增长,对三峡船闸的适应性提出更高的要求。文中从腹地产业结构升级、对外综合运输通道的发展入手,研究其对三峡过闸运输需求变化趋势的影响,为三峡新通道建设提供支撑和参考。
+
+{Reference Type}: Journal Article
+{Author}: 刘元丰,范晓飚
+{Year}: 2003
+{Title}: 关于长江三峡库区建立船舶定线制的可行性分析
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbOVgZ1KJCmo8YGBG36NhNMn-n4e-g62JESgBAyrcVI7GGgYYztc9zDk9XckzAINzHBKI7HtTKGeugf5lU48vOeY5IjrvUY-9PEhgGcWVJQS4KsN_yy_4Ce5Ew1lXKD99tt6pF_c2DGoRRZqGFDMpatD_qlqTqBlS0W2NHr2AkniIYzV0HnMJ4UlrsDW1Cu2Wf8=&uniplatform=NZKPT&language=CHS
+{Date}: 2003-07-30
+{Journal}: 航海技术
+{Issue}: 04
+{Pages}: 2-4
+{Keywords}: 三峡库区;船舶定线制;可行性分析
+{Abstract}: 长江三峡大坝建成蓄水后,库区航行条件将得到显著改善。为充分发挥三峡工程航运效益,构建良好的水上交通环境,规范船舶航行行为,减少船舶碰撞事故的发生,此文论述在三峡库区建立和实施船舶定线制的必要性和可行性。
+
+{Reference Type}: Thesis
+{Author}: 暴虹利
+{Year}: 2014
+{Title}: 考虑翻坝和天气的长江班轮运网鲁棒优化模型
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbOOc-kZGMeTAXkm1-A4uTJLx2LnXQYcmuy35UMH8dh5T6_E3b7VqWzwdSwkRqBgV6ODDT2xB2b8_Dh7GGvPx5UBrm74447JuREz9ypWZ1kwBWh-EjromqhD9MlGMaIZO4LGSJchZSudgtxE7cNA4GFZ7siYYsN5pq8JkJDMBBkSEWA1vNaaEy5nya8UrKw8CExk3dPgC5iETw==&uniplatform=NZKPT&language=CHS
+{Date}: 2014-05-01
+{Journal}: 大连海事大学
+{Issue}: 09
+{Keywords}: 长江航道;班轮运输;航线设计;鲁棒优化;翻坝运输
+{Abstract}: 长江内河运输作为一种运能大、价格经济的运输方式,在我国经济建设中发挥着巨大作用,受到越来越多的关注,各界都在努力强化长江水路的运输体系,尤其是集装箱班轮运输网络的发展建设,以使黄金水道能够发挥更大的作用。长江水路班轮运输有三个特点：1)水运网络与流域的陆运系统紧密衔接,既互为补充又相互竞争；2)三峡大坝区段运能不足,运输组织复杂,因为货物既可经船闸运输,也可用翻坝的方式实施“水-公-水”联运；3)流域广阔,全程运输易于受恶劣天气影响,导致港口拥堵,迫使部分货源向陆运转移。在此背景下,本文拟在考虑翻坝运输和长江流域天气影响的情况下,研究长江干线流域水路与陆运的竞合关系,优化长江干线班轮集装箱运输网络。
+
+{Reference Type}: Conference
+{Author}: 骆义;高惠君;魏洪斌;
+{Year}: 2012
+{Title}: 三峡库区过闸适应性船型主尺度论证
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbM_MzpHfdJTxXZp0kePDLgiL75iYwxApvhexB08GA5YVFaYiTTSCfPEe-bI02IQIriCwoDIcGcy04TNX4EdEjQdjL3DY_TEbYaSbFs15zq2ay8I6N-_ufG7EMtBS9MQiFd-LxT432rp-WfB-1TGNCQKqYAPtqfP6yyi9vWyC49FDyeC5Nf_EMBnccP5qtNRiYwAsKnfybyL5g==&uniplatform=NZKPT&language=CHS
+{Date}: 2012-07-01
+{Journal}: 第十二届全国内河船舶与航运学术会议论文集
+{Pages}: 125-131
+{Keywords}: 三峡;过闸适用性;船舶主尺度;综合评价;指标体系
+{Abstract}: 论证适合三峡库区通航环境,提高航运枢纽通过能力,满足沿岸周边水运经济发展的船型主尺度。在统计分析库区现有主力船型主尺度特征的基础上,构建库区过闸适应性船型主尺度论证综合评价指标体系,对5000吨级过闸船舶进行主尺度论证,提出单船经济性好、过闸效率高的船型主尺度方案.
+
+{Reference Type}: Journal Article
+{Author}: 李红九,宋德星
+{Year}: 2005
+{Title}: 三峡工程建设期川江汽车滚装船“翻坝转运”方案
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbPCR79HIPQqg8luql3cFsTSmaSPzYkeF6Za1_CLr_e51fb80XcJlF8bTZ67XZNfxXfgb4tW8Tr5rpKhfkEJlm4ynnTQMd0CmDwO4djACgl_v9PnbFpMUSUe-OFJKz8SbqqpGEORDXoiAkqvi49G3rDz_1S7uRXOMKenUO4Qn-lGGIGZmSeBCKgvQ8NMGBBVovY=&uniplatform=NZKPT&language=CHS
+{Date}: 2005-08-05
+{Journal}: 水运管理
+{Issue}: 08
+{Pages}: 14-17
+{Keywords}: 三峡工程;滚装船;翻坝转运
+{Abstract}: 根据目前三峡船闸上下游已有的滚装港口和公路、水路资源,提出“水陆”和“水陆水”联运的川江滚装船“翻坝转运”4种方案,通过社会性和经济性分析,建议采用“水陆水”右岸“翻坝转运”方案。
+
+{Reference Type}: Thesis
+{Author}: 况照笙
+{Year}: 2018
+{Title}: 长江上游地区产业布局及航运适应性研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=oGHOruzuSDNR7fDBNOsNZK5ux_9b9byuCFX4weImfHRRMXreuRQdyk8xNxw8H-ol7zPveG_7uZ_zTbA_VUU0MHWzgWDyogpbD37CyIUGYG5AwkOzBgBd5XbMLWxlER4XhVR9eVkJlhfryoRNa2ahHhaAp7Y0AvrpxIPIZbOPIXaXErWp2xKLqLxjJW_qRUUI1UucZQlf_lcv_xFMGp6vhQ==&uniplatform=NZKPT&language=CHS
+{Date}: 2018-10-04
+{Journal}: 重庆交通大学
+{Issue}: 06
+{Keywords}: 长江上游地区;产业;布局;适应性;评价模型
+{Abstract}: 长江是世界上通航量最大的河流,是我国西部内陆腹地与沿海地区的重要交通纽带,依托长江黄金水道推动长江经济带发展,是党中央、国务院作出的重大战略决策。因此研究分析长江航运物流与上游地区产业的适应性并提出发展战略是十分必要的。本文在系统分析长江上游地区沿江产业合理布局和航运物流现状基础上,研究产业布局与航运物流的适应性。1、通过对长江上游地区产业状况的分析,发现三省一市地区第二、第三产业比重持续上升;三省一市工业化发展水平处于中期或向中期过渡阶段;外向型经济发展迅猛,外贸结构逐步优化;产业发展趋同化,互补性不强等特点。2、在对长江上游地区综合物流体系现状进行分析的基础上,建立了长江上游地区综合运输体系与物流发展耦合度分析模型。通过分析认为,近年长江上游地区综合运输体系与物流体系耦合协调发展度呈逐年上升趋势;综合运输体系与物流发展逐步匹配,整体呈协调发展趋势。3、通过对地区产业和物流的分析,开展了长江上游地区产业规划和物流量预测。预计2020年物流量将达到63.2亿吨,2020年至2030年三省一市物流量增速将放缓至4%,预计2030年物流量将达到93.6亿吨。其中2020年三峡过闸货运需求在2亿吨左右、2030年三峡过闸货运需求在3亿吨左右。4、针对以上研究成果,建立了长江上游地区产业布局与航运物流适应性的层次分析法(AHP)和数据包络分析(DEA)模型,并对长江上游三省一市基础设施、航道保障能力、三峡船闸过闸、港口吞吐能力、船舶运输能力、航运服务能力等方面的适应性进行了详细的探讨。5、针对研究的成果,提出了保障长江上游地区产业布局与航运物流适应发展的建议。
+{DOI}: 10.27671/d.cnki.gcjtc.2018.000079
+
+{Reference Type}: Journal Article
+{Author}: 叶文静;杜洪波;万宇;
+{Year}: 2025
+{Title}: 基于产业链供应链的三峡过闸煤炭运量分析
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbOuOv4ItVsprHLGHjHiTM26mZtz4bNzF-y2OinQpmgvkRyoBvvEnP9xPvIq-IsrU8k12Z9erVfOgKqbsq5K1H2CA9KJTMQ6wdmq19k2CJg-drXACJAOY_-9oe64n7DywTIsm3oyJNLBa8ZYMe4ovPXQlZQE8kh31kbA8PyHCd9W2yJR8s-hz0It9EY1IKKdnvYoCTWcDtM6hA==&uniplatform=NZKPT&language=CHS
+{Date}: 2025-08-15
+{Volume}: 44
+{Journal}: 重庆交通大学学报(自然科学版)
+{Issue}: 08
+{Pages}: 33-41
+{Keywords}: 交通运输工程;产业链供应链;三峡船闸;煤炭;运输需求
+{Abstract}: 三峡船闸的高效畅通对于长江上游区域经济发展及沿线产业布局极为重要，解决三峡拥堵现状的基本前提在于合理判断过闸运输需求及发展趋势。以煤炭为例，开展三峡过闸运输需求分析。首先，调查了长江上游煤炭的产业链供应链，揭示了三峡过闸煤炭产供消特征，明确了长江上游地区运输需求和运输流向。其次，分析了三峡过闸煤炭货运量的主要影响因素，发现基于产业链供应链的选择因素与过闸量相关性较强，解释了选择因素与货运量之间的内在联系和相互作用机理。最后，将选择因素分别带入BP、LSTM和Bi-LSTM模型，均证明相较于传统方法基于产业链供应链的回测结果更加准确，进一步从宏观政策影响和产业发展角度分析了三峡过闸煤炭运输需求。研究结果为区域货运量的预测提供了新思路，结合运输货物的产业链供应链可以更合理预测运量和发展趋势，为运输行业发展提供支撑。
+
+{Reference Type}: Conference
+{Author}: 马宏彦;胡朝晖;陆永军;周勇;向华;
+{Year}: 2012
+{Title}: 三峡枢纽港概念性规划研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbNgRjXWX2OyOXGUT_CrOozvZy0v8e8xpHWJDwCW6nNLK1YVajqjIurMoef8MtHflhU6OCTeh2cJcbbloxY9xzSNb2SL-iujVxswfCDV_6KWnhbefXk042BDd_2qJwc3OfJ9fLYfyitQrVGpy9XAaMo9y0JtCSnSpR_KsQ_kT0eIxF3-0KBhXlqtcvdrJUYzGgUONUelPzLhfw==&uniplatform=NZKPT&language=CHS
+{Date}: 2012-12-08
+{Journal}: 湖北省公路学会2012年学术年会论文集
+{Pages}: 44-54
+{Keywords}: 三峡枢纽港;定位;目标;布局;措施
+{Abstract}: 本文以国家加快长江等内河水运发展的宏观政策为背景,立足宜昌港现状,通过宜昌区位、社会经济及客货吞吐量预测等多方面分析,针对性的提出了三峡枢纽港概念,并就发展定位、目标、空间布局及政策措施进行了深入浅出的研究。
+
+{Reference Type}: Conference
+{Author}: 骆行有;
+{Year}: 2016
+{Title}: 三峡升船机主导船型多学科设计优化
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbOEixpQNjoJUNNJUUYU45GNwi6N714Qw8UaYQpDHdNOHRsTnAJOELEWzIHKd2BWooRYTD9ZvDwh1FftNVV54oQQqlvn_AmUAUfE-n6ejY3uatlieAogscqpHSXoaBEa_PrB1uFpWDtDDu9vh3J56Cw75Dt7om3S7rphIsAtnNOS18FZVcf7IbdN2JxUO-kqzJAvHo9B4if6uQ==&uniplatform=NZKPT&language=CHS
+{Date}: 2016-04-23
+{Journal}: 第九届武汉地区船舶与海洋工程研究生学术论坛论文集
+{Pages}: 210-215
+{Keywords}: 升船机;遗传算法;NSGA-II;多学科设计优化;i SIGHT;VBA
+{Abstract}: 三峡船闸通过能力不足的问题日益加重,升船机的投入使用将会扩大三峡过坝运输能力,要使升船机通过能力最大化或使用效率最大化,就需要开发出与升船机匹配的船型。对现有三峡过闸船舶技术资料统计分析,运用非支配排序的多目标遗传算法(NSGA-II)在i SIGHT软件集成环境下集成Excel软件和VBA程序对三峡主导船型进行多学科设计多目标优化,综合分析船舶的浮性与稳性学科、操纵性学科和经济性学科等得到技术经济性能优良、与升船机适应性好、适航性优良的系列升船机船型,充分挖掘升船机的功能和效率,评估升船机的极限通过能力,以获得最大的社会经济效益。
+
+{Reference Type}: Journal Article
+{Author}: 郭涛.
+{Year}: 2010
+{Title}: 三峡工程的航运效益分析
+{URL}: https://link.cnki.net/doi/10.16233/j.cnki.issn1002-4972.2010.07.031
+{Date}: 2010-07-25
+{Volume}: No.443
+{Journal}: 水运工程
+{Issue}: 07
+{Pages}: 104-106+139
+{Keywords}: 三峡;航运;效益
+{Abstract}: 对照三峡工程初步设计,从7个方面论述了三峡工程已发挥的航运效益,并提出加快航道治理和推进船舶标准化等措施,以进一步提高综合效益。
+{DOI}: 10.16233/j.cnki.issn1002-4972.2010.07.031
+
+{Reference Type}: Journal Article
+{Author}: 蒋军;
+{Year}: 2012
+{Title}: 川江滚装运输发展的SWOT分析及对策
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbON-WXQu--jeOaljEiZoQZE9_-IPPtBJdF38LyapQeR3uumj461eUuB19ejmed0BL5vn57iMLRaa5PH8QzW3LHDr0ieZeCG83CAwwHy3E7RoXuO6elb30-I5lTtRHgUPzUgGNRw_LF1Qwkbg3tVpthY2_fYtb1HWDWZC_2LkFORpHlAjwzrDk2nZ-AuEFPdwp8=&uniplatform=NZKPT&language=CHS
+{Date}: 2012-12-15
+{Volume}: 35
+{Journal}: 世界海运
+{Issue}: 12
+{Pages}: 13-15
+{Keywords}: 川江;滚装运输;SWOT分析
+{Abstract}: 运用SWOT分析法对川江滚装运输发展进行系统的分析,指出内部优势和劣势,分析外部机遇和挑战,并提出加大政策扶持、推进基础设施建设、建立三峡枢纽滚装翻坝运输系统、加强企业战略联盟、拓展增值服务、探索新型滚装运输模式等对策建议。
+
+{Reference Type}: Journal Article
+{Author}: 程升鹏;阮荣斌;王锐锋;
+{Year}: 2020
+{Title}: 提高三峡船闸过闸效率的通航组织模式
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbNrts6WHtj5OGpHzeNHVs6aMAPOBT7T7rskZgFjUHtR4izHoZKQ023xleQ4bD0VZ6dXMPcGQ73Mwekl5vsi5XjC7R3893dw8hxfQT8fxV5_YXVV7nFvlXVv237oGeRFfBDNVUH4wlTZLP0li2sbb5riW71kWKDIXVQIzjYzGDRfVD2_0Cy6AogKaws1Yn8RtpWGJgE-UI1z_A==&uniplatform=NZKPT&language=CHS
+{Date}: 2020-01-20
+{Volume}: No.566
+{Journal}: 水运工程
+{Issue}: 02
+{Pages}: 57-61
+{Keywords}: 三峡船闸;效率;组织模式
+{Abstract}: 通过研究分析影响过闸效率的变量与不变量,总结出待闸船舶进入闸室的移泊时间作为变量的内在规律性,即进闸移泊时间的差异性是由闸室外待闸级数的多少决定的。论证了将现行五级船闸运行两级停泊待闸改变为五级运行五级待闸通航组织模式的必要性,以及在三峡枢纽原设计通航设施基础上增建必要工程措施的可行性。为三峡通航管理机构适时开展待闸与过闸无缝衔接的通航组织工作、大幅提高三峡枢纽过闸运量(在2017年水平年基础上约提高1200万t)、服务长江经济带发展提供参考性依据。
+{DOI}: 10.16233/j.cnki.issn1002-4972.20200120.024
+
+{Reference Type}: General
+{Author}: 郝品正;陈冬元;李金合;冯小香;肖玉华;章日红;郝媛媛;孔宪卫;姚育胜;吴锡荣;刘建军;张丽;李华国;裴建军;赵世强;卢俊;程升鹏.
+{Year}: 2011
+{Title}: 三峡两坝间大流量复杂水流下航运安全关键技术研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahIKQcCaqbcj4KZQKydMrCv_yPnsKZ_lkPTpj_LFkMVm1fdegqD7LLoAxpNVdfMDBPZgmdHrUMrAvz93wTYM41abGS0eUEZAX4gFQxGr_gm98hMqIbb-7029aH03tvRs-_a37g18dg3QX-XGXg9orE-9ah8R5aubqnNwWK-91FpPHA==&uniplatform=NZKPT&language=CHS
+{Date}: 2011-07-13
+{Journal}: 科技成果
+{Abstract}: “三峡两坝间大流量复杂水流下航运安全关键技术研究”为2006年西部交通建设科技项目(任务书编号2006328224123)。1、主要技术内容项目以三峡完建后175m蓄水位为边界条件,以新的代表船型为研究对象,针对三峡－葛洲坝两坝间在大流量复杂水流下存在的通航安全问题,利用实测资料分析、数学模型、正态物理模型和遥控自航船舶(队)模型试验相结合的研究手段,对两坝间全河段大流量下通航安全条件模拟分析,重点研究改善典型滩段大流量下通航条件的工程措施和非工程对策。项目重点解决三峡－葛洲坝两坝间河道特性及滩险治理原则、三峡－葛洲坝两坝间急流险滩航道整治技术、三峡－葛洲坝两坝间典型急弯险滩通航条件改善措施等三项关键技术。取得主要创新性研究成果如下：(1)针对两坝间特殊的地理位置与水上、水下地貌特征,从急流滩险河道平面、断面和剖面形态角度进行深入分析,提出滩险航道治理的原则。(2)针对不同类型的急流滩,提出相应的整治工程措施,形成了“两坝间”航道整治的成套技术。(3)针对峡谷河道、水深大的特点,从调整河道剖面形态入手,提出采用减小两岸回流的范围与强度、增大有效过曲率半径等通航条件改善措施。2、适用范围本项目针对“三峡－葛洲坝两坝间”特定河段研究所获得的“两坝间”急流滩险航道整治的成套技术(滩险分类方法、各类滩险整治原则、航道整治技术),不仅可以直接服务于依托工程河段的规划编制、“十二五”“十三五”期依托工程河段的航道条件建设,同样可以推广至我国西部地区“两坝间”急流滩险的航道整治。3、应用情况与效益依据本项目研究成果,三峡通航管理局2009年编制《长江三峡－葛洲坝两坝间航道整治及配套工程总体技术方案》,该方案提出的两坝间分期分段整治规划,纳入了三峡工程后续建设规划和长江“十二五”水运建设规划。其中一期工程中的“三峡－葛洲坝两坝间乐天溪航道整治工程”已开工实施。项目研究成果提出的两坝间建设项目全部实施完成后,两坝间通航安全系数和通航条件将得到很大提高。经初步预测,工程完工后两坝间安全事故数降低将减少直接经济损失平均每年约300万元,同时大大减少间接的航运效益损失。该项目研究成果提出的航道整治项目和葛洲坝大江靠船墩等项目实施后,两坝间航道的通过能力将得到很大提高,两坝间通航限制流量将提高到35000m3/s,每年为航运企业带来的运输产值将超过5.5亿元;同时可减少陆地运输,节约资源和能源,减少碳排放。因此研究成果不仅有较大的直接经济效益,也具有较大的社会效益。
+
+{Reference Type}: Journal Article
+{Author}: 邓萍;宋莲;黄承锋;
+{Year}: 2021
+{Title}: 三峡坝区过闸船舶拥堵成本测算及对坝区货物总价值影响研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbMDuznzsMW5lyUCGKYDPr38xptivqFqkoOtUutGzT7AFwe9ga6BnuQhZO9vlNAgclC0BOxeRm133L9oQ9s5yQ-u6HIh63MBisT1dfT4GyQ0ioJoX1G8bouRvMshY-aehGG3tXMicbyQ8Fx70hJDcSKdc-Gkeqi0IgqSVHPCftzix6mP6WT23Vi_d3aE6_iKa8vmPr0aJdbBNA==&uniplatform=NZKPT&language=CHS
+{Date}: 2021-07-15
+{Volume}: 40
+{Journal}: 重庆交通大学学报(自然科学版)
+{Issue}: 07
+{Pages}: 23-30
+{Keywords}: 交通运输工程;交通运输经济;拥堵成本;瓶颈模型;纳什均衡;价格指数;三峡船闸
+{Abstract}: 三峡船闸已经成为制约长江上游航运发展的"瓶颈",过闸船舶拥堵产生的拥堵无效率成本,及对坝区货物总价值的影响问题日益受到重视。根据过闸船舶拥堵问题的数学描述,提出了纳什均衡下的模型假设,建立了坝区所有船舶出发时刻分布规律,由此推导了因船闸拥堵产生的各类低效率成本模型;结合过闸船舶实际拥堵成本描述,对各类低效率成本模型进行实证测度;最后通过编制三峡船舶待闸货物价格指数,分析了船舶拥堵对坝区货物总价值产生的影响。研究结论表明:2019年因三峡坝区过闸船舶拥堵产生的最小拥堵无效率成本(即总出行成本),集装箱船在1.061至2.123万元之间,干散货船在712.590至1 425.184万元之间。其中船舶营运时间成本,集装箱船达到10 368.364万元,干散货船达到203 624.490万元;货物运输时间成本,集装箱船达到4 343.296万元,干散货船达到5 413.869万元。船舶拥堵造成的坝区货物总价值上涨了1.613%(即约253 661.565万元),居民货币购买力下降了1.587%;三峡过坝船舶装载货物价格增长速度大于同年度工业生产者购进价格的平均增长速度,货主企业利润没有被压缩。
+
+{Reference Type}: Journal Article
+{Author}: 李灼;石兴勇;于黎;
+{Year}: 2013
+{Title}: 扩大三峡船闸通航能力研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbO3RVm6BGLUGZU3BIwDjF5VZUXrvaTvIUyAHFYFheW-Nntf4t6OCs2SdWHjd1tVPr6Y9RlmGxIiE38GOOGeCc6S-OWYUqslecs6J2qq1kNRiQRCp3Weho4TaIXGwA_pX0lXb3Gncl6sAL81_tI40c5503vwYRwwBxQkM9yT0J_shAmgRlF1qtSusq5fphcWvuczzDq8tVuN8A==&uniplatform=NZKPT&language=CHS
+{Date}: 2013-06-15
+{Volume}: 13
+{Journal}: 中国水运(下半月)
+{Issue}: 12
+{Pages}: 29-31
+{Keywords}: 三峡船闸;通航能力;存在的问题;货运量预测;对策建议
+{Abstract}: 为减轻三峡船闸通过能力不足将带来的不利影响,更好的利用水运优势促进重庆及长江上游地区经济社会发展。本课题在结合三峡船闸通航现状和未来经济发展需求,对比分析三峡船闸的设计与实际运行差异性的基础上,研究三峡船闸通航存在的主要问题,采用回归分析法与弹性系数法结合的定量预测方法,预测了三峡过坝的货运量,提出了扩大三峡船闸通过能力的相关对策建议,以加快推进三峡通航扩能工作,减轻因三峡船闸通过能力不足带来的影响,推动长江上游地区经济社会发展。
+
+{Reference Type}: Journal Article
+{Author}: 邬金辉;
+{Year}: 2014
+{Title}: 长江三峡综合交通运输体系规划研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbN-GGEG4U-MWBhxsfghoPpy87XJZduvJXP5EjueKlYV57pfUvwVLBayz5plAKW0nT5FpmdE-sujYM-3hc1sIiFrQaR7KgX1G1Fjig6dWvzGS-7UEnFhKXaA9GJoRf7x2_o8PWp_4k8Es4d9z88RXuIDRJi440nnLFGMHO4tVuFVPj5K61JM3Qs9l-BwnEPDPzs=&uniplatform=NZKPT&language=CHS
+{Date}: 2014-07-15
+{Volume}: 36
+{Journal}: 铁道运输与经济
+{Issue}: 07
+{Pages}: 45-49
+{Keywords}: 长江三峡;综合交通;翻坝运输
+{Abstract}: 结合国家长江经济带战略和三峡过坝运输问题剖析,进行三峡过坝货物量需求分析,阐述建设三峡综合交通运输体系的必要性;在总体性、经济性和能力适应性等原则指导下,结合货物品类特性的各方式技术特点,对各种过坝方式进行合理分工和相互衔接;按以长江干流航道运输为主,铁路、公路运输为辅,管道运输为补充的总体目标对三峡综合交通运输体系进行规划。
+
+{Reference Type}: Conference
+{Author}: 郭干慈;刘志顺;
+{Year}: 1986
+{Title}: 长江汉渝段航运系统优化模型
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=oGHOruzuSDNJP2qnCcR0UFt1ZgEAX5WxM4pT-c4zeO5SYC5AdZJxNGTX0QT4WuMl_2LPxBrDDZF9FgzmBRrtVJYx21Uv6OpDosEtmlRe33h748tmVXldAH21qs7cfY4Kki0kPmkJ3cr8lwm3KFmYs3b5ag5g5ryuj2wqixqTEUb7vLo76HdR3r4GeezhOlLMIiOMaXtGPZLo0nVfYIY-1g==&uniplatform=NZKPT&language=CHS
+{Date}: 1986-08-01
+{Journal}: 发展战略与系统工程——第五届系统工程学会年会论文集
+{Pages}: 637-642
+{Abstract}: <正> 长江三峡水利枢纽工程是举世瞩目的大型水利工程,具有防洪、发电、航运等综合效益,但也存在着投资巨大、淹没损失严重、移民量大、风险因素多等问题,做好三峡工程的前期论证工作意义十分重大。本文从航运的要求,全面考虑长江汉渝段航运及铁路运输问题,综合分析三峡工程对航运的经济效益和社会效益的影响,论证三峡大坝水位方案的合理选择,为三峡工程大坝水位方案综合评价决策作参考。
+
+{Reference Type}: Journal Article
+{Author}: 王丽铮,陈顺怀,吴秀恒,王兴权
+{Year}: 2001
+{Title}: 三峡枢纽通航半分节驳船队运输分析及船型规划
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbOe-I0OlwMOpAlt5kZ_0rIz4y_KcxdXniqH0l6A2UqIzbV7o7d1W_X7hkMlZAzf3QjPGLWgMsVo0qK80Wf-DUR5Pz5hoJWXOTA9pD5d7IhZOxHRn1aPWYawKkODowNkAq7kZNVw_WIWzoB6f3Njv6EyC7Xe_zxIaQkl0Azrcc5IBGKZiGM0WlsMMLWYkdcwJMQ=&uniplatform=NZKPT&language=CHS
+{Date}: 2001-04-25
+{Journal}: 船舶工程
+{Issue}: 02
+{Pages}: 18-20+34-2
+{Keywords}: 三峡枢纽;半分节驳船队;船型尺度
+{Abstract}: 该文在分析航道、货源及典型航线等基础上 ,采用分段计算法对三峡枢纽通航半分节驳船队的营运经济性作了分析 ,提出了三峡枢纽过坝半分节驳船队及相应船型
+
+{Reference Type}: Journal Article
+{Author}: 陶玉勇;葛青云;王照堃;王彦嘉;陶星;杜洪波;
+{Year}: 2024
+{Title}: 基于产业链供应链的三峡过闸钢材运量预测
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbNgyDtEjFsWampINScXpP3mlrqMRyZQiZfwckz_oivrZiSm4r2DvLqSCQ4z3HpjUUjDxI2LcG24OcUKmpk9jZ816hRS2QVYeGH0UF0MduqfBV3tAS1WyhaZn5URfqLhOL5OJAprSI3SY9tu0jf4Pcnh7GKAuA0Tjz_PjJhLGhFk59sVWvp3MM1ZvuS6epNt0C8gXl0CbouJmA==&uniplatform=NZKPT&language=CHS
+{Date}: 2024-12-15
+{Volume}: No.791
+{Journal}: 中国水运
+{Issue}: 24
+{Pages}: 33-35
+{Keywords}: 产业链供应链;LSTM;三峡船闸;钢材;运量预测
+{Abstract}: 随着长江上游货运需求不断增长，三峡船闸拥堵日益加剧，急需合理判断过闸运输需求发展趋势。文中以钢材为例，调研了三峡过闸钢材的产业链，理清重庆钢材产供销关系，明确了重庆地区钢材运输需求；分析了重庆地区钢材运输通道，厘清重庆钢材的流量流向，明确了钢材的三峡过闸运输需求。基于产业链供应链特征，确定房屋建设、汽车制造及交通基础设施等领域的11个关键特征值；建立并验证了三峡过闸钢材运量的LSTM预测模型，结合区域规划、产业布局和企业规划等，预测2025、2030、2035年钢材过闸总量分别为1,030、1,100和1,150万t；从宏观政策影响和产业发展等角度分析了三峡过闸钢材运输需求发展趋势，建议加快三峡水运新通道建设决策，充分释放长江上游黄金航道效益。
+
+{Reference Type}: Journal Article
+{Author}: 张先平;鲁军;邢龙;陈婧;
+{Year}: 2018
+{Title}: 三峡-葛洲坝梯级水库兼顾航运需求的调度方式
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahJqrGx9UgTaIBradm7y0EUaRYmPegSSpzO0uhqTVQ17PohFIHLvaFXt7UaZndBsP6a_zJhMuJHRWP6VigzTVzlPFYXi2H2jt10Gm4ihqCJg1OZtnALDEZOs2DfiEaCQZLpTf0yBN_57qk54KE0PhKzTRGENQ_1JJPiVcgu69IxN4UVe_kAB-1k12hIRv45BRjdbRZ3eIJ0vCw==&uniplatform=NZKPT&language=CHS
+{Date}: 2018-07-14
+{Volume}: 49
+{Journal}: 人民长江
+{Issue}: 13
+{Pages}: 31-37
+{Keywords}: 船舶积压;航运应急调度;调峰流量;枯期小流量;补水能力;葛洲坝水电站;三峡水电站
+{Abstract}: 三峡-葛洲坝巨型梯级水库虽综合效益显著,但由于汛期大流量(25 000～56 700 m～3/s)、汛/枯期电站调峰产生的下泄流量骤变、枯期小流量航深不足等引起的限航、禁航问题日益突出。在整合优化初步设计及现行相关调度方式的基础上,通过拟定不同的泄量控制、水位控制和调峰幅度等,分析了梯级水库对长江中下游枯期小流量情况下的补水能力,并提出了切实有效的兼顾航运需求的水库调度方式,可为三峡工程的航运安全、高效调度运行提供科学依据。
+
+{Reference Type}: Thesis
+{Author}: 陈泽
+{Year}: 2018
+{Title}: 长江三峡过坝货运量预测与运输方案研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbM88oUFKbyqLzXHtVcfwR-Ec7tEfw024R9N14fx6UsV74I1NSFwAd_upxDLLSkIEBjf4Gvjkd6ICcZ5knZuaHhgD-RvuODHUNKwpUyGmSA8Yuvyv5mtq2hkcpKIEF24Cbj_l1O7Y-VNLaHby-Agvb6e7-ekqGgxPa6prHhAvV_HJmVT5Ebw-wA0MRlW5FrQLvgBp9Sp26c6xg==&uniplatform=NZKPT&language=CHS
+{Date}: 2018-04-02
+{Journal}: 重庆交通大学
+{Issue}: 01
+{Keywords}: 交通经济;货运量预测;影响因素;三峡瓶颈;重载铁路
+{Abstract}: 长江经济带集中了中国40%的人口和经济,交通基础设施对经济社会发展起着带动的作用,但是现有的交通运输系统已经难以满足未来的发展需求。长江三峡是长江水运的关键节点,在2017年其过坝运量超过设计通过能力40%,过坝拥堵成为常态,船闸一直处于高负荷状态,停航检修时的交通组织压力越来越大。为了保证长江经济带社会发展尽可能少的受到交通基础设施条件制约,就需要对过坝货运量进行科学准确的预测,然后提出相应的对策建议。首先,本文通过定性和定量相结合的方式发现了过坝货运量各影响因素间存在多重共线性,并且影响因素会受到时间变化的影响。所以,本文创新性地将预测过程分为了长中短期三个阶段,短期预测采用考虑GDP影响的运输弹性系数法和回归分析法和水运系数法,并且将无偏灰色马尔科夫链引入到过坝货运量预测中,四种方法结果保持在一定范围内,结果比较可信。中长期预测引入情景分析后利用弹性系数法进行了预测。其次,通过研究长江经济带各运输方式运量发现虽然2014年后总运量有了下降的趋势,但是水运货运量依然持续增长,这也证明了长江沿线省市仍然有强劲的发展动力,货运量的下降除了受产业结构转型升级影响外还受到交通基础设施供给不足的影响,一定程度上影响了长江上游地区的发展。之后通过研究长江经济带过去20年的交通经济发展趋势,结合地理信息系统(Arc Gis)工具,发现长江上中下游发展极其不均衡,江浙沪三省市发展最好,贵州云南发展最差,但是贵州发展速度最快,剩余6个省市差距逐渐缩小,发展速度差距较小。未来一段时间江浙沪三省市仍然与其他省市保持较大差距,贵州会逐步脱离最后一个阶梯。最后,本文利用上述方法得到2020年、2035年和2050年的过坝货运量分别为1.6亿吨、2.6亿吨和3.5亿吨;并对主要货种进行了预测。研究过程中还发现三峡过坝货运量与重庆和湖北的水运货运总量比值保持在0.05左右。而目前的三峡船闸设计通过能力只有1亿吨,未来30年有近2.5亿吨的供给缺口。解决方案实施方面,认为短期解决方案应该尽快全部实施;中期解决方案除建设沿江普通货运铁路外,其他方案尽快实施;远期方案应修建沿江重载铁路,并对重载铁路的具体线路及修建后的优势等做了详细的分析,建议在2020年左右开工建设,以满足未来经济和社会发展需求。
+
+{Reference Type}: Thesis
+{Author}: 杜嘉.
+{Year}: 2008
+{Title}: 长江三峡枢纽水路客货运输量预测
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahItds7RCkJsXOf8iNNkhTsUaFpJLw1zCu47MIOHBqO0wvW3BiP4GOH1gkN0icRkqqAauw1zbp3CJa4KSEfD4SF1WDqLqK0yMtquOeFY1veIBF7V4IykjdEPlLrDQlGmn-aYxyN3mBO9aH6Gp5BrZoA6b4S2rDsz-pzY7d4uDtd8c809LcN8CiVS&uniplatform=NZKPT&language=CHS
+{Date}: 2008-12-01
+{Volume}: 硕士
+{Journal}: 重庆交通大学
+{Issue}: S1
+{Pages}: null
+{Keywords}: 长江流域;水路运输;过坝货运量;过坝客运量;预测法
+{Abstract}: 长江是我国内河水运最重要、运输规模最大的通航河流。长江干线是我国经济发展的东西主轴线,作为连接我国西南、华中、华东三大经济区的重要纽带,沿岸有重庆、武汉、南京、上海等重要的中心城市,更有众多的中小城镇,集黄金水道及内陆海岸线于一身,是长江流域经济持续快速发展的重要支撑。三峡枢纽大大改善了长江上游的航行条件,进一步发挥了水运成本低廉的优势,将使长江航运在扩大东中西部经济交流与融合、西部大开发等方面发挥更加重要的作用。但是长江三峡枢纽的建设,也给长江航运,尤其是四川和重庆地区的长江水路进出口运输,带来了严峻的挑战。随着西部大开发的继续推进和长江经济带的发展,西部地区通过长江水路进出的货运量正逐年快速增长。然而三峡船闸的设计通过能力只有5000万吨,远不能满足长江航运的需要。另外,长江上的船舶标准化进程还是一个长期的过程,目前各种船型混杂的状况则进一步降低了三峡船闸的通过能力。因此,本文首先从长江流域经济社会发展和综合交通发展现状入手,结合三峡枢纽区域水路客货运量的发展情况、主要货类和不同船型载运量的构成情况,对三峡枢纽区域水路客货运量发展现状进行分析。在此基础上,进一步对长江流域经济社会发展趋势(包括总体经济发展趋势、对外贸易发展趋势、产业发展趋势)和综合交通发展趋势进行分析和总结。最后,鉴于前面的分析,本文弹性系数预测法、平均增长率预测法、回归分析预测法及曲线拟合预测法,结合三峡枢纽区域的重庆、四川及湖北的经济和交通发展趋势以及主要港口的未来规划,在不受通过能力限制的情况下,预测三峡过坝货运和客运量。同时,对煤炭、石化产品、矿石、集装箱等货种进行了分货种预测和分析,得出了各货种2010年、2020年、2030年在三峡过坝的运量。
+
+{Reference Type}: Journal Article
+{Author}: 宋卫国;王忠法.
+{Year}: 1992
+{Title}: 三峡工程综合经济效益研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahLrQuHkw30bVvGDkwX1oegMYZJnIRLjH2IOSD3LdfzM3wOYcu366xA7VvDoIPpa7NjFH11b3kaMgB7qfMPpa_9XfyxUAggjqvVFzr-cguBU4yWYZ8iY5YkFJlLS-kGhJKNgBaoPGxdYb_VTJ4U4QYOl-76XPvRvUxe4k9SSD13NjQ==&uniplatform=NZKPT&language=CHS
+{Date}: 1992-12-30
+{Journal}: 水利经济
+{Issue}: 04
+{Pages}: 3-9
+{Keywords}: null
+{Abstract}: <正> 三峡工程是一项举世瞩目,争论激烈的大型水利工程,在长江的治理开发中占有极其重要的战略地位。为了科学地,全面地评价三峡工程的综合利用效益,为工程的决策提供信息,本文在一些科研成果的基础上,对三峡工程的综合经济效益,特别是防洪与航运方面的效益进行了较系统的研究。本文所述的大部分内容系“七五”国家重点科技攻关75—16—07—03专题的科研成果,笔者只是起了一个整编的作用,其目的在于向社会真实、客观地介绍三峡工程的经济效益,让各界人士对此有一个较为全面的了解。文中不妥之处,敬请批评指正。
+
+{Reference Type}: Thesis
+{Author}: 顾铭
+{Year}: 2020
+{Title}: 乌江白马航电枢纽过坝货运量预测与船闸建设规模研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbMxirf5mE9PzM4nfPaVOmPHWH10uqcopvqlaSSOzRc-0eP8lH33jr7oGiS0cH5Ss0R1SlSLpN7jReGGt2sWZtJcO0qMlPcdSg8C3VUIextpuEfI_VNX7n1IqcIGjsXHrCff1MzpIeEYvrNqT60Sr-r32ShjYdH3gz47nyzNYstU2j1Pyo8XedckSOyMK1tp1xo5NaCDx1AUKw==&uniplatform=NZKPT&language=CHS
+{Date}: 2020-09-30
+{Journal}: 重庆交通大学
+{Issue}: 03
+{Keywords}: 乌江水运;白马航电枢纽;货运量预测;代表船型;船闸规模
+{Abstract}: 乌江是贵州省的第一大河,也是长江上游南岸最大支流,历来是贵州和重庆两地的重要水上通道之一,其流量充沛,流态稳定,流域内矿产资源丰富,是名副其实的“黄金水道”,对促进流域经济和社会的发展起着至关重要的作用。为开发利用乌江的水电资源和水运资源,沿江规划了12座水电站,已建成11座。其中贵州省境内构皮滩、思林和沙沱水电站和重庆境内的彭水、银盘枢纽均配套建设了通航设施,可通航500吨级船舶,打通了乌江渡至银盘段的航道。白马至河口段受益于三峡库区蓄水,已达到Ⅲ级航道标准,可常年通航1000吨级船舶。而银盘至白马段因滩险较多,导致通航条件较差,已成为乌江全面复航的最后瓶颈。为实现乌江全面通航,建设最下游一级的白马航电枢纽势在必行。本文旨在通过对乌江和白马断面的货运量预测和乌江未来过闸代表船型的分析,确定白马航电枢纽的船闸建设规模。本文研究的主要结论为:1、随着长江经济带和新时代西部大开发战略的深入实施,渝黔两地的经济社会必将得到迅速发展。乌江水运的货运需求量也将继续保持增长态势。在白马枢纽建成之前,受银盘至白马段通航条件差的影响,上下游衔接不畅,乌江的水运发展受限,很大一部分水运需求转移至铁路或公路。白马枢纽建成后,乌江自乌江渡到涪陵河口段全线贯通,乌江货运需求将得到有效释放。预计2025年、2035年、2050年乌江货运需求量将分别达到1400万吨、2400万吨、5300万吨,白马断面的货运需求量分别达到190万吨、500万吨、1600万吨。2、随着乌江水运的发展,乌江过闸船舶呈大型化、标准化的发展趋势。根据相关国家标准,结合干支直达的发展趋势,根据本文对乌江支流500吨、1000吨级和长江干流1000吨级各代表船型通过白马枢纽的各组合运量计算,推荐将《内河过闸运输船舶标准船型主尺度系列第1部分:长江水系》(GB 38030.1-2019)中的CZ-H5、CZ-H7、CZ-H10和CG-H1等4种船型作为乌江未来的过闸代表船型。3、根据乌江未来的过闸代表船型在不同组合情况下的单向年过闸货运量的计算结果,综合干支直达的发展趋势和控制建设成本的要求,推荐白马枢纽船闸平面尺度采用190m×23 m×4.7m(长×宽×门槛水深),并预留二线船闸的布置线路。
+{DOI}: 10.27671/d.cnki.gcjtc.2020.001036
+
+{Reference Type}: General
+{Author}: 郝品正;陈冬元;李金合;冯小香;肖玉华;章日红;郝媛媛;孔宪卫;姚育胜;吴锡荣;刘建军;张丽;李华国;裴建军;赵世强;卢俊;程升鹏.
+{Year}: 2011
+{Title}: 三峡两坝间大流量复杂水流下航运安全关键技术研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahIKQcCaqbcj4KZQKydMrCv_yPnsKZ_lkPTpj_LFkMVm1fdegqD7LLoAxpNVdfMDBPZgmdHrUMrAvz93wTYM41abGS0eUEZAX4gFQxGr_gm98hMqIbb-7029aH03tvRs-_a37g18dg3QX-XGXg9orE-9ah8R5aubqnNwWK-91FpPHA==&uniplatform=NZKPT&language=CHS
+{Date}: 2011-07-13
+{Journal}: 科技成果
+{Abstract}: “三峡两坝间大流量复杂水流下航运安全关键技术研究”为2006年西部交通建设科技项目(任务书编号2006328224123)。1、主要技术内容项目以三峡完建后175m蓄水位为边界条件,以新的代表船型为研究对象,针对三峡－葛洲坝两坝间在大流量复杂水流下存在的通航安全问题,利用实测资料分析、数学模型、正态物理模型和遥控自航船舶(队)模型试验相结合的研究手段,对两坝间全河段大流量下通航安全条件模拟分析,重点研究改善典型滩段大流量下通航条件的工程措施和非工程对策。项目重点解决三峡－葛洲坝两坝间河道特性及滩险治理原则、三峡－葛洲坝两坝间急流险滩航道整治技术、三峡－葛洲坝两坝间典型急弯险滩通航条件改善措施等三项关键技术。取得主要创新性研究成果如下：(1)针对两坝间特殊的地理位置与水上、水下地貌特征,从急流滩险河道平面、断面和剖面形态角度进行深入分析,提出滩险航道治理的原则。(2)针对不同类型的急流滩,提出相应的整治工程措施,形成了“两坝间”航道整治的成套技术。(3)针对峡谷河道、水深大的特点,从调整河道剖面形态入手,提出采用减小两岸回流的范围与强度、增大有效过曲率半径等通航条件改善措施。2、适用范围本项目针对“三峡－葛洲坝两坝间”特定河段研究所获得的“两坝间”急流滩险航道整治的成套技术(滩险分类方法、各类滩险整治原则、航道整治技术),不仅可以直接服务于依托工程河段的规划编制、“十二五”“十三五”期依托工程河段的航道条件建设,同样可以推广至我国西部地区“两坝间”急流滩险的航道整治。3、应用情况与效益依据本项目研究成果,三峡通航管理局2009年编制《长江三峡－葛洲坝两坝间航道整治及配套工程总体技术方案》,该方案提出的两坝间分期分段整治规划,纳入了三峡工程后续建设规划和长江“十二五”水运建设规划。其中一期工程中的“三峡－葛洲坝两坝间乐天溪航道整治工程”已开工实施。项目研究成果提出的两坝间建设项目全部实施完成后,两坝间通航安全系数和通航条件将得到很大提高。经初步预测,工程完工后两坝间安全事故数降低将减少直接经济损失平均每年约300万元,同时大大减少间接的航运效益损失。该项目研究成果提出的航道整治项目和葛洲坝大江靠船墩等项目实施后,两坝间航道的通过能力将得到很大提高,两坝间通航限制流量将提高到35000m3/s,每年为航运企业带来的运输产值将超过5.5亿元;同时可减少陆地运输,节约资源和能源,减少碳排放。因此研究成果不仅有较大的直接经济效益,也具有较大的社会效益。
+
+{Reference Type}: Journal Article
+{Author}: 齐俊麟;汪洋;张勇;
+{Year}: 2023
+{Title}: 三峡—葛洲坝梯级枢纽安全高效绿色通航技术与实践
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbPpvlQ9bgJwTrJRrr5QE-vreBcHw55cqwEq5DwkjZdHU42qa2UkU6_5O-Y5eH5vqipR2F9OCJZmosZyCvUQV9C2WPv73l-BNlxo1vKYLinvBf_gHpcjB1QEbFIda_Zy6evczPt9cLUfJuZffgyoFmSZgLVl4_45ne4MMDGQ81I-fJwsFQknng8cp5KBKScTRrEPsE63zzMEpQ==&uniplatform=NZKPT&language=CHS
+{Date}: 2023-02-15
+{Volume}: 7
+{Journal}: 长江技术经济
+{Issue}: 01
+{Pages}: 98-105
+{Keywords}: 三峡—葛洲坝;梯级枢纽;通航
+{Abstract}: 三峡—葛洲坝梯级通航系统承载着服务交通强国和长江经济带发展两大国家战略的时代重任。基于三峡—葛洲坝梯级通航40年的探索与实践，总结了梯级枢纽安全、高效、绿色通航的主要技术方法，取得了一系列创新成果与示范应用，并结合国家战略和科技发展提出了今后的主要研究方向。
+
+{Reference Type}: Book
+{Author}: 中国工程院三峡工程建设第三方独立评估航运评估课题组
+{Year}: 2024
+{Title}: 三峡工程建设第三方独立评估航运评估报告
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahJQFnLkENMpqNy7eA00C8JFl6YJr4pFLUrjdF8RwdRyIId88g8NvjVfAfK9n4SicFK9Z1HPyDlxM9DJ67LRoXSsg25Kxw6cd86ilR2m2VUKxfR-7s493owUZb9Qs8We-m_ColLDsyvWyIYOCvBFUvkNnIKEBwQkmPU=&uniplatform=NZKPT&language=CHS
+{Date}: 2024-01-01
+{Journal}: 三峡工程建设第三方独立评估航运评估报告
+{Pages}: 348
+{Keywords}: 三峡水利工程-航运-评估-研究报告
+{Abstract}: “三峡工程建设第三方独立评估”是国务院三峡工程建设委员会委托中国工程院开展的重大咨询项目。本书作为该项评估工作的航运评估报告,包括一个总报告和七个专题报告,统分析总结了三峡工程船闸运行情况,阐述了三峡工程建成后上下游通航条件的变化和航运发展情况,分析了长江航运发展趋势,科学评价了三峡工程的建设对航运发展的促进作用,并提出了对下一步工作的建议。本书对大型水利和内河航运项目建设以及相关部门决策具有重要参考价值,也可供有关科研人员和高等院校相关专业师生参考使用。
+
+{Reference Type}: Thesis
+{Author}: 廖劲松
+{Year}: 2016
+{Title}: 应对三峡船闸瓶颈制约之策
+{Date}: 2016-10-07
+{Journal}: 重庆交通大学
+{Issue}: 05
+{Keywords}: 三峡新通道;运量预测;三峡船闸通过能力;政策措施;长江上游区域
+{Abstract}: 长江是世界通航量最大的河流,是中国西部内陆腹地与沿海地区的重要交通纽带。长江流域集中了上海、南京、武汉、重庆等特大型城市,是我国最富有活力和竞争力的区域,对促进流域经济和社会的发展起着极为重要的作用。三峡工程的建设大幅改善了长江上游通航条件,为长江上游地区综合运输、产业布局和经济社会发展带来了历史性的发展机遇。随着一批5000吨级专业化、规模化港口的建设运营,以及船舶大型化、标准化的发展,长江上游地区水运能力大幅提升,水运经济高速增长。到2011年长江三峡过闸货运量已突破亿吨,提前19年达到三峡船闸设计通过能力。当前及未来,长江经济带等国家战略将深入推进,流域经济活动日趋繁忙,水路货运需求持续增长。三峡工程对航运在带来了远超预期的发展速度后,其现有船闸通过能力已然不足,成为长江航运进一步发展中的瓶颈。近年来,从近中期角度,国内多家单位机构都对三峡船闸的扩能提潜进行了研究,提出了很多很好的措施建议。基于此,本文主要从远期出发,对三峡新通道建设方案进行研究,以期为根本上解决三峡瓶颈制约提供一些决策参考。本研究主要结论内容包括:(1)研究预测了三峡船闸通航需求。根据对长江上游地区经济发展水平及特点、长江上游地区工业化、城市化水平及发展趋势、综合运输发展对过闸货运需求的影响等因素分析,提出长江上游货运量预测结果,并从多角度对预测结果进行了验证。(2)基于远期从根本上解决瓶颈制约的对策。详细分析三峡工程新通道建设的基础条件及工程可行性,对比研究新通道建设的选址选线、船闸尺度等,并全面统筹考虑葛洲坝船闸改扩建工程和两坝间航道整治工程,提出了合适的建设工序和初步的投资匡算。研究成果可为工程决策提供参考。
+
+{Reference Type}: Conference
+{Author}: 刘怀汉;王志军.
+{Year}: 2005
+{Title}: 长江三峡(初期运用期)—葛洲坝水利枢纽枯季航运流量调度方式研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahJ0uWZ68Qs3FwQADwYdCMljoCEvD2Q2rLgeibwvRUeRkzqsK5Ab65bH3djPVwJASBAKlzO2o9SkRehVXkIqkUGkN5859b7rWG4OmSZrsKsfl01Rzf5L4ra5CqXHBG-CBn6tte6YS3wvmxNbflZYA5lUWQKzc_bkJ-QjJCwiYy0wb9eci7REq7ms&uniplatform=NZKPT&language=CHS
+{Date}: 2005-10-01
+{Journal}: 第三届湖北科技论坛
+{Issue}: null
+{Pages}: 171-174
+{Keywords}: 三峡工程;水库调度;航运流量
+{Abstract}: 本文在分析三峡工程蓄水后长江中游出现的变化及枯季航道维护特点的基础上,从发挥三峡工程航运效益的角度出发,就近坝河段、沙卵石河段、荆江沙质河床段对枯季航运流量的需求进行了研究,并分析了枯季三峡电站调度方式对通航的影响,提出了在三峡工程初期运用期三峡—葛洲坝水利枢纽联合运用下,满足通航需要的枯季航运流量调度要求。
+
+{Reference Type}: Thesis
+{Author}: 徐伟伟
+{Year}: 2017
+{Title}: 深度不确定下的三峡工程航运鲁棒决策研究
+{Date}: 2017-05-26
+{Journal}: 南京大学
+{Issue}: 02
+{Keywords}: 三峡工程;航运决策;深度不确定性;鲁棒决策;内生性建模
+{Abstract}: 三峡工程自开闸蓄水以来,货运通过量不断升高,提前19年达到并超过了当初设计的通过能力,导致船舶拥堵且拥堵问题日益严重,成为长江航运之“瓶颈”。针对该问题,不同利益群体提出了不同方案,这使得三峡工程又一次面临航运决策的问题。而三峡工程航运系统是复杂系统,其面临诸多深度不确定性,这给系统决策带来困难。如何在深度不确定下,进行三峡工程航运相关决策,使得决策方案所释放出来的有效性在未来各种可能情景下包括在最极端或最负面的情景下也能正常发挥并且是鲁棒的,是当前面临的关键问题。本文从深度不确定性的角度出发,利用鲁棒决策方法对三峡工程航运决策进行了研究。首先,分析了三峡工程航运决策的本质。三峡工程航运决策受到系统内部及外部(经济、社会、交通等环境)诸多深度不确定性因素的影响,其本质是深度不确定下的复杂系统决策,必须用深度不确定下的决策方法来处理之。然后,研究了三峡工程航运系统模型。一方面,构建了经济模型与人口模型:考虑经济发展的资本、劳动投入以及全要素生产率等内生性因素,用生产函数对经济产出进行了内生性建模,并使用生长曲线模型对人口进行了生长性建模。另一方面,构建了运输模型:①运输需求模型——综合考虑三峡工程航运系统内外的诸多深度不确定性因素,对全国主要货种(煤炭、石油、铁矿石与钢铁、磷矿石与磷肥、砂石与水泥)需求进行内生性建模,并利用占比法得到全国货运需求与长江流域货运需求;②运输分配模型——利用运输需求价格弹性对长江流域铁路货运占比进行了建模,并将公路货运占比作为深度不确定性因素,将长江流域货运需求分配到了水运,并根据占比法得到了三峡工程航运需求。最终形成了以经济、社会、交通等方面的诸多深度不确定性因素为输入、三峡工程航运需求为输出的三峡工程航运系统模型。最后,利用鲁棒决策方法对三峡工程航运决策问题进行了研究,分别分析了各决策方案在中长期(2050年)及长期(2100年)的表现。首先,对三峡工程航运决策问题进行了建模,考虑了三峡工程航运决策所面临的15种深度不确定性因素,考虑不同利益相关群体所关心的问题而设计了 8种航运策略、选取了 3种评价指标。其次,对问题进行了不确定性分析,通过拉丁超立方体抽样,构建了大量未来情景(10000个),并在各情景作为深度不确定性参数输入的情况下,对各策略进行了仿真,得到了各评价指标下各策略在各情景中的相对后悔值,通过分析,发现策略L8在中长期和长期的鲁棒性都相对较好,均择其为初始候选鲁棒策略。然后,对初始候选鲁棒策略进行了情景发现,对L8在评价指标T下的绩效表现设置了阈值,并利用忍耐规则归纳方法构建了多个情景箱,在中长期和长期,均识别出使L8表现脆弱的7个关键深度不确定性因素,得到了脆弱情景与非脆弱情景。最后,分析了脆弱与非脆弱情景下各策略的表现,通过对各评价指标下脆弱与非脆弱情景中各策略的上四分位相对后悔值的分析,发现无论是脆弱还是非脆弱情景中,策略L8在中长期和长期的鲁棒性仍相对较好,应重点考虑之。本文将鲁棒决策方法应用于三峡工程航运决策问题之中,最终给出了决策者需要重点考虑的策略及关键影响因素,是对鲁棒决策方法在重大工程决策领域的一次应用探索,同时也是对内生性、生长性建模及深度不确定性理论在运输需求领域的一次应用探索,对三峡工程的航运决策具有一定的参考意义。
+{DOI}: 10.27235/d.cnki.gnjiu.2017.001195
+
+{Reference Type}: Journal Article
+{Author}: 刘涛;彭东方;刘均卫;
+{Year}: 2019
+{Title}: 长江干线宜昌至武汉段航运发展对策分析
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=oGHOruzuSDMPWuZHsJDJUeptHyYYJNKWn0Y-K7ox9XVxYaupv6B8xhjU2ayAY7YcGzRrxlcqY9G6tUSDr62Y2i-5Y5o6aEYkbExL7IuvOx1wWflPFPx6FbT6ueFUA8ddwycqgtILyyxXV5_rKKiPSsLueUIHlfg9EZB8iCActCxbYTtUGQV17Kj0bdbM1xotxxRpWZuLYNz6NyRLsg8wXw==&uniplatform=NZKPT&language=CHS
+{Date}: 2019-02-26
+{Volume}: No.173
+{Journal}: 水利水运工程学报
+{Issue}: 01
+{Pages}: 76-84
+{Keywords}: 水路运输;阶段性特征;运输需求;长江航运
+{Abstract}: 依托黄金水道推动长江经济带发展是国家的重大战略举措,如何充分发挥长江主通道作用是长江经济带发展需要破解的重大命题。梳理了长江干线特别是中游航道、港口、船舶等航运要素的发展概况,认为中游航运发展存在着航道瓶颈制约、三峡船闸通过能力提升空间有限、港口服务体系需要完善、工程实施难度大等问题;分析了长江中游区域经济社会与综合交通发展趋势,结合宜昌至武汉段运输发展特点,预测了三峡断面及宜昌至武汉段不同水平年的水运量;提出了促进长江中游航运发展的对策建议,包括加快沿江综合交通立体走廊构建、提高中游航道网络化程度、加快航运中心建设、推进多式联运发展、加强相关基础研究等。
+{DOI}: 10.16198/j.cnki.1009-640X.2019.01.010
+
+{Reference Type}: General
+{Author}: 杨靖;屈斌;吴鹏;王东;向化雄;刘江浩;李明;龚国庆;闫晓青;胡睿;周灿;赵明;刘应;徐刚;冯盼盼.
+{Year}: 2016
+{Title}: 三峡升船机运行规程研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahLRz5L2cNts3mi6MSzS_mg8n2Z9D-lZxabulGo6Wg5dN5err504mm6DvyEl5hx6yXr8iJsy74zDwnYndlBRkGv3A5kKXNXSweQOdG_n70e6Q4LdwoJqB1IGVLvXUPeVdmqiC_7aFLPgcYsLTYvBCR35afmv-jiFXRom-OFV4K-AJg==&uniplatform=NZKPT&language=CHS
+{Date}: 2017-01-20
+{Journal}: 科技成果
+{Abstract}: 本项目来源于国务院三峡工程建设委员会办公室于2013年立项开展“三峡升船机通航与运行保障关键技术研究”项目研究内容。该项目分解为“三峡升船机标准船型尺度及技术要求研究”、“枢纽运行对升船机运行安全的影响与对策研究”、“三峡升船机运行维护保障技术研究”、“三峡升船机和船闸联合调度运行关键技术研究”、“三峡升船机实船试验技术要求研究”五个课题,本成果“三峡升船机运行规程研究”作为 “三峡升船机运行维护保障技术研究”的一个专题,由长江三峡通航管理局承担。(1)充分借鉴国内外升船机运行管理的经验与教训,结合三峡升船机运行特点和调试成果,研究提出《三峡升船机运行规程》,包括《三峡升船机运行管理制度》、《三峡升船机运行操作规程》和《三峡升船机设备设施维护规程》。(2)《三峡升船机运行规程》可规范三峡升船机运行维护管理行为,提高操作正确率和设备维护水平,降低设备故障率,保障升船机运行安全,提高升船机运行效率。(3)研究成果可为相关行业标准的制定提供技术支撑。1.复杂通航水位条件下升船机运行管控技术2.安全机构螺杆与螺母柱间隙检查调整工艺3.在分析三峡升船机技术特点、运行要求和通航环境的基础上,国内首次针对齿轮齿条爬升式升船机,提出了运行、操作、维护方面的管理及技术规范,具有较强的针对性和可操作性,可为国内外升船机相关技术标准的制订提供技术支撑。作用意义：1.经济效益依据《船闸总体设计规范》(JTJ305－2001)通过能力计算方法,三峡升船机通过能力初步测算为652.3万吨,过坝船舶平均里程按2000公里计算,运价按0.03元/吨?公里计算,年直接经济效益达3.91亿元。同时,三峡升船机通过与三峡船闸联合调度、联合运行,提高了三峡船闸的通过能力,一是小吨位船舶通过升船机后,三峡船闸平均移泊单元减少,平均闸次间隔时间减少,日运行闸次数会有所增加,二是客船、小吨位(或空载)船舶通过升船机后,三峡船闸一次过闸平均载重吨位会有所提高。按照2015年过闸统计数据估算,三峡升船机通航可提高三峡船闸通过量约500万吨,直接经济效益3亿元。规程的实际运用可以规范三峡升船机运行维护管理行为,提高设备操作正确率和设备维护水平,保障升船机安全稳定运行,提高升船机运行效率,充分挖掘升船机作为三峡枢纽快速过坝通道的航运潜力,发挥枢纽航运效益。2.社会效益随着长江经济带建设等一系列国家战略的深入实施,沿江经济社会发展对水运的需求持续增长,长江水运相对于铁路公路等运输的比较优势使长江水运成为长江经济带发展的重要支撑。近年来,随着长江航运的快速发展,三峡—葛洲坝枢纽过闸货运量也呈现持续快速增长趋势,2011年达到1.042亿吨,提前19年达到设计通过能力,2016年超过1.3亿吨大关,创历史新高,长江航运的快速发展与三峡—葛洲坝枢纽通过能力日趋饱和的矛盾日益突出。在保障船舶安全通过三峡升船机的前提下,充分挖掘升船机作为三峡枢纽快速过坝通道的航运潜力,将对长江航运的发展起到重要作用,进而促进长江经济带建设。
+
+{Reference Type}: Journal Article
+{Author}: 樊启祥;张曙光;胡兴娥;赵风声;文小浩;李果;
+{Year}: 2018
+{Title}: 长江三峡工程助力长江经济带可持续发展
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahJPTvXM0lBvVUIq4r9eYDXWcuaqleU5d1fgljSbhrCdzqZvv2XPxJbAUAtiwysM8AQVcgpCPNvmn4R0Jz8xRpOpVzxtF1xBs7baEqPwcwSvyxhbcsMNLGAokLS1JM4syVh7d2YRaUjDZOb7ghyALu756WvFZ-3_iy4VJQL3n5FcZ4K1nEQU0FxZxenNZlDEywplYs8wXYjKTA==&uniplatform=NZKPT&language=CHS
+{Date}: 2018-12-14
+{Volume}: 49
+{Journal}: 人民长江
+{Issue}: 23
+{Pages}: 1-9+20
+{Keywords}: 通航建筑物;黄金水道;长江经济带;长江三峡工程
+{Abstract}: 长江三峡工程是当今世界上最大的水利枢纽工程,具有巨大的防洪、发电、航运、水资源利用等综合效益。三峡工程最早于1919年由孙中山先生提出、1993年经全国人大决策兴建、2008年提前1 a基本建成,至今已安全高效运行10余年,促进了中国经济社会的可持续发展。重点论述了三峡船闸及三峡升船机等三峡通航建筑物的建设关键技术,从提升航运效率出发,对实施三峡船闸运行以及三峡工程、葛洲坝工程两坝航运联调运行的技术和管理措施进行了试验研究,讨论了三峡水库蓄水以来长江泥沙与河道的演变情况。向家坝水电工程运行期的水库航运状况验证了三峡工程蓄水运行以来航运发展的规律,揭示了水电工程与航运发展的相互促进关系。面对未来峡谷河段高水头通航建筑物的发展需求,分析了建设环保节约型及本质安全型通航设施的技术可行性。三峡水库蓄水运行以来的通航统计数据和监测资料表明:三峡工程建成运行使长江黄金水道名副其实,并将在以共抓大保护、不搞大开发为导向的长江经济带发展中发挥更加关键的作用。
+
+{Reference Type}: Thesis
+{Author}: 覃露.
+{Year}: 2022
+{Title}: 三峡枢纽通航水域航运管理体制演变与优化研究
+{URL}: https://link.cnki.net/doi/10.27270/d.cnki.gsxau.2022.000005
+{Date}: 2022-05-01
+{Volume}: 硕士
+{Journal}: 三峡大学
+{Issue}: 02
+{Pages}: null
+{Keywords}: 三峡枢纽;航运管理;体制;演变优化
+{Abstract}: 党的十八大以来,国家对长江经济带的发展重视程度越来越高,长江经济带是以长江流域为纽带,连接沿岸各个省市地区,促进沿江各地区国民经济不断发展的重要流域经济带,根据党中央国务院发布的《长江经济带发展规划纲要》《长江经济带生态环境保护规划》等国家政策规划中的内容,长江经济带的辐射范围多达11个省市,辐射面积达到占全国总面积的21%,影响到的人口和国民经济总量全部超过全国总的40%。随着沿海经济的发展和新时代我国社会最主要矛盾的变化,发展内陆经济的重要性越来越突出,葛洲坝三峡枢纽作为国之大器,其交通重要节点的地位越来越突出。接着在国家的大的规划中,交通强国建设纲要、国家综合立体交通网规划纲要等文件的出台,无论是大的国家发展层面还是小的行业发展层面,长江三峡枢纽通航水域的航运地位越发的重要,如何发挥三峡枢纽长江黄金水道的关键节点作用,在国家交通枢纽建设的背景下如何进行三峡枢纽航运管理体制的变革也成为一个亟待解决的问题。本文对三峡枢纽通航水域航运管理的历史按综合时间节点进行详细梳理划分,通过国内外内河航运的研究对比,总结两坝枢纽通航当前的形势和取得的成效,分析当前枢纽通航水域航运管理面临的国家战略层面、立法层面、事业单位改革趋势、沿江经济发展等方面的机遇,以及在整体性治理的视角下枢纽航运管理体制的管理部门碎片化、管理职权碎片化、管理观念碎片化、管理法制碎片化等方面的挑战,提出在枢纽航运的整体性、管理体制的法制性、枢纽通航管理的效率性、管理体制的服务性等原则下,从沿用现综合管理模式调整管理职能和改变管理模式新建管理体系两个方面提出完善三峡枢纽通航水域航运管理体制的建议,并通过分析改革路径二从专业性、整体性、经济学考虑,是当前长江三峡枢纽通航水域航运管理体制改革的最优方案,此方案对破解碎片化的管理模式,对提高两坝枢纽航运管理效率、降低运行成本,解决两坝枢纽通过量不足的问题,促进两坝枢纽通航水域航运安全稳定、推动沿江经济发展,在国家交通枢纽建设中作出应有的贡献,具有重要的意义,同时具有对国家事业单位改革和交通强国建设有参考意义。
+{DOI}: 10.27270/d.cnki.gsxau.2022.000005
+
+{Reference Type}: Journal Article
+{Author}: 郭涛.
+{Year}: 2012
+{Title}: 三峡工程蓄水前后水运成本比较研究
+{URL}: https://link.cnki.net/doi/10.16233/j.cnki.issn1002-4972.2012.02.008
+{Date}: 2012-02-25
+{Volume}: No.463
+{Journal}: 水运工程
+{Issue}: 02
+{Pages}: 25-29
+{Keywords}: 三峡工程;蓄水;水运成本
+{Abstract}: 采用对比方法,分析三峡工程蓄水前后长江中上游航道条件的变化,选取代表性船舶对蓄水前后的渝宜航线水运成本进行计算,结果表明:蓄水后水运成本和单位油耗明显降低,长江航运成本低、能耗小的比较优势得到有效发挥。建议加快三峡枢纽上下游航道治理,加快推进船型标准化,以提高三峡枢纽航运通过能力。
+{DOI}: 10.16233/j.cnki.issn1002-4972.2012.02.008
+
+{Reference Type}: Journal Article
+{Author}: 李文杰;贺艺伟;杨胜发;肖毅;杨威;
+{Year}: 2020
+{Title}: 长江上游涪陵至丰都段航道水运量分析预测
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbO2-RiTIDrM-eCBwWG7X5Jy8RegSidnt7Ld62rYY1tSPmLXAR7zjMzINphAkFvPaUvrr295P8V-WVA2UVkcVY0UcKOsa1yImuQXjppp7Tt0XQbXYmS_CZcjhYKR4jAsfAcBFqClka9gTShYU3gfaomEX_5blW_q_ePrim_zongqX1OY3-u1HIh-Xqo8HcLwb4y3zK78l3FGGQ==&uniplatform=NZKPT&language=CHS
+{Date}: 2020-06-02
+{Volume}: No.570
+{Journal}: 水运工程
+{Issue}: 06
+{Pages}: 99-105
+{Keywords}: 涪陵至丰都段航道;水运量现状;水运量预测;分货类水运量
+{Abstract}: 涪陵至丰都河段是联系长江上游与中下游的重要运输通道,水运量分析预测对该段航道的建设规划具有重要意义。提出采用长江干线主要港口进出港货运数据,基于港口和航道的位置关系来统计航道水运量及流向等。结果表明该河段水运量从2000年的1 241万t增长到2016年的1. 604 4亿t,上下行水运量占比分别为66%和34%,贡献了三峡过闸货运量的94%,矿建材料、矿石、钢材、煤炭、石油和集装箱等主要货种占水运量的73%。提出采用回归分析法、弹性系数法、指数平滑法和投入产出法分别考虑腹地GDP、产业结构、运输结构等多因素对水运量的影响。预测表明:工程河段水运量呈持续增长趋势,但增长速度逐步减缓,2045年水运量达到3. 233 3亿t,主要货物水运量占总水运量的86%。水运量分析预测方法和结果可为航道的建设规划提供支撑。
+{DOI}: 10.16233/j.cnki.issn1002-4972.20200601.032
+
+{Reference Type}: Journal Article
+{Author}: 张绪进;吴澎;王召兵;马希钦;
+{Year}: 2016
+{Title}: 三峡新通道研究进展及主要技术问题
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbO873CyWPBPo09eC71IhYjn_6f4jNW8nZujve0FlqRDKLnqKuCsJrHapMRvRJoSQd-o3-G0MvIbKAcUI7Pb7r_l8r1Bm7KyK40tk4bZjPHpOYmXjGIkuogLcoH0hSsDH5APaJQ-cQQv_9Qs6EFACtmYC_iiysRjdinZ5AQnRwvV-DgcLfzsj5b8Y_SEWXX_V800pjKppXoT3Q==&uniplatform=NZKPT&language=CHS
+{Date}: 2016-11-15
+{Volume}: 35
+{Journal}: 重庆交通大学学报(自然科学版)
+{Issue}: S1
+{Pages}: 33-40
+{Keywords}: 三峡新通道;船闸布置;航道整治;扩能改造
+{Abstract}: 三峡工程是世界上最伟大的水利工程之一,航运效益巨大,随着国民经济持续增长和长江黄金水道建设的实施,三峡过坝货运量持续增长,2011年过闸量超过船闸1亿t的设计通过能力,2013—2015年过坝货运量均达到1.2亿t,超过设计能力20%,建设三峡新通道十分必要。简要介绍了三峡新通道研究进展情况,包括三峡新船闸建设方案和葛洲坝船闸扩能改造方案及主要技术问题。
+
+{Reference Type}: Journal Article
+{Author}: 张义军;贾进;王广莹;刘展;
+{Year}: 2023
+{Title}: 基于GA-SVM模型的三峡过闸货运需求预测
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbO0blInfMLfXVWE8qViwGRfNxiiDo_cJOs3jzuHiwgxHA1pHVYVAxQ3mtyJ_TpnwPkWEIv2O9ZzTT97jl1pqZwtGCAg9pQ2986MLWHCo4bAbyd63_x9Jy9GprltaVfLaofSUXt8tbBLTVQ-6zWfv60lWI3pjuREHsJvdzIGiehuaTJkrhJ2EobvmkyMxjrqylAi-p1vOZkuuQ==&uniplatform=NZKPT&language=CHS
+{Date}: 2023-03-23
+{Volume}: 45
+{Journal}: 综合运输
+{Issue}: 10
+{Pages}: 149-155+162
+{Keywords}: GA-SVM模型;三峡船闸;货运量;需求预测
+{Abstract}: 从区域经济发展角度出发分析选定经济总量水平、产业结构、国际国内贸易发展、收入及消费水平和城镇化率5方面的9个与货运量变化具有强相关性的影响因素，以三峡船闸2004-2017年的9个影响因素数据作为输入，对应年份货运量作为输出，采用GA-SVM模型构建的gaSVMcgForRegress函数实现遗传算法的参数寻优，采用训练函数svmtrain进行拟合训练，并得到最优参数和评价结果，运用灰色模型对9个因素进行长期预测，将这些预测结果和参数一起输入svmpredit函数中预测得到货运量需求。最终得到2035年、2050年、2060年三峡过闸需求分别约为25946万吨、27093万吨和27130万吨。
+{DOI}: 10.20164/j.cnki.cn11-1197/u.2023.10.025
+
+{Reference Type}: Conference
+{Author}: 刘怀汉;王志军;陆建萍.
+{Year}: 2005
+{Title}: 长江三峡(初期运用期)-葛洲坝水利枢纽枯季航运流量调度方式研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahJ_cEW0xD3ZVp_L5K4vUyQqkck5lMMvdf4w8Op2vSsLCESwg6It5dvwSOpQiBXkiL1yGjqMyWxcggSi3hc7VWXVP5ARatJds7WJYK-bh6veqI_MeeFwDh0cZ5VNXEhevpj388XOLEZ1fem5q6GW3dzJvBVuYpsa85uLcMM7NG2f8CooLwiXCFod&uniplatform=NZKPT&language=CHS
+{Date}: 2005-10-01
+{Journal}: 第三届湖北科技论坛水利分会场学术研讨会
+{Issue}: null
+{Pages}: 59-64
+{Keywords}: 三峡枢纽工程;葛洲坝水利枢纽;枯水期调度;水库综合调度;航运
+{Abstract}: 在分析三峡工程蓄水后长江中游出现的变化及枯季航道维护特点的基础上,从发挥三峡工程航运效益的角度出发,就近坝河段、沙卵石河段、荆江沙质河床段对枯季航运流量的需求进行了研究,并分析了枯季三峡电站调度方式对通航的影响,提出了在三峡工程初期运用期三峡 -葛洲坝水刊枢纽联合运用下,满足通航需要的枯季航运流量调度要求。
+
+{Reference Type}: Journal Article
+{Author}: 梁晶;李晶;吕靖;
+{Year}: 2009
+{Title}: 三峡枢纽过坝运输需求分析及其预测
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbPLtD8ijBw50cT2teI5XJ1vuRGxD-CTHjnu4O1UKEhdCV5_9fPYnKY7iJ9EwaVwDaEASUi-MPzS7Bl6vnqwUDouyKoF7_5xATahIQ7n0kkQ7PYo-kk42GPv0SnRVan_9eXYZ7RyD7m-nwoZ5ybm40-IO2A6ogE5yO5iAbXa5xRoZnwmRizpNErURsGRa_LBnkg=&uniplatform=NZKPT&language=CHS
+{Date}: 2009-12-25
+{Volume}: No.435
+{Journal}: 水运工程
+{Issue}: 12
+{Pages}: 109-113+123
+{Keywords}: 三峡枢纽;运输需求;预测
+{Abstract}: 通过对三峡枢纽过坝运输需求的深入分析,在不考虑三峡枢纽断面通过能力影响的理想状态下,运用数学模型法、弹性系数法和组合预测法对三峡枢纽区域过坝货运量进行了定量的预测,进而结合对三峡枢纽区域和长江流域未来经济及交通发展趋势的分析,以及三峡枢纽通过能力的影响分析,对定量预测结果进行了进一步修订,最终得出预测结果。
+
+{Reference Type}: Journal Article
+{Author}: 荣天富;
+{Year}: 2015
+{Title}: 从航运角度看三峡工程建设的成功经验
+{Date}: 2015-02-25
+{Journal}: 水运工程
+{Issue}: 02
+{Keywords}: 三峡工程建设;成功经验;航运角度
+{Abstract}: 三峡工程是一项伟大而复杂的工程。从工程论证到设计、施工,业界曾针对其通航技术中存在的大量问题进行过研究和讨论,问题得到了较好的解决。三峡大坝建成后,工程综合效益正在发挥,且川江运量一直在快速增长。实践表明,当初在三峡工程建设时机的决策、三峡水库特征水位的选定、三峡通航建筑物规模和布置设计的优化、通航尺度标准及其保障措施的论证确定、施工期通航方案的认定与实践以及三峡水库调度方案的优化等问题上所做的工作及其成果都是有效的。从航运角度论述了三峡工程建设的成功经验,为今后类似工程建设提供借鉴。
+
+{Reference Type}: Thesis
+{Author}: 郑皓天
+{Year}: 2024
+{Title}: 基于翻坝效率的长江沿线集装箱多式联运方案优化研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=oGHOruzuSDNzy3aOqmaRqYTUP8FCLIyx8ngclfWL5WN97VfmwVdS77bUqyT1sZDJyeykhiDWjgykDNAj-jSvtKZo14HopA4iHGgEl2oSzv53UQDn1q-uq54T0X6S28imyBolUh2253FM4-3_0r-VZR9k8_kc2nfAsowZZ-0Rkm_g-IST3vNi7rbko3wxxZtdRmGREWyuKVHZoM49zMFHNg==&uniplatform=NZKPT&language=CHS
+{Date}: 2024-04-15
+{Journal}: 长安大学
+{Issue}: 06
+{Keywords}: 三峡翻坝运输;集装箱多式联运;分担率;翻坝效率
+{Abstract}: 坐落于长江中游的三峡大坝,对长江流域航运发展有着举足轻重的作用。然而,伴随着过坝货运量增长,船闸的通航能力已愈显疲态,不断上升的过闸需求与有限的船闸通过能力之间的矛盾已变得越来越尖锐。船舶积压、排队过闸成为三峡坝前的常见现象。翻坝运输作为过坝运输方式的重要补充,愈发值得重视,它能提供更多样化的运输路径,减轻五级船闸和升船机运行压力。对于集装箱等高附加值货物,翻坝运输能节省待闸时间,挽救货物时间价值损失,提升三峡航运枢纽整体经济效益。本文基于提升翻坝效率的目的,对集装箱多式联运翻坝方案优化进行了以下几方面的研究:
+{DOI}: 10.26976/d.cnki.gchau.2024.002775
+
+{Reference Type}: Thesis
+{Author}: 马奕.
+{Year}: 2008
+{Title}: 长江三峡船闸过闸需求与通过能力研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahKdaSBjpoptaAWxb8PdYtkTrmGdEM7AQACsQI6M6OWzcMuMXJSrd62CYt3-T3V8zayXGWct25gN-_HpyHAJsfU6iQjENH3fIj88QehBbzn5AD9DA8J_p2QSNriGJOGS95QvVFadN6ifhSPP31QivQWAoi38QMOjxJWiiVre8DdyHnzK5SeD7dVq&uniplatform=NZKPT&language=CHS
+{Date}: 2008-10-01
+{Volume}: 硕士
+{Journal}: 武汉理工大学
+{Issue}: 05
+{Pages}: null
+{Keywords}: 三峡;需求预测;船闸通过能力;对策
+{Abstract}: 三峡船闸作为西部水利枢纽工程,其通过能力直接影响着长江中上游的航运发展,对我国西南地区的经济发展起着重要的作用。三峡船闸通航以来,运行总体正常,通过能力稳步提高,目前船闸运行效率已经达到较高水平,接近满负荷运行。但也出现了一些共同关注的问题,例如日运行闸次及通过量与设计指标相差较大;在非正常通航状态下,通过能力明显不足,都反映出三峡船闸通过能力相对航运过坝需求不足的矛盾。随着三峡工程的竣工以及蓄水水位的逐渐上升,三峡船闸的运行条件不断改变,为解决三峡船闸通过能力相对航运过坝需求不足的矛盾,提高船闸通航效益,应结合不同阶段的实际通航条件,计算船闸的实际通过能力,预测三峡枢纽快速增长的通航需求,分析不同阶段三峡枢纽的通航能力缺口,从近期和远期两个方面提出了提高三峡船闸综合通过能力的有效措施。论文采用一元回归分析、增长曲线模型、运输弹性系数和组合预测四种数学方法,结合三峡枢纽区域的经济发展情况,预测了三峡枢纽的中长期过坝需求,预计2010、2015、2020、2030年的过坝货运量分别为7600万吨、9900万吨、11000万吨、13000万吨。论文在分析三峡坝区综合通过能力影响因素的基础上,重点研究并提出了一次过闸载重吨位新的确定方法,成功应用于三峡通过能力计算,预计2010、2015、2020、2030年三峡船闸实际通过能力分别为6296万吨、8036万吨、8726万吨、9265万吨。通过过坝需求和通过能力的比较可知,三峡船闸2010年可完全满足过坝需求,2015年存在较小的缺口,2020年和2030年都存在较大的缺口。针对不同阶段,全面研究了提高三峡枢纽综合通过能力的对策和建议。近期,由于需求量与通过能力之间相差不大,主要从提高船闸自身效率入手,可优化过闸流程,缩短一次过闸时间或制定相关政策,提高船舶的装载率等措施提高三峡船闸的通过能力;远期,由于船闸本身通过能力的提高毕竟是有限的,随着货运量的进一步增长,必然会出现供需失衡的现象。因此,可建立完善的翻坝转运机制,发展坝区综合运输体系,采取综合措施推动三峡扩能。三峡枢纽货运需求和通过能力的研究对进一步提高三峡枢纽交通资源的利用效率,对构建黄金水道具有深远的意义。
+
+{Reference Type}: Thesis
+{Author}: 刘远平.
+{Year}: 2008
+{Title}: 三峡船闸过闸需求预测及提高过闸能力对策研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahJZsZuT8CwN6qGAtEufZBtP6Cfi56sCb71IrkE89PQfU5AapnHF-qyzKk3w_U4XNh_UEx8NUtD8RrN5FckG1obLaJ_-RQqkMWSDbtkhauVm1vSChboGu4m60oYk-OSX11BAv6YVZlYMb1WaPglR1EndEMRoV16fu9fGGLSNmFFw9VJdESr_DX8_&uniplatform=NZKPT&language=CHS
+{Date}: 2008-03-01
+{Volume}: 硕士
+{Journal}: 重庆交通大学
+{Issue}: 09
+{Pages}: null
+{Keywords}: 长江航运;三峡船闸;过闸能力;过闸方案
+{Abstract}: 长江航运在重庆市国民经济发展、对外贸易、促进经济可持续发展等方面具有极其重要和不可替代的作用。三峡大坝修筑后,显著改善了长江上游的航运条件,水路运输成本显著下降,增加了水路运输同其他运输方式的竞争能力,极大地促进了重庆航运业的发展。根据三峡工程建设进度安排,三峡船闸2006年10月起将进行为期一年的建设期。按照设计施工方案,施工期间三峡船闸将单线运行,船闸通过能力大幅下降,碍断航问题将对重庆市的经济建设造成重大影响。据测算,在为期一年多的改建施工期间,船闸通过能力将只有正常情况的40%左右,届时船闸实际通过能力将远远小于实际过闸需求,翻坝分流在所难免。本文从社会损失最小的角度出发,对三峡大坝对重庆市货运的影响进行分析,首先对过闸的客货情况进行统计,找出问题所在,并经过查找对重庆市统计年鉴,预测出重庆市未来几年的过闸需求量,并根据预测值,结合相关政策,对提高过闸能力提出一系列方法和模型。本文研究的主要问题为:过闸现状;过闸货物分类;过闸船舶分类;船闸通过能力与船舶过闸时间参数;船舶过闸编组作业优化模型;船闸通过能力不足对策。通过研究得出测算出:船舶过闸能力、实际过闸船舶和客货运量、船舶过闸等待时间和损失估计,并提出:船舶过闸编组作业优化模型、翻坝运输方案、改善运输的其他措施等解决方案。
+
+{Reference Type}: Journal Article
+{Author}: 王丽铮,陈顺怀,吴秀恒,王兴权
+{Year}: 2001
+{Title}: 三峡枢纽通航机动驳及其顶推船组运输分析
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbP6c0nM9l1kLbz16j9LQJSKCXJKaK4-6hRVIHBKL0RhvRs-YZ-UWlIdAAfL-j0xqn7PCKM2msCGaFgEFzCbXf_M73p4jeIRX75lFPSHPKbyOrwWCLlqCKl4ITU9q4iZC1r6ABC22JZPZVhLpw-Sr1abypePPVqcCJskj1uNBh2Q1e4vRcXMxOtITOwj2KPAAD8=&uniplatform=NZKPT&language=CHS
+{Date}: 2001-04-25
+{Journal}: 武汉造船
+{Issue}: 02
+{Pages}: 8-11
+{Keywords}: 三峡枢纽;机动驳及其顶推船组;营运分析
+{Abstract}: 在确定三峡枢纽通航机动驳及一顶一顶推船组船型尺度的基础上 ,对该两种运输方式进行了营运经济性计算及敏感性分析 ,并对未来机动驳及一顶一顶推船组船型发展提出了建议。
+
+{Reference Type}: Journal Article
+{Author}: 陈淑楣.
+{Year}: 2010
+{Title}: 三峡水库对坝区河段航运条件的影响及对策
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahLeHvLsycJEWq2_20pPoudBP8ATDvb7cPn-_XJVR1B7A9ttoyL-DkJ-Mat0lhJfyIGQp1G5yBE16numn8Hmn7CQDnh1SxMURJAah5TwofB8khI7YD4sv8F_gRvrjXW-gSfPfm3qoH1nEX3dczstYxTQI66yPrno7GdHx4IdZNglEw==&uniplatform=NZKPT&language=CHS
+{Date}: 2010-04-05
+{Volume}: 32
+{Journal}: 水运管理
+{Issue}: 04
+{Pages}: 8-9
+{Keywords}: 三峡水库;航运条件;航道管理;码头;锚地;航标
+{Abstract}: 为改善三峡坝区的航运条件,充分发挥三峡工程的航运效益,阐述三峡大坝与葛洲坝两坝间港口、锚地和航道等航运设施基本情况,分析三峡水库建成后给这些设施带来的不利影响,为确保两坝间航运通畅,消除三峡水库建成后给坝区带来的不利影响,提出对原有码头、锚地进行技术改造的措施及黄柏河航道治理措施。
+
+{Reference Type}: Thesis
+{Author}: 李大海
+{Year}: 2010
+{Title}: 长江集装箱运输发展态势研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=oGHOruzuSDPtMtsKfJlWB4UpaClSwZPnpsR46uaXiHo-OWvhnuiyKRJLNtQmXsPGyywrJMEx1zuRIeFqMZdqnxZoA7Zt4sT_tw-E-5UiQ8w-_MqpBMm9AVSrPSWt-jYL9JKfS9IBZJfXff4bd3O1nOSdkWe0yuU6SS1FOl3_S4-ccIuEG-1j5tP6KFbPIMgTVF8AODpwPVDKVVKfAu4kmg==&uniplatform=NZKPT&language=CHS
+{Date}: 2010-08-01
+{Journal}: 大连海事大学
+{Issue}: 02
+{Keywords}: 长江集装箱;运输发展环境;发展态势
+{Abstract}: 本论文为西部交通建设科技项目“长江集装箱运输系统优化与相关技术研究”课题的第一专题“长江集装箱运输发展态势研究”,主要进行了长江流域经济社会和综合运输系统发展态势研究,即针对长江流域经济社会发展特点,重点分析沿江产业经济发展格局,研究长江流域产业经济发展和综合运输通道建设与长江集装箱生成量和水路运输量的关系；长江航运和集装箱运输发展现状分析,即根据长江港口布局、航道整治、码头设施、货物吞吐量和内河船型标准化等的发展情况,分析长江干线和主要支流集装箱航运的航线分布、船型构成、运力特征；长江集装箱运输发展影响因素研究,即长江流域经济发展、综合运输体系对长江集装箱运输的影响,深入研究上海国际航运中心建设、长江三峡航运枢纽通航、干支流运输协同发展等对长江集装箱运输发展的作用和影响；长江集装箱运输发展态势预测,即研究长江沿江区域集装箱生成量、运输量与港口吞吐量的关系,预测未来沿江各地区集装箱生成量,长江干线和主要支流集装箱分段运输量,对长江集装箱运输总体发展趋势提出定性和定量分析,系统分析长江集装箱运输发展的态势。
+
+{Reference Type}: Journal Article
+{Author}: 周惟奕.
+{Year}: 1989
+{Title}: 长江上游干支流航运规划和三峡水利枢纽
+{URL}: https://link.cnki.net/doi/10.16232/j.cnki.1001-4179.1989.01.004
+{Date}: 1989-01-31
+{Journal}: 人民长江
+{Issue}: 01
+{Pages}: 21-27+51
+{Keywords}: null
+{Abstract}: 本文简述长江干流及其主要支流当前的航运状况、航运条件和航运发展规划.就这些河流的航运规划,论述了三峡水利枢纽在发展长江航运中的地位和作用.并讨论了三峡工程与宜宾至重庆河段的开发、支流水位衔接、库区港口和中游航道的关系.
+{DOI}: 10.16232/j.cnki.1001-4179.1989.01.004
+
+{Reference Type}: Conference
+{Author}: 邓腾云;欧阳吉祥;吴翱翔;
+{Year}: 2025
+{Title}: 川渝协同发展视角下嘉陵江航运提升研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=oGHOruzuSDO7vv4nBaSiuVorWoPT2KTfXEFHyOBnS8nA5DoQfTM10emCjVdoQc5_COHaIDtAQ5J4MciO0dhTDH030gwh0F8LqxE2KBtDzaworzIK5cppRWjak4Nq0LofAho0183CHeJ8csYU48CT1gKFnRnf9o_lJi_XseeAJyfknbe_JfCNMacYBYJDX-6QQT-pPsqUG7Nl6jFH5IlUbg==&uniplatform=NZKPT&language=CHS
+{Date}: 2025-08-15
+{Journal}: 新空间·新业态·新交通——2025城市交通规划年会论文集
+{Pages}: 549-560
+{Keywords}: 嘉陵江航运;航道能力提升;区域协同;多式联运
+{Abstract}: 本研究立足成渝地区双城经济圈建设国家战略,通过航道设施评估、运输市场分析、管理体制诊断及外部环境研判等多维技术方法,系统揭示了嘉陵江、渠江、涪江航运存在的航道等级区域性失衡、航电枢纽调度割裂等结构性矛盾。通过"基础设施—运输市场—制度环境"分析框架,提出跨区域协同治理视角下的系统性解决方案。研究结合船舶大型化、多式联运网络优化及三峡水库水位调控等趋势,预测2035年三江水运量,针对性地提出航道疏浚整治、枢纽联合调度、港口功能提升三大路径和"深挖干线潜能—打造铁水枢纽—铁路适度分流"的协同发展策略,为破解长江上游"黄金水道"梗阻、构建绿色高效航运走廊提供了兼具理论创新与实践价值的跨区域协同治理范式。
+{DOI}: 10.26914/c.cnkihy.2025.041754
+
+{Reference Type}: Journal Article
+{Author}: 吴蓉;兰毓峰;黄绍文;
+{Year}: 2016
+{Title}: 三峡船闸和三峡升船机协同运行下通航效益分析
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbOALfFcncoMmChvq_2DSv7NF2lXlVJZo7tw0HVfYDQ4OcStPFXndExjL-X6P0VzSanvpizXc9UBAnbIF1KQuj_wmezbtVWQafY9MqLhjLdMAXSo-QDGvhm97hjTVuJvMuohIVuTKqbXx_u3rxyQ67YLMAZAEfEUNn4CfOkuxRPvWb7k43m6AAZxr9GVohtPiWpnbMVkML7--A==&uniplatform=NZKPT&language=CHS
+{Date}: 2016-12-15
+{Volume}: 16
+{Journal}: 中国水运(下半月)
+{Issue}: 24
+{Pages}: 144-145
+{Keywords}: 三峡船闸;三峡升船机;协同分流;通航效
+{Abstract}: 文章在三峡船闸现有运行实绩的基础上,模拟三峡船闸和三峡升船机协同运行方式下,三峡船闸及三峡升船机主要运行指标的变化,从而进一步进行三峡船闸和三峡升船机协同运行通航效益分析。研究得出,三峡升船机参与分流后,三峡升船机预计年通过17.2个厢次,平均载货量237.4吨,三峡船闸预期新增年通过能力约为873.1万吨,三峡升船机货物年通过量约136.8万吨。
+
+{Reference Type}: Journal Article
+{Author}: 邱忠恩;谈昌莉;张惠;向锋.
+{Year}: 2003
+{Title}: 长江三峡工程综合经济效益研究
+{URL}: https://link.cnki.net/doi/10.16232/j.cnki.1001-4179.2003.08.009
+{Date}: 2003-08-30
+{Journal}: 人民长江
+{Issue}: 08
+{Pages}: 43-46+66
+{Keywords}: 防洪效益;发电效益;航运效益;三峡水利枢纽
+{Abstract}: 全面回顾 2 0世纪以来 ,尤其是三峡工程设计和论证阶段 ,对三峡工程综合经济效益所进行的研究 ,结合我国经济社会可持续发展的要求和三峡工程建设实施以来的实际情况 ,对三峡工程的综合经济效益进行了再认识和评价 ,分别论述了三峡工程的防洪、发电、航运、旅游等效益及对南水北调和促进中西部地区经济发展的重要作用 ,并提出应与时俱进不断地调整和扩大三峡工程综合效益的研究内容。
+{DOI}: 10.16232/j.cnki.1001-4179.2003.08.009
+
+{Reference Type}: Journal Article
+{Author}: 习武;刘祖伟;何金鑫;陈社;代鑫;
+{Year}: 2020
+{Title}: 基于仿真模型探究标准船型对过闸能力影响
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbPqlORL4kYWq5DskewQhJv4OxGMlHRf2RP_52fMq8BIUNaF24lWOsFQyeXrlPJN3LD5WC2U3mxCTNV2SdIRL-qsZ_EXXyj-na38p4q0zSARKkX7s79bV0PQB7V_t2lMp7UFE2TtG8AGKdRsvdgBCj0grye4SBK0AK1FDO5XXgzMf-_PXQ5FJqga1PzOb1wSttkMuraml1nQ-A==&uniplatform=NZKPT&language=CHS
+{Date}: 2020-10-15
+{Volume}: 20
+{Journal}: 中国水运(下半月)
+{Issue}: 20
+{Pages}: 24-25
+{Keywords}: 标准船型;仿真;闸室利用率;通货能力
+{Abstract}: 本文主要阐述了大长宽比标准过闸船型的概念和意义,并针对三峡库区大长宽标准过闸船型实际经济效益不显著的问题进行论述。通过船舶过闸仿真模型代入标准船型在三峡船闸中过闸实际数据进行仿真分析,结果表明标准比船型确实在闸室利用率和通货能力方面有显著提升,能够缓解通航压力,更好的满足经济发展需求。
+
+{Reference Type}: Thesis
+{Author}: 熊韬
+{Year}: 2012
+{Title}: 长江干线江海直达转载货运模式研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbMcSfp7movS-XxgCC-w9Ib4zVEqvYVQBwfP963T295BGgcSLYS-3N9JSr1AphzbTDuoFiJRzQC0U_Edhwq_2pNBNHoPPfIFk5nY6LFwKn9GzyOgYt5Lt9Wxn7SXsHM0C1FayA5j3_mzGhNaVaWeowHM3tgv-br1L0vSh9Z_8R0wRQIix4FzFl0lyOI_2gfJBfpTjAfVhDsTRg==&uniplatform=NZKPT&language=CHS
+{Date}: 2012-04-01
+{Journal}: 武汉理工大学
+{Issue}: 10
+{Keywords}: 长江干线;江海直达;货物转载模式;船队规划
+{Abstract}: 长江干线自西向东连接我国七省二市,是我国内河水运的主要通道,干散货运输更是对我国沿江经济的发展起着重要作用。近年来,随着长江流域和沿海地区经济的发展,两者之间的物资交流日趋频繁,货物的进出口量也大大增加。在这样的市场环境下,江海直达船舶的需求量正逐步增加。目前,长江水运的主要江海直达货种是铁矿石。纵观我国的产业分布图,不难发现,长江沿线分布着我国36%的钢铁产业,其中70%以上铁矿石需从北仑港转运至沿江各钢铁企业,仅重庆港的铁矿石年进口量就超过470万吨。目前,江海直达船舶在长江上航行的主要问题是长江上、中、下游航道条件存在很大差异,而且相同航段在不同的季节航道水深情况也有很大差异。其次,三峡大坝完工以后,长江上游的通航条件发生了很大的变化,在不同的季节,库区航段和自然航段的分段位置也不同。在这样复杂的通航环境下,江海直达船舶在航行过程中的载货量会随着航道条件的变化而改变,这一情况使得江海直达船舶在航行途中会出现货物的转载。因此,选择合理的转载模式并对其进行优化,对降低货运成本,提高船舶的经济效益有着重要的意义。
+
+{Reference Type}: Journal Article
+{Author}: 徐小丽;
+{Year}: 2019
+{Title}: 基于运输化理论的三峡船闸过闸货运需求量增长趋势分析
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbMYa3bFiSxm44LmC8e0OrzUCK16FVdHpalmaRd6VWkV1SNZddGDp6S0EMZchqI9bCyAwrTF8fLU07tbWJl126ipcYeah7CA_o8AArAiB5TKREYFIfY0cqTpTikjeZ16l7ebz-eMN1jZFISATTS2Y3hBuLBHyPp3TJtSpgCWNohAOFp9KTHhXVpWDO7meHyqKt-AQAHnyudChA==&uniplatform=NZKPT&language=CHS
+{Date}: 2019-07-16
+{Volume}: No.579
+{Journal}: 中国物流与采购
+{Issue}: 14
+{Pages}: 56-57
+{Keywords}: 三峡船闸;运输化;工业化;过闸;货运需求量
+{Abstract}: 本文基于运输化理论,在对部分国家和地区水运货运量及工业化发展状况数据统计分析的基础上,结合三峡枢纽区域主要相关省市的水上运输及经济状况,类比分析了三峡船闸过闸货运需求量的增长趋势。
+
+{Reference Type}: Journal Article
+{Author}: 姚聆泉.
+{Year}: 1986
+{Title}: 长江三峡水利枢纽与长江航运
+{URL}: https://link.cnki.net/doi/10.16232/j.cnki.1001-4179.1986.02.001
+{Date}: 1986-03-02
+{Journal}: 人民长江
+{Issue}: 02
+{Pages}: 1-7+42
+{Keywords}: null
+{Abstract}: 本文扼要介绍了目前长江航运情况和川江航段存在的主要问题,为了发展长江的水运事业,将我国西南腹地丰富的矿产、建材等物资大量外运,必须迅速改变川江航道上的障碍,最有效的措施是兴建长江三峡水利枢纽,并且分析论证了水库正常蓄水位150米方案的航运效益、可能出现的问题与解决的问题的措施。
+{DOI}: 10.16232/j.cnki.1001-4179.1986.02.001
+
+{Reference Type}: General
+{Author}: 杨胜发;王俊杰;刘明维;黄颖;李文杰;梁越;童思陈;胡小庆;李丹勋;雷晓玲;刘建国;胡江;付旭辉;文岑;王涛;刘勇;肖毅;陈阳.
+{Year}: 2014
+{Title}: 三峡水库常年回水区航运工程建设关键技术研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahJpEEUfm8oj8hBxoF2rBcox-QbESOwJ2_J3Ezx6K04yVTWAUId0f3ye9oZBVdReuV0cD3bEcmp7BvJRvTCTQBr9TK8THgOfEXk9T0DiqY5RHmCGLjm54hajOXcvyo1UEOrdSniaQdodEjaRdKh7PJs4IABMc8y2xD6s3jENg0AZ6Q==&uniplatform=NZKPT&language=CHS
+{Date}: 2015-06-19
+{Journal}: 科技成果
+{Abstract}: 项目通过对三峡水库常年回水区航运工程关键技术的科技攻关和技术创新,形成了三峡水库粉砂浅滩航道治理技术。在基础理论方面,获得了明渠湍流结构理论、库区悬移质输移和航道演变规律;在关键技术方面,提出了三峡水库航道演变数值模拟技术和模型试验技术、三峡水库常年回水区航道绿色淤泥质疏浚技术、库区急弯分汊河段航道整治技术。研究成果首次提出了大水深明渠湍流结构的图景和三峡库区粉砂的不冲不淤流速带,突破了三峡水库大水深和粉砂条件下的模拟技术及航道治理技术,相关理论和技术在国内外尚无报道,处于领先水平。项目研究成果应用于三峡水库的黄花城航道整治工程、涪陵至娄溪沟河段航道整治工程等,使得三峡水库常年回水区488km航道设计水深保持4.5m,航道每年维护疏浚量减少20～30%,降低了航道维护成本,提升了航道通过能力,经济效益显著。此外,三峡库区航道是长江黄金水道的关键组成部分,在我国沿江产业布局及发展中具有先导性、基础性作用,对改善投资环境,提升综合竞争力,促进经济发展作用重大。项目研究成果为保障长江黄金水道的通航能力提供了技术支撑,对长江经济带建设具有积极的推动作用,将产生巨大的社会效益。我国大型山区河流多集中在长江流域上游,金沙江、岷江、嘉陵江以及乌江等均规划了多座大型枢纽,仅金沙江下游就有乌东德、白鹤滩、溪洛渡和向家坝四座大型水电站,枢纽的修建将逐步打通整个西南片区的高等级航运网。由于大型山区河流上游落差较大,修建的枢纽多为高坝高水头型式,将会面临与三峡水库类似的泥沙淤积问题,涉及到大量的常年库区内航道治理技术难题。因此,本项目实施后所形成的大水深湍流结构理论、库区泥沙输移规律、模拟方法、航道治理技术、航道整治环保施工技术等多项关键技术具有广泛的推广应用前景。
+
+{Reference Type}: Journal Article
+{Author}: 贾大山;
+{Year}: 2024
+{Title}: 三峡航运发展历程、经验与启示
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahKCI5WQBWOJdKNvyrghjjTGtuo7k4KksGi1-cgHdAM6f8debmAm5YbgeXKVeE3NtlsTX_SOfhEafWSshIHP0nQBexhIzBaMdqJQolz5mrjnnou5gbbVpE8kiLOkOhNQD8kxanrHm7sQPmXiPUAi16KiyMgt0mL6tWdYreNQ31ikFopM_UO-_acI6iZCXsIMPPWunhp_FgOLxA==&uniplatform=NZKPT&language=CHS
+{Date}: 2024-12-12
+{Volume}: No.1000
+{Journal}: 中国水利
+{Issue}: 22
+{Pages}: 55-60
+{Keywords}: 三峡工程;航运;船闸;升船机;船舶标准化;技术创新;管理制度;安全绿色发展
+{Abstract}: 三峡工程极大地改善了长江通航环境，提升了河道通航等级和航运通过能力，发挥了巨大航运效益。航运条件的巨大改善使得区域经济社会发展和内河运输的比较优势日渐显现，三峡枢纽航运货物通过量自通航以来持续快速增长。面对快速增长的需求态势对通航能力提出的挑战，通过不断完善基础设施建设，推进管理体制改革，船舶通过能力持续提升；面对过去存在的船舶吨位小、船型尺度杂，以及船舶存在的安全隐患和生态环境隐患等问题，通过强化政策激励，迭代技术标准，推动技术进步，船舶大型化、标准化取得显著进展；通过全面加强反恐制度和能力建设，持续强化安全管理和科技创新，坚持生态优先，保障了三峡航运安全、绿色发展。世界变局、技术进步和气候变化等对三峡通航高质量发展提出了更高要求，且三峡-葛洲坝船闸运行趋于饱和，建议紧抓三峡水运新通道机遇，进一步提升三峡航运通过能力；推动相关体制改革和政策创新，为三峡航运发展创造更好环境；抓住当前数字化技术、新能源和生态绿色技术发展机遇，进一步发挥枢纽航运效益，更全面服务经济社会高质量发展。
+
+{Reference Type}: Journal Article
+{Author}: 周伟;
+{Year}: 2019
+{Title}: 三峡—葛洲坝梯级航运调度成效及建议
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahK_JOQaND_BtyK-fnJXbxH4RdMxhJvlq_5WJBtEjh_OaE_LKhrKN-_EMF8BrVmUqixn7eBfu3NPA96YlkBTkBNR648KbNWpwM6n_3EqpgGCeCPN5se5U9nSdSFZuu-K2biQXqsU2Yw-dazsabAqVH12yGNleL_T8LQHSpr0P91NwXgpAB8Z3dZPr0ofGniSnQiKG-RO8FfarA==&uniplatform=NZKPT&language=CHS
+{Date}: 2019-06-05
+{Volume}: 29
+{Journal}: 中国防汛抗旱
+{Issue}: 06
+{Pages}: 13-14
+{Keywords}: 三峡—葛洲坝梯级;航运调度;水库群联合调度
+{Abstract}: 从保障通航设施正常运用、船舶过闸调度保持安全高效、保障库区干流和葛洲坝下游航道正常运用、为疏散坝区积压船舶创造条件和为枯水期航道维护、突发事件处置提供了条件等方面简析了三峡—葛洲坝梯级航运调度成效,对三峡—葛洲坝梯调规程和长江流域水库群联合调度提出建议。
+{DOI}: 10.16867/j.issn.1673-9264.2018099
+
+{Reference Type}: Journal Article
+{Author}: 谢五洲;
+{Year}: 2008
+{Title}: 宜昌港口物流发展SWOT分析与对策
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=oGHOruzuSDOU-14BokpRywBtnLkZAhPDfS4ZUW6sSb_aMkYYKp6YJeG9t2ucrg9QbF7xdORhc7HRPnaqdu950u9VAjhlyqcTQLyCsFWoMt7cXVVMCPpkGN0y3G9l4fF1ZFbfYVtpfNDk-VObc3G_YmrHdqyPYnOr3gvHFGZk0NyC5boepYfjGPeWEHlWwVtlmDnK_KYHfCU=&uniplatform=NZKPT&language=CHS
+{Date}: 2008-11-20
+{Volume}: No.61
+{Journal}: 港口经济
+{Issue}: 11
+{Pages}: 36-38
+{Abstract}: <正>宜昌地处长江中上游结合部,是鄂西南和长江经济带上的重要战略支点,素有"三峡门户、川鄂咽喉"之称。历史上曾是长江沿线的重要商埠,1876年被辟为通商口岸,并增设海关,是继汉口之后湖北境内第二个通商口岸,在鄂西川东物资集散中发挥着重要的枢纽作用。随着经济的发展,三峡工程的修建,以及国家西部开发、中
+
+{Reference Type}: Journal Article
+{Author}: 张诚;
+{Year}: 2021
+{Title}: 重庆市长江水运发展探讨
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=oGHOruzuSDMROpvZf9g8pqmwG7ZpKPsDLyK12lt2QZvuDFRwrxA1cyh3tHM6ehp4JIIYspxb-LkpQgTCO4ZBsOXh4fIwhZ-BplphIZm5tVuoYxnFYbPVyEbD4xGMN9bcdcWDqaTpLsSiFtohmP84_O24k2VQMqI5-re3AzoADBfVgKPEgYIWKgrVIHvhhK8-ZFVEaLALfR1lSITFl4q6Gg==&uniplatform=NZKPT&language=CHS
+{Date}: 2021-02-28
+{Volume}: No.163
+{Journal}: 西部交通科技
+{Issue}: 02
+{Pages}: 194-196
+{Keywords}: 航运中心;三峡船闸;长江经济带;综合交通运输走廊;多式联运
+{Abstract}: 文章基于重庆市水运发展现状,分析了长江三峡船闸瓶颈效应突出、港口布局分散、集聚效应不足、多式联运发挥不够、长江经济带综合交通运输通道尚不完善等重庆长江水运发展存在的主要问题,提出了完善长江经济带客货综合交通运输走廊;集中力量发展枢纽港,加快建设现代化游轮母港;大力发展多式联运,促进长江内河水运提质增效;优化长江干线货物种类结构,提升高附加值产品运输比重等相关对策建议,可为当前正在编制的重庆市国土空间总体规划提供参考。
+
+{Reference Type}: Thesis
+{Author}: 纪熠
+{Year}: 2023
+{Title}: 考虑三峡大坝通航效率的长江沿线液态危险化学品多式联运路径优化
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbPPxolDiJNe8TT9H6-kJlVprm_ZNqHEzQl10adqZtHW_6zdIEa2aZbbkkq-CIlCHs7FTE78XkXXeVvUhyQj2p5MUqwapbfnzLeZrUOauzq0JX8oyhWHZt6wu4qTxfGzKQ9RKTkxqGQwCxiWdWBqCPSwXbtSeGWLOEBeoDdkPxhAr9K6e2e_J7fZq_dh4eW6VsLk948Fp8QHKw==&uniplatform=NZKPT&language=CHS
+{Date}: 2023-04-01
+{Journal}: 西南交通大学
+{Abstract}: 西南交通大学硕士研究生学位论文                第1页
+
+{Reference Type}: Conference
+{Author}: 胡洋;冯小检;谢凯;肖玉华;兰毓峰;
+{Year}: 2008
+{Title}: 三峡枢纽运输的能力、需求和对策
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbMPRxNsMtb6hrVZ9cH9gh__txLMTccFmNfJMSxLbqmJ33iUxgDVllZ27lKaZ1D0ds5MwhpxWfKIjGs7zyb1oFd-dw57bgpRchrXo2gQhEKCsimmXZIwObtgQWnVU6y6PPiRqs6zPbL94WU32hibECDPieq9leEpW52iuzc84p-CJ379b-FYqa3dh-fDBomm-4y0atkO9mmuhw==&uniplatform=NZKPT&language=CHS
+{Date}: 2008-10-01
+{Journal}: 中国航海学会船闸专业委员会2008年论文汇编
+{Pages}: 41-45
+{Abstract}: <正>随着国家西部大开发计划、特别是黄金水道建设工作的全面推进,三峡运输扩能将成为社会长期关注的热点问题,三峡过坝运输扩能的研究和相关工作对进一步提高三峡枢纽交通资源的利用效率,构建和谐黄金水道具有深远的意义。
+
+{Reference Type}: Journal Article
+{Author}: 黄绍文;
+{Year}: 2025
+{Title}: 三峡—葛洲坝枢纽通航调度主要特点及效益分析
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbN0H5NjpDFHvifHB5NOp3mDslBttfkGweoveQQbvb3Yz8TWx7zdYz43o8S38NHPjUIaA94HWvaPouyTfyMwaY09UKLYJN3caR7jDgwG5bcwW3VtjNuNp6HdNLIBLqaVmljEz4TD5sf1xAkm_uG_aK0Me8MHlbtRZGdDi1MV3ebSvVCSx7ZOmQfX6MI093KWNKUF7rBLP7aRLQ==&uniplatform=NZKPT&language=CHS
+{Date}: 2025-07-15
+{Volume}: 40
+{Journal}: 交通企业管理
+{Issue}: 04
+{Pages}: 100-103
+{Keywords}: 三峡—葛洲坝枢纽;通航调度;客货过坝;通航安全;低碳发展;和谐稳定
+{Abstract}: <正>三峡通航事关国家战略安全、物流通道畅通和沿江百姓民生，其重要性不言而喻。目前，三峡通航实行集安全管理、海事管理、航道维护、过坝船舶调度、船闸升船机运行等于一体的综合管理模式。三峡-葛洲坝枢纽通航调度即过坝船舶调度，是对过坝或者翻坝转运船舶的交通行为进行的组织和指挥，作为三峡通航重要的一环，直接影响着船舶过坝效率和船闸、升船机货运量及客运量，并对船舶过坝安全产生直接影响。
+
+{Reference Type}: Journal Article
+{Author}: 张义军;梅竞艳;
+{Year}: 2015
+{Title}: 船舶大型化条件下的船闸管理对策
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=oGHOruzuSDNFz2PZ9ujONGnFwm4Tkza9FFPIducLNTh_QGHWR3HVtuxtmUiJV4F6QncpqxZP0_hLsKRF3foHzjR_YCkYmzoLrtlAfpm-sJUY_AJs5qvOhegciRLulW8OkqyBugj7B1musL0ZEDSXcmoYlr8-RhcuxDvThmHSYMmSebeBHz8u25SrYURI9OATOrmKGTA_-BaeRNHSaRLoTw==&uniplatform=NZKPT&language=CHS
+{Date}: 2015-07-10
+{Volume}: No.480
+{Journal}: 中国水运
+{Issue}: 13
+{Pages}: 26-27
+{Keywords}: 船舶;大型化;船闸管理;对策
+{Abstract}: 三峡工程蓄水以来,川江及三峡库区水路条件有了显著改善,在船型标准化的推进过程中出现了船舶日趋大型化。文章通过对三峡船闸过闸船舶大型化产生的主要因素及影响进行分析,阐明了当前通航管理部门所采取的主要对策,并提出了合理建议。
+
+{Reference Type}: Thesis
+{Author}: 王一凡
+{Year}: 2018
+{Title}: 湖北省航运与区域经济发展关系研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=oGHOruzuSDPZq3uoBVMVMegdvzDQqVkufXsDneee_kEqcYIrVW6CVXw5WcZSeRZQ1TJ6_kNAyEDmlc_ebYkJ5OaVM5iY5faM0xiJBAmZYly80EBURtlSDvY8NqH5UCCpCypIVnJ74-4rrqoTeKeyu3REmlMDmfVz9MHWWuhacEo7BMrLBNWYTYhzThIDt0Co5t059r34bF0AHRihJHXnZA==&uniplatform=NZKPT&language=CHS
+{Date}: 2018-05-01
+{Journal}: 湖北省社会科学院
+{Issue}: 01
+{Keywords}: 航运;区域经济;灰色关联分析;VAR模型
+{Abstract}: 交通运输作为国民经济和社会发展的基础性和先导性产业,是基础设施建设的重点领域,是连接生产和消费的重要环节。交通运输服务效率直接影响经济运行成本,与经济供给侧结构性改革紧密相连。航运是交通运输业的重要领域,湖北地处九省通衢、长江黄金水道中游,航运资源优势明显。省内的大型城镇以及钢铁、汽车、化工等支柱产业也主要分布在沿长江,发展水运事业潜力巨大。研究湖北航运发展与地区经济增长的互动关系,对挖掘湖北资源优势和区位优势、优化运输结构,促进湖北物流业降本增效,提升湖北经济竞争力有着重要的现实意义。为此,本文展开了对湖北航运与区域经济增长的互动关系的研究工作。一是结合定性分析和灰色关联定量分析,研究湖北航运发展与区域经济增长之间的内在作用机理。二是采用VAR模型实证分析航运发展与区域经济增长之间互动机制。三是横向对比长江上游、下游航运中心重庆和上海,并结合走访调研湖北港口、码头建设的实际情况,分析湖北航运滞后的原因。最后,提出相关政策性建议。主要得出以下结论:一是航运发展指标中货运量与经济发展指标中地区生产总值之间灰色关联度最大;二是通过VAR模型分析,湖北航运是地区经济发展的引致需求,GDP对航运货运量的贡献度达80%,但航运发展对经济增长的作用不明显;三是航运发展滞后的原因包括需求侧和供给侧两个方面,需求侧主要是经济对外开放发展滞后,产业结构有待升级,供给侧主要是航道等级偏低、三峡待闸时间过长,增加了运输成本、集疏运体系不完善增加了综合成本等;四是对湖北航运与区域协调发展的建议:统筹推进全省航运发展的增质提效工作,对接国家和省重大发展战略,把握航运市场新需求。
+
+{Reference Type}: Journal Article
+{Author}: 唐冠军
+{Year}: 2004
+{Title}: 三峡船闸通过能力分析及对策建议
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbOydKhU-lpAx5P99EqnpAv0UuLn64MsJiMJxGtl2-fNT_q49NdGHiFUIuGcDEuVlOVHOG4vePcOab7cP5uV51fVLWvJg8iOmAr0xCAlU3yNqv54Urinj5-9Evvw8IwhbaqYhforUYy7Z4jIlDfSYkGSEuqAZO0hS8OteUajW8tXCSpE51MlMaF-mizCqvJlSsk=&uniplatform=NZKPT&language=CHS
+{Date}: 2004-07-18
+{Journal}: 综合运输
+{Issue}: 07
+{Pages}: 24-27
+{Abstract}: 三峡船闸投入试运行后成为长江航运新的咽喉,其运行条件和通过能力决定了长江中上游航运的通畅,对我国西南地区的经济发展有十分重要的影响。本文对目前三峡船闸运行效率进行客观评价,并结合未来几年过坝运量的预测分析得出,三峡船闸围堰发电期实际通过能力不能满足长江航
+
+{Reference Type}: Journal Article
+{Author}: 李文杰;唐伯明;杨胜发;王皓;杜洪波;万宇;
+{Year}: 2021
+{Title}: 长江上游黄金航道生态可持续发展评价
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbMQMLrTNtvuVbA3cfMFiqD5-06lRhrZ13UNiu1JiKMwRoQVhhaF48ZzkYAMfPdekQB0J5KfSe5-c9B3O_nws_WYZIbvo-L_AAuo_9dKASw1Bb9dsdAlS9hRqHdtwPIglrJ565aGaOI9L4RdNnknUZIx-vrpGFurSjKhoM7qSGNHT8uYZ5woWMRmQV6f4EtD4NQol-hDbpY1PA==&uniplatform=NZKPT&language=CHS
+{Date}: 2021-10-15
+{Volume}: 40
+{Journal}: 重庆交通大学学报(自然科学版)
+{Issue}: 10
+{Pages}: 7-13
+{Keywords}: 航道工程;航道开发率;经济效益指数;生态压力;长江上游黄金航道;三峡水运新通道
+{Abstract}: 长江上游航道等级偏低、三峡船闸拥堵等问题突出,导致上游黄金航道通过能力与航运需求增长不相适应。宜尽早决策长江上游黄金航道通过能力提升建设工程,评价航道生态可持续性,以支撑生态保护优先下的长江上游黄金航道建设。基于综合考虑航道开发、经济效益和生态压力等指标的评价体系,针对长江上游黄金航道改进完善相关指标计算方法,评价宜宾至重庆段二级航道工程和三峡水运新通道工程的生态可持续性。结果表明:宜宾至重庆段二级航道建设工程实施后,航道开发率由41%提升至55%,仍小于长江干线航道整体平均开发率67%,经济效益指数显著提升,生态压力指数由0.33提升至0.47,未超过生态可持续性的临界阈值;三峡水运新通道工程实施后,开发率由68%仅提升至69%,经济效益指数显著提升,生态压力指数0.48略微增长至0.49。重庆至宜宾段二级航道建设和三峡水运新通道建设工程符合生态可持续发展要求,研究结果可为长江上游黄金航道相关工程决策建设提供理论支撑。
+
+{Reference Type}: Conference
+{Author}: 何伟.
+{Year}: 2004
+{Title}: 浅析三峡工程对航运的影响
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahIcgsZ_i-PEHAHRM4WJ2DNpjHvifsc5iA5X7xfTZGq7BNJz6BLfEzNGULI3so83GALMUYjThA8vPRCndq_bhGmYJM_mJ24dnwrXl5ek9pMTDpqic2OQ9EG97pPAiFFhnfapzmokejKzIQfMZsxZwOj9LcmjRFFoShfL6Tc8uTeayWspvy2BDTJ1&uniplatform=NZKPT&language=CHS
+{Date}: 2004-01-01
+{Journal}: 中国航海学会内河船舶驾驶专业委员会学术年会
+{Issue}: null
+{Pages}: 155-156
+{Keywords}: 积极影响;库区;航运管理;通航流量
+{Abstract}: 作者根据三峡库区航道跟踪和现场调查取得的资料,较详细地剖析了三峡库区对航运的积极影响及存在问题,提示了有待解决的若干问题,对领导关于航运管理的决策有一定的参考作用。
+
+{Reference Type}: Journal Article
+{Author}: 王儒述.
+{Year}: 2006
+{Title}: 三峡工程建设促进长江航运可持续发展
+{URL}: https://link.cnki.net/doi/10.13476/j.cnki.nsbdqk.2006.05.021
+{Date}: 2006-10-30
+{Journal}: 南水北调与水利科技
+{Issue}: 05
+{Pages}: 59-62
+{Keywords}: 三峡工程;水库;长江航运;可持续发展
+{Abstract}: 三峡水利枢纽规模宏大,举世瞩目,具有巨大的防洪、发电、航运等综合效益,是开发治理长江的骨干工程。三峡工程已于2003年6月蓄水、永久船闸通航,7月第一批机组发电;2006年5月大坝全线浇筑到顶185m,10月蓄水到156m;2009年全部工程竣工投产。三峡水库已初步形成,随着蓄水位上升,库容加大,川江急流险滩尽行淹没,长江航运效益将日益显著。三峡工程建设将促进长江航运可持续发展,促进长江流域经济、社会、资源与环境相互协调和可持续发展,促进中国经济的进一步腾飞。
+{DOI}: 10.13476/j.cnki.nsbdqk.2006.05.021
+
+{Reference Type}: Thesis
+{Author}: 龙浩
+{Year}: 2020
+{Title}: 长江上游航道尺度提升潜力模拟及评价研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=oGHOruzuSDOh6Op3ywCVAspAomAnwXget1PdTtShIPPy1S7tVemJvlQSA7qBNk2s5Giynlcu96IIThC8EUNGfzkEtgRZ3KCdkX6ONCk2V97EdSeLKnsi-q_Lg00hcu6bg6KnV9P-cnMkr08LzeltoEwiRML-lYj7gKRZNc8yaiZJd_vzU3u3E8kR_1aa8PgjjJGZ76XKNh-pA8cmiq__6g==&uniplatform=NZKPT&language=CHS
+{Date}: 2020-06-12
+{Journal}: 重庆交通大学
+{Issue}: 01
+{Keywords}: 航道潜力;通过能力;排队理论;尺度评价;长江上游
+{Abstract}: 长江上游航道作为长江干线的重要组成部分,合理规划其航道尺度问题一直是被广泛关注的焦点和难点。上游航道在自然禀赋条件下的可提升潜力、航道通过能力和航道尺度与经济发展适应性等问题是航道规划决策的基础性难题,也是评估航道的输运载体功能是否得以发挥的重要路径。系统的研究这些内容对上游航道等级的选取、通过能力的确定具有重要指导作用。目前长江上游航道在自然禀赋条件的可提升潜力、航道通过能力和航道尺度与经济发展的适应性等问题尚无系统完整的研究成果。鉴于此,本文依据长江上游三峡大坝至宜宾河段相关航运基础资料和腹地社会经济资料,开展了相关研究工作。主要工作及结论如下:(1)基于长江上游航道核查资料,选取上游优良河段的937个断面,采用“稳定航深估算方法”对涪陵至宜宾河段航道尺度潜力进行了估算,初步推算重庆至宜宾段能达到Ⅱ级航道单船双线标准;涪陵至重庆段能达到Ⅰ级航道单船双线和单船+船队双线标准。从稳定航深估算方法原理出发,对计算方法中河相关系系数和水深修正系数的计算过程进行了简化改进,提出多级流量下的稳定航深估算方法,通过验证得到计算结论的一致性,可初步用于指导航道尺度潜力的相关计算。(2)基于船舶交通流的内河航道通过能力计算方法,计算得到长江上游各航段双向航道理论年通过能力和设计年通过能力。通过解析长江上游典型断面船舶交通流和控制河段船舶排队通过时间分布规律,结合控制段船舶调度规则,建立了拥有一个优先级的M/M/1排队服务模型,定量估算出各控制河段排队损耗时间情况,进而计算得到各单线控制河段航道通过能力。(3)将航道的货物输运过程概化为经济驱动货物需求产生、货物运输模式选择以及航道承载货物流通过程,以供需平衡为原则建立航道的航运需求承载力指标(WCI),用以评价航道尺度承载航运需求水平。依据投入产出理论对长江上游各航段航运需求进行了预测,结合航道的通过能力,得到WCI。结果表明:自2020到2040年,大坝至涪陵段整体处于盈余状态,航段内丰都至涪陵段承载水平较低,WCI由1.82降至1.36;涪陵至重庆段内部分单线控制段在2030年后处于赤字状态,WCI低于平衡临界值1,应考虑提升航段内碍航河段通过能力;重庆至宜宾段整体承载力水平不高,平均WCI由1.71降低至1.26,考虑到船舶大型化趋势,建议通过工程手段改善区域航道条件,以满足船舶大型化的发展需求。
+{DOI}: 10.27671/d.cnki.gcjtc.2020.000342
+
+{Reference Type}: Journal Article
+{Author}: 武冀.
+{Year}: 2022
+{Title}: 重庆水运应对三峡通道瓶颈促进高质量发展的对策建议
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahKRn3xitKB4LrbufumDfGfaqDdLOSFzxTFppzxaA5d2LhX5fdnJhLv8HHf28jB3jqTvylno3pTO0FSVEc1u6LEWHH7RW4Kd4JafG_rk-J7ooL_UbYXnwMlxu26JEGWm1a2rUt3DfMlVsTvcx3kAW6Yfteq85ODhAC-ksNqNF9jPrg==&uniplatform=NZKPT&language=CHS
+{Date}: 2022-02-18
+{Volume}: 23
+{Journal}: 重庆行政
+{Issue}: 01
+{Pages}: 106-108
+{Keywords}: null
+{Abstract}: <正>习近平总书记在深入推动长江经济带发展座谈会上指出，努力把长江经济带建设成为生态更优美、交通更顺畅、经济更协调、市场更统一、机制更科学的黄金经济带。按照习近平总书记对重庆提出的营造良好政治生态，坚持“两点”定位、“两地”“两高”目标，发挥“三个作用”和推动成渝地区双城经济圈建设等重要指示要求，以及2020年10月通过的《成渝双城经济圈建设规划纲要》，提出要推动成渝地区双城经济圈打造长江上游航运枢纽，2021年10月12日重庆召开全市交通强市建设工作推进会，提出加快建成长江上游航运中心，都为重庆水运发展创造了重大战略机遇条件。近年来，重庆市依托长江黄金水道积极推动水运经济发展，取得了显著成效。2019年，重庆市水路完成货运量21094万吨，完成货运周转量2453亿吨公里，
+
+{Reference Type}: Journal Article
+{Author}: 文传祺.
+{Year}: 2001
+{Title}: 论长江三峡工程明渠封堵及蓄水期碍断航对航运的影响及对策
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahLYpqc_VYzSH1xNsHtvPCFkOkdWjfSRV_SiHTmtznZgCglHhywkPTwq3hHy4hwR9c1HU2cHEO-PX6muW5zm83KnHBwXf6G-JL_pwucLVlG7-Rx337UxZ0LxpfS2tCr3TcxRTGR1rwAG7gzOemAIZfCwS_YePxMCPrHtsJtkmxymyw==&uniplatform=NZKPT&language=CHS
+{Date}: 2001-12-30
+{Journal}: 武汉造船
+{Issue}: S1
+{Pages}: 61-62
+{Keywords}: 三峡工程;碍断航;对策
+{Abstract}: 分析了长江三峡工程 ２００２年１１月至２００３年６月长达８个月的碍断航期对航运业的影响，采取翻坝转运以确保长江客运及物流链不中断，断航期实施干散货陆运分流应统筹兼顾国家、地方、港航企业的社会效益和经济效益，把碍断航期间航运损失减少到最小程度。
+
+{Reference Type}: Journal Article
+{Author}: 李献中.
+{Year}: 1996
+{Title}: 葛洲坝下游引航道治理和长江中游的河势控制及航道整治与三峡工程航运效益的关系
+{URL}: https://link.cnki.net/doi/10.16233/j.cnki.issn1002-4972.1996.05.009
+{Date}: 1996-05-25
+{Journal}: 水运工程
+{Issue}: 05
+{Pages}: null
+{Keywords}: null
+{Abstract}: “万吨级船队渝汉直达，并使其保证率不低于５０％”，为三峡工程航运效益的基本目标。葛洲坝下游引航道治理、长江中游的河势控制及航道整治与实现这一基本目标的三峡工程航运效益有着密切关系。
+{DOI}: 10.16233/j.cnki.issn1002-4972.1996.05.009
+
+{Reference Type}: Thesis
+{Author}: 韩涛
+{Year}: 2009
+{Title}: 长江小南海枢纽过坝货运量预测与通航规模研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbNU7VHe6s65slO7LOVBX7DDJZHhhtGGkHCDCM8YQHeEoTLw7le1mSyvT-eJLYxjbfUDpcRCCS__2LmpD5VLtW6WeGMnHDkFBG18XCGHhXkrLJNpVtdZpDnV8-mWD3StsAE_N5jbAdY8LPrjbmQ3l4OzRowML9NxOT6-pbD-ATOjfN4c884UhilSAHdLBSI4lhR2tNXsrR_OgQ==&uniplatform=NZKPT&language=CHS
+{Date}: 2009-04-01
+{Journal}: 重庆交通大学
+{Issue}: 10
+{Keywords}: 小南海;货运量;预测模型;灰色系统;神经网络;非线性组合预测
+{Abstract}: 长江素有“黄金水道”之称,长江干支流通航总里程长达8万Km,三峡工程建成后,库区航道将有较大的改善,万吨级船队可直达重庆。而重庆以上河段为丘陵山区,滩多流急,航道条件差,仅可通行千吨级船队,严重地制约了腹地的经济发展,需要对此采取强有力的工程措施予以解决。而小南海水利枢纽正是改变这一现状的重要工程。
+
+{Reference Type}: Journal Article
+{Author}: 李清;
+{Year}: 2023
+{Title}: 铁路对三峡过坝运量疏解作用分析
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbP4dh2K-BO-aOpKpTUZFAJRACYP-ksd7EkwBXxr2dcMt00wYPhzgkIthY-28vDNzmFMLq7goMSYh_FPf1P266Naf3tqcHoxt8qYNR26HYgEUNzMZE8eA5LW_qYbkcgQBzHVLfakDQeOAuu_wD-jdOBGyGXfEywLXIZT0DIUjLbszJlyJF5B86Zh0oHyEgnCzcU6Bos7G7KASQ==&uniplatform=NZKPT&language=CHS
+{Date}: 2023-09-13
+{Volume}: 38
+{Journal}: 交通企业管理
+{Issue}: 05
+{Pages}: 44-46
+{Keywords}: 三峡过坝;货运量;铁路;中欧班列;西部陆海通道
+{Abstract}: <正>随着三峡大坝及三峡船闸正式投产，长江上游川渝地区水运条件大幅改善，为川渝与中下游省区交流提供了大能力、低成本的货物运输方式。但是，在三峡过坝运输需求快速增长的背景下，三峡大坝能力已经趋于饱和，如何缓解其能力紧张的问题已经成为当下研究的重点。一、三峡过坝货运量现状及预测1.三峡过坝货运量现状概况在川渝地区经济发展和水运交通改善的共同推动下，水、公、铁等各方式通过三峡大坝断面的通道运量从2005年8 038万吨增长至2018年2.39亿吨，
+
+{Reference Type}: Journal Article
+{Author}: 余金燕;
+{Year}: 2020
+{Title}: 三峡升船机在发挥三峡枢纽通航效益中的作用分析
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbP2tK3sG4xcoC4BFBhvJz3OyTfaIv7qKwJ7JPj4QEczR39ahouCQ5IXe1CeCgxEgAy1UXsGuG-JDZ4fYdzzV8Ezy1JG8rLycY7Q9nn_Hkd7hxlnIeg_2b7rRIA-aRAmSGzKD5x3CFi3vUaSTwCGLB-zbSqrgD_OGv_J-VHHPVMMANDykgjSbEx7m-EIDke8igp-xEOnEBFdAA==&uniplatform=NZKPT&language=CHS
+{Date}: 2020-08-26
+{Volume}: 35
+{Journal}: 交通企业管理
+{Issue}: 05
+{Pages}: 74-76
+{Keywords}: 三峡枢纽;三峡升船机;通航效益;功能定位;闸室面积利用率;船型尺度;满载吃水
+{Abstract}: <正>长江是我国最大的河流,干流全长6 300多公里,流域总面积180万平方公里。长江也是世界上通航里程最长的河流,长江水系通航总里程7万余公里,占全国内河通航里程的70%,年运量占全国内河运量的80%,是我国经济发展的东西主轴线,历来是沟通国内东、中、西部三大地区的运输动脉。长江已成为世界上
+
+{Reference Type}: Journal Article
+{Author}: 袁子文;刘长俭;
+{Year}: 2019
+{Title}: 尽快开工建设三峡枢纽水运新通道  推动长江经济带高质量发展
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbPmCOyuRSTuTpx8tHJZ9E3M3o59OXZKvsvqX2jy5j78F-zZD6aRXgt1VFcL3epxThjNQl0iLKrMgFD7BlFJf3tYyXeArP-4M7bc0BMaAWzTbaOkjdGY3hd_BzxM_nLuSViXd5zw3a_iXmhin8zEk6BVEiBBsLHLXA-PDRRCVmrUUeEnlac7xZ4HNOdbIYUOmnvcDir9nk09VA==&uniplatform=NZKPT&language=CHS
+{Date}: 2019-07-15
+{Volume}: No.624
+{Journal}: 中国水运
+{Issue}: 13
+{Pages}: 17-19
+{Keywords}: 三峡船闸;水运新通道;长江经济带
+{Abstract}: 围绕习近平总书记在推动长江经济带发展座谈会上提出能否通过综合运输解决三峡船闸"肠梗阻"的问题,在梳理长江上游综合运输格局和过闸各货类运输需求、流量流向基础上,聚焦通过综合运输通道解决三峡船闸运输需求的可行性,进一步论证三峡枢纽水运新通道建设的必要性。
+
+{Reference Type}: Journal Article
+{Author}: 陈章义.
+{Year}: 1999
+{Title}: 长江三峡工程对船型开发的需求
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahIIEs2rkW0jNFSJWL8XRtNF4NYNa6EjXuiWsl4BnQzRWv6Z4oVhHHxBA8E5rm68ujJ8gPGJ3eEu0Ksr60kx5hg7kLa0exbrAv06ALUehBnRDJR8n_uAVA3yOl8xNfxql0752a82ui05GEnGqYlfUVi9qa1LOMOoVHfqsE0P52F1NA==&uniplatform=NZKPT&language=CHS
+{Date}: 1999-11-15
+{Journal}: 船舶设计通讯
+{Issue}: Z2
+{Pages}: 25-29+2
+{Keywords}: 长江三峡;工程;船型;开发
+{Abstract}: 长江三峡工程是治理、开发长江的一项关键工程，它具有巨大的防洪、发电和航运等综合效益。三峡工程有效地改善了川江渝宜段的通航条件，万吨级船队可直达重庆，可以更好地发挥长江“黄金水道”的作用，促进我国西南地区的经济发展。本文在叙述长江三峡工程对长江航运发展的影响之后，提出开发长江船型的若干建议和设想。
+
+{Reference Type}: Thesis
+{Author}: 陈秋旺.
+{Year}: 2024
+{Title}: 基于协同治理理论下三峡通航服务质量提升的策略研究
+{URL}: https://link.cnki.net/doi/10.27270/d.cnki.gsxau.2024.000390
+{Date}: 2024-05-01
+{Volume}: 硕士
+{Journal}: 三峡大学
+{Issue}: 08
+{Pages}: null
+{Keywords}: 协同治理;三峡通航;服务质量
+{Abstract}: 三峡河段作为长江航运的咽喉要道,其通航服务质量提升对于确保航运安全、推动绿色发展、增强运输效率、促进科技创新、支持区域经济战略、实现可持续发展以及优化社会治理等方面都至关重要。
+{DOI}: 10.27270/d.cnki.gsxau.2024.000390
+
+{Reference Type}: Thesis
+{Author}: 戴佳伶
+{Year}: 2021
+{Title}: 航运需求与经济发展的协同演变规律研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=oGHOruzuSDNHhyp5uCXCzGEd8zwYyAOGPpr12xqR8vduu64gPce9YtOKUmbPxIQPPaQEgpt65nIRlyCXoc3sBYk5Cd0ps6YQLsRQFWageT8H36-OY9t-bctYaSvpSZ0_TCXNXC0vV9R3P0uyMbN-aoA-8ULBJpoUEQDTPb2jXX266w-e4GnfPgF9p9oAY6pjjnmiJFc2Zl9lMx_rby8XkQ==&uniplatform=NZKPT&language=CHS
+{Date}: 2021-06-09
+{Journal}: 重庆交通大学
+{Issue}: 03
+{Keywords}: 货运需求;航运需求;产业结构;水运量预测
+{Abstract}: 水运作为综合运输系统的组成部分之一,因其运能大、运距长、运费低、耗能少,污染小等竞争优势,已成为国家战略性产业。中国水运潜力巨大,运输网络发达,水运量位居世界第一。但相较于航运系统较为完善的欧美国家,中国航道开发建设还需要进一步提升。长江作为中国水运量第一的河流,其干线航运系统承担着中国40%以上的内河货物运输。而随着经济的发展,长江干线货运需求与航道尺度不足之间的矛盾日益突出,合理提升长江干线航道尺度已经成为被广泛关注的问题与难点。明确航运需求与经济发展之间的演变规律,进而对航运需求做出合理的预测是支撑航道规划、开发和提升的基础。(1)基于45个代表性国家、中国31省市的历史货运量数据和经济发展现状,分析了总货运量与国内生产总值(GDP)之间在不同阶段、不同地区的正负相关性变化,货运强度(货运量/GDP)与产业结构系数(第三产业/第一、二产业之和)之间的负相关。并采用量化方法验证货运强度与产业结构系数面板数据之间的协整关系和Granger因果关系,形成了货运强度-产业结构系数量化方程,由此建立了航运需求预测的间接方法:先利用货运强度与产业结构系数的回归公式估算总货运量,再根据公铁水运输比例预测水运需求。(2)基于42个代表性国家、中国25省市的历史水运量数据和经济发展现状,分析了水运量与GDP之间在不同发展阶段与不同地区的正负相关性,探明水运强度随产业结构升级而减小的变化趋势,使用量化方法检验水运强度与产业结构系数之间的相关关系。再结合长江、西江、莱茵河与密西西比河的航运发展现状,从具体河流水运需求层面分析水运强度与产业结构之间的协整关系和Granger因果关系,结果表明产业结构是影响航运需求的关键指标。从而建立了航运需求预测的直接方法:将产业结构与其他影响因素组合,建立水运量预测模型。(3)建立GA-BP神经网络预测模型,通过不同预测工况与情景分析,对模型进行调试和验证。结果表明,带入产业结构后,有效降低了模型的训练与测试误差。由预测可知,长江干线水运量在2040年将达到41.42亿吨(保守情景下预计为39.57亿吨,乐观情景下预计为44.41亿吨);三峡船闸水运量在2040年将达到2.49亿吨(保守情景下预计为2.06亿吨,乐观预计为2.94亿吨),故可为长江干线航道规划、提升以及三峡新通道尺度规划提供数据支撑。
+{DOI}: 10.27671/d.cnki.gcjtc.2021.000883
+
+{Reference Type}: Journal Article
+{Author}: 马宏彦;胡朝晖;周勇;
+{Year}: 2010
+{Title}: 立足三峡:构建西北物流陆水转运新通道
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbMVaSUTLodsZfQtmZjTXuW_bXuXpm4iSvLkBPi4Y0ELtA7-MiTQfbUGoULupJQ-Tg8gaZJ33jTZlOytw8rwvgVUa8SkfNd3sgAYSla7iGLm6O376MXmcXeNETWDyiladL3YaYPkkoQFsDgPyVrMc2v7JR_xXUu_QSt15x9SMQV2zEbVJcTEphjMKs9Kp_z32Rw=&uniplatform=NZKPT&language=CHS
+{Date}: 2010-12-10
+{Volume}: No.352
+{Journal}: 综合运输
+{Issue}: 12
+{Pages}: 41-44
+{Keywords}: 物流;三峡;陆水转运;新通道
+{Abstract}: 本文在分析西北3省区与长江下游4省市物流基础上,从多式联运、充分发挥长江黄金水道作用的角度,提出了以三峡坝下港口为中转枢纽构建西北物流陆水转运新通道的建议。
+
+{Reference Type}: Journal Article
+{Author}: 赵旭;尹熙琛;高攀;
+{Year}: 2020
+{Title}: 主导权异质性视角下的过坝方式货运量分担率研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbMdPajOX9Z6O3OC535DKopJ6pJJKfENmV7fQeDMp3beVZdynzbnKPpqsB758tBt8IqeWewzrNOCqX441Ge6zmclpnZFEpBw38Pu_OfNPJhJWyF01j5nVACkRx150xulDGw-uPKgsVjjxxdBiUqJjixOwwwZbzzaHj7mFqa9F7ZZRyXMAwynGVA9yAaC1F4kBRYtzJCm1l8Uvw==&uniplatform=NZKPT&language=CHS
+{Date}: 2020-08-25
+{Volume}: 29
+{Journal}: 运筹与管理
+{Issue}: 08
+{Pages}: 192-201
+{Keywords}: 货运量分担率;主导权异质性;通航建筑物;翻坝公路
+{Abstract}: 翻坝公路与通航建筑物两类过坝方式的主导权,分别由货主和通航管理局所主导。针对货物过坝主导方的异质性,首先建立了各过坝方式的效用函数来分析主导权的转移机制。然后据此结合通航建筑物过坝原则,构建了货运量分担率多目标优化模型。最后以三峡工程为例,探讨了翻坝运输费率和船舶过坝顺序对分担率的影响,进而探讨了缓解大坝通航拥堵的决策机制。结果表明:提高翻坝公路的货运分担,可以有效改善船舶及货物的过坝运输状况;相比翻坝运输费率,降低装卸费率能更有效地提高翻坝公路货运分担水平;船舶过坝存在一个次序区间,使得水运货物经由通航建筑物过坝和经由翻坝公路过坝的效用相同。
+
+{Reference Type}: Journal Article
+{Author}: 姚育胜.
+{Year}: 2008
+{Title}: 从三峡工程航运效益谈长江干流水电开发
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahIhLtAHHl3iP8t18uwW5FfgvnYz2e67o6CZyUfBtZyaVMV8JAaX0p9sHTVpyOhuIj7qQHPU3GttsW5TkSLnuQ7R6EPWEpVGBVkaapYjFwJ6OJPUSVaGmt8ZrgiHSchnGmgzU5X0NQN1prr5Uj3NLDDfGHY0Wngpl8F2DNEbVvlijQ==&uniplatform=NZKPT&language=CHS
+{Date}: 2008-05-15
+{Volume}: No.132
+{Journal}: 中国三峡建设
+{Issue}: 05
+{Pages}: 60-63
+{Keywords}: 水电开发;航运效益;三峡船闸
+{Abstract}: 长江是世界上内河航运最繁忙、运量最大的河流。当前长江干流水电开发正处于快速发展期。我们应借鉴国外上游梯级渠化,建坝必建闸,干流航道延伸,全线航道贯通,航道等级提高,干支航道联网的经验。三峡工程初期蓄水以来,库区航运条件明显改善,效果显著。对长江上游和金沙江下游的水电开发,一定要兼顾水电开发和航运发展,处理好两者的关系,做好水资源综合利用的文章。
+
+{Reference Type}: Journal Article
+{Author}: 刘清;陶罂琪;覃盼;
+{Year}: 2015
+{Title}: 优化三峡通航应急运输组织  促进长江经济带发展
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbMANGhcwnvQdaM9fdeuc2K0SMoLMcl7JiaLafpF9HX_hlfrJ95DuHJ8fZS0raACudJTyiNiERkX0wotlAEiQWNDhIe4yBcjWPcTUEQs7Ic73Ar3UIeqJ27PDrlX12DpL6GPVNUEEKohFayLyOIXtmfA3zGJWNgTsuSTQ8ati4jzHyXIsiKBXTRiYfg6SgoFJbD03Eb6hAAg_Q==&uniplatform=NZKPT&language=CHS
+{Date}: 2015-05-10
+{Volume}: No.474
+{Journal}: 中国水运
+{Issue}: 09
+{Pages}: 19-21
+{Abstract}: <正>引言随着长江中上游区域经济社会发展,三峡-葛洲坝枢纽通航总体呈现出过闸货运量快速增长,船闸运行效率逐步达到峰值,过闸船舶船型类别趋于稳定,上、下行过闸货运类别和比例明显改变等特点。据长江三峡通航管理局统计资料显示,随着需过闸船舶日趋饱和,三峡-葛洲坝枢纽坝区船舶积压已经呈现常态化趋势,除了船舶来流量和船闸通过能力的影响作用之外,因汛期大流量限航、船闸检修、大风、大雾恶劣天气等
+
+{Reference Type}: Thesis
+{Author}: 姚仕明.
+{Year}: 2006
+{Title}: 三峡葛洲坝通航水流数值模拟及航运调度系统研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahIs0IoGoXQ8qjSKXXizM0ZctTgYoh36iNLAVLm3xctOwZBk75XR61yXveatXGyWBh3IPYJzSXqUhuqk0KNOj0RykXIo9Ccc0s9mELmAGzUWGtVjR4Y4T2JGgaOGtYKI8EGTWWqV1ig0Z05Sz5ldGxybTj9Of0nnfCPcUL1MNk6S_ItP8NR-NoaQ&uniplatform=NZKPT&language=CHS
+{Date}: 2006-10-01
+{Volume}: 博士
+{Journal}: 清华大学
+{Issue}: 06
+{Pages}: null
+{Keywords}: 三峡工程;通航水流条件;数值模拟;GPS;航运调度系统
+{Abstract}: 三峡工程建成运用后,两坝间航道将成为长江中下游与上游航运的“瓶颈”。本文基于水流数学模型、GPS定位技术及三维虚拟仿真技术等,建立了庙河至虎牙滩河段的航运监控调度系统,对该河段的通航水流条件与航运监控调度的功能等进行了研究,对促进水利学科的发展与生产应用均具有重要的意义。论文取得了下述1、2两项创新成果,完成了与之相关的研究内容:1建立了船舶航线优选模型,研究了船舶航行速度、船舶与水流方向交角以及过江时间三者之间的关系。采用此模型研究得出,莲沱至南津关河段的通航时间增加10.7天,相当于增加155万吨的通过能力,具有巨大的经济效益。2建立了集数据库、数学模型、GPS和三维仿真为一体的三峡航运监控调度系统,实现了系统中各模块之间的交互;系统具有三维场景漫游、查询、定位、数据资料的列表与实时显示、监控预警与应急处理和航运调度等功能,为制定航运调度方案提供了整体直观的支持平台。3研发了二、三维水流数学模型。运用室内弯道以及庙河至虎牙滩河段的实测资料,对模型进行了验证与合理性分析,结果表明,模型计算结果与实测资料基本吻合,可用于庙河至虎牙滩河段的通航水流条件研究。4三峡水库运行初期,坝区河段流速大幅度减小,航运效益显著提高;宜昌河段在流量为4000～40000 m 3 /s条件下,能满足万吨级船队的航行条件,但当流量增至45000 m 3 /s时,万吨级船队通航存在困难。5在不考虑泥沙冲淤变化的情况下,三峡电站在枯水季节的日调节期间,两坝间河段的通航水流条件满足大吨位船舶的航行条件;在葛洲坝坝前水位为66.0m时,两坝间万吨级船队通航限制流量约为30000 m 3 /s ;当葛洲坝坝前水位降至63.0m时,相应的流量减小到25000 m 3 /s。若提高船舶上行限制流速至3.5 m /s时,两坝间河段的通航限制流量可增加至40000 m 3 /s。6运用GPS差分定位技术设计了船舶监控系统,可对庙河至虎牙滩之间水域的船舶定位和跟踪,进而实现对该水域船舶的科学调度和船舶过坝管理。
+
+{Reference Type}: Journal Article
+{Author}: 王艳峰;李红祥;
+{Year}: 2012
+{Title}: 三峡库区通航环境风险识别研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbMT3DkW8ZXYMRYvzL1-gA_GxOfQZ_Q35phDGz8WWsuIlk5SUX4-_TV9UJhZgl1OL8v_kiWBVaKWb8kiWINMNFld7J6Ei-D5bdPLL2tq3JUZOxKlbgPflyxguAKZLk9U_sbVYu0jBI7PHOhVX6hcqbL0cR6jKU4EHI_-YiDFgPDWnV4wC41xJ4bMJsinkQVgFW0=&uniplatform=NZKPT&language=CHS
+{Date}: 2012-08-25
+{Volume}: 11
+{Journal}: 武汉船舶职业技术学院学报
+{Issue}: 04
+{Pages}: 14-17+29
+{Keywords}: 通航环境;风险识别
+{Abstract}: 长江黄金水道穿越了我国西南、华中、华东三大经济带,在我国实施西部开发、中部崛起和东部率先的区域发展战略中地位十分重要。三峡坝区河段主航道全长59km,地理环境比较特殊,对整个长江的航运、防洪的作用以及区域的政治经济具有很大的影响。本文结合三峡库区特殊地理通航环境,建立三峡通航安全风险识别标准体系,对确保三峡枢纽畅通具有重要意义。
+
+{Reference Type}: Journal Article
+{Author}: 吴侃.
+{Year}: 2010
+{Title}: 发展三峡库区江海联运,构建长江上游物流中心
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahKPikyW00OyEKmP6NgnldGT_K8pXsKkkY7hLesjoM8jc0tgs1sVhgkqQ8xOg4dVylqnE29qLFW8udNzI1HddDTLEalArLeIs_NqZL6zqHBZtDJ5vwDeT80CAjMbFtVGGq5SUQ-VEWhjpAEmnbAbvFq27c8UORwaNvfwwJZ8MW0NfQ==&uniplatform=NZKPT&language=CHS
+{Date}: 2010-05-15
+{Volume}: 20
+{Journal}: 西部论坛
+{Issue}: 03
+{Pages}: 51-54
+{Keywords}: 三峡库区;江海联运;长江上游物流中心
+{Abstract}: 重庆建设长江上游物流中心,必须发挥长江"黄金水道"的优势;三峡工程蓄水成库后,长江上游航道条件大为改善,也为构建长江上游物流中心提供了必备条件。必须大力发展内河航运,加强与"长三角"的合作,共同发展现代江海联运,才能将重庆建设成为现代化的、具有持续竞争优势的物流中心。
+
+{Reference Type}: Journal Article
+{Author}: 刘元丰.
+{Year}: 2004
+{Title}: 长江三峡成库后川江航运面临的机遇与对策
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahI_lk9WoFitOlP_uMwSn_iIRUiH2wso6HiP7fbv8STo4D814mXCn8dwEkjHRXJDGzo6EcCIhgl96MquvJdD3r2p8AAqLkrfFsm6WhKNB8Sr3wgyqJzzlwJ9uxiBMcaxFaj_3PjyynIXjbW-mBXuva5TYD8f4AqxLtg5VkbgaOjTqQ==&uniplatform=NZKPT&language=CHS
+{Date}: 2004-03-15
+{Journal}: 水路运输文摘
+{Issue}: Z1
+{Pages}: 56-57
+{Keywords}: null
+{Abstract}: <正> 1.前言 川江位于四川盆地和三峡地区,素以“滩险特多,礁石林立”而著称世界,属于大型山区河流,是我国西南地区水路运输的重要通道,在我国交通运输体系中,占有极其重要的地位。2003年6月1 5日,长江三峡大坝围堰发电蓄水至135m;至2007年,初期蓄水按156-135
+
+{Reference Type}: Thesis
+{Author}: 王大伟
+{Year}: 2019
+{Title}: 长江上游船舶运输组织特征分析与优化研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbOYRv4ygLAWrbF33zDWn8WbsNgE9ly8c1L9N6VWOp5aKZfef6FZXZjyn_v7xJeyHhYXSr-FZ7PoLPuUabreasFrbZr4ACYTDiXYSItLkFdSayrDc_8W3R7kgWyYZQ2Pymh09CpRvYxydf93VX9G4EEsT4PxUICbBDKGv0yPYlA4icA6Np2L2reztyU9Vt7MzC9GhDzJA8tIiA==&uniplatform=NZKPT&language=CHS
+{Date}: 2019-06-05
+{Journal}: 重庆交通大学
+{Issue}: 06
+{Keywords}: 特征分析;船舶运输需求;运输组织优化;组织方案
+{Abstract}: 近年来,长江流域社会经济发展迅速,长江水路货运量高速增长,长江上游船舶运输需求也在不断增长。长江上游控制河段较多、三峡船闸通过能力不足与不断增长的船舶运输需求之间的矛盾已逐步显现,如何更加准确地评估船舶运输需求,优化船舶运输组织方式,如何使船舶运输系统朝着效益最大化的方向发展,这是港口航道部门亟需解决的问题。本文的主要研究内容如下:为应对长江上游不断增多的水路货运量和频发的船舶拥堵问题,本文探讨了长江上游船舶运输组织现状,首先分析长江上游港口及航道水运条件,长江流域航道等级呈现上游等级偏低而下游等级较高,而同时近年来长江上游社会经济高速发展使其逐步由货物的输出地演变为聚集地;上游重要港口如宜宾、泸州和重庆等虽然发展迅速,其水路运输竞争力并不明显。船舶运输组织系统特征主要从港口及航道、运输船型、船舶流量和货物结构五个方面进行分析,这些因素共同决定船舶运输组织系统的规模和效率。通过分析长江经济带社会经济,检验社会经济、交通运输体系与船舶运输的相关关系,在此基础上建立基于经济需求驱动的水运量预测模型,预测长江上游水运量,同时对长江上游船型发展及船舶流量进行预测,为下文船舶运输组织优化模型建立奠定理论基础和数据依据。通过建立数学优化模型优选最佳运输方式和船型,以成本因素评价船型的营运性能,使目标函数达到最小值的船舶组织方案就是研究期内的最优方案。分别以集装箱船和干散货船进行案例计算分析,计算出船型优化结果和组织方式优化结果,并对优化结果进行了不确定性和敏感性分析。将以上分析结果和建立的优化模型应用到长江上游论证船舶运输组织方案。结合长江上游船型尺度分析和船型经济效益论证,分析得到推荐的运输组织和船型方案。
+{DOI}: 10.27671/d.cnki.gcjtc.2019.000323
+
+{Reference Type}: Journal Article
+{Author}: 伍岗;张晓川.
+{Year}: 1995
+{Title}: 三峡工程对四川航运的影响及对策
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahKKGcPMVsTM4ouqp1vjBApL-cY7J2wwI4HuI6RPbs66T_x0w-O_OLi52QdIX-9hCVXAIb5ZmDYdh29kX3F8bcIuZfeR96TTJiBrGqD1UR05Y2PtNgYHAOkKM99TILojt3xoz6UPuJ-GFW-R7ADOq2etvjyD48PCAPTCFQr2sZjYaw==&uniplatform=NZKPT&language=CHS
+{Date}: 1995-07-28
+{Journal}: 水运管理
+{Issue}: 07
+{Pages}: null
+{Keywords}: null
+{Abstract}: 三峡工程对四川航运的影响及对策伍岗，张晓川举世瞩目的三峡工程已正式开工。对于四川航运，三峡工程既是机遇：改善川江通航条件，满足航运发展需要，又是挑战：工程施工期间的碍航和断航，工程竣工后的航道泥沙淤积，如何把握机遇，促进四川航运上新台阶，同时妥善解决...
+
+{Reference Type}: Journal Article
+{Author}: 宋卫国;王忠法.
+{Year}: 1992
+{Title}: 三峡工程综合经济效益研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahLrQuHkw30bVvGDkwX1oegMYZJnIRLjH2IOSD3LdfzM3wOYcu366xA7VvDoIPpa7NjFH11b3kaMgB7qfMPpa_9XfyxUAggjqvVFzr-cguBU4yWYZ8iY5YkFJlLS-kGhJKNgBaoPGxdYb_VTJ4U4QYOl-76XPvRvUxe4k9SSD13NjQ==&uniplatform=NZKPT&language=CHS
+{Date}: 1992-12-30
+{Journal}: 水利经济
+{Issue}: 04
+{Pages}: 3-9
+{Keywords}: null
+{Abstract}: <正> 三峡工程是一项举世瞩目,争论激烈的大型水利工程,在长江的治理开发中占有极其重要的战略地位。为了科学地,全面地评价三峡工程的综合利用效益,为工程的决策提供信息,本文在一些科研成果的基础上,对三峡工程的综合经济效益,特别是防洪与航运方面的效益进行了较系统的研究。本文所述的大部分内容系“七五”国家重点科技攻关75—16—07—03专题的科研成果,笔者只是起了一个整编的作用,其目的在于向社会真实、客观地介绍三峡工程的经济效益,让各界人士对此有一个较为全面的了解。文中不妥之处,敬请批评指正。
+
+{Reference Type}: Journal Article
+{Author}: 丁继民,刘元丰
+{Year}: 2003
+{Title}: 探析三峡库区航行原则的改革
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbMmmuc05IKAgtoAFVG-wNMGk4Z75AAnXbIvoIIfpvxm8rHRda1QCKJ0OYnv77kQh7uoWLdgi2EFXGNQ2BI9IrD_MuTzFyhNzXW796g4O2qCwo2ZE9GPIDi4MJk-u0HygCeuTjCl9xxtoD39x6ZYcpsHe1QdvG6cx87k_Y8zqRtwWtu-Jz1Z0IzSoiLxxFMUn3M=&uniplatform=NZKPT&language=CHS
+{Date}: 2003-10-30
+{Journal}: 中国水运
+{Issue}: 10
+{Abstract}: 三峡工程蓄水后,三峡库区(以下简称库区)的通航条件和船舶交通流特性随之发生了深刻变化,航道尺度增大、流速变缓、航速提高、运行周期缩短、航行成本降低,库区航运效益将大幅提高。然而,航运效益必以安全为前提,当前库区亟待建立科学的船舶交通安全新秩序。对此,交通
+
+{Reference Type}: Journal Article
+{Author}: 齐俊麟;罗宁;王东;
+{Year}: 2013
+{Title}: 三峡船闸运行管理创新与实践
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbN1GaLVRWe-Yc-wHWcNbqERuLeAwZXXKLckX4Mx1d5kFqouvvY6b9F4Q23iw1vuM8Y4DFvcKR7dcHNjb2K0UDo6DRI4ZzhiX8Gkz0Wm_y1rvzc45--_xN7aUJViptpXBhFdt7xrSx5XkrLdaD90PZTaI1ETqnR5sE02i_pN0UnGHi7MyryY2Dby1bBLSQs89FQ=&uniplatform=NZKPT&language=CHS
+{Date}: 2013-05-15
+{Volume}: 28
+{Journal}: 交通企业管理
+{Issue}: 05
+{Pages}: 17-19
+{Keywords}: 三峡船闸;运行管理;创新;通过能力;通航效率;三峡局
+{Abstract}: <正>三峡船闸与2003年6月16日投入试通航,2004年7月8日通过国务院船闸通航验收委员会验收并转入正式通航。三峡船闸作为世界上建设规模最大的船闸迄今已经安全、稳定、高效运行近10年,过坝运量成倍增加,2011年达到10032万吨,其中上行5534万吨,超过设计通过能力,适应了库区经济发展需要和长江航运发展需求,三峡工程航运效益凸显。
+
+{Reference Type}: Conference
+{Author}: 龚少军.
+{Year}: 2003
+{Title}: 三峡工程建成后长江航运面临的机遇与对策
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahLtv7hZFYn1vN_b1UqQB5mqfbKfFuWzwa5BAzvCnfQLSSnXhQrl3QGtHo_v8nDxXhIKJMnBVIJ3WQLrvg9rFY3SGzZE9tkmBvsdTeVC7gfmueTuI9zK_LYj7M_UZPudF_xghUUsoDcjbOXzszGxgBZH3ZGXwkeVhhU7da7g_b535dkfa2NhKjFT&uniplatform=NZKPT&language=CHS
+{Date}: 2003-01-01
+{Journal}: 海船进江与航行安全保障论文集
+{Issue}: null
+{Pages}: 91-93
+{Keywords}: 三峡工程;航运;对策
+{Abstract}: 分析三峡工程建成后长江航运面临的机遇,提出重振长江航运的具体措施。
+
+{Reference Type}: Journal Article
+{Author}: 文传祺.
+{Year}: 2001
+{Title}: 论长江三峡工程明渠封堵及蓄水期碍断航对航运的影响及对策
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahLYpqc_VYzSH1xNsHtvPCFkOkdWjfSRV_SiHTmtznZgCglHhywkPTwq3hHy4hwR9c1HU2cHEO-PX6muW5zm83KnHBwXf6G-JL_pwucLVlG7-Rx337UxZ0LxpfS2tCr3TcxRTGR1rwAG7gzOemAIZfCwS_YePxMCPrHtsJtkmxymyw==&uniplatform=NZKPT&language=CHS
+{Date}: 2001-12-30
+{Journal}: 武汉造船
+{Issue}: S1
+{Pages}: 61-62
+{Keywords}: 三峡工程;碍断航;对策
+{Abstract}: 分析了长江三峡工程 ２００２年１１月至２００３年６月长达８个月的碍断航期对航运业的影响，采取翻坝转运以确保长江客运及物流链不中断，断航期实施干散货陆运分流应统筹兼顾国家、地方、港航企业的社会效益和经济效益，把碍断航期间航运损失减少到最小程度。
+
+{Reference Type}: Journal Article
+{Author}: 谢五洲;邓洋凡;
+{Year}: 2018
+{Title}: 三峡枢纽物流瓶颈破解之道
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbOWkhPDQGjNZpFKVNQAl1Lfet76VxDO_g6S3F0k8zmhYDK0x4EtbUrzNyXvOhudjq9tHlclOkUOA6sFLFAsy9_WCqpq2g87Y5lStZHJOn128dK4wQLeLhKTlJM0Jvstb6uVrZ1dPC_JC2NeaDhLfyygUS0gUlWzZl2E12NeWfMOP_qasvDcTWk8LoQavpjI_13E6Tasy_h1Zw==&uniplatform=NZKPT&language=CHS
+{Date}: 2018-10-31
+{Volume}: No.597
+{Journal}: 合作经济与科技
+{Issue}: 22
+{Pages}: 90-92
+{Keywords}: 三峡枢纽;物流瓶颈;破解之道
+{Abstract}: 三峡枢纽已成为事实上的长江物流瓶颈,本文探讨在"一带一路"与"长江经济带"战略背景下,如何破解三峡物流瓶颈,打通长江黄金水道的永久性方案。
+
+{Reference Type}: Journal Article
+{Author}: 蒋江松;刘建国;
+{Year}: 2010
+{Title}: 重庆内河航运助推经济发展的思考
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=oGHOruzuSDPYHQcjhFQxB0I2wvnkIjDapR5-SpXOhlfmbXSz6iVHZm5uNu4XxH36qxha7hFKsZ-QpXXRaYLfgnUomKcjw_NH_9PVuyN4MB3RSSjPFrc3XqeVsMxK0iT7ef4q3tJZpeEyAsmDPTwYQYW6GoYM2IOCoYA8qeug0pFmEYrNwnNDUyfuUvbTIIY50pTkD9Nms40=&uniplatform=NZKPT&language=CHS
+{Date}: 2010-09-25
+{Volume}: No.445
+{Journal}: 水运工程
+{Issue}: 09
+{Pages}: 28-30
+{Keywords}: 内河航运;助推经济;黄金水道
+{Abstract}: 在对重庆内河航运调研的基础上,重点阐述长江黄金水道对重庆经济发展的助推作用,结合世界经济发展和布局,从沿海溯河而上不断延伸扩至内地的一般规律,提出在加快西部开发过程中,需要充分发挥长江黄金水道优势,进一步提高对内对外开放水平,增强中心城市辐射带动能力,培育新的经济增长极。
+
+{Reference Type}: Journal Article
+{Author}: 荣天富;谢葆玲.
+{Year}: 2006
+{Title}: 三峡工程航运效益初步分析与展望
+{URL}: https://link.cnki.net/doi/10.16233/j.cnki.issn1002-4972.2006.08.016
+{Date}: 2006-08-25
+{Journal}: 水运工程
+{Issue}: 08
+{Pages}: 70-73+78
+{Keywords}: 三峡工程;航运效益;水位抬升
+{Abstract}: 三峡工程除防洪、发电外,具有相当的航运效益,目前这一效益已初步显现。文章对此作了概略分析,并指出存在问题和及时抬高三峡水库蓄水位的必要性。
+{DOI}: 10.16233/j.cnki.issn1002-4972.2006.08.016
+
+{Reference Type}: Conference
+{Author}: 林桦.
+{Year}: 2001
+{Title}: 三峡工程对库区航运发展的作用与影响
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahI_P4oFkeXHltrq8I3ZV3WRt9hl-4ezcPO660smxv7zusYUbKr-9rcFewP2Ob8o_TueOvPfi1W-v-jssefeWAEcXFlyCHflxBGaLJPUE3KNY3D4XLiC-YoTahPyy_RmLov2-BArmW98e7B38MxB9EQqMdx4dW8AsF4EKEzxwgGCdrqpLrWnDEuv&uniplatform=NZKPT&language=CHS
+{Date}: 2001-01-01
+{Journal}: 中国航海学会内河船舶驾驶专业委员会学术研讨会
+{Issue}: 总第139期
+{Pages}: 60-61
+{Keywords}: 两坝间;正常蓄水位;三峡电站;驳船队;万吨级船队;日调节;川江航道;引航道口门区;作用与影响
+{Abstract}: <正> 1 前言举世瞩目的长江三峡工程,坝址位于川江西陵峡河段,工程规模宏伟巨大,施工期长,总工期为17年。2003年过坝运输将启用永久船闸,三峡库区航段从长江宜宾至宜昌1044 km俗称川江,其中长江干流重庆至宜昌660 km,流经丘陵峡
+
+{Reference Type}: Journal Article
+{Author}: 齐俊麟;
+{Year}: 2017
+{Title}: 三峡升船机建设运行及三峡水运新通道建设研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbOwfexc9lz8EMFLgsqn_rVP8snZzQSxsg7c3l7395hw-DvdFmD2zuEU12JZCczExyr4r6IJAidu7xAUYcAFr_z_PJvjmuWq5YzQzplGPwl781skvVNv7MMjDVPmVzQ8EfmKL0D63XI3Gt53LX41VUuwm_0Z-_FMi-dRRVHEMPnORD_stucApZ_Jkq3VkDfs4RTSSZJPKkEuTQ==&uniplatform=NZKPT&language=CHS
+{Date}: 2017-09-15
+{Volume}: No.558
+{Journal}: 中国水运
+{Issue}: 17
+{Pages}: 6-7
+{Keywords}: 三峡工程;航运技术;三峡水运新通道
+{Abstract}: 有关设计单位和科研院校组织开展了三峡枢纽水运新通道建设和葛洲坝枢纽船闸扩能的前期研究,本文对三峡升船机建设运行及三峡水运新通道建设研究进行了分析,并提出了建议。
+
+{Reference Type}: Journal Article
+{Author}: 罗鹤文.
+{Year}: 1995
+{Title}: 三峡工程与长江航运
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahIiWnWkmVywr_WPrxqd9EHD4tOczGeHE7KVV5g4kHZJeemSjlBzLz18XEmvFB9ey-Dtc3xoHwnQQuAlgLnm__fvVldcnkyXALOoqUMfeTpMukR9f-g_goZjjMfINqoq_hAgR4MbX547OO__mcr1wZq859kvDkoVPpvuVdZ9-vtvxA==&uniplatform=NZKPT&language=CHS
+{Date}: 1995-08-30
+{Journal}: 前进论坛
+{Issue}: 08
+{Pages}: null
+{Keywords}: null
+{Abstract}: 三峡工程与长江航运罗鹤文长江是我国横穿东西的最长黄金水道，是西南地区物资出海的通道，对发展我国国民经济起着举足轻重的作用。敬爱的周总理生前对长江流域和航运十分重视，在兴建葛洲坝时，明调指出：建坝要以航运为主，若要碍航，宁可炸掉。葛洲坝船闸十余年运行经...
+
+{Reference Type}: Journal Article
+{Author}: 王静;徐昶;
+{Year}: 2021
+{Title}: 四川省对三峡水运新通道建设的货运需求
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbOW01dc7p8J8SvazNv8kPLCLfdFnNCR64f_faFWbgB23gQIKGW5yOqGjydNaBwmiQDnjKwclW1njE5Dg6CfiYpd3ap60lqbYJOwnqFUee5qMhzfBnw7XppppzH3zYDcbP_YoP_MzYbxEKkpchobJvPr2ONZ9K1sNVHOcK66jqrkPM21w9cEna5hux5n05ddv__hjICUfL1ejQ==&uniplatform=NZKPT&language=CHS
+{Date}: 2021-01-20
+{Volume}: 43
+{Journal}: 水运管理
+{Issue}: 01
+{Pages}: 6-9+24
+{Keywords}: 三峡水运新通道;分货类产销平衡法;过闸货物量
+{Abstract}: 为支撑三峡水运新通道建设,在分析四川省经济、运输、水运发展概况的基础上,采用分货类产销平衡法研究得到四川省过三峡船闸货物量远期可达1.3亿t。三峡水运新通道的建设对长江上游川渝滇黔融入长江经济带以及充分发挥长江黄金水道的独特优势和巨大潜力具有十分重要的意义。
+
+{Reference Type}: Journal Article
+{Author}: 邢国江.
+{Year}: 1988
+{Title}: 关于三峡工程航运效益计算方法的探讨
+{URL}: https://link.cnki.net/doi/10.16233/j.cnki.issn1002-4972.1988.03.004
+{Date}: 1988-03-31
+{Journal}: 水运工程
+{Issue}: 03
+{Pages}: 15-19
+{Keywords}: null
+{Abstract}: <正> 三峡工程是一个包括电力、防洪、航运等水资源综合利用工程。由于长江航运的地位特别重要,所以必须在保证航运的月标条件下进行方案选择.通过系统的优化使整个工程项目产出最大化,在经济上就是国民经济效益的最大化,即对国民经济发展做出的最大贡献。
+{DOI}: 10.16233/j.cnki.issn1002-4972.1988.03.004
+
+{Reference Type}: Journal Article
+{Author}: 龚少军;刘沛安.
+{Year}: 2004
+{Title}: 三峡工程给川江航运带来的机遇及对策
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahL7VBOhkVOer1tkAHiW1Tq2Phmc37eBlRxO5esbpWRFN5Tto6r6JH2pKoTAwTQzPAFUGeiACVglZPJL9be8vinKgwm4BzfGnq7r8ywXdUDgLN0XVZ2xC6pHqg3PE-_XC8EsySOVX9b1ufuYtlGMKvueoxgUjtdlPnRscBCMSaa-Sg==&uniplatform=NZKPT&language=CHS
+{Date}: 2004-12-05
+{Journal}: 水运管理
+{Issue}: 12
+{Pages}: 7-9
+{Keywords}: 三峡工程;川江;航运
+{Abstract}: 分析三峡工程给川江航运带来的机遇,提出了振兴川江航运的具体措施。
+
+{Reference Type}: Journal Article
+{Author}: 刘海青;
+{Year}: 2012
+{Title}: 新建长江三峡通航水梯的设想
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbMvSjLDSfiMwZOOLZJwAV4N98qxDXqHs7le_7AbdKx57EvWseddxylTQ1elsUUaRWOGbx6Uz55cYDEMplA4K5WWQAcYuDQ6zczIEBgxXE2OOy04jXY25fKq1msW7Fqm820enxTp09t1cfqsMpeBbpBbsSkrwl0zEDX-fuwhe5y95Oj2EMBiJjEywNhK5rz_Iez1_csqD2iHuw==&uniplatform=NZKPT&language=CHS
+{Date}: 2012-11-01
+{Volume}: No.384
+{Journal}: 中国水运
+{Issue}: 21
+{Pages}: 40-41
+{Keywords}: 三峡船闸;货物通过量;通航设施;水梯
+{Abstract}: 三峡船闸货物通过量提前20年达到设计值,现有船闸通航压力越来越大。为了保证三峡大坝通航能力与经济发展相适应,文章利用相关理论与数据论证了新建三峡通航设施的必要性,提出再建长江三峡通航水梯的初步构想。
+
+{Reference Type}: Journal Article
+{Author}: 张文军;潘绍辉;许茂增;彭青松;方建元.
+{Year}: 2006
+{Title}: 三峡永久船闸对重庆航运的影响及对策
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahLIs-hfQSXJD13iuiYL5VBKFQOkBu-ZPRtCcrWREZHWzhO3yLZkMXPlyfkfYL2yDHvmn_8OEWniNw_y3xx5NYwtF7cWLEbgVqQTlvheKlOX5gzPqH9AK6lIfTeA4qdGmau0pCA7ra_JfjnbOq-7BJ6f06Mt-ZHK7JXIeg60PV3TiA==&uniplatform=NZKPT&language=CHS
+{Date}: 2006-04-30
+{Journal}: 重庆交通学院学报
+{Issue}: 02
+{Pages}: 142-145
+{Keywords}: 三峡永久船闸;翻坝运输;升船机;标准化船舶
+{Abstract}: 三峡永久船闸的建成,极大的改善了长江上游的航行条件,降低了船舶的运营成本,增强了水运同其他运输方式的竞争力,但是,由于现阶段各种条件远远达不到设计条件,造成船闸前船舶积压严重,船舶过闸等待时间过长等问题,增加了航运成本,影响了航运发展.本文介绍了目前的过闸现状及其影响,提出了一些解决方案.
+
+{Reference Type}: Journal Article
+{Author}: 刘亮;
+{Year}: 2017
+{Title}: 务实推进三峡通航现代化  全力服务长江经济带发展
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahIm-n2r_itf_J44ao-B-PAxOS5NrLbV-dZSE-X5iwJ3PuAend9SHXH_0k9orNc0F06MQtcy59LDu2PuX-Izx4kdn5rYFh-gmmd-bOZ2rBnV18xdVzg46-p9hinzCvX6142WH9WdLXw9pJ3DsHpGgM4iZ6FDZ1Oy9vfH_bW5vb215WGcCTxch7GZtvZy5B8qcde0-M5kR4DBhg==&uniplatform=NZKPT&language=CHS
+{Date}: 2017-01-15
+{Volume}: No.534
+{Journal}: 中国水运
+{Issue}: 01
+{Pages}: 19-21
+{Keywords}: 三峡通航;现代化;长江经济带
+{Abstract}: 三峡通航是长江航运的重要组成部分,三峡河段是贯通长江黄金水道中上游水域的咽喉要道,其间的三峡、葛洲坝船闸及升船机更是畅通物流的关键节点,对长江经济带发展具有举足轻重的地位和作用。三峡通航管理至关重要,使命光荣、责任重大。三峡通航局将充分发挥综合管理优势,不断推进现代化建设,持续提升三峡枢纽航运效益,全力服务长江经济带发展。
+{DOI}: 10.13646/j.cnki.42-1395/u.2017.01.005
+
+{Reference Type}: Journal Article
+{Author}: 钮新强;
+{Year}: 2018
+{Title}: 建设三峡水运新通道  提升黄金水道支撑力
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahLOQ4FkAR-yYl2S4ds_jwZdw47wRtQYzbNh-lutgwFfhCxclHpPEpWSv3whQKiyzoeUKQS87eBCAuUtjXEnbbhTBROM5_ipA82mRw-AU2uElIU1K9kspK8fG6Dyzu1LzGWepeaY34doZJhC_ow271h8BJ3YRvmFwYApOqNQVw4B-xc1JQfLOuoqeFSlKojW73EWyktNtj1MNw==&uniplatform=NZKPT&language=CHS
+{Date}: 2018-06-15
+{Volume}: 2
+{Journal}: 长江技术经济
+{Issue}: 02
+{Pages}: 47-52
+{Keywords}: 三峡;新通道;黄金水道;支撑力
+{Abstract}: 长江是水运货运量位居全球内河第一的黄金水道,其航运能力尚未充分发挥。建设三峡水运新通道,提升长江航运能力,对发展绿色交通、保护生态环境、促进区域协调发展、加强与"一带一路"建设衔接、构建长江经济带全方位开放新格局等都能起到重要的支撑作用,是新时期推动实施长江经济带发展战略的重要举措。
+{DOI}: 10.19679/j.cnki.cjjsjj.2018.0211
+
+{Reference Type}: Journal Article
+{Author}: 杨利;梅竞艳;
+{Year}: 2012
+{Title}: 枢纽航运效益刍议
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=oGHOruzuSDMbUTMn625cYbgf-WJhtj0RepfVzXvxLSsqgSPvnIR9ghVPGprwA45n39T4ncop1NlfQPZkfmOudxZ8q60lKwF0MERmfbupFPQ5vW5n8b0L8gvE3ZCweJ5jT119npxjqOuxzBmHzcOwJVPjDwRGkn9vkT_86erHsZ5C6VOPshKMi7IUAE_cW8cC7dE3_I3AWE8=&uniplatform=NZKPT&language=CHS
+{Date}: 2012-04-15
+{Volume}: 27
+{Journal}: 交通企业管理
+{Issue}: 04
+{Pages}: 43-45
+{Keywords}: 水利枢纽;航运效益;枢纽管理;三峡;葛洲坝
+{Abstract}: <正>2011年12月中、下旬,葛洲坝船闸、三峡船闸年过坝货运量相继突破亿吨大关,这是三峡枢纽通航的重大历史突破,也是长江航运发展史上的一件盛事,由此也引发了新一轮的有关枢纽航运效益的热议。笔者就枢纽航运效益谈一些看法。
+
+{Reference Type}: Thesis
+{Author}: 韩宝宁
+{Year}: 2018
+{Title}: 基于大数据的区域经济对航运发展的驱动研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbNcBYWLPTIRZz6qx9ZbMKASHhYAFWHJaySJkCgikwS3CQ4kRbisOp33q0ua0OxuCM1U1189WOESxstILBQyUdRkTfn8RtK1mAncb-lwhOKBm0zqSAERprtLvO7eh5kUekYBxRSd1SWN9qKHUKwLZnfYVrgD8hgqIlTHTCXoQGBK-9qgiVmTNath5BMVawViV9-2Ku6zQ-8Tjw==&uniplatform=NZKPT&language=CHS
+{Date}: 2018-04-13
+{Journal}: 重庆交通大学
+{Issue}: 01
+{Keywords}: 长江经济带;大数据;航运需求模型;货运量预测;供需关系
+{Abstract}: 长江流域是我国内河水运资源最丰富的地区,同时也是经济水平高速发展的区域,然而长江沿岸的经济增长与货运量增长之间并未协调发展,二者存在一定的矛盾,例如长江上游地区经济发展与西部大开发战略的实施带来了旺盛的水运需求,而长江上游叙渝段航道等级仅为Ⅲ级,难以满足货物运输需要,因此解决经济发展与航运需求之间不协调发展问题则显得尤为重要。本文的主要工作如下:(1)阐述莱茵河、密西西比河、长江的航运发展概况,对比中外经济总量和货物吞吐量的演变规律,分析经济与航运之间的关系,对经济驱动航运发展的物理过程进行研究,参阅国内外货运需求预测相关文献资料,总结各类预测方法的优缺点及适用性,为后续的研究作铺垫。(2)根据国家货物分类标准对货物进行准确分类,将货物分为17个大类,122个中类,197个小类;基于大数据方法对经济与货物的关系进行分析,对影响各类货物产量的多种影响因素进行相关性分析,通过多元回归分析法构建货物产出和需求模型。(3)以2012年全国分地区投入产出表为基础构建区域间投入产出价值表,利用价值量等于实物量乘以价格的转化关系,将价值量表转化为实物量表;对比长江经济带各省的水运比重与航道水深的关系,建立水运竞争力的经验模型,从而完成货运总量向水运量分配的模拟研究,构建经济驱动下的航运需求模型。(4)介绍长江经济带的社会经济与综合交通运输发展现状,基于航运需求模型完成长江经济带的水运量预测研究。本文的主要研究结论如下:(1)基于大数据方法构建货物产出与需求模型,以2015年数据进行验证,经验证,货物产出与需求模型的效果较好。结果表明,大数据方法适用于研究货物的供需关系。(2)航运需求模型既可以预测各区域货运总量,也能预测出区域间的货运流向,同时能够完成货运总量向水运量的分配模拟研究,实现货物运输的空间联系。(3)本文建立的水运竞争力经验模型能更直观反映并量化航道等级提升引起的水运竞争力的增加,将模型的计算值与实测值对比,结果表明,该水运竞争力经验模型效果较好。论文的创新点:构建经济驱动下的航运需求模型预测货运量,该模型既可以从总量上对各省货运需求进行预测,同时可以从流向上完成各省的货物需求模拟,实现货物运输的空间联系。
+
+{Reference Type}: Journal Article
+{Author}: 刘晓玲;吴鹏;王海霞;张婧姝;王桃;
+{Year}: 2017
+{Title}: 乌江航道等级提升志在通江达海
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbPebKej_ckmlO94i24BQeMrBDxkFQFzvW-I-9VZ02-3MN9slfp9VLGZsrndXmlMcXZOZ2ptOX56n9l679DDLtjJ-HBv9Wxbk20qNgBQG8xzSAc3D23E7bE0N7oD-80EEQBeS-mM44YxERrq5frIqFspi9Bl6a63uTilWalZjI-2lK35CTflNryZIMu_9vdROTlbCUMWzzCApQ==&uniplatform=NZKPT&language=CHS
+{Date}: 2017-04-25
+{Volume}: No.298
+{Journal}: 中国港口
+{Issue}: 04
+{Pages}: 60-62
+{Abstract}: <正>乌江航道通过更大限度地满足沿线地区的水运需求,从而对沿线地区产生广泛而深远的影响,综合效益十分显著,主要体现在对航运业、综合交通、经济、社会发展的影响等方面乌江是长江上游右岸的一级支流,若乌江航道仅停留在IV级航道水平,受运输经济性、运输能力和三峡工程千吨级以下船舶过闸比例日趋降低的影响,乌江沿线地区与长江中下游地区的物资交流大部分需要经由重庆港中转,则乌江通江达
+
+{Reference Type}: Journal Article
+{Author}: 成思强;
+{Year}: 2021
+{Title}: 长江上游界石盘至九龙坡段航道水运量分析预测
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbNzZWc8uIzbjvweSRjZbJhA2o0DzUY57l9PgrSXl_TL0UMPbkgIB9KxBURWlPvis5oSZ5bkT_H8bbHAxGokyAQePGcXRFH_MMD2-MEuGQfLppuaeDU91_TGD9ljEBkMW654ci2Q-6O3piJcXBGKgLGxxpLkpuSAd9Dkif5eBXHX2m5K3sfzQZPyXF8M4sCaNY7DFnsPPNEgyA==&uniplatform=NZKPT&language=CHS
+{Date}: 2021-03-15
+{Volume}: No.466
+{Journal}: 吉林水利
+{Issue}: 03
+{Pages}: 6-9+25
+{Keywords}: 长江上游界九段;水运量;货物种类;现状特点;预测
+{Abstract}: 长江上游界石盘至九龙坡河段是连接四川省和重庆市的重要水运通道,其水运量分析预测对该航道的建设规划具有重要意义。本文根据长江干线主要港口进出港数据统计经过该河段的水运量现状,结果表明该河段水运量从2000年的538万吨增长为2019年的8 859万吨,货物上、下行量分别占总量的45%和55%,占三峡过闸货运量的25%左右。主要货种包括煤炭、石油、矿石、矿建材料、集装箱和钢材占货运总量的70%,其中矿建材料、集装箱、石油占比持续增长,煤炭、钢材占比降低,矿石占比小幅波动。采用回归分析法、弹性系数法和指数平滑法预测未来20年水运量,结果表明2040年该河段水运量将达到19 991万t,其中集装箱占比为17%,矿石、煤炭等占比减少。研究成果可为长江上游界石盘至九龙坡河段Ⅲ级航道提升为Ⅱ级航道建设工程提供支撑。
+
+{Reference Type}: Journal Article
+{Author}: 俞国斌
+{Year}: 2001
+{Title}: 管好枢纽航道  服务三峡工程
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbNAwVyermiF2yjPQkIuIcpW8LvHcVXGRJgF53Euo32PVsU3C9FG8RNJSkHWOCa4mo9b5IfZGdEfkalkh-GzE5oe6vqvCk2pISwrbX89mGDIXfjMx8GKXzoWcDs55LEUFvSajh2mndCxRonQ-vFm4IKnLJ_clVJ1I1vyAc7NQg4OJfDRJ5TXmTXxL-99vtTCPyk=&uniplatform=NZKPT&language=CHS
+{Date}: 2001-05-25
+{Journal}: 水运工程
+{Issue}: 05
+{Pages}: 20-23
+{Keywords}: 三峡工程;葛洲坝枢纽;航道;管理;服务
+{Abstract}: 针对三峡、葛洲坝枢纽航道在我国国民经济发展中起到的作用，长江三峡通航管理局全面了解枢纽航道的现状，正确认识、分析枢纽航道的特点，采取切实有效的维护和管理措施，提高航道维护质量，确保枢纽航道安全畅通。
+
+{Reference Type}: Journal Article
+{Author}: 骆世钟.
+{Year}: 2002
+{Title}: 长江三峡工程的升船机是航运和发电的共同需要
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahJ9gNUQhqQc-OlhGasOxba64uvoEYrdvyd5_F9sZ2TOHJV2ADeYpzQ3wVJRjQG9NOCDbT6LOiyUGCwDNiWY2-d2vMq4ZSzpRVBEWvVWU1Vc19doaUTZA_faQXM9dK4G1T-XNcQfFpE8QFLpaVf2qBZLNHdLG04ym2a0hOK5ucM4Aw==&uniplatform=NZKPT&language=CHS
+{Date}: 2002-01-30
+{Journal}: 航海技术
+{Issue}: 01
+{Pages}: 34-35
+{Keywords}: 升船机;永久船闸;航运;发电;效能
+{Abstract}: 此文在对拟建的长江三峡工程的升船机的效能作综合论述的基础上，提出为充分发挥三峡工程航运和发电的综合效益，升船机应尽早、尽快建成，投入运行的建议。
+
+{Reference Type}: Journal Article
+{Author}: 郑浩昊.
+{Year}: 2008
+{Title}: 建设三峡航运物流中转中心的思考
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahJWRPFXBklPPXltNTSkMc0YmKx-PkCuupKyArSRmRbHc8zDhiRdngcFUp3FmhLmsqOnkJoifSIzKIwG_h7Z1he82YZMQL0Or8zXf1zug1sZ9xvX965RCdWYgBtYuBUl35gC7269qvLI6Gc3-RFkYnXxjCNdT5G7yaSdBDceP6Md0w==&uniplatform=NZKPT&language=CHS
+{Date}: 2008-05-15
+{Volume}: No.237
+{Journal}: 交通企业管理
+{Issue}: 05
+{Pages}: 50-51
+{Keywords}: null
+{Abstract}: <正>一、三峡翻坝及中转运输的起因1.三峡船闸运能与运量矛盾日益突出三峡工程全面竣工后,回水到重庆,全线深水航道,平均宽度约1100米,回水区流速减少60%,将形成600多公里
+
+{Reference Type}: Journal Article
+{Author}: 吕佳;刘天宝.
+{Year}: 2008
+{Title}: 三峡蓄水对重庆物流的影响
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahJktFUSRcbt8DJVchs_MWvMkFO2qwU2d4J5bUAepBFJ41clHOoV6cx93giPjiFeQr1rGqiX1rBOz6pcFNjQbyXfJMj6ETZcefqcbbRHj922W8JGVbFk1Q5ipEbDo9DKYXgKGLpSKD9D2onh1tLgTIJg4hLojsaRETxXkm-v7CVcLA==&uniplatform=NZKPT&language=CHS
+{Date}: 2008-10-10
+{Volume}: No.158
+{Journal}: 物流科技
+{Issue}: 10
+{Pages}: 136-137
+{Keywords}: 三峡;物流;重庆
+{Abstract}: 三峡蓄水振奋了长江航运业,由此给长江沿岸地区物流产业的发展带来了巨大影响。文章以重庆,这一长江上游的中心城市为例,分析了三峡蓄水对重庆物流发展的影响,并对重庆应如何抓住这一有利时机,建设成为长江上游的现代物流中心提出了一些建议。2003年6月16日,长江三峡枢纽永久船闸成功试航,标志着长江步入新的航运时代。有关专家认为,三峡成库后长江"黄金水道"的运力等同于至少六条铁路线和十条高速公路线,长江航运的竞争能力将使整个西南地区的物流格局发生大的改变。重庆地处长江上游,是我国西部唯一拥有所有物流载体的城市,也是我国西南地区水陆空交通枢纽。随着三峡工程的即将建成,万吨级船队直达重庆将变为现实,这势必会给重庆的物流发展带来巨大影响。
+
+{Reference Type}: Journal Article
+{Author}: 潘家铮.
+{Year}: 2004
+{Title}: 三峡工程从根本上改变了川江航运面貌
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahJWp3IvyCYP2unXnQtW31dDEenhvWb-p02LcEFaiC3u1h1-hww-Wia8ymNQxuTQhWnUNEpUzM1j-tZW6_OvHThEGw2qxSb9CWJrS_n_nEM6z1p0423UVtIrKhQ9Qve8UKzoeW9nrrMYu7YGEmBl70uOyVQAI2xxb4E2FDUODvxudg==&uniplatform=NZKPT&language=CHS
+{Date}: 2004-08-25
+{Journal}: 中国三峡建设
+{Issue}: 04
+{Pages}: 10-12+67
+{Keywords}: Three Gorges Project shiplock; official operation; conditions of navigation
+{Abstract}: 三峡双线五级船闸经过十年建设和一年的试运行检验 ,2 0 0 4年 7月 8日 ,通过了国务院长江三峡二期工程船闸验收委员会的正式验收 ,三峡船闸具备在 135至 139米水位下正式通航的条件。在试运行的一年里 ,通过三峡船闸的货物多达 30 0 0多万吨 ,超过了葛洲坝工程建成以来年通过葛洲坝船闸 180 0万吨的最高水平 ,显示了三峡船闸的吞吐能力和船闸设计、施工水平。由于三峡水库蓄水后 ,航运条件得到改善 ,运输量特别是货运量大增 ,川江航道成为长江最繁忙的水运线 ,首次进入国内最发达的水运航运线行列。三峡船闸的运行压力很大。许多人关心船闸的设计规模是否合理 ,船闸能否适应川江航运未来发展 ,如何确保船闸安全 ,对此 ,本刊编辑部请三峡二期工程船闸验收委员会副主任、验收专家组组长、两院院士潘家铮对上述问题进行了解答。
+
+{Reference Type}: Journal Article
+{Author}: 任翔;
+{Year}: 2014
+{Title}: 构建三峡综合交通运输物流枢纽的SWOT分析
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahKCst9dnnInTnnZYH88zbbbX_pmPPKtPzKOVYnfRLd8nKKLe48100jc0C5BAML4KQQzTIgcIniZx6INftgyu_hkUTPckquvFMARjGylWGaOQ2BK2JEUC9NlfNDy1YRoLI3J6xI4Ja4Jk0gHJGSvWj8wVaU8NJzEa--ehYQW9UU1xWuEZ_4vj1vf90q7m_bHY88=&uniplatform=NZKPT&language=CHS
+{Date}: 2014-11-15
+{Volume}: 29
+{Journal}: 交通企业管理
+{Issue}: 11
+{Pages}: 59-60
+{Keywords}: 物流枢纽;三峡地区;综合交通运输;SWOT分析;长江航运
+{Abstract}: <正>一、三峡地区交通运输物流情况概述长江是我国水运的黄金水道,横跨我国东、中、西部三个经济带,是我国东部产业向西部推进的重要通道。三峡大坝的建成运行极大地改善了长江中上游通航条件,自2004年以来,三峡过闸货运量以年均16.6%的速度快速增长。2013年,三峡船闸日均运行31.01闸·次,刷新其运行以来的年日均运行纪录,通过量达到1.06亿吨,同比上升15.40%,提前近20年达到设计的双向1亿吨的年通过能力。
+
+{Reference Type}: Journal Article
+{Author}: 邹静;
+{Year}: 2019
+{Title}: 内河水上通航综合服务区建设浅析
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=oGHOruzuSDPcLUN6fzT7l8hS6NNnXJJ3ZNjp1HSoAKXQzDZ0hnXLCewEQ3cjnPoNEWlLReWbyNZV7IjY2mPAt6d8vfTdDTLEaD-dSSLtLjVwwtd2mJ-JkalCySyYwoRZaOIseQa8gBkCDZ12vYjjXTLJaMPpTreLj3g8waN_ocQ3ylgeSTgcaWTFA29UxvQCFW4dL9Td6n2itvdBQOr0mA==&uniplatform=NZKPT&language=CHS
+{Date}: 2019-10-15
+{Volume}: No.633
+{Journal}: 中国水运
+{Issue}: 19
+{Pages}: 53-54
+{Keywords}: 综合服务区;三峡通航;高质量发展;建设
+{Abstract}: 建设三峡通航综合服务区是交通运输部2019年推进12件更贴近民生实事之一,三峡通航综合服务区以"三峡"独特的区位优势及其影响力,运用其特有的安全、绿色、便民服务,创新形成现代交通运输服务新模式,是推进交通强国建设和长江航运高质量发展在三峡通航水域的具体实践。
+
+{Reference Type}: Journal Article
+{Author}: 刘学甫;
+{Year}: 2014
+{Title}: 建设三峡枢纽港  实现港产城良性互动
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahJZTvmIhdzvIYzfZMiWLsNopKqgQtF3B8maYQ55ujHf5JJ4YaQFVImgHw0qVJwRJGya-6lk1bXHS6eFNPhNNofwqSn3ZtQJ8ubxgBJAtaBKYzSEduVaedhIM5911jygl7fUlTDvqGKXuF2-CA_XVJUYjMGEzgEt-vgL-48XbvbF8_iquS_E9SfRg0hcQ-WNlzETm7qsTltjpA==&uniplatform=NZKPT&language=CHS
+{Date}: 2014-08-10
+{Volume}: No.447
+{Journal}: 中国水运
+{Issue}: 15
+{Pages}: 15-16
+{Keywords}: null
+{Abstract}: <正>目前,宜昌正加快推进现代化特大城市建设,充分发挥宜昌黄金水道优势,以水运的率先升级带动经济社会全面发展是宜昌大城建设的重点内容。国家推出"依托黄金水道、建设长江经济带"的重大发展战略,更是宜昌加快大城建设难得的历史机遇。为此,宜昌市通盘考虑交通区位优势和自身特色禀赋,明确了"港口优先"的城市发展理念,提出了加快三峡枢纽港建设的发展思路,并将三峡枢纽港作为特大城建
+{DOI}: 10.13646/j.cnki.42-1395/u.2014.08.037
+
+{Reference Type}: Journal Article
+{Author}: 陈学文;
+{Year}: 2011
+{Title}: 信息化助力葛洲坝船闸通航大发展
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbNGh5btqd9VHmGBGYvCNBZ4e4lXW_X1H1cqeP2Q2Z2JqMEeJ2bc1R7BxZcsYgZ1DBT0LjKCKIg2_LcR-Ntgmxe9BmA6QvePlyB3UG6Q_Z2F7SqnxIdIUX64Y1SdAJDJlYRcnjYnQ-FaQvCIL84PoKnAzBUH1EMgx7iiEEaEG6zD2TIp4oYVQaWW3D9MVcxmOpn2uKgT9shgng==&uniplatform=NZKPT&language=CHS
+{Date}: 2011-10-15
+{Volume}: 11
+{Journal}: 中国水运(下半月)
+{Issue}: 20
+{Pages}: 81-82
+{Keywords}: 葛洲坝船闸;信息化;通航
+{Abstract}: 通过对葛洲坝船闸三十年信息化历程的回顾和网络信息系统的现状分析,论证了信息化为葛洲坝船闸通航带来的巨大改变:船闸运行更加安全,通航调度组织更加高效,船闸通航管理模式进一步优化,社会效益和经济效益日益显现,引领着葛洲坝船闸通航管理进入一个以信息化为显著特征的新阶段。展望"十二五期",全力推进葛洲坝船闸通航信息化,将促进葛洲坝船闸通航管理水平和通航保障能力全面达到世界一流水平,助力于葛洲坝船闸通航大发展。
+
+{Reference Type}: Journal Article
+{Author}: 刘波;万成;
+{Year}: 2010
+{Title}: 宜昌港船舶过驳基地运行模式探析
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbOT3bCSHyI_IenkYZosXOQswUd023Gvzj9U8Y_IMg2FmET6I-6DQisfRK2M2bxCLSOd1HYb8svRTcZTHjAHcAouignWegoXfwgwQ7DwI156lNbydQuNNDl4fIS37YSlj2rvL8yeblMXPeQau70yif1fexHIu0slmvw7SK2SZIODZbid_my6Rbg3ZcN6Ag58hm1mR-xT6rfi_g==&uniplatform=NZKPT&language=CHS
+{Date}: 2010-12-06
+{Volume}: No.341
+{Journal}: 中国水运
+{Issue}: 23
+{Pages}: 36-37
+{Abstract}: 宜昌港船舶过驳基地的设立,有效缓解了枯水期长江中游航道水深有限与船舶运输需求的矛盾,取得了较好的社会效益和经济效益。但船舶数量与日俱增致使过驳基地压力过大,险情、事故时有发生,应引起相关部门重视。
+
+{Reference Type}: Journal Article
+{Author}: 田远年;
+{Year}: 1959
+{Title}: 三峡梯级船阐的优越性
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbN3jqTt9WEF-Sf3ERPQr46_3syhWpf8MR-vMSgucAYfyucZVO4yEWfF5b44qUY4J11e6zDUXNZ83jhf1Nz7E4z9V4MKvBG4Rd7ilpOt3vo-Dum4Ns9lpYsr8B9UqWTRHJrBmrN_ylYbr6NcF4MdoDgWtI7VKab5e0OWtxXzCQap0bLtQJvgdjjEY6kpN-k34sk=&uniplatform=NZKPT&language=CHS
+{Date}: 1959-09-28
+{Journal}: 人民长江
+{Issue}: 09
+{Pages}: 30-31
+{Abstract}: <正> (一)三峡水利枢纽综合效益是举世无双的,它的兴建对发展长江航运事业起着重要的作用,枢纽建成后“川江天险”将全部淹没而成为狭长的平湖;重庆至海口将成为统一的深水干线航道,给建造大型船舶和组织大型船队运输提供了有利的基础,并且有力的促进了长江水运的发展。可是要获得这些巨大效益,尚需修建规模庞大的通航建筑物,来克服大坝所形成的巨大
+
+{Reference Type}: Conference
+{Author}: 冯小检;杨利;
+{Year}: 2006
+{Title}: 葛洲坝大江河势改造是长江航运发展的需要
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=oGHOruzuSDP16C4jkXZiWFACTG7uF5X9ouUQLHPWxl_jW2YN4C6ky5HxgDG7NJF3HUsT-ivsb7V5YwsMPBuHhZAV3u_mboTdZeDKKTVoVRdEeBqmF2GjW3kChhAqsE5ZCbCDksPF9qn6fK37LeatWF4ixbKoPTEVdRVrZdlomSv8cqhaiJNCZ3_d2cpGdslcb3AQlARjXZuWVNRhi3MTRw==&uniplatform=NZKPT&language=CHS
+{Date}: 2006-09-01
+{Journal}: 船闸科技2002-2005年度优秀论文集
+{Pages}: 248-250
+{Abstract}: <正>三峡船闸开通运行以来,三峡水库蓄水,库区通航条件明显改善,川江航运迅猛发展,通过葛洲坝和三峡的货运量连攀新高。以葛洲坝船闸通航24年来分析,过闸货运量稳步提高,从通航初期的147万吨增加到2004年的3042万吨。过闸货轮增长依据市场货运增长大致分为以下五个阶段: 一是1981年至1984年,从通航初期的147万吨增加到1984年的552．4万吨,我国市场经济处于起步阶段;二是1989年的883．1万吨,国有大型企业已初具规模,需要大量的能源和原材料阶段;三是1996
+
+{Reference Type}: Journal Article
+{Author}: 莫磊;钟鸣;马晓凤;刘少博;李亚秋;
+{Year}: 2017
+{Title}: 基于船舶AIS及签证数据的长江内河货运阻抗及分布模型研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbM9eMOtzbnU6IKA8un8Di6SGYbq747vgpEJ9i8FpZAnJgaEUBm-NZMMGvgesw6szcCvRmMAfvA_UyQ9o04IviL6E4s_KDwD7yVuvfd8R2BNwEKcBtYATok7F6EJm3vizHBAD_EBC6DOvtsl2pbhbx6JBdZEQ1Ae4MV0RrCNFnwNceNGuaLw1z4Ta1estuXkZwefIhbGGKyEMg==&uniplatform=NZKPT&language=CHS
+{Date}: 2017-06-28
+{Volume}: 35
+{Journal}: 交通信息与安全
+{Issue}: 03
+{Pages}: 98-106
+{Keywords}: 水路运输;AIS数据;货运阻抗模型;重力模型;TLD
+{Abstract}: 为了研究长江内河各航段复杂多变的航道环境对水路货物运输的影响,根据船舶AIS数据及三峡船闸过闸数据建立一种考虑不同月份、不同航段的船舶逆水而上、顺流而下2种情况的货运阻抗函数,并基于Matlab求解得到长江内河重要港口节点之间不同月份的时间阻抗矩阵。以2010年10月船舶签证数据为例,结合距离阻抗矩阵和时间阻抗矩阵,标定阻抗函数为幂函数和指数函数下的重力模型的参数,建立相应的货运分布模型。并在不同模型下分别预测了2012年10月货运量分布情况。对货运实际观测值和模型预测值结果进行货运距离分布(trip length distribution,TLD)方法检验。结果显示,以时间为阻抗指标的幂函数和指数函数重力模型预测结果的重合率(coincidence ratios,CR)值分别为0.83和0.86,比对应的以距离为阻抗指标的预测结果的CR值0.81和0.82要高,所建立的以时间阻抗模型更能反映长江内河货运实际情况。
+
+{Reference Type}: Journal Article
+{Author}: 曹光荣.
+{Year}: 2010
+{Title}: 三峡蓄水成就水上高速公路
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahJlh5LaOe-vK8OcBnTn07-VTCW0Lpok_lo-I5PpIWHmzr0JHoSDR-8yu3mJ68ehn8C9eXBI-1u7X97vqvLt4CkmSYPylVfiDz1ZdHYnQ-Z8noEmyfJvofD8eQzx7HhJJM_CWC0yYb5BGxNU2V0mqr1xgWYa47XjRD3TZgvqA9NVyw==&uniplatform=NZKPT&language=CHS
+{Date}: 2010-09-15
+{Volume}: No.161
+{Journal}: 中国三峡
+{Issue}: 09
+{Pages}: 23-26
+{Keywords}: null
+{Abstract}: 航运是三峡工程的主要效益之一。2003以后,随着三峡蓄水对通航条件的改善,长江2838公里干线航道按照"深下游、畅中游、延上游"思路加快整治,内河通航基础设施建设加快进行,至目前,长江沿江已有一类水运口岸22个,4个亿吨和16个千万吨级港口,长江水系内河航道通航里程已达6.5万公里,长江运能相当于40条京广线。长江水系水运货运量和货物周转量分别占流域全社会运量的16.4%和67.8%,沿江所需85%的铁矿石、83%的电煤和85%的外贸货物依托长江水运来保障,产业向沿江地区集聚的趋势十分明显。事实证明,三峡水库蓄水有力地促进了长江航运事业的发展。
+
+{Reference Type}: Journal Article
+{Author}: 胡兴娥;曹瑞.
+{Year}: 2024
+{Title}: 三峡工程蓄水运用20年综合效益发挥与展望
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahJkwT-ERh8Cyaw5B8FL82hd3I5rVghzlDWwEpf1tSZUoary5kgDjBeTRYEZ9Ml6kWc5paxVdprP3NGFmka_1b4Kt8x4EoVRfJOrpUWrkEfzqqb2t_AAk67G9OnsGpQhpNBOY-kHWwEyYHwve7_85bFVUnBdsV5oleRzKMdjnI6k8w==&uniplatform=NZKPT&language=CHS
+{Date}: 2024-06-12
+{Volume}: 41
+{Journal}: 长江科学院院报
+{Issue}: 06
+{Pages}: 1-9
+{Keywords}: 三峡工程;综合效益;防洪;发电;航运;水资源利用
+{Abstract}: 三峡工程自2003年蓄水发电至今已运行20 a，初步设计主要功能全部实现，并适应运行条件变化和发展需求持续优化运行方式，防洪、发电、航运、水资源利用等综合效益全面发挥。截至2023年底，三峡工程累计拦洪运用66次，拦蓄洪水超2 088亿m<sup>3</sup>，确保了荆江河段防洪安全，极大减轻了长江中下游防洪压力；累计发出清洁电能超16 600亿kW·h，相当于节约标准煤5.1亿t，减少二氧化碳排放13.3亿t；极大改善了库区与长江中游航道条件，累计通过货运量超20亿t，有力促进了长江航运快速发展；枯水期累计向下游补水约3 400亿m<sup>3</sup>，有效保障了长江中下游供水安全；生态调度成效显著，四大家鱼资源量明显恢复。为了应对频发的极端水文事件带来的风险和挑战，确保三峡工程长期安全运行和持续发挥巨大综合效益，从推进气象水文预报技术研究与应用、三峡水库调度运行方案优化、创新成果转化运用、智慧化管理等方面提出了下一步工作展望。
+
+{Reference Type}: Journal Article
+{Author}: 荣天富;
+{Year}: 2015
+{Title}: 从航运角度看三峡工程建设的成功经验
+{Date}: 2015-02-25
+{Journal}: 水运工程
+{Issue}: 02
+{Keywords}: 三峡工程建设;成功经验;航运角度
+{Abstract}: 三峡工程是一项伟大而复杂的工程。从工程论证到设计、施工,业界曾针对其通航技术中存在的大量问题进行过研究和讨论,问题得到了较好的解决。三峡大坝建成后,工程综合效益正在发挥,且川江运量一直在快速增长。实践表明,当初在三峡工程建设时机的决策、三峡水库特征水位的选定、三峡通航建筑物规模和布置设计的优化、通航尺度标准及其保障措施的论证确定、施工期通航方案的认定与实践以及三峡水库调度方案的优化等问题上所做的工作及其成果都是有效的。从航运角度论述了三峡工程建设的成功经验,为今后类似工程建设提供借鉴。
+
+{Reference Type}: Journal Article
+{Author}: 朱智明.
+{Year}: 1994
+{Title}: 长江三峡工程建设对航运的影响及其对策研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahLmo7E9petdmdBSh4wvI3WkNuR4olNE3mPtanljTLn5IwrqDrnkgiDZ8bGuX72xO7SJDkI20Ks5lmCyXQZiivCIVL6eBV85MNBfsgvmw3YL2o4LkAi98wprZBq7yvMIEUxJabHamhM_LMk2h0HXe-JSqZPatdiWpxaNd5jRv0AJCQ==&uniplatform=NZKPT&language=CHS
+{Date}: 1994-02-12
+{Journal}: 水运科技信息
+{Issue}: 01
+{Pages}: null
+{Keywords}: null
+{Abstract}: 长江三峡工程建设对航运的影响及其对策研究朱智明（四川省自贡市航管处）举世瞩目的长江三峡工程开工了，该工程的兴修，将产生巨大的综合经济效益和社会效益。就航运而言，三峡工程建成将为长江航运发展创造极为有利的条件。三峡工程回水可改善５７０～６５０公里航道，...
+
+{Reference Type}: Journal Article
+{Author}: 石小平;姜舒曼;
+{Year}: 2014
+{Title}: 建设三峡综合交通物流枢纽打造长江黄金水运通道
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbNSR802pHLTbrxzlrpQEdhtfKg6RYpJkXb91lK1IpAclvlS0p9gDz-g-xjxvIjXd78wyol9n6lH2Cw-RZ9-viuZ8vdHfvdxvsuVfkgnUObvVoMus_7oeVp2XPXLzSKBMO-HdXHMrbH_G_Xcxe1GWo_cV5eRFryBwWKVaZ9oTMunXtVE_V5n8IrUkRVUE5eri9A=&uniplatform=NZKPT&language=CHS
+{Date}: 2014-09-15
+{Volume}: 36
+{Journal}: 物流工程与管理
+{Issue}: 09
+{Pages}: 27-29
+{Keywords}: 综合交通;物流;长江黄金水运
+{Abstract}: 建设综合立体交通走廊,打造长江经济带对中国经济发展的全局意义深远。文中从宏观的角度分析建立三峡综合交通运输枢纽的战略意义,从具体实施层面介绍了规划建设的主要内容,认为三峡综合交通枢纽的建设进一步整合了长江经济带各类资源和产业优势,势必将促使区域经济和物流业共同发展。
+
+{Reference Type}: Thesis
+{Author}: 孟祥欣
+{Year}: 2022
+{Title}: 《人民日报》长江黄金水道报道研究（2014-2021）
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=oGHOruzuSDMfTa9SDMtpk_t8QMCos1rVOs9075JxvOoIQe1BNj5y-Qf_f5IuSdUyLivJ1BF-nmUPCPvW0kAPfWVOHgDERpJlSnxc2uaTiWxF2RZoGw8QzkEXU02q7En01IKqX_bIiFo4HuL1b14IzE-1oNiQHgVbwz-CD3ciJtR6gUIOS51S4CGZ0qmDiVpf4kB_UxQKTwoWMSvT9_bSkw==&uniplatform=NZKPT&language=CHS
+{Date}: 2022-06-06
+{Journal}: 重庆交通大学
+{Issue}: 03
+{Keywords}: 长江黄金水道;《人民日报》;框架理论;新闻报道
+{Abstract}: 长江是我国第一大河,长江黄金水道是横贯东西的水运大动脉。2014年国务院出台《关于依托长江黄金水道推动长江经济带的指导意见》,明确指出要推进干线航道治理,整治浚深下游航道,缓解中上游瓶颈,改善支流通航条件,优化港口布局,加强集疏运体系建设,发展江海联运和干支直达运输,打造畅通、高效、平安、绿色的黄金水道。因此,长江黄金水道的建设具有重要的现实意义,在此背景下,媒体在宣传报道长江黄金水道上有不可忽略的作用。《人民日报》作为我国权威的主流媒体具有代表性,本文以《人民日报》2014年至2021年的长江黄金水道报道为研究样本,运用框架理论从以下三个方面进行了深入系统的研究:首先,在绪论部分阐明了研究背景和意义,对国内外研究现状进行了梳理,明确了本文研究思路、方法及创新点。在此基础上,就长江黄金水道的概念、长江黄金水道报道的框架理论应用和长江黄金水道报道的研究设计进行了详细阐释,为后续研究奠定基础。其次,本文主要运用内容分析法对《人民日报》2014年至2021年的512篇长江黄金水道报道进行研究,结合甘耐姆媒介框架四个维度,从宏观层面出发,对话题、外在、认知和情感四个维度进行框架分析。研究得出,报道存在构建畅通绿色水道、凸显工程项目建设、传递国家方针政策、侧重正面宣传的报道框架。最后,研究得出《人民日报》长江黄金水道报道存在的不足,并针对不足提出了相关优化建议。研究发现,报道存在缺乏高效主题,安全报道不足;报道视角单一,跨区域报道少;批评报道欠缺,报道深度不够;报道形式固化,内容缺乏新意等不足之处。针对上述不足提出了以下建议:报道高效水运体系,注重长江平安发展;丰富新闻报道视角,强化区域协同报道;及时报道建设问题,填补深度体裁报道;凸显报道表现形式,创新图片报道方式。通过研究,能够为《人民日报》后续报道长江黄金水道提供启示。综上,本文运用框架理论对《人民日报》2014-2021年长江黄金水道的报道进行了系统研究。通过研究,不仅可以补充框架理论在水运报道中的应用,提升《人民日报》后续长江黄金水道报道质量,还有利于塑造新时期内河水运新形象,助力交通强国建设,推动长江经济带的经济社会发展。
+{DOI}: 10.27671/d.cnki.gcjtc.2022.000879
+
+{Reference Type}: Journal Article
+{Author}: 贺兴东;刘伟;汪鸣;刘文华;
+{Year}: 2020
+{Title}: 打造循环航运物流系统支撑下的长江经济带坝上地区世界级内需型产业集群
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=oGHOruzuSDNVQ638nkW3ImF9wzGRGcjAuiYkLqeBgQUsCB2HZ3Tl4j9EMLIj8ykCCijwZkxwAsIOrdP_WioDw2ksCGrNQpN7PnbM-1PQChD8c6oBUDazSX6LtcS2ap7iwUs52jKFVCkviVW3K7hzrEds4khql1qB63GQoJzIJl8FHgvVaIYrc85-J-bJWhmPQQHNSHMBsdhjNuILxSx4Tw==&uniplatform=NZKPT&language=CHS
+{Date}: 2020-06-10
+{Volume}: No.970
+{Journal}: 中国经贸导刊
+{Issue}: 11
+{Pages}: 24-26
+{Abstract}: <正>三峡大坝建成后,在库区航段创造了无比优质的航运条件,既促进了上游产业的布局发展,又造成了通行能力很快超过设计产能的拥堵。习近平总书记一直关注三峡船闸"肠梗阻"问题,2018年在武汉主持召开深入推动长江经济带发展座谈会时,提出要抓紧找出解决问题的有效办法。由于三峡大坝拥堵问题形成于我国经济由高速增长向高质量发展的转型期,现有过坝需求存在很大的变数,单纯从综合运输体系内部
+
+{Reference Type}: Journal Article
+{Author}: 李献中,郑清秀,常勤,刘怀汉
+{Year}: 1998
+{Title}: 关于万吨级船队渝汉直达保证率问题探讨
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=oGHOruzuSDPZhbG-SAKfX4u3qQLJXNsihsx3hBjiBnxqmiZBSSB0zZIE6XdPmRVGmhe1adBOGGbVwrMih91fpg6ZaQxAlol_f6Pmop9IdTFExSbv2VTcYPtBzB6jsuEDeMJNj_Rbx2FwqUo71nmeqP2-Blf8hD5zQlpwyu24eG2ntsm_3bDApZx5knEiOht5XrZK6qtme5Q=&uniplatform=NZKPT&language=CHS
+{Date}: 1998-05-30
+{Journal}: 水运工程
+{Issue}: 05
+{Keywords}: 三峡,万吨级船队,航运,保证率
+{Abstract}: “万吨级船队渝汉直达，并使其保证率不小于５０％”，是体现三峡工程航运效益的重要指标。本文就万吨级船队的采用依据、要求的航道尺度及通航水流条件、如何实现直达通航的规定保证率等问题进行了论证探讨，并对目前存在问题的解决提出６点建议。
+
+{Reference Type}: Journal Article
+{Author}: 骆世钟
+{Year}: 2002
+{Title}: 客运翻坝  货运过闸  以航补航  企稳货源
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbMxf62pulrCECuppYwNCAX9-sEd2vKukcxMczjS6FgW1wgrU68SGDZcoQb6OVvEz3uTO2_I57ycJdlqXYhFM_YrB29DaXnuZs5hTFlnbQHJZGSuN0AeU_hsu-FkHoInqoZgpJtK0j9REjdL-c6ezNK2i7NF_Bp6EMNqSvqlEt4cCwLqlHMrfjMPSI---Za2JGE=&uniplatform=NZKPT&language=CHS
+{Date}: 2002-11-25
+{Journal}: 水运工程
+{Issue}: 11
+{Pages}: 60-62
+{Keywords}: 客运;翻坝;货运;过闸
+{Abstract}: 按照三峡工程建设进度 ,2 0 0 2年 11月 1日至 2 0 0 3年 4月 9日 ,临时船闸将单独承担船舶过坝运行任务。经测算 ,在这近半年时间 ,临时船闸货运通过能力设计缺口较大。若加上客运 ,通过能力不足将更突出。为此 ,在临时船闸单独运行期 ,采用客运翻坝 ,货运过闸措施 ,可以增加货运过坝能力 ,有利于企稳货源和航运的持续发展
+
+{Reference Type}: Journal Article
+{Author}: 许传洲;
+{Year}: 2016
+{Title}: 三峡航运助推中国经济发展
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahKWJAF1oJZTYZkmKHy0znuMQoo40td4xkW4888rqJtoqOjthXxFxaflr1U1LW5J7eeHiRZLnoTxH1SMwgpG-mriKJ-8z_wAfFya0S5ZiU3WFxdiaA3KXRZHMc4J5fkw7YxEUa51BccU2ohbGVm4uV3dKyL2K0xat1vCGnMjYlKh-arTIfmLd3MCIlTBY-tSdmYQSwuP_yfmiQ==&uniplatform=NZKPT&language=CHS
+{Date}: 2016-02-28
+{Volume}: No.140
+{Journal}: 水电与新能源
+{Issue}: 02
+{Pages}: 39-42
+{Keywords}: 三峡;通航;改革;创新;发展
+{Abstract}: 三峡水利枢纽工程蓄水通航从根本上改善了长江上游的通航条件,长江航运进入高速发展的新阶段,长江干线年货运量连续十多年位居世界内河航运量之首,促进了沿江社会经济发展,改变了中国区域经济发展不平衡的格局,为中国经济整体腾飞、一跃成为世界第二大经济体做出了贡献,为依托黄金水道打造长江经济带国家支撑战略创造了条件。通过回顾三峡通航建设运行管理改革创新的历程,进一步拓展三峡枢纽通航潜力,一定能服务好长江经济带建设,为中国经济发展迈向更高台阶做出新的更大的贡献。
+
+{Reference Type}: Thesis
+{Author}: 陈琛
+{Year}: 2018
+{Title}: 基于航运大数据的长江干线班轮运营优化研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=oGHOruzuSDN8axQyo6YoZnKQB5g391cJsWt5KDr9eeG7zzJTdUOQeVkSLZd7Ppc626RTIfE6oNBTCZx6btJJ_ScveKJ2VLdRYXHY8oNftJvqIe8FbeFc_px_mKqgPmwoDG8ziefkV5GJHJmDG6qYtY7jMf70dS4APZVbLVr2opjKJp8OXXYeU5BPFh7ZMWUUvuXeDPwSk0MAOKgi7eaYVA==&uniplatform=NZKPT&language=CHS
+{Date}: 2018-09-01
+{Journal}: 武汉理工大学
+{Issue}: 07
+{Keywords}: 大数据;内河航运;航线优化;船期优化;货运量预测;数据融合
+{Abstract}: 长江干线航运在我国综合运输系统中占据着重要地位,是名副其实的黄金水道。伴随着航运建设,长江航运信息化发展开始步入了“大数据”时代。然而大数据的魅力并不在于数据规模本身,如何使长江航运大数据资源成为长江航运发展的重要助推剂是长江航运进入大数据时代后最为关注的问题。一方面,对长江航运大数据进行挖掘是实现数据价值的关键,尤其是对于长江航运企业,获得的数据资源和服务一直非常稀缺;另一方面,现有的管理优化方法需要更新,使更丰富的数据资源可以被有效利用,尤其是目前管理方式较为落后的航运企业。本文以大数据时代下长江班轮企业的运营优化为研究对象,主要开展了以下几方面工作。(1)提出了考虑时空因素的水路短期货运量预测模型。考虑空间因素可以提高短期预测精度,对水路货运网络复杂高维空间数据,模型以频繁模式思想挖掘航线网络的频繁港口,利用频繁港口保留高维水运网络的主要空间信息,再用神经网络拟合频繁港口与目标港口的时空货运量关系。模型对各种时间粒度的货运量预测的精度都高于仅考虑时间因素模型,且能对周、日等短期货运量进行预测。(2)提出了考虑波动货运量需求的长江干线班轮航线优化模型。该模型以航线运营效益最优为目标,在传统航线优化模型中同时考虑波动的货运量,针对具有复杂约束的多层优化模型,根据决策变量特征,设计使用遗传和改进粒子群算法嵌套迭代复合两阶段求解算法。能在波动的周货运量条件下,搜索效益最高的包括挂靠港、船型和舱位分配的航线方案。(3)提出了船舶在港口停留时间预测模型。首先,针对分析船舶在港口停留时间所需的信息收集所有数据片段,再次,基于船舶行为特征将数据片段融合为研究所需的完整数据,最后,根据航运特点运用半参数模型对船舶在港口停留时间进行拟合,并开展预测。(4)提出了考虑不确定延误因素的长江干线班轮船期优化模型。该模型从班轮准班率出发,以成本最小为目标,结合船期优化先计划后执行的特点,针对港口延误和三峡船闸滞留这两个主要的长江干线班轮延误因素,设置运营企业的目标准班率为随机机会约束,建立带补偿函数的长江干线班轮船期两阶段优化随机机会约束模型,采用随机模拟粒子群算法搜索模型的最优解。通过实例对不同目标准班率、不同延误惩罚、不同运营策略的船期优化方案进行了分析。上述研究以航运大数据时代的班轮运营优化为对象,以航运大数据为基础,根据班轮运营企业管理需要,对数据进行挖掘,运用于班轮运营的航线和船期优化,不仅可以提高航运大数据的服务水平,也可以为长江航运企业运营提供科学指导,促进长江航运的健康快速发展。
+{DOI}: 10.27381/d.cnki.gwlgu.2018.000135
+
+{Reference Type}: Thesis
+{Author}: 张文瀛
+{Year}: 2020
+{Title}: 内河集装箱多式联运系统优化及协同策略研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbMs0_woyLkIQHB0h-BTj0fGNGruh63nhOO_ryuEA_aTgUnb_V9xSdwGY5oW6kdEsl7_wYind9TVgkImov1xckkCMY-bC7rPRPVE7Mb1DwQM67fTFwTyZt8iycFF3K2xr1aIr84UFWNi9d8gKcweWcnUhFP4RlaighZEONG8GkkLQq2h4YHQGmW-xrptE7gv6tg13gw5hDB8WQ==&uniplatform=NZKPT&language=CHS
+{Date}: 2020-07-10
+{Journal}: 北京交通大学
+{Issue}: 03
+{Keywords}: 内河集装箱多式联运;内河内部干线转运;内河外部支线分流;网络优化;货流分配;激励合同
+{Abstract}: 随着“一带一路”、“交通强国”等国家战略的提出,“公转水”、“公转铁”和“散改集”等政策的推行,我国交通运输行业越发重视发展多式联运,强化集装箱运输的系统化应用,这一趋势为集装箱和多式联运的发展提供了良好的产业政策和市场环境,也促使内河集装箱铁水联运业务蓬勃发展。研究内河集装箱多式联运系统优化和协同策略,不仅可以推动内河综合运输业务自身的变革,推进内河多式联运组织的优化与标准的建立,还可以实现内河运输与陆路运输、内河与海运等多种运输方式的协同合作,实现集装箱在联运网络上的高效移动与系统优化。本文综合运用系统工程理论与方法、不确定规划方法、排队论、博弈论等基础理论,通过定性分析与定量计算相结合的方式,研究了内河集装箱多式联运的网络优化、货流分配、运输方案优化及组织协同四个方面的问题。(1)界定内河集装箱多式联运系统。提出了内河集装箱多式联运系统内涵,并将其表达为“内河内部干线转运”和“内河外部支线分流”两个层面的系统构成,同时将轴辐式网络与其结合,给出了内河集装箱轴辐式多式联运网络框架,基于网络的边和节点的拓扑结构抽象原则,构建了多模式分层次立体化的拓扑结构模型。(2)研究整个内河集装箱联运系统的网络优化问题。利用不确定分布方法刻画了联运网络的多维不确定性,构建了基于不确定规划的双目标优化模型,推导出了期望值目标函数和机会约束的确定性等价形式;再结合Epsilon约束方法和文化基因算法,设计了混合智能算法;然后通过长江干线联运网络实例和TR网络数据对模型和算法进行了验证,结合灵敏度分析,探讨了集装化系数和转运节点数量对最优时间和成本目标值的影响,结果表明集装化系数越小,集装化程度越高,单位运输时间所需要的运输成本越低,因此提高内河多式联运的集装化程度,有助于联运系统的降本增效。(3)研究集装箱在内河外部集疏过程中所形成的支线分流网络的货流分配问题。通过综合考虑分流枢纽、内河枢纽节点和运输通道的三重容量限制,利用minmax决策准则构建了混合整数非线性规划模型,再引入线性化技术将原模型转化为线性规划模型;并在分枝定界法的基础上采用切割平面方法,设计了分枝切割法进行求解;接着,以长江沿线集装箱集运分流网络为算例进行研究,通过灵敏度分析,探讨了不同容量限制对最优目标值和货流分配网络演化过程的影响,结果表明随着水路直运通道容量值的增加,内河在货流分配方案中承担的运输量越多,越能大幅度降低总运输费用,因此提高内河的通行能力,有助于实现集装箱多式联运供求总量均衡、联运网络货源配置最优。(4)研究集装箱在内河干线运输过程中所产生的过闸拥堵、船舶通过时间长、运输效率低等运输方案优化问题。应用M/M/c排队论,描述了船舶在内河的过闸排队过程,采用两阶段建模思想分别建立了双目标路径优化模型和运输模式选择模型;并针对路径优化模型,利用改进的分枝定界算法进行求解,针对模式选择模型,利用时间成本对比分析法,进而得到优化的联运方案;再以长江干线的三峡枢纽港作为案例,结合灵敏度分析,探讨了排队等待时间对联运方案的影响,结果表明在内河干线运输过程中,可以通过多运输模式的选择降低船舶等待时间;最后,对翻坝联运、水水过驳模式与传统水运做了相关指标对比分析,结果表明这两种模式均能够减少船舶待闸时间,因此通过提高升船机数量及载运量,加强翻坝公路、铁路通道的建设,有助于提高内河干线转运效率。(5)研究非对称信息下的内河集装箱多式联运组织协同策略问题。围绕内河集装箱多式联运经营人和各承运人之间的协同关系,构建了基于期望和熵决策准则的不确定双层规划模型;再针对信息对称和信息不对称两种情况,设计了两步优化算法,以此分别获得了最优激励合同的清晰表达式;结合算例分析,探讨了非对称信息对内河集装箱多式联运合同设计和收益分配的影响,结果表明激励系数随风险规避水平增加而降低,信息价值随风险规避水平增加而增加,多式联运经营人(MTO)获取信息的意愿也随风险规避水平增加而变得强烈。因此,在非对称信息条件下,MTO作为联运服务集成商及联运方案决策者,通过引入最优合同机制,对组织整体收益进行合理分配,是优化内河多式联运组织协同的较佳策略。论文图57幅,表38个,参考文献162篇。
+{DOI}: 10.26944/d.cnki.gbfju.2020.000125
+
+{Reference Type}: Thesis
+{Author}: 王洪杨
+{Year}: 2022
+{Title}: 长江中下游沙质河床滩槽稳定性及航道承载力研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=oGHOruzuSDOYrBGh9GUCRGsme4g4shSbA8W0XSu8o10j5ooF5AAXwQUvm7asiRsESrl1llkKoIgnMWjwugtu4ZzZ5AqK16aDec48b_6cPH08l3sa77C7y7hWn5bOjrkfyd-f42g8pGIDoZLTWPzhRHhuqiZi90bsDF3NWDOLpTz5fHeSi9jupCIiYlqu1n8O6bAlRWJXooJxm4n3pFN7nw==&uniplatform=NZKPT&language=CHS
+{Date}: 2022-11-01
+{Journal}: 武汉大学
+{Issue}: 04
+{Keywords}: 河床稳定性;航道承载力;航道整治;三峡水库;长江中下游
+{Abstract}: 以三峡工程为主的水库群联合调度改变了长江中下游河段的水沙条件,坝下游河段经历了长时期、长距离的调整与重塑过程,沙质河床洲滩及河槽响应水沙变化的调整规律沿程出现差异性和滞后性,引起航道条件的双向变化,也增加了航道开发利用的预测难度。在长江经济带高质量发展的要求下,长江黄金水道建设既要满足区域经济社会发展需求,也必须要在防洪保安、水资源、水生态等前提下统筹推进。因此,研究三峡建库后长江中下游沙质河床滩槽稳定性变化及影响因素,明确滩槽差异性调整与航道资源开发潜力的关系,并进一步识别考虑防洪、航运、供水、生态等多目标协同下的航道尺度的可开发阈值,对长江中下游黄金水道的高质量建设和可持续发展具有重要的理论意义与实践价值。本文采用实测资料和理论分析及数学模型等手段,分析了水沙不平衡输移对三峡水库下游河床冲淤调整的影响,探讨了不同类型的沙质河床洲滩响应性调整特征及影响因素,确定并改进了河床稳定性的评价方法,分析了三峡建库后坝下游典型沙质河床稳定性的变化趋势。在此基础上,剖析了坝下游河段滩槽差异性调整对航道开发潜力的影响,构建了多约束因子协同下的长江中下游航道承载力评价模型,并应用于长江下游湖口至南京河段,提出了该段航道的可开发尺度阈值。主要研究内容及取得成果如下:（1）分析了长江中下游各主要控制水文站水沙输移时空变异特征,明晰了中下游河段水沙输移不平衡对河床冲淤累积效应的影响。三峡水库运行后,悬移质输移对河床的塑造作用仍占据主导地位,但年内中枯水期推移质输沙量占悬沙比例较汛期增加。中游河段（监利站）以<22000m<sup>3</sup>/s的中枯水流量对其累积地貌调整的贡献较大,而下游河段（大通站）则以>30000m<sup>3</sup>/s的中高水流量对其累积地貌调整的贡献较大。（2）揭示了坝下游不同类型沙质河床在时空尺度上响应水沙通量变化的洲滩地貌调整机制,确定并改进了河床稳定性的评价方法,阐明了河床稳定性的调整规律。下荆江弯道岸滩地貌动力调整是由来水来沙条件和弯曲形态共同决定的,三峡建库后16000-18000m<sup>3</sup>/s流量对下荆江岸滩的形态调整贡献最高。岸滩侵蚀体积随泥沙通量的减小而增加,低泥沙供应将导致更多上游平面变形,倾向于发生在复合型或弯曲度>2.0的高弯河道中,其边滩形态调整更有利于引起水流偏转,促进凹岸心滩形成,主导弯道形态转化。三峡建库后坝下游分汊河段江心洲形态变形与前期多年平均水流侵蚀强度存在幂函数经验关系,沿程受到水沙变异影响减小。坝下游沙质河床滩槽稳定性变化受到来水来沙和河床边界条件的共同作用,但前期来水来沙条件为其主要影响因素。在此基础上确定了河床纵、横向稳定性指标,考虑了不同断面形态输水输沙能力的差异性,引入含沙量平均水深概念,改进了河床综合稳定性指数的计算方法,确定了坝下游弯曲型和分汊型沙质河床稳定性的判别阈值为0.055。分析表明坝下游典型沙质河床稳定性指数均与多年平均水流侵蚀强度呈较好的正相关关系,河床纵、横向稳定性呈增加趋势,河道总体渐向稳定方向发展,对航槽稳定有利。（3）明晰了不同类型沙质河床滩槽调整对航道开发潜力的影响,明确了自然禀赋条件下航道尺度开发的本底条件。三峡水库运行后,下荆江弯曲河道岸滩“凸冲凹淤”的调整趋势,导致部分急弯河段主流偏移及航槽淤窄,影响航道边界稳定及通航安全;中游典型分汊河道江心洲冲刷萎缩,引起主流摆动,影响航槽稳定,而下游典型分汊河道局部洲滩淤长变形,导致航槽缩窄,对航行安全不利。长江中下游典型沙质河段枯水河槽平均水深均与多年平均水流侵蚀强度呈正相关幂函数关系,且呈逐年增长趋势,对航深尺度提升有利。对比分析了碍航特征河段与优良过渡段的河床稳定性,引入筛选的优良断面河相关系及水深修正系数,建立了考虑水沙输移因子的稳定航深公式,估算了在自然禀赋条件下研究河段通过航道治理技术所能达到的理论稳定航深,明确了航道尺度开发的本底条件。（4）构建了多约束因子协同下的长江中下游航道承载力评价模型。分析了航道承载力与生态保护、经济需求、防洪安全及水资源利用主控因子的协同关系,引入了一种层次化的航道承载力指标体系框架,包括生态保护、经济需求、水资源利用及防洪安全四个子系统,共18项评价指标,并优化了生态敏感区、河床稳定性及水生物栖息地适宜性等定性指标的量化方法。结合综合指标评价和模糊模式识别方法的优势互补性,开发了长江中下游航道承载力模糊综合评价模型,包括水流模块、泥沙模块、生态模块和综合分析模块。（5）揭示了长江下游湖口至南京段航道承载力的时空变化特征,分段提出了航道的可开发尺度阈值。基于湖口至南京段航道资源的本底条件,将其划分为湖口至安庆、安庆至芜湖、芜湖至南京三个评价区段,分别建立了典型代表河段的航道承载力评价模型。计算结果表明随着航道尺度不断提升,湖口至南京段航道的承载水平总体呈下降趋势。未来一定时期湖口-安庆、安庆-芜湖和芜湖-南京段的航道尺度可开发阈值分别为:8.0×200×1050m、8.0×200×1050m和10.5×500×1050m（航深×航宽×弯曲半径）。评价结果表明模型在反映水资源消耗、流域经济发展及河流生态与防洪压力间的权衡机制方面具有一定优势,结合多种评价方法优势可有效区分各层次承载能力状态,明确等级边界。
+{DOI}: 10.27379/d.cnki.gwhdu.2022.001068
+
+{Reference Type}: Journal Article
+{Author}: 俞嘉虎
+{Year}: 2003
+{Title}: 135水位后川江航运发展的机遇、挑战与应对措施
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=oGHOruzuSDMSaMVGppnNs4S6xLYebrWg4WkqiwrBoQJNqJiJDv856qo_9lAmoQOliagSMEBpicYlgubJcTNBBXRRcHEotonBeuB3Q_Do-g93kNhZHWZwM1vj3zQIZUU1SBtCZjmHy07DBUHvR4UF9gB3Hv-mT1r1phVf2ynjKSpLym-bFB-BQ3msQmLryRPY53wBL-iqCyk=&uniplatform=NZKPT&language=CHS
+{Date}: 2003-09-15
+{Journal}: 水路运输文摘
+{Issue}: 09
+{Pages}: 27-30
+{Abstract}: <正> 改革开放20多年来,川江航运经历了发展、停顿、复苏、再发展的几个阶段。特别在三峡大坝胜利完成蓄水135m后的今天,如何发挥长江“黄金水道”在开发西部,振兴库区经济方面的重要作用,就成了各级政府主
+
+{Reference Type}: Journal Article
+{Author}: 骆世钟
+{Year}: 2002
+{Title}: 客运翻坝货运过闸 以航补航企稳货源
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbMNa8DPlqp_0mhjIdSQOEAOo9K142P2BEodfIR4kL6wYbq4w7g8TibmFPD5AetUao1YNRpjtkUDAwG8_1q3MON5h9nkCkO1XKh5msGo9Me2zkTG31LtsiyQDr-x1ntCfgMqQOkg-x30voIJezadi0dvwnfpsX4lVg-18kk4SylEXRfBIOkz096Jt6dyGM5RzI0=&uniplatform=NZKPT&language=CHS
+{Date}: 2002-10-28
+{Journal}: 水运管理
+{Issue}: 10
+{Pages}: 29-30+7
+{Abstract}: <正>长江三峡临时船闸,于 2002年11月1日起至2003年4月9日止,将单独承担船舶过坝运行任务。临时船闸的设计年通过能力为 900～11 00万吨,而三峡工程施工期的设计年通过量却为 1550万吨,2001年的实际过坝货运量为1514万吨。经测算,临时船闸单独运行的半年时间内,仅货运设计缺口就约为325万吨或225万吨,实际缺口约为307万吨或207万吨。若再加上过坝客运量,则通过能力不足问题将进一步凸现。其势必形成既不能保证客船快速过坝,又使货船滞留积压、客货运过坝严重受阻,最终导致货源流失的严重
+
+{Reference Type}: Journal Article
+{Author}: 杜黎明;
+{Year}: 2014
+{Title}: 关于尽快启动三峡过闸新通道建设的建议
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahK6Xbfzb9CycOxSje_eLHWmMPnXytsga22nrkkZxZ0xnC1sWtKh9EZWVS2rXJsyPBiNrnpe-A0L6UR-z_vHkh5YLirKNhiTh1jvkAHGIUx_x72ZGzo2KbjVTpQvBjXDf2a41eFFN8Yy2PTUdwMEFmjthhNG9SRKxfxWa1pUhHFMleqtlJFlq9P9nHLguHbNK-0=&uniplatform=NZKPT&language=CHS
+{Date}: 2014-04-05
+{Volume}: No.477
+{Journal}: 前进论坛
+{Issue}: 04
+{Pages}: 49
+{Abstract}: <正>三峡船闸通航10年来,航运效益显著,累计过闸货物已达6.4亿吨,促进了沿江社会经济的协调发展。但是,随着沿江经济社会快速发展,对水路运输的需求也不断增长,近年来通过三峡船闸的货运量已经超过船闸设计通过能力,成为长江上游地区航运发展的瓶颈。一、基本情况2011年,三峡过闸货物通过量首次突破1亿吨,由2004年的3431万吨增加到1.003亿吨,年均增长16.7%,比原规划提前19年达到设计通过能力,其中上行5533万吨,超设计通过能力10.7%。
+
+{Reference Type}: Journal Article
+{Author}: 靖学青;
+{Year}: 2017
+{Title}: 长江水运与长江经济带经济增长——基于面板数据模型的实证研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbO3Dd00UmaWn4kKO9yMxd8lavSlDZkKwWjHgYWsV6GmrtOdG6MO1lFxsPjbndzoNwQeEDmOlGEqu0pJy8SvcskiXzvFxw4AcoWcloZVh4o9U3AixIFIl59F2E3yWd9sjuuq3OXYzntrHuXdb5rumwwFPQ0sg2r4mEHylLpJCrPQA2LUQYQmtUnfHB7Yd06PhLITdJUY7_7rkw==&uniplatform=NZKPT&language=CHS
+{Date}: 2017-12-01
+{Volume}: No.336
+{Journal}: 贵州社会科学
+{Issue}: 12
+{Pages}: 133-139
+{Keywords}: 长江经济带;水运;经济增长;实证研究;面板数据模型
+{Abstract}: 长江经济带11省市水运规模在全国具有重要地位,而且在交通运输总量中的比重也高于全国平均水平,水上货物运输优势表现得尤其明显。运用面板数据模型的实证分析表明,水运对长江经济带经济增长具有显著的正面影响;但是将长江经济带分为东部地区和中西部地区两个区块分别进行实证分析后发现,对经济增长起到显著正面作用的只是东部3省市,中西部8省市水上运输对经济增长的影响并不显著。要使长江水运对长江经济带经济增长起到更加积极的影响和作用,需进一步充分挖掘长江航道潜力,加强长江干支流水运基础设施建设,加大长江水运规模,提高长江航道使用效率,增强长江黄金水道功能。
+
+{Reference Type}: Journal Article
+{Author}: 彭静;
+{Year}: 2018
+{Title}: 尽快建设三峡新通道
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahJwG9C2HxKBseN_kQeBuITMJc7StZSWe6Z_7tkzNDtNv1abemHxowq2t2zQrZiRYuWgFQ66SnbWk-x-oVqe-Yr13qiCh_jbNvsxWMVKMTGxjBfvrToFhqnhnmvfGbE7wSaGeMDb3_nF_kBAAYtKy6tgwxcwDOc-YsYkibWp7JnqpK6AbY3lxs7eo7ipP03rQWhRlraQh19LVQ==&uniplatform=NZKPT&language=CHS
+{Date}: 2018-03-15
+{Volume}: No.214
+{Journal}: 中国船检
+{Issue}: 03
+{Pages}: 26
+{Abstract}: <正>"长江黄金水道"曾因运量大、能耗少、污染轻、成本低的比较优势,对促进重庆及长江上游经济社会快速发展发挥了重要作用。然而,三峡船闸通过能力不足也成为长江水运的"肠梗阻"。为推动重庆加快建设内陆国际物流枢纽,应尽早决策建设三峡水运新通道,以缓解长江航运瓶颈。2011年,三峡船闸提前19年达到设计通过能力后,船闸拥堵日益严重。船闸拥堵已造成重庆市船舶运营成本大幅上升,周转效率下降。尽快解决三峡船闸通过能力不足瓶颈提升长江航运有效供给能力,是保障这一目标实现的重要因素。
+
+{Reference Type}: Journal Article
+{Author}: 廖劲松;陈刚;腾达;张玉;
+{Year}: 2013
+{Title}: 关于进一步发挥重庆内河航运优势促进内陆开放高地建设的思考
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=oGHOruzuSDMgITBF4_1LX45SPaxEP-XRg2xhpvma-hdD0HptIFMmUXULcIMUzoqxSSYsVLdWz-ozFhNY3lnj9H8bFM26Uj0QAKwW1dh3i4613vFkKn6B9cKE1mDSXcSHnFNz_ImDlBQq5zlzFVuKqPE8X-nyGN1UKYEMdhwZ_dVFFe1rsHs6603xZgFiR0Qdw6rGDx7MbeDs7p1qSFO09Q==&uniplatform=NZKPT&language=CHS
+{Date}: 2013-09-15
+{Volume}: 13
+{Journal}: 中国水运(下半月)
+{Issue}: 18
+{Pages}: 22-24+181
+{Keywords}: 重庆内河航运;优势;解决措施;发展目标
+{Abstract}: 针对重庆内河航运近几年来发展的快速性,经济性以及交通快捷性,结合重庆内河航运的发展现状和存在的一系列问题,对重庆内河航运未来的发展方向以及最终的发展目标提出相应的意见与建议。通过对三峡航区,长江航段,嘉陵江航区以及两路、寸滩保税港区等的调研分析,总结出重庆内河航运发展的优势及制约其发展的因素,从而为以后重庆内河航运的蓬勃发展奠定坚实的基础。
+
+{Reference Type}: Journal Article
+{Author}: 余飞;
+{Year}: 2024
+{Title}: 长江已成为全球航运最繁荣的河流之一
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=oGHOruzuSDNP3cBrAdftBAoQJBWkSjq7HyzgHO5ObHmFrExA9QY00a5iKQuhtrI7bp4m7UX4XuOGWUofLW6B0HUV5dJyT-0pMMmw_CNQRiK7LkseTmlAMqoz6iUtWog3T6f72AZF-FTCKM_nX8soWNio7h5QF8rYt370rt7zSbn6mQ-SwZBkmDheLKiCiZNz0x0AGC_fb_R7ihVa57EH5Q==&uniplatform=NZKPT&language=CHS
+{Date}: 2024-01-01
+{Volume}: No.280
+{Journal}: 中国储运
+{Issue}: 01
+{Pages}: 22
+{Abstract}: <正>长江三峡自古以来是内陆航运的重要要道，2023年11月底，交通运输部公布的数据显示，2023年11月23日，三峡枢纽航运通过量达1.6亿吨，已突破历年最高水平。共保障了超过55万吨重点急运物资安全便捷过坝，护航214.71万人次旅客畅游三峡，为进一步推动长江经济带高质量发展提供有力支撑。
+
+{Reference Type}: Journal Article
+{Author}: 白杉;子荫.
+{Year}: 2004
+{Title}: 三峡蓄水振奋长江航运业
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahJ3nLPIxAp5_TNes3Ji9Ezjjl5AQRWFORt2bzWej-6iJU3NP4FdgmVSh8aeybvMV61CMAjdWZTQUlxts1nlZhy7K7LgM9rsFtPZwBdGpiPaJNo_2DLta1pmDAIeZ6BKSjfhZhw5AO-nmN2xy7UDHEApdJ-eSXutydqMT5LqNHSjFA==&uniplatform=NZKPT&language=CHS
+{Date}: 2004-01-25
+{Journal}: 交通与运输
+{Issue}: 01
+{Pages}: 22-23
+{Keywords}: null
+{Abstract}: <正> 2003年6月10日,三峡工程提前5天实现135米蓄水目标;6月16日,举世瞩目的三峡五级船闸试通航成功,断航67天的长江黄金水道复航。这一天的到来令长江这条古老的黄金水道步入了一个全新的航运时代。 物流能力迅猛增强 专家预言,长江航运的竞争能力将使整个西南地区的物流格局发生大的改变,长江黄金水道物流能力将大
+
+{Reference Type}: Journal Article
+{Author}: 姚育胜;
+{Year}: 2019
+{Title}: 世界四条通航大河梯级开发航运发展比较研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=oGHOruzuSDOV1GsWEQcCH-HlBnHHYq9Vh31k8Tvl_PPNw0B1SL5WjyTKKQkwL7mVXRJ_fwSnuxPcc7tlCC-zOAPJ8xtCIC1Dqrx1NQWP3iKzs-FqyG5AqfSeh0zcJaAeTmATZONtghZlumFoVYPhp7-u6-EaiimSKnFVnyYnUIBstvAeDXOWxVdbVi7zsvQjo5jMrmgRkSEna2lntxBdPQ==&uniplatform=NZKPT&language=CHS
+{Date}: 2019-03-04
+{Volume}: 21
+{Journal}: 武汉交通职业学院学报
+{Issue}: 01
+{Pages}: 1-7+13
+{Keywords}: 通航大河;梯级开发;航运发展;比较研究
+{Abstract}: 长江、密西西比河、伏尔加河和莱茵河是世界公认的航运大河。文章以可靠的科技史料、信息资源和统计数据为基础,分析研究世界四条通航大河的梯级开发和航运发展。首先从近40年来长江上游梯级开发的航运发展实践研究入手,比较近40年来的长江上游航运发展成就。再简述密西西比河、伏尔加河、莱茵河的梯级开发历史和航运成就。继而比较世界四条通航大河梯级开发的建设成就、科技水平、航运发展和社会效益,以期对长江上游航运发展,推动长江经济带建设有所裨益。
+
+{Reference Type}: Journal Article
+{Author}: 白杉;子荫.
+{Year}: 2004
+{Title}: 三峡蓄水振奋长江航运业
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahJ3nLPIxAp5_TNes3Ji9Ezjjl5AQRWFORt2bzWej-6iJU3NP4FdgmVSh8aeybvMV61CMAjdWZTQUlxts1nlZhy7K7LgM9rsFtPZwBdGpiPaJNo_2DLta1pmDAIeZ6BKSjfhZhw5AO-nmN2xy7UDHEApdJ-eSXutydqMT5LqNHSjFA==&uniplatform=NZKPT&language=CHS
+{Date}: 2004-01-25
+{Journal}: 交通与运输
+{Issue}: 01
+{Pages}: 22-23
+{Keywords}: null
+{Abstract}: <正> 2003年6月10日,三峡工程提前5天实现135米蓄水目标;6月16日,举世瞩目的三峡五级船闸试通航成功,断航67天的长江黄金水道复航。这一天的到来令长江这条古老的黄金水道步入了一个全新的航运时代。 物流能力迅猛增强 专家预言,长江航运的竞争能力将使整个西南地区的物流格局发生大的改变,长江黄金水道物流能力将大
+
+{Reference Type}: Journal Article
+{Author}: 徐华;
+{Year}: 2012
+{Title}: 尽快开展新建三峡船闸论证工作
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbPU3GwvNsuzKcJBxDweTNVUKK4OoJZNEVNYH47dS-9g1jMpeAiWMYkkKtxRy9Y2D904x8T6XRbFVJjOpNiHUajLptHOpp-5MkMZ7kfMDtfDKu11aphjkR4AhW-EO1aOoD9VC6i0-UMsOXZQ1syphnyVvj2OVxfvunyKfcoVDeVK0ouTlyrLSRIIotwT8Ky0940=&uniplatform=NZKPT&language=CHS
+{Date}: 2012-03-15
+{Volume}: No.142
+{Journal}: 中国船检
+{Issue}: 03
+{Pages}: 25
+{Abstract}: <正>自2003年6月三峡工程蓄水以来,重庆至三峡大坝600余公里的库区航道条件得到显著改善,长江上游水运迅猛发展,长江航运运能大、能耗小、污染轻、成本低的比较优势得到了较好发挥。与此同时,随着过坝货运量迅猛增长,船舶积压现象逐年加剧。2004年到2011年三峡过坝运量年均增长14.3%,2011年达10996万吨。其中,过闸货运量10032万吨。目前正常情况下,每日最多能安排160艘左右船舶
+

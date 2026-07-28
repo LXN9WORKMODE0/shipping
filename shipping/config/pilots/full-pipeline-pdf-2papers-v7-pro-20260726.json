@@ -1,0 +1,14 @@
+{
+  "schema_version": "review_pipeline_collection.v1",
+  "topic": "三峡船舶积压疏导策略与长江航运组织",
+  "papers": [
+    {
+      "paper_id": "PDF验证7Pro_船舶常态化积压情况下的通航组织对策探讨",
+      "source": "../../../shipping4/papers/船舶常态化积压情况下的通航组织对策探讨.pdf"
+    },
+    {
+      "paper_id": "PDF验证7Pro_三峡坝区船舶积压对策探讨",
+      "source": "../../../shipping4/papers/三峡坝区船舶积压对策探讨.pdf"
+    }
+  ]
+}

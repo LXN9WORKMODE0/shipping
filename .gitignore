@@ -1,0 +1,57 @@
+# Python caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.pytest_tmp/
+pytest_tmp/
+
+# Local environment and dependencies
+.venv/
+.venv*/
+.tmp/
+shipping4/.deps/
+shipping4/.venv/
+
+# Secrets and local logs
+.env
+*.env
+logs/
+*.log
+shipping2/处理任务1：航运减碳中文/config.json
+shipping2/处理任务2：航运减碳英文/config.json
+
+# Generated project artifacts
+output/
+literature_output/
+test_runtime/
+shipping4/logs/
+shipping4/output/
+shipping4/test_runtime/
+shipping4/workspace/
+shipping/.test_tmp/
+shipping/.model_cache/
+shipping/workspace/
+shipping1/literature_output/
+shipping2/**/output/
+
+# Large literature inputs are kept locally by default.
+# Track curated fixtures or small samples explicitly with git add -f if needed.
+shipping4/papers/
+shipping1/**/*.pdf
+shipping2/**/*.pdf
+shipping3/**/*.pdf
+shipping3/papers/
+
+# Local assistant/editor state
+.cursor/
+.claude/settings.local.json
+**/.claude/settings.local.json
+**/.cursor/
+
+# Pipeline state snapshots
+process_state.json
+failed_api_calls.json
+download_results.json
+
+# Office scratch files
+~$*

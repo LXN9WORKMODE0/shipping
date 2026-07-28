@@ -1,0 +1,8 @@
+# DOI 列表示例
+# 每行一个 DOI，支持以下格式：
+# 10.1038/nature14539
+# https://doi.org/10.1038/nature14539
+# doi:10.1038/nature14539
+
+10.1038/nature14539
+10.1126/science.aaa0188

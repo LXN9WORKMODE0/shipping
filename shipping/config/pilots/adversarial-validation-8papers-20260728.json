@@ -1,0 +1,38 @@
+{
+  "schema_version": "review_pipeline_collection.v1",
+  "topic": "三峡枢纽通航能力、调度优化与碍断航风险",
+  "papers": [
+    {
+      "paper_id": "三峡永久船闸水力学问题研究",
+      "source": "../../../shipping4/papers/三峡永久船闸水力学问题研究.pdf"
+    },
+    {
+      "paper_id": "三峡船闸运行评价模型研究",
+      "source": "../../../shipping4/papers/三峡船闸运行评价模型研究.pdf"
+    },
+    {
+      "paper_id": "三峡水利枢纽货运过闸_翻坝线路优选模型及其应用",
+      "source": "../../../shipping4/papers/三峡水利枢纽货运过闸_翻坝线路优选模型及其应用.pdf"
+    },
+    {
+      "paper_id": "三峡二期施工碍（断）航问题应引起重视",
+      "source": "../../../shipping4/papers/三峡二期施工碍（断）航问题应引起重视.pdf"
+    },
+    {
+      "paper_id": "三峡枢纽碍航度测算及对策建议",
+      "source": "../../../shipping4/papers/三峡枢纽碍航度测算及对策建议.pdf"
+    },
+    {
+      "paper_id": "基于元胞自动机的水运枢纽运输组织研究",
+      "source": "../../../shipping4/papers/基于元胞自动机的水运枢纽运输组织研究.pdf"
+    },
+    {
+      "paper_id": "极端场景下三峡-葛洲坝枢纽通航调度策略仿真研究",
+      "source": "../../../shipping4/papers/极端场景下三峡-葛洲坝枢纽通航调度策略仿真研究.pdf"
+    },
+    {
+      "paper_id": "三峡船舶过闸调度规则优化及其仿真验证",
+      "source": "../../../shipping4/papers/三峡船舶过闸调度规则优化及其仿真验证.pdf"
+    }
+  ]
+}

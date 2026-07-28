@@ -1,0 +1,16 @@
+{
+  "schema_version": "llm.topic_synthesis_config.v2",
+  "max_themes": 8,
+  "max_themes_per_evidence": 2,
+  "max_synthesis_units": 16,
+  "max_sections": 8,
+  "max_paragraphs_per_section": 6,
+  "max_evidence_per_synthesis_unit": 8,
+  "max_search_directions": 8,
+  "theme_map_output_base_tokens": 4096,
+  "theme_map_output_tokens_per_evidence": 192,
+  "theme_map_max_output_tokens": 131072,
+  "outline_output_base_tokens": 8192,
+  "outline_output_tokens_per_theme": 2048,
+  "outline_max_output_tokens": 65536
+}

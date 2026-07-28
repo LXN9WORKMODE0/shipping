@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/DELL/Desktop/Python/CURSOR/**)",
+      "Bash(pip install -q click requests python-dotenv tqdm)",
+      "Bash(python main.py --help)"
+    ]
+  }
+}

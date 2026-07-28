@@ -1,0 +1,7 @@
+# PDF 文献阅读自动化工具依赖
+
+click>=8.1.0
+requests>=2.31.0
+python-dotenv>=1.0.0
+tqdm>=4.66.0
+pytest>=8.0.0

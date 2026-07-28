@@ -1,0 +1,9 @@
+{
+  "schema_version": "review_ui_project.v1",
+  "project_id": "adversarial-8papers-20260728",
+  "name": "三峡枢纽通航研究",
+  "description": "8篇高风险格式论文的Card、单篇分析与跨论文综合验证任务。",
+  "paper_collection": "../pilots/adversarial-validation-8papers-20260728.json",
+  "synthesis_collection": "../pilots/adversarial-synthesis-8papers-20260728.json",
+  "synthesis_run_id": "adversarial-synthesis-8papers-20260728-r3"
+}

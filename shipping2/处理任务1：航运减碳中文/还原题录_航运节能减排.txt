@@ -1,0 +1,172 @@
+﻿{Reference Type}: Journal Article
+{Author}: 汪靖阳;许凤冉;钱益春;李自迁;荣梓娴;
+{Year}: 2024
+{Title}: 三峡工程发电与航运的低碳效益及影响因素分析
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahKOxT4dEirCp5DPWka8cA2gSO-7AfYiIBPZ9CWHJpGVoMuPEEY5sWKMJBMUhaiLhDkpL1dPn8v0eQg_L7jjq-_u_xCTWlerD-FMWbI3SKobvnF1hR-I7vtIXIvXv1NKFpwbSWxVKd6pN4KzScKYJbKOH44kgzogn6UKB4qgoxty4ndOlqWXZFNrVbQD0BEl7ykoKVm1UK7bLA==&uniplatform=NZKPT&language=CHS
+{Date}: 2024-12-30
+{Volume}: 38
+{Journal}: 水电与新能源
+{Issue}: 12
+{Pages}: 7-9+19
+{Keywords}: 三峡工程;发电;航运;低碳;效益
+{Abstract}: 为定量评估三峡工程发电和航运的低碳效益，采用当量系数法计算了三峡工程2003～2020年期间发电和航运的低碳效益，二者累计减少二氧化碳排放12.61亿t,产生减排效益1 386.60亿元，其中水电减少二氧化碳排放11.06亿t,产生减排效益1 220.19亿元。基于低碳效益影响因素的分析，建议提高三峡及上游梯级水库联合发电调度和智能化管理能力，完善长江干支流联运和多式联运体系，以进一步提升低碳效益。
+
+{Reference Type}: Journal Article
+{Author}: 于勇;康叶三;周传喜;彭宏恺;吴冠翀;
+{Year}: 2025
+{Title}: “双碳”行动下三峡库区智能航运示范建设研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahL5i0zHzTYkpO1QwA-TdgKbsyBpeO77soGKHmydpRxJjl1bExgtLgY0oheZV_Y9fF5zDiaZt-K6IVJXO5liGJVjewPTod0K4Jm4fM_KhJ9nczwG4HIHW-m60bR-yWXUawa2lzC4YlR3rpQijsdtccVBIi6JVJD39wGvfnrYw0slTczXZ1Egje87SNcKgMGrXAXfuJW3KV3K_A==&uniplatform=NZKPT&language=CHS
+{Date}: 2025-10-15
+{Volume}: No.243
+{Journal}: 中国海事
+{Issue}: 10
+{Pages}: 14-17
+{Keywords}: 三峡库区;智能航运;新能源;示范
+{Abstract}: 随着《智能航运发展指导意见》的深入实施，长江航运智能化转型已进入关键攻坚期。以三峡库区封闭水域为天然试验场，聚焦“深水航道+短途旅游航线+新能源船舶”三位一体的示范场景，系统解构智能航运发展的“环境-技术-制度”协同机制，深入分析三峡库区智能航运发展的优势条件与核心挑战，提出“感知决策算法优化-绿色能源网络重构-监管范式数字化转型”的协同路径，为内河航运智能化转型提供参考。
+
+{Reference Type}: Journal Article
+{Author}: 徐鹏飞;杨忠振;
+{Year}: 2017
+{Title}: 考虑环境负荷的长江干线流域集装箱运输瓶颈解决方案
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbMXFrecExnwx-h5yKfRNDmMuHeQNNOnUy2YGUJmVWPk9K5kSaGVJncGZ0jdhEHA3YKrNiRTxHS8QW3P2KJvIbXMFwx3nw0M9w-tOg3lHhYeQ4IbK0NinDd_sZHRO344GOIqJnCu-JEtfPBZmCQETwsku4jLK5g975b9d0ckSVZk8dUu8dp0c1_yh2LtaHN5Im79lWB0x9zitA==&uniplatform=NZKPT&language=CHS
+{Date}: 2017-03-31
+{Volume}: 38
+{Journal}: 上海海事大学学报
+{Issue}: 01
+{Pages}: 26-30+94
+{Keywords}: 长江航道;集装箱运输;船闸;三峡;多式联运网络
+{Abstract}: 鉴于三峡船闸的通过能力已成为制约长江航运发展的瓶颈,从可持续发展的角度出发,以减少集装箱运输的环境负荷为目标,综合考虑运输方式、运输费用和运输时间等因素,寻求解决三峡船闸通过能力不足的方案.构建由长江水路与区域公路组成的运输网络模型,确定各路段的运输属性特征,给出水路和公路运输环境负荷的计算方法.分析集装箱在水陆联运网络上的路径选择行为.在多种集装箱运输需求下,分析各解决方案的优劣,确定优化方案.相比翻坝运输方案,扩闸(即扩大船闸通过能力)方案更高效环保,符合节能减排的可持续发展要求,对长江经济带的可持续发展具有重要的战略意义.
+
+{Reference Type}: Journal Article
+{Author}: 齐俊麟;汪洋;张勇;
+{Year}: 2023
+{Title}: 三峡—葛洲坝梯级枢纽安全高效绿色通航技术与实践
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbPpvlQ9bgJwTrJRrr5QE-vreBcHw55cqwEq5DwkjZdHU42qa2UkU6_5O-Y5eH5vqipR2F9OCJZmosZyCvUQV9C2WPv73l-BNlxo1vKYLinvBf_gHpcjB1QEbFIda_Zy6evczPt9cLUfJuZffgyoFmSZgLVl4_45ne4MMDGQ81I-fJwsFQknng8cp5KBKScTRrEPsE63zzMEpQ==&uniplatform=NZKPT&language=CHS
+{Date}: 2023-02-15
+{Volume}: 7
+{Journal}: 长江技术经济
+{Issue}: 01
+{Pages}: 98-105
+{Keywords}: 三峡—葛洲坝;梯级枢纽;通航
+{Abstract}: 三峡—葛洲坝梯级通航系统承载着服务交通强国和长江经济带发展两大国家战略的时代重任。基于三峡—葛洲坝梯级通航40年的探索与实践，总结了梯级枢纽安全、高效、绿色通航的主要技术方法，取得了一系列创新成果与示范应用，并结合国家战略和科技发展提出了今后的主要研究方向。
+
+{Reference Type}: Thesis
+{Author}: 刘星辰
+{Year}: 2023
+{Title}: 低碳效益下的船闸-码头协同调度研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbOBHeYiNTB2MSIdQWrZwrsa1CimTKc98Xtr58HJtMAI-iykyleRbe0fm-unATv1MvKCn02f60aUx4j1ERKlTa8U1vJ1fFOpe58ahH9805ZK05SL5cz19mPRliAsGNNE_W7Lc7tdK5CXHhkiEDGkNOOsCwnOsrHjEaeDSdO4kUbKINbQUu6J6D3RAVWjVQVvSmpbTfKXOZq6NQ==&uniplatform=NZKPT&language=CHS
+{Date}: 2023-03-31
+{Journal}: 重庆交通大学
+{Issue}: 03
+{Keywords}: 码头岸电技术;船闸码头协同调度;船舶优先级;混合整数线性规划;模型仿真
+{Abstract}: 随着经济的发展和航道条件的改善,内河航运量持续高速增长,三峡船闸货物通过量于2011年就已提前达到设计通过能力,坝区船舶积压规模不断扩大。目前,三峡坝区日均待闸船舶数量近1000艘,在航运繁忙的时段,船舶待闸时间可长达一个多月。这不仅导致三峡河段交通严重拥堵,船舶待闸期间排放的大量废气污染物,也给坝区带来了严重的环境污染。对此,有部分学者对三峡船闸调度问题开展研究,但大多以提高船舶通过能力为目标,尚未考虑船舶待闸期间使用辅机发电排放的大量废气,同时由于升船机、翻坝运输等资源利用程度有限,许多调度方案已不能取得实质性的突破。因此,本文结合对码头岸电技术的研究,提出将船舶过闸和沿线码头进行联合调度的方案,使过闸船舶驶入沿线码头靠泊待闸,并连接岸电系统。这对于缓解坝区交通拥堵,改善坝区生态环境具有重要意义。本文的研究内容如下:首先,分析三峡船闸和过闸船舶运行现状,统计三峡库区码头泊位数量及类型,并对船闸码头协同调度问题核心思想及相关要素做详细分析。其次,从最小化船舶待闸时间和船舶碳排放量两个角度出发,构建了考虑船舶优先级的船闸码头协同调度0-1混合整数线性规划模型,再分别用ga算法和gaintlinprog算法对小规模船舶数据求解。对比两种不同算法求得的最优解,结果表明:(1)ga-intlinprog算法相较于ga算法,能更精确地求解该模型;(2)该协同调度模型可使船舶待闸时间减少2930min、CO2排放量减少6.11吨;(3)小型船舶尽量选择与其吨级相匹配的泊位待闸,可使更多待闸时间长的大型船舶靠泊待闸,减排效果更佳。最后,为有效处理大规模船舶调度问题,利用Anylogic软件构建了船舶实际过闸和船闸码头协同调度仿真模型,对其中的重难点以java代码的形式嵌入仿真模型进行二次开发,并设置不同船舶调度规则。仿真分析对比两种模型及不同船舶调度规则,结果表明:(1)构建船闸-码头协同调度模型后,船舶全年在坝前待闸数量、时间以及CO2排放量显著减少;(2)万吨级泊位禁止靠泊4000吨级船舶和优先级较高的船舶,可使减排效果更佳。
+{DOI}: 10.27671/d.cnki.gcjtc.2023.000361
+
+{Reference Type}: Journal Article
+{Author}: 郭涛.
+{Year}: 2012
+{Title}: 三峡工程蓄水前后水运成本比较研究
+{URL}: https://link.cnki.net/doi/10.16233/j.cnki.issn1002-4972.2012.02.008
+{Date}: 2012-02-25
+{Volume}: No.463
+{Journal}: 水运工程
+{Issue}: 02
+{Pages}: 25-29
+{Keywords}: 三峡工程;蓄水;水运成本
+{Abstract}: 采用对比方法,分析三峡工程蓄水前后长江中上游航道条件的变化,选取代表性船舶对蓄水前后的渝宜航线水运成本进行计算,结果表明:蓄水后水运成本和单位油耗明显降低,长江航运成本低、能耗小的比较优势得到有效发挥。建议加快三峡枢纽上下游航道治理,加快推进船型标准化,以提高三峡枢纽航运通过能力。
+{DOI}: 10.16233/j.cnki.issn1002-4972.2012.02.008
+
+{Reference Type}: Journal Article
+{Author}: 张煜;郑倩倩;李然;田宏伟;刘顺;
+{Year}: 2025
+{Title}: 三峡-葛洲坝枢纽引航道和船闸群协同调度的多目标混合启发式算法
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbNYcvdrvjJD1FMHg4Ta1_bOb-2KfVc1XA5qGBpTvtRWHDRGSJ7Q_380U0CXqfI_G72vfBhpIiOyZMmGnDCWrMZt5EtB9-CvwNXeEEAzMZv2Br-QPD0TtcQ4dK8b1tbaxcGyr24RneuOoksWxM9pJqGqC8JqF7CfHG3YmYaYM5p5x6zO5rPMSofq0SmfvKFORICgQUNl_d6hGg==&uniplatform=NZKPT&language=CHS
+{Date}: 2025-09-03
+{Volume}: 53
+{Journal}: 同济大学学报(自然科学版)
+{Issue}: 09
+{Pages}: 1444-1456
+{Keywords}: 三峡-葛洲坝枢纽;同步移泊过程;引航道和船闸群协同作业;多目标混合启发式算法
+{Abstract}: 为提升三峡-葛洲坝枢纽通航效率，研究了带同步移泊过程的引航道和船闸群协同调度问题（CSP-AC&SLG）。考虑船舶干舷高度和掌船技能，构建以水资源利用率最大化、平均船舶等待时间最小化及平均船舶总能耗最小化为目标的CSP-AC&SLG数学模型，并采用多目标混合启发式算法（MOHHA）进行求解。MOHHA采用双链编码方案和分阶段成组右移解码机制实现个体表述和求解，并引入模糊关联熵分析法评估多目标解，同时嵌入自适应参数调整策略和变邻域模拟退火提升算法求解能力。仿真结果表明，MOHHA能够求解CSP-AC&SLG，实现了通航效率提升和船舶能耗节约的双重目标。
+
+{Reference Type}: Thesis
+{Author}: 向东旭
+{Year}: 2017
+{Title}: 三峡库区LNG船舶市场前景与发展策略研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahIXtGMraIdRKgR4Tne6c3Jz8zEs_Y5fPotMLXRNGAhVIfzHg0KUqBZ5H3yXGQvDOabGRBNFLwm4EEG3t1bln9Kn4nMfrLRFzHp3VGqGf9BLgJitlsbdPU1u8bn1DEIF8Esg3-C0UWP44S-JqhsJmQZZvd6-wv93bU4T-tsgOmhWy9CaEPK7bBRHdHzAcFm2AhN18AnOe_AGfA==&uniplatform=NZKPT&language=CHS
+{Date}: 2016-12-08
+{Journal}: 重庆交通大学
+{Issue}: 01
+{Keywords}: 三峡库区;LNG船舶;市场前景分析;发展策略研究
+{Abstract}: 近年来,全球变暖、雾霾、气候异常等话题已逐渐成为人们关注的焦点,绿色环保、节能减排己成为全世界大多数国家的共识。随着全球航运业的发展,船舶所造成的污染也越来越引起国际社会的广泛关注,运用新的能源,新的设备和技术,如优化的船型设计、高效的推进系统等,来减少对环境的污染,实现真正意义上的绿色船舶,已经成为当前的发展趋势。特别是内河流域,水资源丰富,航运交通繁忙,人口居住密集,对节能减排的要求更高,也更为迫切。LNG运输船、LNG燃料船因其具备良好的社会效益和经济效益,又符合国家发展低碳绿色经济、节能减排、实现可持续发展的能源发展战略。因此,研究LNG运输船市场前景和发展战略为进一步在三峡库区推进水运行业LNG燃料的应用,促进水运行业节能减排,加快绿色水运建设步伐具有重要意义。本文首先阐述了国内外LNG船舶研究理论与发展现状趋势;其次以三峡库区重庆直辖市为例,对发展长江上游航运中心地位建设发展进行了简要分析,从重庆市港口码头、航道基础设施建设发展与分布情况,以及重庆市水路货运量与船舶运力结构分布情况,简要分析了重庆市航运发展现状及趋势;在此基础上,通过定量预测方法、定性预测、综合预测方法,对重庆市航运发展市场需求进行了科学分析预测,为三峡库区LNG船舶运力发展提供了参考依据;通过对LNG船舶运营的优势与劣势分析,同时参照《重庆市港口布局规划》和《重庆港总体规划》,对主要港区船用LNG加注码头可行性建设进行研究,通过定量预测、定性预测、综合预测三种方法,对可以建设LNG码头的港区货物吞吐量情况做预测分析;同时结合现有各种保供方式、加注装置的优缺点,对各港区加注站点加注方式、加注能力、建设规模进行初步预算,为确定三峡库区船用LNG船舶加注站选址方案以及模式提供了建设发展对策;最后对三峡库区LNG船舶发展提供了几点建议。
+
+{Reference Type}: Thesis
+{Author}: 万卓群
+{Year}: 2024
+{Title}: 低碳视角下长江经济带多式联运网络设计优化研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbNocf_KuMVnffE5pJZEOILl3ug7hvKhUF5TiJZJC7iqBSr7uJPWUhEPa0-18WnMD5R_lAQD-4SfqkI3TuzPbPcBxlF9SwfYhKOh7UfPyGVqvu1onIlxHB4mgUCx_OGpoK2SUK8P1NcP1Eh34pCGW9V7f3IruHdLKOAxB2K7nPwWLTf1do5a97moFxnvlygzmyhTOlrKHkUf8Q==&uniplatform=NZKPT&language=CHS
+{Date}: 2024-05-01
+{Journal}: 中南大学
+{Issue}: 11
+{Keywords}: 多式联运;物流网络设计;弹性需求;不确定需求;随机规划;拉格朗日松弛
+{Abstract}: 多式联运是我国交通节能减排的重要途径,是可持续交通的重要内容之一。然而,目前我国多式联运物流系统中,存在中转环节效率低下,铁路与水运等低碳运输方式市场份额较少,多式联运物流网络资源配置欠合理等问题。基于此,本文以长江经济带为研究对象,系统研究低碳视角下的多式联运物流网络设计优化问题,其主要研究内容及创新点如下。
+{DOI}: 10.27661/d.cnki.gzhnu.2024.004053
+
+{Reference Type}: Conference
+{Author}: 李鸣亮;
+{Year}: 2014
+{Title}: 三峡工程万州库区水运节能减排与可持续发展研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbPhXuCsUjJOkarlbDiwNjinzi8BKFcNHFQgAxvYETmBfApnrkSiQqrNRRf1njN46nmgFiVXwIZ6zIByiJeDrsovL3ZqaCpeVuxgGWmVxUiKAEh9IpRJ2sylELkAyXx4W4-tu4T72me5gdcBctvThk9kMSZTgMMrBypPVb2gz-oNVBVnkkEmeC83I4dIg0XnWnzIlu2fRryCkQ==&uniplatform=NZKPT&language=CHS
+{Date}: 2014-05-01
+{Journal}: 重庆工程师论文集
+{Pages}: 435-440
+{Keywords}: 三峡工程;万州库区;水运节能减排;可持续发展;研究
+{Abstract}: 研究万州区水路运输的节能减排与可持续发展,其技术关键是建立水运节能减排的定量测算模型。研究的应用范畴涉及运输体系结构调整、政策制定、管理改善、技术创新等方面。为政府等相关职能部门制定未来的水运发展战略规划提供了决策依据。
+
+{Reference Type}: Thesis
+{Author}: 纪熠
+{Year}: 2023
+{Title}: 考虑三峡大坝通航效率的长江沿线液态危险化学品多式联运路径优化
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbPPxolDiJNe8TT9H6-kJlVprm_ZNqHEzQl10adqZtHW_6zdIEa2aZbbkkq-CIlCHs7FTE78XkXXeVvUhyQj2p5MUqwapbfnzLeZrUOauzq0JX8oyhWHZt6wu4qTxfGzKQ9RKTkxqGQwCxiWdWBqCPSwXbtSeGWLOEBeoDdkPxhAr9K6e2e_J7fZq_dh4eW6VsLk948Fp8QHKw==&uniplatform=NZKPT&language=CHS
+{Date}: 2023-04-01
+{Journal}: 西南交通大学
+{Abstract}: 西南交通大学硕士研究生学位论文                第1页
+
+{Reference Type}: Journal Article
+{Author}: 高攀;方志伟;赵旭;
+{Year}: 2025
+{Title}: “碳减排”视域下内河流域梯级枢纽联合通航调度优化
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=8witAuWEzbPcLwATP5T9YL7h2guEcuN39ULlo-e5nxNugfkcZ-fiaHQIpS0CC9cPomY1wVJRxw9XQgLQZV1SxyH0rN7GMnzpjfU91gltT7k73AJod2AeA9PsFwsJpKyBRftfzT1eHdRxwGD-fpcM6vr7N9-bPJ-vNX05y2KDZHsNm6Xbr9QPC-b9APRtYI4Gp1ZoUfAHu-O5gMPV894_ng==&uniplatform=NZKPT&language=CHS
+{Date}: 2023-07-07
+{Volume}: 60
+{Journal}: 西南交通大学学报
+{Issue}: 02
+{Pages}: 308-316
+{Keywords}: 交通管理;联合调度;梯级枢纽;模拟退火
+{Abstract}: 为解决梯级枢纽联合通航调度中船闸运行规则不统一、船舶调度不同步等问题，以船舶综合通航效率、待闸成本和碳排放为决策目标，构建考虑船舶优先级的多维非线性规划（MDNP）模型；随后，拟用改进的回溯多目标模拟退火算法（IBMOSA）对MDNP进行求解，提出梯级枢纽联合调度的优化方案；最后，以“三峡-葛洲坝”梯级枢纽为例，验证MDNP模型与IBMOSA的有效性与可靠性.结果表明：MDNP模型能够有效兼顾船舶通航效率和公平性，且IBMOSA具有较好的收敛性和全局性；通过编制协同排闸计划，对各船闸闸次安排进行合理布局，可规避梯级船闸的倒闸现象，减少船舶整体过坝时间；与原始调度方案相比，联合调度方案对3个决策目标的优化效率均接近40%，梯级枢纽通航拥堵缓解率约为16%，有效化解了梯级枢纽间的通航矛盾，提升了三峡水域的整体通航效益.
+
+{Reference Type}: Journal Article
+{Author}: 王思佳.
+{Year}: 2022
+{Title}: 三峡“130型”：长江绿色航运新典范
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahJdLRbJ7sY8ci_TzOR2tmVvcak_ghk4bQ_sFjtjm2zFqEGLycTKi4lVxLZR4pntuhFQRd2T2EiBcrqkTvgourN0upNoXdzG9-GtXOJ0WyP56dH2cwaTxaCwz10O-3eo9FkCHVfU9A8ueQssGCgBDZa0mNWxOuQehvaXMq6uH7U56w==&uniplatform=NZKPT&language=CHS
+{Date}: 2022-06-15
+{Journal}: 中国船检
+{Issue}: 06
+{Pages}: 66-69
+{Keywords}: null
+{Abstract}: <正>2022年5月3日，由武汉理工大学船舶邮轮中心、武汉理航智能船舶科技有限责任公司联合研发的国内首艘绿色智能万吨级标准三峡“130型”散货运输示范船“理航渝建1”号顺利下水。长江航运再添绿意。靶向发力三峡“梗阻”“理航渝建1”号由宜昌鑫汇船舶修造有限公司为重庆渝建物流有限公司建造，船长129.98米、船宽16.20米，型深6.98米，设计吃水5.98米、设计航速10.00kn。
+
+{Reference Type}: Thesis
+{Author}: 梅森.
+{Year}: 2009
+{Title}: 三峡库区及长江干线船舶经济航行优化研究
+{URL}: https://kns.cnki.net/kcms2/article/abstract?v=BoNITJRTahKzxuYyorZvf4yj0bPU4vg4qNn4zsTK0PZq23BNZWJvvYw-2KdNx4b1HpPv-xDejNzoi9LBoR_QJo_C8I3zmDolyhDChr4AaeKmGkUiWHq3dwLW5bonbZlB1KJecA2NrYLOtJ9-cQfATHSnKZ92Xh05dRuRDaucc4OkIPg9YfBjcgLY3R9XNb68&uniplatform=NZKPT&language=CHS
+{Date}: 2009-05-01
+{Volume}: 硕士
+{Journal}: 大连海事大学
+{Issue}: 09
+{Pages}: null
+{Keywords}: 长江航运;燃油管理;优化操作系统;节能
+{Abstract}: 随着世界经济规模的不断增大,世界能源消费量持续增长。石油资源越来越显示出其重要的经济和战略地位。中国能源资源的特点是能源资源总量比较丰富,但人均能源资源拥有量较低,能源资源赋存分布不均衡,能源资源开发难度较大,能源问题已经成为制约我国经济发展的首要问题。交通运输业是我国国民经济的重要组成部分。从水路运输来看,我国的远洋和沿海运输已接近或达到同期国际先进水平,我国拥有众多的内河航道,而内河运输在能耗方面与发达国家确有较大的差距,因此内河船舶的节能措施势在必行。本文主要以三峡库区和长江干线船舶节能为研究对象,为航运船舶开发优化操作系统,通过优化和管理来达到节省燃油消耗的目的。首先,本文介绍了三峡库区及长江干线水文地理特点、航运特点和船舶状况,详细分析了长江航运的特殊性及节能的潜力,以及介绍了近几年船舶节能的一些策略。其次,对船舶提出了节能优化原理并进行了详细的分析,根据三峡库区及长江干线水文地理和航道的特殊性将其分段研究,并通过计算对某一航线的船舶航行进行航速优化,再通过对比说明航速优化的可行性。对“重轮J3001”的燃油系统进行改造,包括流量计的选择和燃油系统的改装,再通过油耗监测仪对燃油的消耗进行实时监测。最后,介绍了基于VC++语言的船舶优化操作系统,对船舶优化操作系统及燃油管理系统的各个模块进行了详细的分析,并将其应用到实际的船舶当中。对船舶优化节能提出一些管理要点。本文旨在通过对船舶优化系统软件的开发来实现船舶的优化节能及管理,并希望通过“重轮J3001”轮的实际应用,能够应用到更多的内河船舶。
+

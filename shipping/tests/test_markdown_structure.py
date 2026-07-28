@@ -1,0 +1,553 @@
+from __future__ import annotations
+
+import unittest
+import sys
+from pathlib import Path
+
+SRC_ROOT = Path(__file__).resolve().parents[1] / "src"
+if str(SRC_ROOT) not in sys.path:
+    sys.path.insert(0, str(SRC_ROOT))
+
+from shipping_pipeline.markdown_structure import build_document_map
+
+
+class DocumentScopeTests(unittest.TestCase):
+    def test_selects_h1_segment_matching_paper_id(self) -> None:
+        lines = """# 湖南凤凰大桥坍塌的背后
+
+桥梁事故正文。
+
+# 三峡航运遇瓶颈
+
+三峡船闸正文。
+
+# 老城墙倒塌
+
+城墙正文。
+""".splitlines()
+
+        result = build_document_map("三峡航运遇瓶颈", lines)
+
+        self.assertEqual(result.paper_title, "三峡航运遇瓶颈")
+        self.assertIsNotNone(result.selected_segment)
+        assert result.selected_segment is not None
+        self.assertEqual(result.selected_segment.start_line, 5)
+        self.assertEqual(result.selected_segment.end_line, 8)
+        self.assertEqual(result.selected_segment.match_score, 1.0)
+        self.assertNotEqual(result.quality_label, "red")
+
+    def test_rejects_ambiguous_multiple_h1_segments(self) -> None:
+        lines = """# 第一篇文章
+
+正文一。
+
+# 第二篇文章
+
+正文二。
+""".splitlines()
+
+        result = build_document_map("目标论文", lines)
+
+        self.assertEqual(result.quality_label, "red")
+        self.assertIsNone(result.selected_segment)
+        self.assertIn(
+            "parse.document_scope_ambiguous",
+            [issue["code"] for issue in result.issues],
+        )
+
+    def test_rejects_single_h1_that_does_not_match_expected_identity(self) -> None:
+        lines = """# MinerU 识别标题
+
+正文内容。
+""".splitlines()
+
+        result = build_document_map("来源文件名", lines)
+
+        self.assertEqual(result.quality_label, "red")
+        self.assertIsNotNone(result.selected_segment)
+        self.assertIn(
+            "parse.document_identity_mismatch",
+            [issue["code"] for issue in result.issues],
+        )
+
+    def test_keeps_degree_front_matter_h1s_in_one_document(self) -> None:
+        lines = """分类号 U651
+
+# 全日制应用型硕士研究生学位论文
+
+# 考虑翻坝和天气的长江班轮运网鲁棒优化模型
+
+# 考虑翻坝和天气的 长江班轮运网鲁棒优化模型
+
+# Robust optimization of liner shipping network
+
+# Dissertation Submitted for the degree of Master
+
+## 暴虹利
+
+作者与导师信息。
+
+## 摘要
+
+摘要正文。
+
+## 第1章 绪论
+
+正文内容。
+""".splitlines()
+
+        result = build_document_map("考虑翻坝和天气的长江班轮运网鲁棒优化模型", lines)
+
+        self.assertIsNotNone(result.selected_segment)
+        assert result.selected_segment is not None
+        self.assertEqual(result.paper_title, "考虑翻坝和天气的长江班轮运网鲁棒优化模型")
+        self.assertEqual(result.selected_segment.start_line, 1)
+        self.assertEqual(result.selected_segment.end_line, len(lines))
+        self.assertNotEqual(result.quality_label, "red")
+        first_body = next(region for region in result.regions if region.role == "body")
+        self.assertEqual(first_body.heading_path, ("第1章 绪论",))
+
+    def test_treats_internal_h1_chapter_as_structure_in_expanded_degree_document(self) -> None:
+        lines = """# 学位论文题目
+
+# 学位论文
+
+## 摘要
+
+摘要正文。
+
+## 第1章 绪论
+
+第一章正文。
+
+# 第2章 仿真结果
+
+第二章正文。
+""".splitlines()
+
+        result = build_document_map("学位论文题目", lines)
+        chapter_line = lines.index("# 第2章 仿真结果") + 1
+        assignment = next(
+            row for row in result.line_ledger if row.line_number == chapter_line
+        )
+
+        self.assertIsNotNone(result.selected_segment)
+        assert result.selected_segment is not None
+        self.assertEqual(result.selected_segment.end_line, len(lines))
+        self.assertEqual(assignment.role, "scope_marker")
+        self.assertFalse(assignment.included_in_materials)
+        self.assertIn(
+            ("第2章 仿真结果",),
+            [region.heading_path for region in result.regions if region.role == "body"],
+        )
+
+    def test_ignores_single_character_ocr_h1s_as_document_boundaries(self) -> None:
+        lines = """# 工
+
+来源信息。
+
+# 三
+
+一、研究背景
+
+正文内容。
+
+二、结论
+
+主要结论。
+""".splitlines()
+
+        result = build_document_map("三峡工程研究", lines)
+
+        self.assertIsNotNone(result.selected_segment)
+        self.assertNotIn("parse.document_scope_ambiguous", [issue["code"] for issue in result.issues])
+        self.assertIn("parse.no_h1", [issue["code"] for issue in result.issues])
+
+    def test_uses_requested_title_when_multi_h1_match_is_fuzzy(self) -> None:
+        lines = """# 基于 的三峡船舶积压疏导策略效果研究
+
+正文。
+
+# Research on ship backlog based on Arena
+
+English abstract.
+""".splitlines()
+
+        result = build_document_map("基于Arena的三峡船舶积压疏导策略效果研究", lines)
+
+        self.assertEqual(result.paper_title, "基于Arena的三峡船舶积压疏导策略效果研究")
+        self.assertIn("parse.document_title_fuzzy_match", [issue["code"] for issue in result.issues])
+
+    def test_selects_exact_h2_article_from_mixed_heading_level_bundle(self) -> None:
+        lines = """## 三峡永久船闸水力学问题研究
+
+目标文章正文。
+
+## 同步辐射光电子谱研究
+
+无关文章正文。
+
+# Au 在低温 PVF 衬底上的分形生长
+
+另一篇无关文章正文。
+""".splitlines()
+
+        result = build_document_map("三峡永久船闸水力学问题研究", lines)
+
+        self.assertIsNotNone(result.selected_segment)
+        assert result.selected_segment is not None
+        self.assertEqual(result.selected_segment.title_level, 2)
+        self.assertEqual(result.selected_segment.start_line, 1)
+        self.assertEqual(result.selected_segment.end_line, 4)
+        self.assertNotEqual(result.quality_label, "red")
+        self.assertIn(
+            "parse.document_title_non_h1_match",
+            [issue["code"] for issue in result.issues],
+        )
+        self.assertNotIn(
+            "无关文章正文。",
+            "\n".join(
+                lines[region.span.start_line - 1]
+                for region in result.regions
+            ),
+        )
+
+    def test_rejects_duplicate_exact_h2_article_titles(self) -> None:
+        lines = """## 目标论文
+
+第一份正文。
+
+## 目标论文
+
+第二份正文。
+
+# 无关论文
+
+无关正文。
+""".splitlines()
+
+        result = build_document_map("目标论文", lines)
+
+        self.assertEqual(result.quality_label, "red")
+        self.assertIn(
+            "parse.document_identity_mismatch",
+            [issue["code"] for issue in result.issues],
+        )
+
+
+class HeadingRecognitionTests(unittest.TestCase):
+    def test_supports_common_chinese_and_arabic_numbering(self) -> None:
+        lines = """# 论文
+
+## 1、运输化与工业化的联系
+
+正文。
+
+## 2. 数据分析
+
+正文。
+
+## 2.1 德国数据
+
+正文。
+
+## 三、结论
+
+正文。
+""".splitlines()
+
+        result = build_document_map("论文", lines)
+        titles = [heading.raw_title for heading in result.headings]
+
+        self.assertEqual(
+            titles,
+            ["1、运输化与工业化的联系", "2. 数据分析", "2.1 德国数据", "三、结论"],
+        )
+        self.assertEqual([heading.depth for heading in result.headings], [1, 1, 2, 1])
+
+    def test_keeps_unnumbered_markdown_headings_as_structure_boundaries(self) -> None:
+        lines = """# 论文
+
+## 引言
+
+研究背景。
+
+## 仿真模型构建
+
+模型正文。
+
+## 2.1 参数设置
+
+参数正文。
+""".splitlines()
+
+        result = build_document_map("论文", lines)
+
+        self.assertEqual(
+            [heading.raw_title for heading in result.headings],
+            ["引言", "仿真模型构建", "2.1 参数设置"],
+        )
+        self.assertEqual([heading.depth for heading in result.headings], [1, 1, 2])
+
+    def test_promotes_plain_numbered_headings_only_as_a_sequence(self) -> None:
+        lines = """# 论文
+
+1 引言
+
+研究背景。
+
+2 方法
+
+研究方法。
+
+3 结论
+
+主要结论。
+""".splitlines()
+
+        result = build_document_map("论文", lines)
+
+        self.assertEqual([heading.raw_title for heading in result.headings], ["1 引言", "2 方法", "3 结论"])
+        self.assertTrue(all(heading.source == "plain" for heading in result.headings))
+        self.assertIn("parse.inferred_headings", [issue["code"] for issue in result.issues])
+        self.assertEqual(result.quality_label, "silver")
+
+    def test_does_not_promote_isolated_year_sentence_to_heading(self) -> None:
+        lines = """# 论文
+
+## 第1章 绪论
+
+2000 年，Yu 和 Li 提出了一个模型：
+
+公式正文。
+
+## 第2章 方法
+
+方法正文。
+""".splitlines()
+
+        result = build_document_map("论文", lines)
+
+        self.assertNotIn(
+            "2000 年，Yu 和 Li 提出了一个模型：",
+            [item.raw_title for item in result.headings],
+        )
+
+    def test_does_not_promote_numbered_entries_inside_explicit_toc(self) -> None:
+        lines = """# 学位论文
+
+## 目录
+
+第一章 绪论....1
+
+第二章 方法....8
+
+第三章 结论....20
+
+## 第一章 绪论
+
+正文内容。
+""".splitlines()
+
+        result = build_document_map("学位论文", lines)
+
+        self.assertEqual(
+            [heading.raw_title for heading in result.headings],
+            ["目录", "第一章 绪论"],
+        )
+
+
+class RegionTests(unittest.TestCase):
+    def test_line_ledger_classifies_every_nonempty_line_exactly_once(self) -> None:
+        lines = """# 论文
+
+作者，某某大学
+
+摘要：摘要正文。
+
+关键词：船闸；排队
+
+没有标题的引言正文不得遗漏。
+
+## 1 方法
+
+方法正文。
+""".splitlines()
+
+        result = build_document_map("论文", lines)
+        ledger = {item.line_number: item for item in result.line_ledger}
+        nonempty_lines = {index for index, line in enumerate(lines, start=1) if line.strip()}
+
+        self.assertEqual(set(ledger), nonempty_lines)
+        self.assertTrue(all(item.assignment_count == 1 for item in ledger.values()))
+        self.assertEqual(ledger[1].role, "scope_marker")
+        self.assertEqual(ledger[9].role, "body")
+        self.assertEqual(ledger[11].role, "scope_marker")
+        self.assertNotEqual(result.quality_label, "red")
+
+    def test_recognizes_ocr_interrupted_abstract_and_keyword_labels(self) -> None:
+        lines = """# 论文
+
+摘 要: 中文摘要。
+
+中文摘要续段。
+
+关键词: 三峡；物流
+
+中图分类号: F127
+
+Abstr act: English abstract.
+
+Key wor ds: shipping; logistics
+
+## 1 正文
+
+正文内容。
+""".splitlines()
+
+        result = build_document_map("论文", lines)
+        roles = {item.line_number: item.role for item in result.line_ledger}
+
+        self.assertEqual(roles[3], "abstract")
+        self.assertEqual(roles[5], "abstract")
+        self.assertEqual(roles[7], "keywords")
+        self.assertEqual(roles[9], "front_matter")
+        self.assertEqual(roles[11], "abstract")
+        self.assertEqual(roles[13], "keywords")
+        self.assertEqual(roles[15], "scope_marker")
+        self.assertEqual(roles[17], "body")
+
+    def test_plain_spaced_reference_heading_starts_back_matter(self) -> None:
+        lines = """# 论文
+
+## 1 结果
+
+正文证据。
+
+参 考 文 献
+
+[1] 禁止进入材料。
+""".splitlines()
+
+        result = build_document_map("论文", lines)
+        back = next(region for region in result.regions if region.role == "back_matter")
+
+        self.assertEqual(back.span.start_line, 7)
+        self.assertEqual({item.role for item in result.line_ledger if item.line_number >= 7}, {"back_matter"})
+
+    def test_classifies_abstract_and_stops_before_reference_variants(self) -> None:
+        for reference_heading in (
+            "## 参考文献：",
+            "## 【参考文献】",
+            "## 参 考 文 献<sup>．</sup>",
+            "## References",
+        ):
+            with self.subTest(reference_heading=reference_heading):
+                lines = f"""# 论文
+
+## 【文章摘要】
+
+这是摘要。
+
+## 1、研究方法
+
+这是正文。
+
+{reference_heading}
+
+[1] 参考文献内容。
+""".splitlines()
+
+                result = build_document_map("论文", lines)
+                roles = [region.role for region in result.regions]
+
+                self.assertIn("abstract", roles)
+                self.assertIn("body", roles)
+                self.assertIn("back_matter", roles)
+                abstract = next(region for region in result.regions if region.role == "abstract")
+                self.assertTrue(abstract.included_in_materials)
+                body_end = max(region.span.end_line for region in result.regions if region.role == "body")
+                back_start = min(region.span.start_line for region in result.regions if region.role == "back_matter")
+                self.assertLess(body_end, back_start)
+
+    def test_exposes_unclassified_front_matter_without_including_it(self) -> None:
+        lines = """# 论文
+
+张三，某某大学交通学院
+
+## 1、研究方法
+
+这是正文。
+""".splitlines()
+
+        result = build_document_map("论文", lines)
+
+        front = next(region for region in result.regions if region.role == "front_matter")
+        self.assertFalse(front.included_in_materials)
+        self.assertEqual((front.span.start_line, front.span.end_line), (3, 3))
+        self.assertIn("parse.unclassified_front_matter", [issue["code"] for issue in result.issues])
+        self.assertEqual(result.quality_label, "silver")
+
+    def test_marks_unheaded_text_as_unstructured_body(self) -> None:
+        lines = """# 论文
+
+这是一篇没有章节标题的短文正文。
+
+## 参考文献
+
+[1] 参考文献内容。
+""".splitlines()
+
+        result = build_document_map("论文", lines)
+
+        body = next(region for region in result.regions if region.role == "body")
+        back = next(region for region in result.regions if region.role == "back_matter")
+        self.assertTrue(body.included_in_materials)
+        self.assertLess(body.span.end_line, back.span.start_line)
+        self.assertIn("parse.no_structured_body", [issue["code"] for issue in result.issues])
+
+    def test_recognizes_inline_abstract_without_colon_and_spaced_keywords(self) -> None:
+        lines = """# 论文
+
+张三，某某大学
+
+摘要 本文研究三峡船舶积压问题。
+
+关 键 词 ：船闸；排队
+
+## 引言
+
+正文内容。
+""".splitlines()
+
+        result = build_document_map("论文", lines)
+
+        abstract = next(region for region in result.regions if region.role == "abstract")
+        keywords = next(region for region in result.regions if region.role == "keywords")
+        body = next(region for region in result.regions if region.role == "body")
+        self.assertEqual((abstract.span.start_line, abstract.span.end_line), (5, 5))
+        self.assertEqual((keywords.span.start_line, keywords.span.end_line), (7, 7))
+        self.assertEqual(body.span.start_line, 9)
+
+    def test_keeps_unheaded_body_after_inline_keywords(self) -> None:
+        lines = """# Paper
+
+Abstract: This paper studies ship backlog.
+
+Keywords: ship lock; queue.
+
+The body discusses methods, results, and limitations.
+""".splitlines()
+
+        result = build_document_map("paper", lines)
+
+        abstract = next(region for region in result.regions if region.role == "abstract")
+        keywords = next(region for region in result.regions if region.role == "keywords")
+        body = next(region for region in result.regions if region.role == "body")
+        self.assertEqual((abstract.span.start_line, abstract.span.end_line), (3, 3))
+        self.assertEqual((keywords.span.start_line, keywords.span.end_line), (5, 5))
+        self.assertEqual((body.span.start_line, body.span.end_line), (7, 7))
+
+
+if __name__ == "__main__":
+    unittest.main()

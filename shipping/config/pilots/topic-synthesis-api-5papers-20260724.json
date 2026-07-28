@@ -1,0 +1,11 @@
+{
+  "schema_version": "llm.topic_synthesis_collection.v1",
+  "topic": "三峡船舶积压疏导策略与长江航运组织",
+  "source_run_ids": [
+    "topic-brief-auto-revisit-short3-v2-20260723",
+    "topic-brief-auto-revisit-information15-20260723",
+    "topic-brief-auto-revisit-reservoir9-v2-20260723",
+    "topic-brief-auto-revisit-long250-v2-20260723",
+    "topic-brief-api-capacity4-v2-20260724"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": "llm.topic_review_config.v2",
+  "max_selected_materials": {
+    "core": 6,
+    "supporting": 4,
+    "peripheral": 2,
+    "exclude": 0
+  },
+  "max_evidence_units_per_material": 1,
+  "max_revisit_materials": {
+    "core": 2,
+    "supporting": 2,
+    "peripheral": 0,
+    "exclude": 0
+  },
+  "max_evidence_gaps": 2,
+  "max_brief_points": {
+    "core": 6,
+    "supporting": 4,
+    "peripheral": 2
+  },
+  "max_review_uses": 4,
+  "max_cautions": 3,
+  "scope_max_output_tokens": 8192,
+  "revisit_max_output_tokens": 4096,
+  "brief_max_output_tokens": 8192
+}

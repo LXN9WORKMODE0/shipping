@@ -1,0 +1,11 @@
+{
+  "schema_version": "llm.topic_synthesis_collection.v1",
+  "topic": "三峡船舶积压形成机制、疏导策略与枢纽扩能",
+  "source_run_ids": [
+    "staged-6papers-20260727--brief-001",
+    "staged-6papers-20260727--brief-003-r2",
+    "staged-6papers-20260727--brief-004",
+    "staged-6papers-20260727--brief-005",
+    "staged-6papers-20260727--brief-006"
+  ]
+}

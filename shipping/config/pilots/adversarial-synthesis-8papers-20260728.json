@@ -1,0 +1,14 @@
+{
+  "schema_version": "llm.topic_synthesis_collection.v1",
+  "topic": "三峡枢纽通航能力、调度优化与碍断航风险",
+  "source_run_ids": [
+    "adversarial-8papers-20260728--brief-001",
+    "adversarial-8papers-20260728--brief-002-r3",
+    "adversarial-8papers-20260728--brief-003-r3",
+    "adversarial-8papers-20260728--brief-004",
+    "adversarial-8papers-20260728--brief-005-r2",
+    "adversarial-8papers-20260728--brief-006-r3",
+    "adversarial-8papers-20260728--brief-007",
+    "adversarial-8papers-20260728--brief-008"
+  ]
+}

@@ -1,0 +1,11 @@
+# 外文文献检索下载工具依赖
+
+# 核心依赖
+scholar>=1.7.11          # Google Scholar 非官方 API
+requests>=2.31.0         # HTTP 请求库
+beautifulsoup4>=4.12.2   # HTML 解析
+tqdm>=4.66.1             # 进度条
+
+# 可选依赖
+# selenium>=4.15.0       # 浏览器自动化（需要 Chrome/Firefox）
+# webdriver-manager>=4.0 # Selenium WebDriver 管理
