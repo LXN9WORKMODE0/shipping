@@ -53,6 +53,8 @@ class ShippingUIProjectAPITests(unittest.TestCase):
         self.assertEqual(imported.status_code, 200)
         payload = imported.json()
         self.assertEqual(payload["project"]["revision"], 2)
+        self.assertEqual(payload["counts"]["imported"], 1)
+        self.assertEqual(payload["results"][0]["status"], "imported")
         self.assertEqual(payload["summary"]["paper_count"], 1)
         self.assertEqual(payload["summary"]["papers"][0]["card"]["status"], "not_run")
 
@@ -61,6 +63,39 @@ class ShippingUIProjectAPITests(unittest.TestCase):
         )
         self.assertEqual(definition.status_code, 200)
         self.assertTrue(definition.json()["current_collection_path"])
+
+    def test_import_returns_per_file_duplicate_results(self):
+        self.client.post(
+            "/api/projects",
+            json={
+                "project_id": "partial-review",
+                "name": "部分导入",
+                "topic": "测试主题",
+            },
+        )
+        imported = self.client.post(
+            "/api/projects/partial-review/sources",
+            data={
+                "paper_ids": json.dumps(["paper-1", "paper-2"]),
+                "expected_revision": "1",
+            },
+            files=[
+                ("files", ("paper-1.md", b"same", "text/markdown")),
+                ("files", ("paper-2.md", b"same", "text/markdown")),
+            ],
+        )
+
+        self.assertEqual(imported.status_code, 200)
+        payload = imported.json()
+        self.assertEqual(payload["summary"]["paper_count"], 1)
+        self.assertEqual(
+            payload["counts"],
+            {"imported": 1, "skipped_duplicate": 1, "failed": 0},
+        )
+        self.assertEqual(
+            payload["results"][1]["duplicate_of_paper_id"],
+            "paper-1",
+        )
 
     def test_revision_conflict_returns_stable_error_contract(self):
         self.client.post(

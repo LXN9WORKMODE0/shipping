@@ -189,6 +189,14 @@ class ProjectRepository:
         self._atomic_json(self._project_path(project_id), project)
         return project
 
+    def check_revision(
+        self,
+        project_id: str,
+        *,
+        expected_revision: int,
+    ) -> dict[str, Any]:
+        return self._require_mutable(project_id, expected_revision)
+
     def freeze_collection(
         self,
         project_id: str,

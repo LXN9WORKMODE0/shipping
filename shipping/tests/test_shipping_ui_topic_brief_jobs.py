@@ -29,6 +29,25 @@ from shipping_ui.services.project_service import ProjectService, SourceInput
 
 class FakeTopicBriefJobService(JobService):
     def _execute_topic_brief_paper(self, job_id, job_input, paper):
+        if paper["paper_id"] == "失败论文":
+            return {
+                "paper_id": paper["paper_id"],
+                "workspace_paper_id": paper["workspace_paper_id"],
+                "status": "failed",
+                "analysis_status": "failed",
+                "analysis_run_id": paper["analysis_run_id"],
+                "generation_id": paper["generation_id"],
+                "started_at": self._now(),
+                "finished_at": self._now(),
+                "paper_relevance": None,
+                "selected_material_count": 0,
+                "evidence_unit_count": 0,
+                "evidence_failure_count": 0,
+                "request_count": 0,
+                "usage": {},
+                "failure_code": "test.analysis_failed",
+                "failure_message": "测试用单篇分析失败。",
+            }
         run_id = str(paper["analysis_run_id"])
         run_dir = self.workspace / "_topic_reviews" / "runs" / run_id
         (run_dir / "output").mkdir(parents=True)
@@ -246,10 +265,84 @@ class ShippingUITopicBriefJobTests(unittest.TestCase):
         self.assertEqual(run_record["request_count"], 1)
         self.assertEqual(run_record["total_tokens"], 15)
 
+    def test_partial_topic_job_publishes_successful_paper(self):
+        project = self.project_service.create_project(
+            project_id="pt-review",
+            name="部分分析测试",
+            topic="通航调度",
+        )
+        project = self.project_service.import_sources(
+            "pt-review",
+            expected_revision=project["revision"],
+            sources=[
+                SourceInput(
+                    paper_id="同名论文",
+                    filename="ok.md",
+                    stream=io.BytesIO(
+                        (
+                            "# 同名论文\n\n"
+                            "## 摘要\n\n研究通航调度问题。\n\n"
+                            "## 方法\n\n构建调度模型。\n\n"
+                            "## 结论\n\n模型减少等待时间。\n"
+                        ).encode()
+                    ),
+                ),
+                SourceInput(
+                    paper_id="失败论文",
+                    filename="fail.md",
+                    stream=io.BytesIO(
+                        (
+                            "# 失败论文\n\n"
+                            "## 摘要\n\n研究船闸运行问题。\n\n"
+                            "## 1 方法\n\n分析历史数据。\n\n"
+                            "## 2 结论\n\n提出运行建议。\n"
+                        ).encode()
+                    ),
+                ),
+            ],
+        )["project"]
+        card_job = self.service.create_card_job(
+            "pt-review",
+            expected_revision=project["revision"],
+            paper_ids=["同名论文", "失败论文"],
+            pdf_provider="none",
+        )
+        completed_card = self._wait(card_job["job_id"])
+        self.assertEqual(completed_card["status"], "completed", completed_card)
+
+        job = self.service.create_topic_brief_job(
+            "pt-review",
+            expected_revision=project["revision"],
+            paper_ids=["同名论文", "失败论文"],
+            external_service_confirmed=True,
+        )
+        current = self._wait(job["job_id"])
+
+        self.assertEqual(current["status"], "completed_with_failures")
+        self.assertEqual(current["progress"]["succeeded"], 1)
+        self.assertEqual(current["progress"]["failed"], 1)
+        published = self.projects.get("pt-review")
+        self.assertEqual(len(published["analysis_run_ids"]), 1)
+        manifest = json.loads(
+            (
+                PROJECT_ROOT
+                / self.workspace_relative
+                / "_topic_reviews"
+                / "runs"
+                / published["analysis_run_ids"][0]
+                / "manifest.json"
+            ).read_text(encoding="utf-8")
+        )
+        self.assertEqual(manifest["paper_id"], "同名论文")
+
     def _wait(self, job_id: str) -> dict:
         deadline = time.monotonic() + 20
         current = self.jobs.get(job_id)
-        while current["status"] not in {"completed", "failed"}:
+        while current["status"] not in {
+            "completed",
+            "completed_with_failures",
+            "failed",
+        }:
             if time.monotonic() >= deadline:
                 self.fail(f"Job 未在 20 秒内结束：{job_id}")
             time.sleep(0.05)

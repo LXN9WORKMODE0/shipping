@@ -56,6 +56,13 @@ class ShippingUIProjectServiceTests(unittest.TestCase):
         updated = result["project"]
         self.assertEqual(updated["revision"], 2)
         self.assertEqual(len(updated["papers"]), 2)
+        self.assertEqual(
+            result["counts"],
+            {"imported": 2, "skipped_duplicate": 0, "failed": 0},
+        )
+        self.assertTrue(
+            all(row["status"] == "imported" for row in result["results"])
+        )
         self.assertTrue(
             all(
                 row["workspace_paper_id"].startswith("test-review--")
@@ -78,32 +85,119 @@ class ShippingUIProjectServiceTests(unittest.TestCase):
         )
         self.assertTrue(all(Path(row["source"]).is_absolute() for row in collection["papers"]))
 
-    def test_duplicate_content_rejects_whole_batch(self):
+    def test_duplicate_content_is_reported_without_rejecting_batch(self):
         project = self.service.create_project(
             project_id="duplicate-review",
             name="重复来源测试",
             topic="测试主题",
         )
-        with self.assertRaisesRegex(UIError, "内容相同"):
-            self.service.import_sources(
-                "duplicate-review",
-                expected_revision=project["revision"],
-                sources=[
-                    SourceInput(
-                        paper_id="paper-a",
-                        filename="a.md",
-                        stream=io.BytesIO(b"same"),
-                    ),
-                    SourceInput(
-                        paper_id="paper-b",
-                        filename="b.md",
-                        stream=io.BytesIO(b"same"),
-                    ),
-                ],
-            )
+        result = self.service.import_sources(
+            "duplicate-review",
+            expected_revision=project["revision"],
+            sources=[
+                SourceInput(
+                    paper_id="paper-a",
+                    filename="a.md",
+                    stream=io.BytesIO(b"same"),
+                ),
+                SourceInput(
+                    paper_id="paper-b",
+                    filename="b.md",
+                    stream=io.BytesIO(b"same"),
+                ),
+            ],
+        )
         current = self.repository.get("duplicate-review")
-        self.assertEqual(current["papers"], [])
-        self.assertEqual(list(self.repository.project_dir("duplicate-review").joinpath("sources").iterdir()), [])
+        self.assertEqual([row["paper_id"] for row in current["papers"]], ["paper-a"])
+        self.assertEqual(
+            result["counts"],
+            {"imported": 1, "skipped_duplicate": 1, "failed": 0},
+        )
+        duplicate = result["results"][1]
+        self.assertEqual(duplicate["status"], "skipped_duplicate")
+        self.assertEqual(duplicate["duplicate_of_paper_id"], "paper-a")
+        self.assertEqual(
+            len(
+                list(
+                    self.repository.project_dir("duplicate-review")
+                    .joinpath("sources")
+                    .iterdir()
+                )
+            ),
+            1,
+        )
+
+    def test_invalid_items_do_not_block_valid_sources(self):
+        project = self.service.create_project(
+            project_id="partial-import",
+            name="部分导入测试",
+            topic="测试主题",
+        )
+        result = self.service.import_sources(
+            "partial-import",
+            expected_revision=project["revision"],
+            sources=[
+                SourceInput(
+                    paper_id="paper-ok",
+                    filename="paper.md",
+                    stream=io.BytesIO(b"# Paper"),
+                ),
+                SourceInput(
+                    paper_id="",
+                    filename="missing-id.md",
+                    stream=io.BytesIO(b"# Missing"),
+                ),
+                SourceInput(
+                    paper_id="empty",
+                    filename="empty.md",
+                    stream=io.BytesIO(b""),
+                ),
+            ],
+        )
+
+        self.assertEqual(result["project"]["revision"], 2)
+        self.assertEqual(
+            result["counts"],
+            {"imported": 1, "skipped_duplicate": 0, "failed": 2},
+        )
+        self.assertEqual(
+            [row["error_code"] for row in result["results"][1:]],
+            ["ui.paper_id_required", "ui.source_empty"],
+        )
+
+    def test_all_skipped_import_does_not_advance_revision(self):
+        project = self.service.create_project(
+            project_id="all-skipped",
+            name="全重复测试",
+            topic="测试主题",
+        )
+        first = self.service.import_sources(
+            "all-skipped",
+            expected_revision=project["revision"],
+            sources=[
+                SourceInput(
+                    paper_id="paper-a",
+                    filename="a.md",
+                    stream=io.BytesIO(b"same"),
+                )
+            ],
+        )
+        second = self.service.import_sources(
+            "all-skipped",
+            expected_revision=first["project"]["revision"],
+            sources=[
+                SourceInput(
+                    paper_id="paper-b",
+                    filename="b.md",
+                    stream=io.BytesIO(b"same"),
+                )
+            ],
+        )
+
+        self.assertEqual(
+            second["project"]["revision"], first["project"]["revision"]
+        )
+        self.assertEqual(second["counts"]["skipped_duplicate"], 1)
 
     def test_revision_conflict_is_explicit(self):
         project = self.service.create_project(

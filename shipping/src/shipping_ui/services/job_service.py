@@ -1036,12 +1036,24 @@ class JobService:
                 f"{published['revision']}。",
             )
             if failure_codes:
+                succeeded = sum(
+                    row["status"] == "completed" for row in results
+                )
+                status = (
+                    "completed_with_failures" if succeeded else "failed"
+                )
+                self.jobs.append_log(
+                    job_id,
+                    f"[{self._now()}] 单篇分析 Job "
+                    f"{'部分完成' if succeeded else '失败'}："
+                    f"成功 {succeeded} 篇，失败 {len(failure_codes)} 篇。",
+                )
                 self.jobs.transition(
                     job_id,
-                    "failed",
+                    status,
                     failure_code="ui.topic_brief_job_paper_failed",
                     failure_message=(
-                        "至少一篇论文未成功完成分析："
+                        f"成功 {succeeded} 篇，失败 {len(failure_codes)} 篇："
                         + ", ".join(failure_codes)
                     ),
                 )
@@ -1604,16 +1616,23 @@ class JobService:
                 if result["status"] != "completed":
                     failure_codes.append(str(result["failure_code"]))
             if failure_codes:
+                succeeded = len(job_input["papers"]) - len(failure_codes)
                 self.jobs.append_log(
                     job_id,
-                    f"[{self._now()}] Job 失败，失败论文 {len(failure_codes)} 篇。",
+                    f"[{self._now()}] Job "
+                    f"{'部分完成' if succeeded else '失败'}："
+                    f"成功 {succeeded} 篇，失败 {len(failure_codes)} 篇。",
                 )
                 self.jobs.transition(
                     job_id,
-                    "failed",
+                    (
+                        "completed_with_failures"
+                        if succeeded
+                        else "failed"
+                    ),
                     failure_code="ui.card_job_paper_failed",
                     failure_message=(
-                        "至少一篇论文未成功生成 Card："
+                        f"成功 {succeeded} 篇，失败 {len(failure_codes)} 篇："
                         + ", ".join(failure_codes)
                     ),
                 )

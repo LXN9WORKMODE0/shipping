@@ -116,7 +116,11 @@ class ShippingUIFullPipelineJobTests(unittest.TestCase):
         )
         deadline = time.monotonic() + 30
         current = self.jobs.get(str(job["job_id"]))
-        while current["status"] not in {"completed", "failed"}:
+        while current["status"] not in {
+            "completed",
+            "completed_with_failures",
+            "failed",
+        }:
             if time.monotonic() >= deadline:
                 self.fail("完整流程屏障 Job 未在 30 秒内结束。")
             time.sleep(0.05)

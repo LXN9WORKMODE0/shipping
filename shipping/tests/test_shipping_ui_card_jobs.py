@@ -22,6 +22,25 @@ from shipping_ui.services.job_service import JobService
 from shipping_ui.services.project_service import ProjectService, SourceInput
 
 
+class PartialCardJobService(JobService):
+    def _execute_paper(self, job_id, job_input, paper):
+        if paper["paper_id"] != "paper-fail":
+            return super()._execute_paper(job_id, job_input, paper)
+        return {
+            "paper_id": paper["paper_id"],
+            "workspace_paper_id": paper["workspace_paper_id"],
+            "status": "failed",
+            "started_at": self._now(),
+            "finished_at": self._now(),
+            "generation_id": None,
+            "structure_quality": None,
+            "material_count": 0,
+            "issue_count": 0,
+            "failure_code": "test.card_failed",
+            "failure_message": "测试用单篇失败。",
+        }
+
+
 class ShippingUICardJobTests(unittest.TestCase):
     def setUp(self) -> None:
         self.relative_root = (
@@ -40,7 +59,7 @@ class ShippingUICardJobTests(unittest.TestCase):
             PROJECT_ROOT,
             workspace=self.workspace_relative,
         )
-        self.job_service = JobService(
+        self.job_service = PartialCardJobService(
             project_root=PROJECT_ROOT,
             workspace=self.workspace_relative,
             projects=self.projects,
@@ -92,7 +111,11 @@ class ShippingUICardJobTests(unittest.TestCase):
         )
         deadline = time.monotonic() + 20
         current = self.jobs.get(str(job["job_id"]))
-        while current["status"] not in {"completed", "failed"}:
+        while current["status"] not in {
+            "completed",
+            "completed_with_failures",
+            "failed",
+        }:
             if time.monotonic() >= deadline:
                 self.fail("真实 Markdown Card job 未在 20 秒内结束。")
             time.sleep(0.05)
@@ -112,6 +135,68 @@ class ShippingUICardJobTests(unittest.TestCase):
         self.assertEqual(summary["paper_count"], 1)
         self.assertEqual(summary["papers"][0]["card"]["status"], "completed")
         self.assertGreater(summary["card_count"], 0)
+
+    def test_partial_card_job_keeps_successful_paper_usable(self):
+        project = self.project_service.create_project(
+            project_id="pc-review",
+            name="部分 Card 测试",
+            topic="通航调度",
+        )
+        imported = self.project_service.import_sources(
+            "pc-review",
+            expected_revision=project["revision"],
+            sources=[
+                SourceInput(
+                    paper_id="通航调度研究",
+                    filename="paper-ok.md",
+                    stream=io.BytesIO(
+                        (
+                            "# 通航调度研究\n\n"
+                            "## 摘要\n\n"
+                            "本文研究通航调度问题。\n\n"
+                            "## 1 方法\n\n"
+                            "构建调度模型并比较不同方案。\n\n"
+                            "## 2 结论\n\n"
+                            "优化方案能够减少等待时间。\n"
+                        ).encode("utf-8")
+                    ),
+                ),
+                SourceInput(
+                    paper_id="paper-fail",
+                    filename="paper-fail.md",
+                    stream=io.BytesIO(b"# Paper Fail\n\nContent."),
+                ),
+            ],
+        )["project"]
+
+        job = self.job_service.create_card_job(
+            "pc-review",
+            expected_revision=imported["revision"],
+            paper_ids=["通航调度研究", "paper-fail"],
+            pdf_provider="none",
+        )
+        current = self._wait(job["job_id"])
+
+        self.assertEqual(
+            current["status"],
+            "completed_with_failures",
+            {"job": current, "log": self.jobs.read_log(job["job_id"])},
+        )
+        self.assertEqual(current["progress"]["succeeded"], 1)
+        self.assertEqual(current["progress"]["failed"], 1)
+        summary = ArtifactStore(
+            PROJECT_ROOT,
+            workspace=self.workspace_relative,
+            project_config_root=self.relative_root / "legacy",
+            project_repository=self.projects,
+        ).get_project("pc-review")
+        by_id = {row["paper_id"]: row for row in summary["papers"]}
+        self.assertEqual(
+            by_id["通航调度研究"]["card"]["status"], "completed"
+        )
+        self.assertNotEqual(
+            by_id["paper-fail"]["card"]["status"], "completed"
+        )
 
     def test_reconcile_marks_incomplete_job_failed_without_resuming(self):
         project = self.project_service.create_project(
@@ -148,6 +233,20 @@ class ShippingUICardJobTests(unittest.TestCase):
         failed = self.jobs.get(str(job["job_id"]))
         self.assertEqual(failed["status"], "failed")
         self.assertEqual(failed["failure_code"], "ui.job_interrupted")
+
+    def _wait(self, job_id: str) -> dict:
+        deadline = time.monotonic() + 20
+        current = self.jobs.get(str(job_id))
+        while current["status"] not in {
+            "completed",
+            "completed_with_failures",
+            "failed",
+        }:
+            if time.monotonic() >= deadline:
+                self.fail(f"Job 未在 20 秒内结束：{job_id}")
+            time.sleep(0.05)
+            current = self.jobs.get(str(job_id))
+        return current
 
 
 if __name__ == "__main__":

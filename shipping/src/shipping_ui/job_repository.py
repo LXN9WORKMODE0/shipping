@@ -22,10 +22,10 @@ JOB_INPUT_TYPES = {
     TOPIC_SYNTHESIS_JOB_INPUT_SCHEMA: ("topic_synthesis", "synthesis"),
     FULL_PIPELINE_JOB_INPUT_SCHEMA: ("full_pipeline", "pipeline"),
 }
-TERMINAL_STATUSES = {"completed", "failed"}
+TERMINAL_STATUSES = {"completed", "completed_with_failures", "failed"}
 ALLOWED_TRANSITIONS = {
     "queued": {"running", "failed"},
-    "running": {"completed", "failed"},
+    "running": {"completed", "completed_with_failures", "failed"},
 }
 
 
@@ -362,6 +362,7 @@ class JobRepository:
             "queued",
             "running",
             "completed",
+            "completed_with_failures",
             "failed",
         }:
             raise UIError(
