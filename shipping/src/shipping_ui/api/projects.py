@@ -28,6 +28,10 @@ class FreezeCollectionRequest(BaseModel):
     expected_revision: int
 
 
+class ProjectLifecycleRequest(BaseModel):
+    expected_revision: int
+
+
 def build_project_router(
     repository: ProjectRepository,
     service: ProjectService,
@@ -101,6 +105,30 @@ def build_project_router(
     @router.post("/{project_id}/migrate")
     def migrate_project(project_id: str) -> dict:
         repository.migrate_legacy(project_id)
+        return artifacts.get_project(project_id)
+
+    @router.post("/{project_id}/archive")
+    def archive_project(
+        project_id: str,
+        request: ProjectLifecycleRequest,
+    ) -> dict:
+        service.set_archived(
+            project_id,
+            expected_revision=request.expected_revision,
+            archived=True,
+        )
+        return artifacts.get_project(project_id)
+
+    @router.post("/{project_id}/restore")
+    def restore_project(
+        project_id: str,
+        request: ProjectLifecycleRequest,
+    ) -> dict:
+        service.set_archived(
+            project_id,
+            expected_revision=request.expected_revision,
+            archived=False,
+        )
         return artifacts.get_project(project_id)
 
     return router

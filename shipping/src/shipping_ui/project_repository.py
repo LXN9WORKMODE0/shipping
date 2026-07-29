@@ -100,6 +100,7 @@ class ProjectRepository:
             "created_at": now,
             "updated_at": now,
             "legacy_origin": None,
+            "archived_at": None,
         }
         project_dir.mkdir(parents=True, exist_ok=False)
         (project_dir / "sources").mkdir()
@@ -196,6 +197,35 @@ class ProjectRepository:
         expected_revision: int,
     ) -> dict[str, Any]:
         return self._require_mutable(project_id, expected_revision)
+
+    def set_archived(
+        self,
+        project_id: str,
+        *,
+        expected_revision: int,
+        archived: bool,
+    ) -> dict[str, Any]:
+        project = self.get(project_id)
+        if project["schema_version"] != PROJECT_SCHEMA:
+            raise UIError(
+                "ui.project_migration_required",
+                "旧版只读项目必须先迁移，才能归档。",
+            )
+        if project["revision"] != expected_revision:
+            raise UIError(
+                "ui.project_revision_conflict",
+                f"项目已被修改：期望 revision {expected_revision}，"
+                f"当前为 {project['revision']}。",
+            )
+        currently_archived = bool(project.get("archived_at"))
+        if currently_archived == archived:
+            return project
+        project = json.loads(json.dumps(project, ensure_ascii=False))
+        project["archived_at"] = self._now() if archived else None
+        project["revision"] += 1
+        project["updated_at"] = self._now()
+        self._atomic_json(self._project_path(project_id), project)
+        return project
 
     def freeze_collection(
         self,
@@ -361,6 +391,7 @@ class ProjectRepository:
             "created_at": now,
             "updated_at": now,
             "legacy_origin": current["legacy_origin"],
+            "archived_at": None,
         }
         project_dir.mkdir(parents=True, exist_ok=False)
         (project_dir / "sources").mkdir()
@@ -493,6 +524,7 @@ class ProjectRepository:
             "legacy_origin": str(path.relative_to(self.project_root)).replace(
                 "\\", "/"
             ),
+            "archived_at": None,
         }
 
     def _require_mutable(
@@ -509,6 +541,11 @@ class ProjectRepository:
                 "ui.project_revision_conflict",
                 f"项目已被修改：期望 revision {expected_revision}，"
                 f"当前为 {project['revision']}。",
+            )
+        if project.get("archived_at"):
+            raise UIError(
+                "ui.project_archived",
+                "项目已归档，只能读取；恢复后才能修改或运行。",
             )
         return json.loads(json.dumps(project, ensure_ascii=False))
 

@@ -2,6 +2,7 @@ import type {
   CardJob,
   CardJobPreflight,
   FullPipelineJobPreflight,
+  GovernanceSummary,
   ImportSourcesResponse,
   JobRetryCandidates,
   PaperDetail,
@@ -39,7 +40,10 @@ async function fetchJson<T>(
 }
 
 export const api = {
-  projects: () => fetchJson<ProjectSummary[]>("/api/projects"),
+  projects: (includeArchived = false) =>
+    fetchJson<ProjectSummary[]>(
+      `/api/projects${includeArchived ? "?include_archived=true" : ""}`,
+    ),
   createProject: (input: {
     project_id: string;
     name: string;
@@ -67,6 +71,24 @@ export const api = {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(input),
     }),
+  archiveProject: (projectId: string, expectedRevision: number) =>
+    fetchJson<Project>(
+      `/api/projects/${encodeURIComponent(projectId)}/archive`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ expected_revision: expectedRevision }),
+      },
+    ),
+  restoreProject: (projectId: string, expectedRevision: number) =>
+    fetchJson<Project>(
+      `/api/projects/${encodeURIComponent(projectId)}/restore`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ expected_revision: expectedRevision }),
+      },
+    ),
   importSources: (
     projectId: string,
     expectedRevision: number,
@@ -254,6 +276,8 @@ export const api = {
     fetchJson<RunComparison>(
       `/api/projects/${encodeURIComponent(projectId)}/run-comparison?left_job_id=${encodeURIComponent(leftJobId)}&right_job_id=${encodeURIComponent(rightJobId)}`,
     ),
+  governanceSummary: () =>
+    fetchJson<GovernanceSummary>("/api/governance/summary"),
   systemStatus: () =>
     fetchJson<{
       mode: string;
@@ -261,6 +285,7 @@ export const api = {
       workspace_available: boolean;
       project_config_root: string;
       project_count: number;
+      archived_project_count: number;
       job_count: number;
       active_job_count: number;
     }>("/api/system/status"),

@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
@@ -20,6 +20,7 @@ from .command_factory import (
 from .job_repository import JobRepository
 from .project_repository import ProjectRepository
 from .services.job_service import JobService
+from .services.governance_service import GovernanceService
 from .services.project_service import ProjectService
 from .services.run_comparison_service import RunComparisonService
 
@@ -41,8 +42,14 @@ def create_app(
         workspace=workspace,
         legacy_config_root=legacy_config_root,
     )
-    project_service = ProjectService(project_repository)
     job_repository = JobRepository(root, workspace=workspace)
+    project_service = ProjectService(project_repository, job_repository)
+    governance_service = GovernanceService(
+        root,
+        job_repository,
+        workspace=workspace,
+        env_file=topic_brief_env_file,
+    )
     run_comparison_service = RunComparisonService(job_repository)
     job_service = JobService(
         project_root=root,
@@ -117,8 +124,10 @@ def create_app(
         return {"status": "ok", "mode": "pipeline_jobs"}
 
     @app.get("/api/projects")
-    def projects() -> list[dict]:
-        return store.list_projects()
+    def projects(
+        include_archived: bool = Query(default=False),
+    ) -> list[dict]:
+        return store.list_projects(include_archived=include_archived)
 
     @app.get("/api/projects/{project_id}")
     def project(project_id: str) -> dict:
@@ -153,6 +162,10 @@ def create_app(
             for row in job_repository.list()
         )
         return status
+
+    @app.get("/api/governance/summary")
+    def governance_summary() -> dict:
+        return governance_service.summary()
 
     frontend_dist = root / "ui" / "frontend" / "dist"
     assets_dir = frontend_dist / "assets"

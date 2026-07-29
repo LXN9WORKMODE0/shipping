@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import BinaryIO
 
 from ..errors import UIError
+from ..job_repository import INCOMPLETE_STATUSES, JobRepository
 from ..project_repository import ProjectRepository
 
 
@@ -24,8 +25,13 @@ class SourceInput:
 
 
 class ProjectService:
-    def __init__(self, repository: ProjectRepository) -> None:
+    def __init__(
+        self,
+        repository: ProjectRepository,
+        jobs: JobRepository | None = None,
+    ) -> None:
         self.repository = repository
+        self.jobs = jobs
 
     def create_project(
         self,
@@ -40,6 +46,30 @@ class ProjectService:
             name=name,
             topic=topic,
             description=description,
+        )
+
+    def set_archived(
+        self,
+        project_id: str,
+        *,
+        expected_revision: int,
+        archived: bool,
+    ) -> dict:
+        if archived and self.jobs is not None:
+            active = [
+                job
+                for job in self.jobs.list(project_id)
+                if job["status"] in INCOMPLETE_STATUSES
+            ]
+            if active:
+                raise UIError(
+                    "ui.project_job_active",
+                    f"项目仍有活动 Job，不能归档：{active[0]['job_id']}",
+                )
+        return self.repository.set_archived(
+            project_id,
+            expected_revision=expected_revision,
+            archived=archived,
         )
 
     def import_sources(

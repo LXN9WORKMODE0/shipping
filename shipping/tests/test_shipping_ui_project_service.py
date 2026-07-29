@@ -15,6 +15,7 @@ if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
 from shipping_ui.errors import UIError
+from shipping_ui.job_repository import JobRepository
 from shipping_ui.project_repository import ProjectRepository
 from shipping_ui.services.project_service import ProjectService, SourceInput
 
@@ -265,6 +266,65 @@ class ShippingUIProjectServiceTests(unittest.TestCase):
             description=project["description"],
         )
         self.assertEqual(current["revision"], project["revision"])
+
+    def test_archive_is_read_only_and_restore_reopens_project(self):
+        project = self.service.create_project(
+            project_id="archive-review",
+            name="归档测试",
+            topic="测试主题",
+        )
+        archived = self.service.set_archived(
+            "archive-review",
+            expected_revision=project["revision"],
+            archived=True,
+        )
+        self.assertTrue(archived["archived_at"])
+        self.assertEqual(archived["revision"], 2)
+
+        with self.assertRaisesRegex(UIError, "项目已归档"):
+            self.repository.update_metadata(
+                "archive-review",
+                expected_revision=archived["revision"],
+                description="不能修改",
+            )
+
+        restored = self.service.set_archived(
+            "archive-review",
+            expected_revision=archived["revision"],
+            archived=False,
+        )
+        self.assertIsNone(restored["archived_at"])
+        updated = self.repository.update_metadata(
+            "archive-review",
+            expected_revision=restored["revision"],
+            description="恢复后可以修改",
+        )
+        self.assertEqual(updated["description"], "恢复后可以修改")
+
+    def test_active_job_blocks_archive(self):
+        jobs = JobRepository(self.root)
+        service = ProjectService(self.repository, jobs)
+        project = service.create_project(
+            project_id="active-review",
+            name="活动任务测试",
+            topic="测试主题",
+        )
+        jobs.create(
+            {
+                "schema_version": "review_ui_card_job_input.v1",
+                "project_id": "active-review",
+                "project_revision": project["revision"],
+                "topic": project["topic"],
+                "papers": [{"paper_id": "paper-1"}],
+            }
+        )
+
+        with self.assertRaisesRegex(UIError, "仍有活动 Job"):
+            service.set_archived(
+                "active-review",
+                expected_revision=project["revision"],
+                archived=True,
+            )
 
 
 if __name__ == "__main__":

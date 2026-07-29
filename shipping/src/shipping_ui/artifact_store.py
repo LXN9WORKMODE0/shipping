@@ -42,10 +42,15 @@ class ArtifactStore:
         )
         self.job_repository = job_repository
 
-    def list_projects(self) -> list[dict[str, Any]]:
+    def list_projects(
+        self,
+        *,
+        include_archived: bool = False,
+    ) -> list[dict[str, Any]]:
         projects = [
             self._project_summary(definition)
             for definition in self.project_repository.list()
+            if include_archived or not definition.get("archived_at")
         ]
         return sorted(projects, key=lambda row: row["name"])
 
@@ -90,6 +95,8 @@ class ArtifactStore:
             "description": definition.get("description", ""),
             "topic": definition["topic"],
             "revision": definition["revision"],
+            "archived": bool(definition.get("archived_at")),
+            "archived_at": definition.get("archived_at"),
             "current_collection_path": definition.get(
                 "current_collection_path"
             ),
@@ -263,12 +270,16 @@ class ArtifactStore:
         )
 
     def system_status(self) -> dict[str, Any]:
+        projects = self.list_projects(include_archived=True)
         return {
             "mode": "card_jobs",
             "workspace": str(self.workspace),
             "workspace_available": self.workspace.exists(),
             "project_config_root": str(self.project_config_root),
-            "project_count": len(self.list_projects()),
+            "project_count": sum(not row["archived"] for row in projects),
+            "archived_project_count": sum(
+                row["archived"] for row in projects
+            ),
         }
 
     def _project_summary(
@@ -284,6 +295,8 @@ class ArtifactStore:
                 "description",
                 "topic",
                 "revision",
+                "archived",
+                "archived_at",
                 "current_collection_path",
                 "paper_count",
                 "card_count",

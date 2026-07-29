@@ -11,6 +11,8 @@ import {
   Activity,
   AlertTriangle,
   ArrowLeft,
+  Archive,
+  ArchiveRestore,
   BookOpen,
   Boxes,
   CheckCircle2,
@@ -52,6 +54,7 @@ import type {
   CardJob,
   Evidence,
   EvidenceFailure,
+  GovernanceSummary,
   ImportSourcesResponse,
   PaperDetail,
   Project,
@@ -235,13 +238,18 @@ function PageHeader({
 
 function ProjectsPage() {
   const [createOpen, setCreateOpen] = useState(false);
+  const [view, setView] = useState<"active" | "archived">("active");
   const query = useQuery({
     queryKey: ["projects"],
-    queryFn: api.projects,
+    queryFn: () => api.projects(true),
   });
   if (query.isLoading) return <LoadingBlock />;
   if (query.error) return <ErrorBlock error={query.error} />;
-  const projects = query.data ?? [];
+  const allProjects = query.data ?? [];
+  const projects = allProjects.filter((project) =>
+    view === "archived" ? project.archived : !project.archived,
+  );
+  const archivedCount = allProjects.filter((project) => project.archived).length;
   return (
     <>
       <PageHeader
@@ -252,22 +260,50 @@ function ProjectsPage() {
       <section className="content-section">
         <div className="section-heading">
           <div>
-            <h2>当前任务</h2>
-            <p>{projects.length} 个显式配置任务</p>
+            <h2>{view === "active" ? "当前任务" : "归档任务"}</h2>
+            <p>
+              {projects.length} 个{view === "active" ? "活动" : "只读归档"}任务
+            </p>
           </div>
-          <button
-            type="button"
-            className="primary-button"
-            onClick={() => setCreateOpen(true)}
-          >
-            <Plus size={15} />
-            新建任务
-          </button>
+          <div className="section-actions">
+            <div className="segmented-control" aria-label="项目状态">
+              <button
+                type="button"
+                className={view === "active" ? "active" : ""}
+                onClick={() => setView("active")}
+              >
+                活动 {allProjects.length - archivedCount}
+              </button>
+              <button
+                type="button"
+                className={view === "archived" ? "active" : ""}
+                onClick={() => setView("archived")}
+              >
+                归档 {archivedCount}
+              </button>
+            </div>
+            {view === "active" && (
+              <button
+                type="button"
+                className="primary-button"
+                onClick={() => setCreateOpen(true)}
+              >
+                <Plus size={15} />
+                新建任务
+              </button>
+            )}
+          </div>
         </div>
         <div className="project-list">
-          {projects.map((project) => (
-            <ProjectRow key={project.project_id} project={project} />
-          ))}
+          {projects.length === 0 ? (
+            <div className="empty-state">
+              {view === "active" ? "没有活动任务。" : "没有归档任务。"}
+            </div>
+          ) : (
+            projects.map((project) => (
+              <ProjectRow key={project.project_id} project={project} />
+            ))
+          )}
         </div>
       </section>
       {createOpen && (
@@ -302,7 +338,10 @@ function ProjectRow({ project }: { project: ProjectSummary }) {
         <strong>{project.evidence_count}</strong>
       </div>
       <div className="project-status">
-        <StatusBadge status={project.synthesis.status} />
+        <StatusBadge
+          status={project.archived ? "archived" : project.synthesis.status}
+          label={project.archived ? "已归档" : undefined}
+        />
         <ChevronRight size={18} />
       </div>
     </Link>
@@ -669,6 +708,25 @@ function ProjectPage() {
     enabled: Boolean(retryableJob),
     retry: false,
   });
+  const lifecycleMutation = useMutation({
+    mutationFn: ({
+      archived,
+      expectedRevision,
+    }: {
+      archived: boolean;
+      expectedRevision: number;
+    }) =>
+      archived
+        ? api.archiveProject(projectId, expectedRevision)
+        : api.restoreProject(projectId, expectedRevision),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: ["project", projectId],
+      });
+      await queryClient.invalidateQueries({ queryKey: ["projects"] });
+      await queryClient.invalidateQueries({ queryKey: ["system-status"] });
+    },
+  });
   useEffect(() => {
     if (
       latestJob?.status === "completed" ||
@@ -756,26 +814,77 @@ function ProjectPage() {
         title={project.name}
         description={project.topic}
         actions={
-          <>
-            <button
-              type="button"
-              className="secondary-button"
-              onClick={() => setEditOpen(true)}
-            >
-              <Pencil size={15} />
-              编辑任务
-            </button>
+          project.archived ? (
             <button
               type="button"
               className="primary-button"
-              onClick={() => setImportOpen(true)}
+              disabled={lifecycleMutation.isPending}
+              onClick={() =>
+                lifecycleMutation.mutate({
+                  archived: false,
+                  expectedRevision: project.revision,
+                })
+              }
             >
-              <Upload size={15} />
-              导入论文
+              <ArchiveRestore size={15} />
+              恢复任务
             </button>
-          </>
+          ) : (
+            <>
+              <button
+                type="button"
+                className="secondary-button"
+                onClick={() => setEditOpen(true)}
+              >
+                <Pencil size={15} />
+                编辑任务
+              </button>
+              <button
+                type="button"
+                className="secondary-button"
+                disabled={lifecycleMutation.isPending || activeJob}
+                onClick={() => {
+                  if (
+                    window.confirm(
+                      "归档后项目保持可读，但不能导入论文或创建新 Job。确认归档？",
+                    )
+                  ) {
+                    lifecycleMutation.mutate({
+                      archived: true,
+                      expectedRevision: project.revision,
+                    });
+                  }
+                }}
+              >
+                <Archive size={15} />
+                归档
+              </button>
+              <button
+                type="button"
+                className="primary-button"
+                onClick={() => setImportOpen(true)}
+              >
+                <Upload size={15} />
+                导入论文
+              </button>
+            </>
+          )
         }
       />
+      {lifecycleMutation.error && (
+        <InlineError error={lifecycleMutation.error} />
+      )}
+      {project.archived && (
+        <section className="archive-notice">
+          <Archive size={17} />
+          <div>
+            <strong>项目已归档，只读浏览</strong>
+            <span>
+              来源、Card、Evidence、综合和运行记录均保留；恢复后才能继续处理。
+            </span>
+          </div>
+        </section>
+      )}
       <section className="stage-strip">
         <div className="stage-item">
           <span className="stage-index">1</span>
@@ -942,8 +1051,16 @@ function ProjectPage() {
             type="button"
             className="primary-button"
             onClick={() => setCardJobOpen(true)}
-            disabled={selectedPaperIds.size === 0 || activeJob}
-            title={activeJob ? "已有 Card Job 正在运行" : "运行 Card"}
+            disabled={
+              project.archived || selectedPaperIds.size === 0 || activeJob
+            }
+            title={
+              project.archived
+                ? "归档项目不能创建 Job"
+                : activeJob
+                  ? "已有 Card Job 正在运行"
+                  : "运行 Card"
+            }
           >
             <Play size={14} />
             运行 Card
@@ -952,13 +1069,15 @@ function ProjectPage() {
             type="button"
             className="primary-button"
             onClick={() => setAnalysisJobOpen(true)}
-            disabled={!selectedCardsReady || activeJob}
+            disabled={project.archived || !selectedCardsReady || activeJob}
             title={
-              activeJob
-                ? "已有 Job 正在运行"
-                : selectedCardsReady
-                  ? "运行单篇主题分析"
-                  : "所选论文必须先完成 Card"
+              project.archived
+                ? "归档项目不能创建 Job"
+                : activeJob
+                  ? "已有 Job 正在运行"
+                  : selectedCardsReady
+                    ? "运行单篇主题分析"
+                    : "所选论文必须先完成 Card"
             }
           >
             <FileSearch size={14} />
@@ -968,13 +1087,17 @@ function ProjectPage() {
             type="button"
             className="primary-button"
             onClick={() => setSynthesisJobOpen(true)}
-            disabled={synthesisSources.length < 2 || activeJob}
+            disabled={
+              project.archived || synthesisSources.length < 2 || activeJob
+            }
             title={
-              activeJob
-                ? "已有 Job 正在运行"
-                : synthesisSources.length < 2
-                  ? "至少需要两个可综合的单篇分析 run"
-                  : "运行跨论文综合"
+              project.archived
+                ? "归档项目不能创建 Job"
+                : activeJob
+                  ? "已有 Job 正在运行"
+                  : synthesisSources.length < 2
+                    ? "至少需要两个可综合的单篇分析 run"
+                    : "运行跨论文综合"
             }
           >
             <GitBranch size={14} />
@@ -984,13 +1107,15 @@ function ProjectPage() {
             type="button"
             className="secondary-button"
             onClick={() => setFullPipelineOpen(true)}
-            disabled={project.paper_count < 2 || activeJob}
+            disabled={project.archived || project.paper_count < 2 || activeJob}
             title={
-              activeJob
-                ? "已有 Job 正在运行"
-                : project.paper_count < 2
-                  ? "完整流程至少需要两篇论文"
-                  : "严格使用全部项目论文运行完整流程"
+              project.archived
+                ? "归档项目不能创建 Job"
+                : activeJob
+                  ? "已有 Job 正在运行"
+                  : project.paper_count < 2
+                    ? "完整流程至少需要两篇论文"
+                    : "严格使用全部项目论文运行完整流程"
             }
           >
             <Layers3 size={14} />
@@ -1061,15 +1186,21 @@ function ProjectPage() {
           <div className="empty-project">
             <Files size={24} />
             <strong>任务中还没有论文</strong>
-            <p>导入 PDF、Markdown 或文本来源后，系统会冻结第一版 collection。</p>
-            <button
-              type="button"
-              className="primary-button"
-              onClick={() => setImportOpen(true)}
-            >
-              <Upload size={15} />
-              导入论文
-            </button>
+            <p>
+              {project.archived
+                ? "项目保持只读；恢复后可以导入论文来源。"
+                : "导入 PDF、Markdown 或文本来源后，系统会冻结第一版 collection。"}
+            </p>
+            {!project.archived && (
+              <button
+                type="button"
+                className="primary-button"
+                onClick={() => setImportOpen(true)}
+              >
+                <Upload size={15} />
+                导入论文
+              </button>
+            )}
           </div>
         )}
       </section>
@@ -1932,13 +2063,15 @@ function Metric({
   tone,
 }: {
   label: string;
-  value: number;
+  value: number | string;
   tone?: "warning";
 }) {
   return (
     <div className={`metric ${tone ? `metric-${tone}` : ""}`}>
       <span>{label}</span>
-      <strong>{value.toLocaleString("zh-CN")}</strong>
+      <strong>
+        {typeof value === "number" ? value.toLocaleString("zh-CN") : value}
+      </strong>
     </div>
   );
 }
@@ -2701,6 +2834,10 @@ function RunsPage() {
     queryKey: ["runs"],
     queryFn: () => api.runs(),
   });
+  const governanceQuery = useQuery({
+    queryKey: ["governance-summary"],
+    queryFn: api.governanceSummary,
+  });
   if (query.isLoading) return <LoadingBlock label="正在汇总运行记录" />;
   if (query.error) return <ErrorBlock error={query.error} />;
   const runs = (query.data ?? []).filter(
@@ -2732,8 +2869,14 @@ function RunsPage() {
       <PageHeader
         eyebrow="不可变运行"
         title="运行记录"
-        description="查看全部项目的 Card、单篇分析、综合和完整流程运行。"
+        description="查看工作台 Job 的累计消耗，并审阅全部不可变运行记录。"
       />
+      {governanceQuery.error && (
+        <InlineError error={governanceQuery.error} />
+      )}
+      {governanceQuery.data && (
+        <GovernanceOverview summary={governanceQuery.data} />
+      )}
       <section className="content-section">
         <div className="toolbar">
           <label className="filter-field">
@@ -2800,6 +2943,91 @@ function RunsPage() {
         </div>
       </section>
     </>
+  );
+}
+
+function GovernanceOverview({ summary }: { summary: GovernanceSummary }) {
+  const totals = summary.totals;
+  return (
+    <section className="governance-overview">
+      <div className="governance-metrics">
+        <Metric label="工作台 Job" value={totals.job_count} />
+        <Metric label="API 请求" value={totals.request_count} />
+        <Metric label="总 Token" value={totals.total_tokens} />
+        <Metric
+          label="累计耗时"
+          value={formatDuration(totals.duration_seconds)}
+        />
+        <Metric
+          label="论文失败率"
+          value={formatPercent(totals.paper_failure_rate)}
+          tone={totals.failed_paper_count > 0 ? "warning" : undefined}
+        />
+        <Metric
+          label="活动 Job"
+          value={totals.active_job_count}
+          tone={totals.active_job_count > 0 ? "warning" : undefined}
+        />
+      </div>
+      <div className="governance-breakdown">
+        <div>
+          <h2>按阶段</h2>
+          <div className="governance-table">
+            <div className="governance-table-head">
+              <span>阶段</span>
+              <span>Job</span>
+              <span>请求</span>
+              <span>Token</span>
+              <span>论文失败率</span>
+            </div>
+            {summary.by_stage.map((row) => (
+              <div key={row.job_type}>
+                <strong>{jobTypeLabel(row.job_type)}</strong>
+                <span>{row.job_count}</span>
+                <span>{row.request_count}</span>
+                <span>{row.total_tokens.toLocaleString("zh-CN")}</span>
+                <span>{formatPercent(row.paper_failure_rate)}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div>
+          <h2>按模型</h2>
+          {summary.by_model.length === 0 ? (
+            <p className="muted">当前 Job 尚未产生模型调用。</p>
+          ) : (
+            <div className="governance-table model-table">
+              <div className="governance-table-head">
+                <span>模型</span>
+                <span>Job</span>
+                <span>请求</span>
+                <span>输入 Token</span>
+                <span>输出 Token</span>
+              </div>
+              {summary.by_model.map((row) => (
+                <div key={`${row.model_profile_id}-${row.model}`}>
+                  <strong title={row.model_profile_id}>{row.model}</strong>
+                  <span>{row.job_count}</span>
+                  <span>{row.request_count}</span>
+                  <span>{row.prompt_tokens.toLocaleString("zh-CN")}</span>
+                  <span>{row.completion_tokens.toLocaleString("zh-CN")}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+      {summary.failure_codes.length > 0 && (
+        <div className="governance-failures">
+          <span>失败代码</span>
+          {summary.failure_codes.map((row) => (
+            <code key={row.code}>
+              {row.code} × {row.count}
+            </code>
+          ))}
+        </div>
+      )}
+    </section>
   );
 }
 
@@ -3062,15 +3290,23 @@ function SystemPage() {
     queryKey: ["system-status"],
     queryFn: api.systemStatus,
   });
-  if (query.isLoading) return <LoadingBlock />;
+  const governanceQuery = useQuery({
+    queryKey: ["governance-summary"],
+    queryFn: api.governanceSummary,
+  });
+  if (query.isLoading || governanceQuery.isLoading) return <LoadingBlock />;
   if (query.error) return <ErrorBlock error={query.error} />;
+  if (governanceQuery.error) {
+    return <ErrorBlock error={governanceQuery.error} />;
+  }
   const status = query.data!;
+  const configuration = governanceQuery.data!.configuration;
   return (
     <>
       <PageHeader
         eyebrow="本地服务"
         title="系统状态"
-        description="M3.1 已开放四类受控 Job；外部服务仅在明确确认后调用。"
+        description="检查本地执行环境和外部服务配置；健康检查不会发起网络请求。"
       />
       <section className="system-panel">
         <div>
@@ -3090,7 +3326,9 @@ function SystemPage() {
         <div>
           <Boxes size={19} />
           <span>显式任务</span>
-          <strong>{status.project_count} 个</strong>
+          <strong>
+            {status.project_count} 个活动 · {status.archived_project_count} 个归档
+          </strong>
           <StatusBadge status="completed" />
         </div>
         <div>
@@ -3108,6 +3346,57 @@ function SystemPage() {
           <span>外部服务</span>
           <strong>PDF 按任务调用 MinerU</strong>
           <span className="status-badge status-neutral">显式确认</span>
+        </div>
+      </section>
+      <section className="content-section health-section">
+        <div className="section-heading">
+          <div>
+            <h2>配置健康</h2>
+            <p>
+              正常 {configuration.ok_count} · 警告{" "}
+              {configuration.warning_count} · 错误 {configuration.error_count}
+            </p>
+          </div>
+          <StatusBadge
+            status={
+              configuration.overall_status === "ok"
+                ? "completed"
+                : configuration.overall_status === "warning"
+                  ? "completed_with_failures"
+                  : "failed"
+            }
+            label={
+              configuration.overall_status === "ok"
+                ? "配置完整"
+                : configuration.overall_status === "warning"
+                  ? "存在缺项"
+                  : "配置错误"
+            }
+          />
+        </div>
+        <div className="config-check-list">
+          {configuration.checks.map((check) => (
+            <div key={check.check_id}>
+              <StatusBadge
+                status={
+                  check.status === "ok"
+                    ? "completed"
+                    : check.status === "warning"
+                      ? "completed_with_failures"
+                      : "failed"
+                }
+                label={
+                  check.status === "ok"
+                    ? "正常"
+                    : check.status === "warning"
+                      ? "警告"
+                      : "错误"
+                }
+              />
+              <strong>{check.label}</strong>
+              <span>{check.detail}</span>
+            </div>
+          ))}
         </div>
       </section>
     </>
@@ -3135,6 +3424,23 @@ function formatDate(value?: string, includeTime = false) {
 function formatDuration(value: number | null) {
   if (value === null) return "未记录";
   return `${value.toFixed(value < 10 ? 1 : 0)} 秒`;
+}
+
+function formatPercent(value: number) {
+  return new Intl.NumberFormat("zh-CN", {
+    style: "percent",
+    maximumFractionDigits: 1,
+  }).format(value);
+}
+
+function jobTypeLabel(jobType: string) {
+  const labels: Record<string, string> = {
+    card_build: "Card 制作",
+    topic_brief: "单篇分析",
+    topic_synthesis: "跨论文综合",
+    full_pipeline: "完整流程",
+  };
+  return labels[jobType] ?? jobType;
 }
 
 function formatSigned(value: number | null, suffix = "") {

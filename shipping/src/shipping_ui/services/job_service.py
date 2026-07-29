@@ -194,6 +194,11 @@ class JobService:
                 "ui.project_migration_required",
                 "旧版只读项目必须先迁移，才能创建 Job。",
             )
+        if project.get("archived_at"):
+            raise UIError(
+                "ui.project_archived",
+                "项目已归档，只能读取；恢复后才能创建 Job。",
+            )
         if project["revision"] != expected_revision:
             raise UIError(
                 "ui.project_revision_conflict",
@@ -354,6 +359,11 @@ class JobService:
             raise UIError(
                 "ui.project_migration_required",
                 "旧版只读项目必须先迁移，才能创建 Job。",
+            )
+        if project.get("archived_at"):
+            raise UIError(
+                "ui.project_archived",
+                "项目已归档，只能读取；恢复后才能创建 Job。",
             )
         if project["revision"] != expected_revision:
             raise UIError(
@@ -520,6 +530,11 @@ class JobService:
                 "ui.project_migration_required",
                 "旧版只读项目必须先迁移，才能创建 Job。",
             )
+        if project.get("archived_at"):
+            raise UIError(
+                "ui.project_archived",
+                "项目已归档，只能读取；恢复后才能创建 Job。",
+            )
         if project["revision"] != expected_revision:
             raise UIError(
                 "ui.project_revision_conflict",
@@ -665,6 +680,11 @@ class JobService:
             raise UIError(
                 "ui.project_migration_required",
                 "旧版只读项目必须先迁移，才能创建 Job。",
+            )
+        if project.get("archived_at"):
+            raise UIError(
+                "ui.project_archived",
+                "项目已归档，只能读取；恢复后才能创建 Job。",
             )
         if project["revision"] != expected_revision:
             raise UIError(

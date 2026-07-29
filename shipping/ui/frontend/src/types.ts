@@ -339,6 +339,8 @@ export interface ProjectSummary {
   description: string;
   topic: string;
   revision: number;
+  archived: boolean;
+  archived_at: string | null;
   current_collection_path: string | null;
   paper_count: number;
   card_count: number;
@@ -448,6 +450,60 @@ export interface RunRecord {
   total_tokens: number;
   failure_count: number;
   failure_codes: string[];
+}
+
+export interface GovernanceMetrics {
+  request_count: number;
+  prompt_tokens: number;
+  completion_tokens: number;
+  total_tokens: number;
+  duration_seconds: number;
+  successful_paper_count: number;
+  failed_paper_count: number;
+  paper_failure_rate: number;
+}
+
+export interface GovernanceStage extends GovernanceMetrics {
+  job_type: string;
+  job_count: number;
+  successful_job_count: number;
+  cancelled_job_count: number;
+  interrupted_job_count: number;
+  failed_job_count: number;
+}
+
+export interface GovernanceModel extends GovernanceMetrics {
+  model_profile_id: string;
+  model: string;
+  job_count: number;
+}
+
+export interface ConfigurationHealth {
+  overall_status: "ok" | "warning" | "error";
+  ok_count: number;
+  warning_count: number;
+  error_count: number;
+  checks: Array<{
+    check_id: string;
+    label: string;
+    status: "ok" | "warning" | "error";
+    detail: string;
+  }>;
+}
+
+export interface GovernanceSummary {
+  schema_version: "review_ui_governance.v1";
+  generated_at: string;
+  totals: GovernanceMetrics & {
+    job_count: number;
+    active_job_count: number;
+    terminal_job_count: number;
+    status_counts: Record<string, number>;
+  };
+  by_stage: GovernanceStage[];
+  by_model: GovernanceModel[];
+  failure_codes: Array<{ code: string; count: number }>;
+  configuration: ConfigurationHealth;
 }
 
 export interface RunComparisonDifference {
