@@ -980,6 +980,7 @@ class JobService:
 
     def _execute_topic_synthesis_job(self, job_id: str) -> None:
         job_input: dict[str, Any] | None = None
+        payload: dict[str, Any] | None = None
         try:
             job_input = self.jobs.get_input(job_id)
             if not self._begin_job(job_id):
@@ -1020,16 +1021,17 @@ class JobService:
                 f"{snapshot.sources.__len__()} 篇，"
                 f"{len(snapshot.evidence_units)} 条 Evidence。",
             )
-            payload, return_code = self._run_process(
+            process_payload, return_code = self._run_process(
                 job_id,
                 command.argv,
                 log_prefix="综合",
             )
+            payload = process_payload if isinstance(process_payload, dict) else None
             self._raise_if_cancel_requested(job_id)
             if return_code != 0:
                 child_codes = (
                     payload.get("failure_codes", [])
-                    if isinstance(payload, dict)
+                    if payload is not None
                     else []
                 )
                 child_code = (
@@ -1099,11 +1101,31 @@ class JobService:
                             "source_evidence_count": job_input.get(
                                 "source_evidence_count", 0
                             ),
-                            "theme_count": 0,
-                            "synthesis_unit_count": 0,
-                            "section_count": 0,
-                            "request_count": 0,
-                            "usage": {},
+                            "theme_count": int(
+                                payload.get("theme_count", 0)
+                                if payload is not None
+                                else 0
+                            ),
+                            "synthesis_unit_count": int(
+                                payload.get("synthesis_unit_count", 0)
+                                if payload is not None
+                                else 0
+                            ),
+                            "section_count": int(
+                                payload.get("section_count", 0)
+                                if payload is not None
+                                else 0
+                            ),
+                            "request_count": int(
+                                payload.get("request_count", 0)
+                                if payload is not None
+                                else 0
+                            ),
+                            "usage": dict(
+                                payload.get("usage", {})
+                                if payload is not None
+                                else {}
+                            ),
                             "failure_code": code,
                             "failure_message": str(exc),
                         },

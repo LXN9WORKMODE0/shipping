@@ -30,6 +30,7 @@ from .topic_review_contracts import (
     validate_topic_brief,
 )
 from .topic_synthesis_contracts import (
+    TopicSynthesisContractError,
     TopicSynthesisConfig,
     build_topic_evidence_map_schema,
     build_topic_review_outline_schema,
@@ -77,6 +78,13 @@ consensus 是方向一致的证据，complement 是同一问题的不同环节�
 同一论文的多条 Evidence 不能伪装成跨论文一致。不得根据 Evidence 数量推断研究权重。
 synthesis_statement、章节说明和 synthesis_move 是基于所引综合单元的分析导航，不得加入所引 Evidence 无法支持的新事实。
 每个主题必须进入至少一个综合单元并至少进入一个章节。尽量让综合单元进入段落；未入纲的候选单元会被程序保留并进入覆盖审计，不要为形式覆盖重复安排段落。检索方向只选择真正值得继续检索的缺口，未优先缺口会保留并进入审计，不要为形式覆盖强行生成方向。主题可以在综合讨论或研究缺口章节中再次出现。"""
+
+CONTRACT_REPAIR_SYSTEM_PROMPT = """你是结构化输出合同修正器。
+输入包含原始任务、被合同拒绝的完整 JSON 输出，以及精确的错误代码、路径和说明。
+只输出修正后的完整 JSON 对象，不要输出 Markdown、解释或差异。
+必须继续满足原始任务中的全部 JSON Schema 和语义约束，只修正已指出的问题及其直接连带问题。
+不得删除原始任务、放宽约束、编造输入中不存在的 ID，也不得用空值掩盖问题。
+这是唯一一次修正机会；输出仍不合格时程序将终止运行。"""
 
 
 @dataclass(frozen=True)
@@ -232,12 +240,49 @@ class TopicSynthesisRunner:
                 token_counter=token_counter,
             )
             request_results.append(theme_result)
-            evidence_map = validate_topic_evidence_map(
-                theme_parsed,
-                topic=snapshot.topic,
-                evidence_to_paper=snapshot.evidence_to_paper,
-                config=config,
-            )
+            try:
+                evidence_map = validate_topic_evidence_map(
+                    theme_parsed,
+                    topic=snapshot.topic,
+                    evidence_to_paper=snapshot.evidence_to_paper,
+                    config=config,
+                )
+            except TopicSynthesisContractError as exc:
+                repair_system, repair_user = build_contract_repair_prompts(
+                    stage="主题矩阵",
+                    original_system_prompt=theme_system,
+                    original_user_prompt=theme_user,
+                    rejected_payload=theme_parsed,
+                    error=exc,
+                )
+                repaired_theme, repair_result = execute_json_stage(
+                    run_dir=run_dir,
+                    stage="theme_map_correction",
+                    task_name="topic_synthesis_theme_map_correction",
+                    directory_name="theme_map/correction",
+                    system_prompt=repair_system,
+                    user_prompt=repair_user,
+                    max_output_tokens=config.theme_map_output_tokens(
+                        len(snapshot.evidence_units)
+                    ),
+                    context={
+                        "topic": snapshot.topic,
+                        "paper_ids": [row.paper_id for row in snapshot.sources],
+                        "evidence_unit_ids": list(snapshot.evidence_to_paper),
+                        "contract_error_code": exc.code,
+                        "contract_error_path": exc.path,
+                    },
+                    client=client,
+                    profile=profile,
+                    token_counter=token_counter,
+                )
+                request_results.append(repair_result)
+                evidence_map = validate_topic_evidence_map(
+                    repaired_theme,
+                    topic=snapshot.topic,
+                    evidence_to_paper=snapshot.evidence_to_paper,
+                    config=config,
+                )
             _write_json(run_dir / "theme_map" / "validated_theme_map.json", evidence_map)
 
             outline_system, outline_user = build_outline_prompts(
@@ -271,12 +316,50 @@ class TopicSynthesisRunner:
                 token_counter=token_counter,
             )
             request_results.append(outline_result)
-            outline = validate_topic_review_outline(
-                outline_parsed,
-                theme_map=evidence_map,
-                evidence_to_paper=snapshot.evidence_to_paper,
-                config=config,
-            )
+            try:
+                outline = validate_topic_review_outline(
+                    outline_parsed,
+                    theme_map=evidence_map,
+                    evidence_to_paper=snapshot.evidence_to_paper,
+                    config=config,
+                )
+            except TopicSynthesisContractError as exc:
+                repair_system, repair_user = build_contract_repair_prompts(
+                    stage="综述提纲",
+                    original_system_prompt=outline_system,
+                    original_user_prompt=outline_user,
+                    rejected_payload=outline_parsed,
+                    error=exc,
+                )
+                repaired_outline, repair_result = execute_json_stage(
+                    run_dir=run_dir,
+                    stage="outline_correction",
+                    task_name="topic_synthesis_outline_correction",
+                    directory_name="outline/correction",
+                    system_prompt=repair_system,
+                    user_prompt=repair_user,
+                    max_output_tokens=config.outline_output_tokens(
+                        len(evidence_map["themes"])
+                    ),
+                    context={
+                        "topic": snapshot.topic,
+                        "theme_ids": [
+                            str(row["theme_id"]) for row in evidence_map["themes"]
+                        ],
+                        "contract_error_code": exc.code,
+                        "contract_error_path": exc.path,
+                    },
+                    client=client,
+                    profile=profile,
+                    token_counter=token_counter,
+                )
+                request_results.append(repair_result)
+                outline = validate_topic_review_outline(
+                    repaired_outline,
+                    theme_map=evidence_map,
+                    evidence_to_paper=snapshot.evidence_to_paper,
+                    config=config,
+                )
             _write_json(run_dir / "outline" / "validated_outline.json", outline)
             coverage = build_coverage(snapshot, evidence_map, outline)
             _write_audit_artifacts(
@@ -504,6 +587,29 @@ def build_outline_prompts(
         "语料缺口": evidence_map["corpus_gaps"],
     }
     return OUTLINE_SYSTEM_PROMPT, _compact_json(payload)
+
+
+def build_contract_repair_prompts(
+    *,
+    stage: str,
+    original_system_prompt: str,
+    original_user_prompt: str,
+    rejected_payload: dict[str, Any],
+    error: TopicSynthesisContractError,
+) -> tuple[str, str]:
+    payload = {
+        "任务": f"修正被合同拒绝的{stage}完整 JSON 输出",
+        "原始系统约束": original_system_prompt,
+        "原始任务输入": json.loads(original_user_prompt),
+        "合同错误": {
+            "error_code": error.code,
+            "error_path": error.path,
+            "error_message": error.detail,
+        },
+        "被拒绝的完整输出": rejected_payload,
+        "修正要求": "返回满足全部原始约束的完整 JSON 对象。",
+    }
+    return CONTRACT_REPAIR_SYSTEM_PROMPT, _compact_json(payload)
 
 
 def build_coverage(
@@ -1149,6 +1255,8 @@ def _result(run_dir: Path, manifest: dict[str, Any]) -> dict[str, Any]:
         "theme_count": manifest.get("theme_count", 0),
         "synthesis_unit_count": manifest.get("synthesis_unit_count", 0),
         "section_count": manifest.get("section_count", 0),
+        "request_count": manifest.get("request_count", 0),
+        "usage": dict(manifest.get("usage", {})),
         "failure_codes": list(manifest.get("failure_codes", [])),
         "run_dir": str(run_dir),
         "manifest_path": str(run_dir / "manifest.json"),

@@ -261,9 +261,15 @@ class FakeTokenCounter:
 class FakeSynthesisClient:
     provider = "openai-compatible"
 
-    def __init__(self, *, invalid_outline: bool = False) -> None:
+    def __init__(
+        self,
+        *,
+        invalid_outline: bool = False,
+        repair_stage: str | None = None,
+    ) -> None:
         self.model = "deepseek-ai/DeepSeek-V4-Pro"
         self.invalid_outline = invalid_outline
+        self.repair_stage = repair_stage
         self.calls: list[dict[str, Any]] = []
 
     def complete(
@@ -274,12 +280,22 @@ class FakeSynthesisClient:
     ) -> ProviderResult:
         self.calls.append({"task": task, "request": request_payload, "context": context})
         user = json.loads(request_payload["messages"][1]["content"])
-        if task == "topic_synthesis_theme_map":
+        is_correction = task.endswith("_correction")
+        original_user = user["原始任务输入"] if is_correction else user
+        if task in {
+            "topic_synthesis_theme_map",
+            "topic_synthesis_theme_map_correction",
+        }:
             evidence_ids = [
                 str(unit["evidence_unit_id"])
-                for paper in user["论文简报投影"]
+                for paper in original_user["论文简报投影"]
                 for unit in paper["evidence"]
             ]
+            assignment_ids = (
+                evidence_ids[:-1]
+                if self.repair_stage == "theme_map" and not is_correction
+                else evidence_ids
+            )
             content = {
                 "schema_version": EVIDENCE_MAP_SCHEMA_VERSION,
                 "themes": [
@@ -293,7 +309,7 @@ class FakeSynthesisClient:
                                 "evidence_unit_id": evidence_id,
                                 "role": "main_support",
                             }
-                            for evidence_id in evidence_ids
+                            for evidence_id in assignment_ids
                         ],
                     }
                 ],
@@ -306,8 +322,11 @@ class FakeSynthesisClient:
                     }
                 ],
             }
-        elif task == "topic_synthesis_outline":
-            theme = user["主题矩阵"][0]
+        elif task in {
+            "topic_synthesis_outline",
+            "topic_synthesis_outline_correction",
+        }:
+            theme = original_user["主题矩阵"][0]
             evidence_ids = [
                 str(row["evidence_unit_id"]) for row in theme["assignments"]
             ]
@@ -337,7 +356,12 @@ class FakeSynthesisClient:
                         "paragraphs": [
                             {
                                 "synthesis_move": "比较不同论文对约束来源的观察。",
-                                "synthesis_unit_indexes": [1],
+                                "synthesis_unit_indexes": (
+                                    []
+                                    if self.repair_stage == "outline"
+                                    and not is_correction
+                                    else [1]
+                                ),
                             }
                         ],
                     }
@@ -349,7 +373,8 @@ class FakeSynthesisClient:
                         "reason": "当前语料缺少直接比较。",
                         "related_theme_ids": [str(theme["theme_id"])],
                         "source_gap_ids": [
-                            str(row["gap_id"]) for row in user["语料缺口"]
+                            str(row["gap_id"])
+                            for row in original_user["语料缺口"]
                         ],
                     }
                 ],
@@ -526,6 +551,8 @@ class TopicSynthesisTests(unittest.TestCase):
             [row["task"] for row in client.calls],
             ["topic_synthesis_theme_map", "topic_synthesis_outline"],
         )
+        self.assertEqual(result["request_count"], 2)
+        self.assertGreater(result["usage"]["total_tokens"], 0)
         run_dir = Path(result["run_dir"])
         output = json.loads(
             (run_dir / "output" / "topic_synthesis.json").read_text(
@@ -598,7 +625,90 @@ class TopicSynthesisTests(unittest.TestCase):
         manifest = json.loads(
             (run_dir / "manifest.json").read_text(encoding="utf-8")
         )
-        self.assertEqual(manifest["request_count"], 2)
+        self.assertEqual(manifest["request_count"], 3)
+        self.assertEqual(result["request_count"], 3)
+        self.assertGreater(result["usage"]["total_tokens"], 0)
+        self.assertTrue(
+            (run_dir / "outline" / "correction" / "raw_response.json").is_file()
+        )
+
+    def test_theme_map_contract_error_is_repaired_once(self):
+        client = FakeSynthesisClient(repair_stage="theme_map")
+        result = TopicSynthesisRunner(
+            self.workspace,
+            analysis_client=client,
+            token_counter=FakeTokenCounter(),
+        ).run(
+            collection_path=self.collection,
+            run_id="synthesis-theme-map-repaired",
+            model_profile_path=MODEL_PROFILE,
+            synthesis_config_path=SYNTHESIS_CONFIG,
+        )
+        self.assertEqual(result["status"], "completed")
+        self.assertEqual(
+            [row["task"] for row in client.calls],
+            [
+                "topic_synthesis_theme_map",
+                "topic_synthesis_theme_map_correction",
+                "topic_synthesis_outline",
+            ],
+        )
+        run_dir = Path(result["run_dir"])
+        correction = json.loads(
+            (
+                run_dir
+                / "theme_map"
+                / "correction"
+                / "request.json"
+            ).read_text(encoding="utf-8")
+        )
+        repair_input = json.loads(correction["messages"][1]["content"])
+        self.assertEqual(
+            repair_input["合同错误"]["error_code"],
+            "evidence_map.coverage_mismatch",
+        )
+        self.assertEqual(result["request_count"], 3)
+
+    def test_outline_schema_error_is_repaired_once(self):
+        client = FakeSynthesisClient(repair_stage="outline")
+        result = TopicSynthesisRunner(
+            self.workspace,
+            analysis_client=client,
+            token_counter=FakeTokenCounter(),
+        ).run(
+            collection_path=self.collection,
+            run_id="synthesis-outline-repaired",
+            model_profile_path=MODEL_PROFILE,
+            synthesis_config_path=SYNTHESIS_CONFIG,
+        )
+        self.assertEqual(result["status"], "completed")
+        self.assertEqual(
+            [row["task"] for row in client.calls],
+            [
+                "topic_synthesis_theme_map",
+                "topic_synthesis_outline",
+                "topic_synthesis_outline_correction",
+            ],
+        )
+        run_dir = Path(result["run_dir"])
+        correction = json.loads(
+            (
+                run_dir
+                / "outline"
+                / "correction"
+                / "request.json"
+            ).read_text(encoding="utf-8")
+        )
+        repair_input = json.loads(correction["messages"][1]["content"])
+        self.assertEqual(
+            repair_input["合同错误"]["error_code"],
+            "schema.topic_review_outline_invalid",
+        )
+        self.assertEqual(
+            repair_input["合同错误"]["error_path"],
+            "$.sections[0].paragraphs[0].synthesis_unit_indexes",
+        )
+        self.assertEqual(result["request_count"], 3)
 
     def test_publication_failure_removes_report_and_output(self):
         client = FakeSynthesisClient()
