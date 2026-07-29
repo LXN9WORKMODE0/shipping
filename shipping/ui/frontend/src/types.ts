@@ -6,6 +6,9 @@ export type Status =
   | "failed"
   | "queued"
   | "running"
+  | "cancel_requested"
+  | "cancelled"
+  | "interrupted"
   | "not_run"
   | "unknown";
 
@@ -132,8 +135,11 @@ export interface PipelineJob {
   status:
     | "queued"
     | "running"
+    | "cancel_requested"
     | "completed"
     | "completed_with_failures"
+    | "cancelled"
+    | "interrupted"
     | "failed";
   created_at: string;
   started_at: string | null;
@@ -169,6 +175,15 @@ export interface PipelineJob {
 }
 
 export type CardJob = PipelineJob;
+
+export interface JobRetryCandidates {
+  job_id: string;
+  job_type: "card_build" | "topic_brief";
+  project_id: string;
+  paper_ids: string[];
+  completed_paper_ids: string[];
+  candidate_count: number;
+}
 
 export interface ImportSourceResult {
   index: number;

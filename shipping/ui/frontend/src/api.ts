@@ -3,6 +3,7 @@ import type {
   CardJobPreflight,
   FullPipelineJobPreflight,
   ImportSourcesResponse,
+  JobRetryCandidates,
   PaperDetail,
   Project,
   ProjectSummary,
@@ -218,6 +219,14 @@ export const api = {
     ),
   job: (jobId: string) =>
     fetchJson<CardJob>(`/api/jobs/${encodeURIComponent(jobId)}`),
+  cancelJob: (jobId: string) =>
+    fetchJson<CardJob>(`/api/jobs/${encodeURIComponent(jobId)}/cancel`, {
+      method: "POST",
+    }),
+  retryCandidates: (jobId: string) =>
+    fetchJson<JobRetryCandidates>(
+      `/api/jobs/${encodeURIComponent(jobId)}/retry-candidates`,
+    ),
   jobLog: (jobId: string) =>
     fetchJson<{
       job_id: string;

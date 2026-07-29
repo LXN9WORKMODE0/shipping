@@ -32,6 +32,7 @@ import {
   Search,
   Server,
   ShieldAlert,
+  Square,
   Upload,
   X,
   XCircle,
@@ -72,6 +73,9 @@ const statusLabels: Record<string, string> = {
   failed: "失败",
   queued: "排队中",
   running: "运行中",
+  cancel_requested: "取消中",
+  cancelled: "已取消",
+  interrupted: "服务中断",
   not_run: "未运行",
   unknown: "未知",
 };
@@ -101,6 +105,8 @@ function statusTone(status: string) {
   if (
     status === "completed_with_failures" ||
     status === "completed_with_revisit_failure" ||
+    status === "cancel_requested" ||
+    status === "interrupted" ||
     status === "running"
   )
     return "warning";
@@ -645,10 +651,30 @@ function ProjectPage() {
     refetchInterval: 1000,
   });
   const latestJob = jobsQuery.data?.[0];
+  const latestPaperJob =
+    jobsQuery.data?.find(
+      (job) =>
+        job.job_type === "card_build" || job.job_type === "topic_brief",
+    ) ?? null;
+  const retryableJob =
+    latestPaperJob &&
+    !["queued", "running", "cancel_requested", "completed"].includes(
+      latestPaperJob.status,
+    )
+      ? latestPaperJob
+      : null;
+  const retryCandidatesQuery = useQuery({
+    queryKey: ["job-retry-candidates", retryableJob?.job_id],
+    queryFn: () => api.retryCandidates(retryableJob!.job_id),
+    enabled: Boolean(retryableJob),
+    retry: false,
+  });
   useEffect(() => {
     if (
       latestJob?.status === "completed" ||
       latestJob?.status === "completed_with_failures" ||
+      latestJob?.status === "cancelled" ||
+      latestJob?.status === "interrupted" ||
       latestJob?.status === "failed"
     ) {
       void queryClient.invalidateQueries({
@@ -688,7 +714,10 @@ function ProjectPage() {
       paper.analysis.status !== "failed",
   );
   const activeJob = jobsQuery.data?.some(
-    (job) => job.status === "queued" || job.status === "running",
+    (job) =>
+      job.status === "queued" ||
+      job.status === "running" ||
+      job.status === "cancel_requested",
   );
   const selectVisible = () =>
     setSelectedPaperIds(new Set(papers.map((paper) => paper.paper_id)));
@@ -708,6 +737,18 @@ function ProjectPage() {
           .map((paper) => paper.paper_id),
       ),
     );
+  const selectRetryCandidates = () => {
+    const existingIds = new Set(
+      project.papers.map((paper) => paper.paper_id),
+    );
+    setSelectedPaperIds(
+      new Set(
+        (retryCandidatesQuery.data?.paper_ids ?? []).filter((paperId) =>
+          existingIds.has(paperId),
+        ),
+      ),
+    );
+  };
   return (
     <>
       <PageHeader
@@ -869,6 +910,22 @@ function ProjectPage() {
           >
             选择已制卡
           </button>
+          {retryableJob && (
+            <button
+              type="button"
+              className="secondary-button compact-button"
+              onClick={selectRetryCandidates}
+              disabled={
+                retryCandidatesQuery.isLoading ||
+                !retryCandidatesQuery.data?.candidate_count
+              }
+            >
+              <RefreshCw size={14} />
+              选择上次
+              {retryableJob.job_type === "card_build" ? "制卡" : "分析"}
+              未成功
+            </button>
+          )}
           {selectedPaperIds.size > 0 && (
             <button
               type="button"
@@ -1705,11 +1762,24 @@ function FullPipelineJobDialog({
 }
 
 function JobPanel({ job }: { job: CardJob }) {
+  const queryClient = useQueryClient();
+  const cancelMutation = useMutation({
+    mutationFn: () => api.cancelJob(job.job_id),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: ["jobs", job.project_id],
+      });
+    },
+  });
   const logQuery = useQuery({
     queryKey: ["job-log", job.job_id],
     queryFn: () => api.jobLog(job.job_id),
     refetchInterval:
-      job.status === "queued" || job.status === "running" ? 1000 : false,
+      job.status === "queued" ||
+      job.status === "running" ||
+      job.status === "cancel_requested"
+        ? 1000
+        : false,
   });
   const progress =
     job.progress.total > 0
@@ -1721,7 +1791,12 @@ function JobPanel({ job }: { job: CardJob }) {
         <div className="card-job-title">
           <RefreshCw
             size={17}
-            className={job.status === "running" ? "spin" : ""}
+            className={
+              job.status === "running" ||
+              job.status === "cancel_requested"
+                ? "spin"
+                : ""
+            }
           />
           <div>
             <span>
@@ -1736,14 +1811,35 @@ function JobPanel({ job }: { job: CardJob }) {
             <strong>{job.job_id}</strong>
           </div>
         </div>
-        <StatusBadge
-          status={job.status}
-          label={
-            job.status === "completed_with_failures"
-              ? "部分完成"
-              : undefined
-          }
-        />
+        <div className="job-header-actions">
+          <StatusBadge
+            status={job.status}
+            label={
+              job.status === "completed_with_failures"
+                ? "部分完成"
+                : undefined
+            }
+          />
+          {(job.status === "queued" ||
+            job.status === "running" ||
+            job.status === "cancel_requested") && (
+            <button
+              type="button"
+              className="secondary-button compact-button"
+              disabled={
+                job.status === "cancel_requested" ||
+                cancelMutation.isPending
+              }
+              onClick={() => cancelMutation.mutate()}
+              title="停止当前子进程并保留已完成论文结果"
+            >
+              <Square size={13} />
+              {job.status === "cancel_requested"
+                ? "正在取消"
+                : "取消任务"}
+            </button>
+          )}
+        </div>
       </div>
       <div className="job-progress-row">
         <div className="job-progress-track">
@@ -1764,13 +1860,17 @@ function JobPanel({ job }: { job: CardJob }) {
       {job.failure_message && (
         <div
           className={`job-failure ${
-            job.status === "completed_with_failures" ? "job-warning" : ""
+            job.status === "completed_with_failures" ||
+            job.status === "interrupted"
+              ? "job-warning"
+              : ""
           }`}
         >
           <code>{job.failure_code}</code>
           <span>{job.failure_message}</span>
         </div>
       )}
+      {cancelMutation.error && <InlineError error={cancelMutation.error} />}
       {job.paper_results.length > 0 && (
         <div className="job-result-strip">
           {job.paper_results.map((result) => (
