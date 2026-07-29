@@ -2,6 +2,7 @@ import type {
   CardJob,
   CardJobPreflight,
   FullPipelineJobPreflight,
+  ImportSourcesResponse,
   PaperDetail,
   Project,
   ProjectSummary,
@@ -77,15 +78,13 @@ export const api = {
       JSON.stringify(sources.map((source) => source.paperId)),
     );
     form.append("expected_revision", String(expectedRevision));
-    return fetchJson<{
-      project: Record<string, unknown>;
-      imported_paper_ids: string[];
-      collection_path: string;
-      summary: Project;
-    }>(`/api/projects/${encodeURIComponent(projectId)}/sources`, {
+    return fetchJson<ImportSourcesResponse>(
+      `/api/projects/${encodeURIComponent(projectId)}/sources`,
+      {
       method: "POST",
       body: form,
-    });
+      },
+    );
   },
   preflightCardJob: (
     projectId: string,

@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from .errors import UIError
+from .job_repository import JobRepository
 from .project_repository import ProjectRepository
 
 
@@ -27,6 +28,7 @@ class ArtifactStore:
         workspace: str | Path = "workspace",
         project_config_root: str | Path = "config/ui",
         project_repository: ProjectRepository | None = None,
+        job_repository: JobRepository | None = None,
     ) -> None:
         self.project_root = Path(project_root).resolve()
         self.workspace = self._resolve_inside(self.project_root, workspace)
@@ -38,6 +40,7 @@ class ArtifactStore:
             workspace=workspace,
             legacy_config_root=project_config_root,
         )
+        self.job_repository = job_repository
 
     def list_projects(self) -> list[dict[str, Any]]:
         projects = [
@@ -51,6 +54,10 @@ class ArtifactStore:
         topic_run_by_paper = self._topic_run_by_paper(
             definition.get("analysis_run_ids", [])
         )
+        latest_analysis_results = self._latest_paper_job_results(
+            project_id,
+            "topic_brief",
+        )
         papers = [
             self._paper_summary(
                 {
@@ -63,6 +70,7 @@ class ArtifactStore:
                     ),
                 },
                 topic_run_by_paper,
+                latest_analysis_results,
             )
             for row in definition["papers"]
         ]
@@ -289,6 +297,7 @@ class ArtifactStore:
         self,
         paper: dict[str, Any],
         topic_run_by_paper: dict[str, dict[str, Any]],
+        latest_analysis_results: dict[str, dict[str, Any]],
     ) -> dict[str, Any]:
         paper_id = str(paper["paper_id"])
         workspace_paper_id = str(
@@ -338,6 +347,18 @@ class ArtifactStore:
                 "usage": analysis_manifest.get("usage", {}),
                 "failure_codes": analysis_manifest.get("failure_codes", []),
             }
+        elif latest_analysis_results.get(paper_id, {}).get("status") == "failed":
+            latest_failure = latest_analysis_results[paper_id]
+            analysis["status"] = "failed"
+            analysis["run_id"] = latest_failure.get("analysis_run_id")
+            analysis["request_count"] = int(
+                latest_failure.get("request_count", 0)
+            )
+            analysis["usage"] = latest_failure.get("usage") or {}
+            failure_code = latest_failure.get("failure_code")
+            analysis["failure_codes"] = (
+                [str(failure_code)] if failure_code else []
+            )
         return {
             "paper_id": paper_id,
             "workspace_paper_id": workspace_paper_id,
@@ -382,6 +403,22 @@ class ArtifactStore:
                 )
             records[paper_id] = manifest
         return records
+
+    def _latest_paper_job_results(
+        self,
+        project_id: str,
+        job_type: str,
+    ) -> dict[str, dict[str, Any]]:
+        if self.job_repository is None:
+            return {}
+        latest: dict[str, dict[str, Any]] = {}
+        for job in self.job_repository.list(project_id):
+            if job["job_type"] != job_type:
+                continue
+            for result in job["paper_results"]:
+                paper_id = str(result["paper_id"])
+                latest.setdefault(paper_id, result)
+        return latest
 
     def _synthesis_summary(self, run_id: str | None) -> dict[str, Any]:
         if not run_id:

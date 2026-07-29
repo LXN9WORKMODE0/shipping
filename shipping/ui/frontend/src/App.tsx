@@ -51,6 +51,7 @@ import type {
   CardJob,
   Evidence,
   EvidenceFailure,
+  ImportSourcesResponse,
   PaperDetail,
   Project,
   ProjectSummary,
@@ -107,7 +108,13 @@ function statusTone(status: string) {
   return "neutral";
 }
 
-function StatusBadge({ status }: { status: Status | string }) {
+function StatusBadge({
+  status,
+  label,
+}: {
+  status: Status | string;
+  label?: string;
+}) {
   const tone = statusTone(status);
   const Icon =
     tone === "success"
@@ -120,7 +127,7 @@ function StatusBadge({ status }: { status: Status | string }) {
   return (
     <span className={`status-badge status-${tone}`}>
       <Icon size={13} />
-      {statusLabels[status] ?? status}
+      {label ?? statusLabels[status] ?? status}
     </span>
   );
 }
@@ -434,19 +441,24 @@ function ImportSourcesDialog({
   const [sources, setSources] = useState<
     Array<{ file: File; paperId: string }>
   >([]);
+  const [importResult, setImportResult] =
+    useState<ImportSourcesResponse | null>(null);
   const mutation = useMutation({
     mutationFn: () =>
       api.importSources(project.project_id, project.revision, sources),
-    onSuccess: async () => {
+    onSuccess: async (result) => {
+      setImportResult(result);
+      setSources([]);
       await queryClient.invalidateQueries({
         queryKey: ["project", project.project_id],
       });
       await queryClient.invalidateQueries({ queryKey: ["projects"] });
-      onClose();
     },
   });
   const chooseFiles = (event: ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files ?? []);
+    setImportResult(null);
+    mutation.reset();
     setSources(
       files.map((file) => ({
         file,
@@ -522,21 +534,72 @@ function ImportSourcesDialog({
             </div>
           )}
           {mutation.error && <InlineError error={mutation.error} />}
+          {importResult && (
+            <div className="import-report">
+              <div className="import-report-summary">
+                <div>
+                  <span>已导入</span>
+                  <strong>{importResult.counts.imported}</strong>
+                </div>
+                <div>
+                  <span>重复跳过</span>
+                  <strong>{importResult.counts.skipped_duplicate}</strong>
+                </div>
+                <div>
+                  <span>失败</span>
+                  <strong>{importResult.counts.failed}</strong>
+                </div>
+              </div>
+              <div className="import-result-list">
+                {importResult.results.map((result) => (
+                  <div
+                    className={`import-result-row import-result-${result.status}`}
+                    key={`${result.index}-${result.original_filename}`}
+                  >
+                    <StatusBadge
+                      status={
+                        result.status === "imported"
+                          ? "completed"
+                          : result.status === "failed"
+                            ? "failed"
+                            : "completed_with_failures"
+                      }
+                      label={
+                        result.status === "imported"
+                          ? "已导入"
+                          : result.status === "failed"
+                            ? "失败"
+                            : "重复跳过"
+                      }
+                    />
+                    <div>
+                      <strong>{result.original_filename}</strong>
+                      <span>{result.paper_id || "未提供论文 ID"}</span>
+                    </div>
+                    <p>
+                      {result.message}
+                      {result.duplicate_of_paper_id
+                        ? ` 对应：${result.duplicate_of_paper_id}`
+                        : ""}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
           <p className="form-note">
-            本批任一文件格式、ID 或哈希冲突时，整批拒绝，不发布部分导入结果。
+            文件逐项校验。有效文件加入论文池；重复项和失败项会明确列出，不阻塞同批其他文件。
           </p>
           <div className="dialog-actions">
             <button type="button" className="secondary-button" onClick={onClose}>
-              取消
+              {importResult ? "关闭" : "取消"}
             </button>
             <button
               type="submit"
               className="primary-button"
               disabled={sources.length === 0 || mutation.isPending}
             >
-              {mutation.isPending
-                ? "正在导入"
-                : `导入 ${sources.length} 篇`}
+              {mutation.isPending ? "正在导入" : `导入 ${sources.length} 篇`}
             </button>
           </div>
         </form>
@@ -585,6 +648,7 @@ function ProjectPage() {
   useEffect(() => {
     if (
       latestJob?.status === "completed" ||
+      latestJob?.status === "completed_with_failures" ||
       latestJob?.status === "failed"
     ) {
       void queryClient.invalidateQueries({
@@ -603,7 +667,12 @@ function ProjectPage() {
     return (
       matchesSearch &&
       (analysisFilter === "all" ||
-        paper.analysis.status === analysisFilter)
+        (analysisFilter === "processing_failed"
+          ? paper.card.status === "failed" ||
+            paper.analysis.status === "failed"
+          : analysisFilter === "card_ready"
+            ? paper.card.status === "completed"
+            : paper.analysis.status === analysisFilter))
     );
   });
   const selectedPapers = project.papers.filter((paper) =>
@@ -628,6 +697,14 @@ function ProjectPage() {
       new Set(
         project.papers
           .filter((paper) => paper.card.status !== "completed")
+          .map((paper) => paper.paper_id),
+      ),
+    );
+  const selectCardReady = () =>
+    setSelectedPaperIds(
+      new Set(
+        project.papers
+          .filter((paper) => paper.card.status === "completed")
           .map((paper) => paper.paper_id),
       ),
     );
@@ -752,6 +829,8 @@ function ProjectPage() {
               onChange={(event) => setAnalysisFilter(event.target.value)}
             >
               <option value="all">全部分析状态</option>
+              <option value="card_ready">Card 已就绪</option>
+              <option value="processing_failed">处理失败</option>
               <option value="completed">已完成</option>
               <option value="completed_with_failures">
                 部分 Evidence 失败
@@ -777,6 +856,18 @@ function ProjectPage() {
             disabled={project.paper_count === 0}
           >
             选择未制卡
+          </button>
+          <button
+            type="button"
+            className="secondary-button compact-button"
+            onClick={selectCardReady}
+            disabled={
+              !project.papers.some(
+                (paper) => paper.card.status === "completed",
+              )
+            }
+          >
+            选择已制卡
           </button>
           {selectedPaperIds.size > 0 && (
             <button
@@ -842,11 +933,11 @@ function ProjectPage() {
                 ? "已有 Job 正在运行"
                 : project.paper_count < 2
                   ? "完整流程至少需要两篇论文"
-                  : "使用全部项目论文运行完整流程"
+                  : "严格使用全部项目论文运行完整流程"
             }
           >
             <Layers3 size={14} />
-            完整流程
+            严格完整流程
           </button>
         </div>
         <div className="data-table-wrap">
@@ -1105,8 +1196,8 @@ function CardJobDialog({
           )}
           {mutation.error && <InlineError error={mutation.error} />}
           <p className="form-note">
-            Job 按论文顺序执行。单篇失败会记录并继续处理同批其他论文；存在任一失败时，
-            整个 Job 不标记完成。
+            Job 按论文顺序执行。单篇失败会记录并继续处理其他论文；只要存在成功论文，
+            Job 就以“部分完成”发布成功结果。
           </p>
           <div className="dialog-actions">
             <button type="button" className="secondary-button" onClick={onClose}>
@@ -1645,7 +1736,14 @@ function JobPanel({ job }: { job: CardJob }) {
             <strong>{job.job_id}</strong>
           </div>
         </div>
-        <StatusBadge status={job.status} />
+        <StatusBadge
+          status={job.status}
+          label={
+            job.status === "completed_with_failures"
+              ? "部分完成"
+              : undefined
+          }
+        />
       </div>
       <div className="job-progress-row">
         <div className="job-progress-track">
@@ -1664,7 +1762,11 @@ function JobPanel({ job }: { job: CardJob }) {
         </p>
       )}
       {job.failure_message && (
-        <div className="job-failure">
+        <div
+          className={`job-failure ${
+            job.status === "completed_with_failures" ? "job-warning" : ""
+          }`}
+        >
           <code>{job.failure_code}</code>
           <span>{job.failure_message}</span>
         </div>

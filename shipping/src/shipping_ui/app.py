@@ -71,6 +71,7 @@ def create_app(
         workspace=workspace,
         project_config_root=legacy_config_root,
         project_repository=project_repository,
+        job_repository=job_repository,
     )
 
     @asynccontextmanager

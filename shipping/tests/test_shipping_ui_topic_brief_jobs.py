@@ -334,6 +334,20 @@ class ShippingUITopicBriefJobTests(unittest.TestCase):
             ).read_text(encoding="utf-8")
         )
         self.assertEqual(manifest["paper_id"], "同名论文")
+        summary = ArtifactStore(
+            PROJECT_ROOT,
+            workspace=self.workspace_relative,
+            project_config_root=self.relative_root / "legacy",
+            project_repository=self.projects,
+            job_repository=self.jobs,
+        ).get_project("pt-review")
+        by_id = {row["paper_id"]: row for row in summary["papers"]}
+        self.assertEqual(by_id["同名论文"]["analysis"]["status"], "completed")
+        self.assertEqual(by_id["失败论文"]["analysis"]["status"], "failed")
+        self.assertEqual(
+            by_id["失败论文"]["analysis"]["failure_codes"],
+            ["test.analysis_failed"],
+        )
 
     def _wait(self, job_id: str) -> dict:
         deadline = time.monotonic() + 20

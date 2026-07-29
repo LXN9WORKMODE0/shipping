@@ -129,7 +129,12 @@ export interface PipelineJob {
     | "full_pipeline";
   project_id: string;
   project_revision: number;
-  status: "queued" | "running" | "completed" | "failed";
+  status:
+    | "queued"
+    | "running"
+    | "completed"
+    | "completed_with_failures"
+    | "failed";
   created_at: string;
   started_at: string | null;
   finished_at: string | null;
@@ -164,6 +169,31 @@ export interface PipelineJob {
 }
 
 export type CardJob = PipelineJob;
+
+export interface ImportSourceResult {
+  index: number;
+  paper_id: string;
+  original_filename: string;
+  status: "imported" | "skipped_duplicate" | "failed";
+  sha256: string | null;
+  size_bytes: number | null;
+  duplicate_of_paper_id: string | null;
+  error_code: string | null;
+  message: string;
+}
+
+export interface ImportSourcesResponse {
+  project: Record<string, unknown>;
+  imported_paper_ids: string[];
+  collection_path: string | null;
+  results: ImportSourceResult[];
+  counts: {
+    imported: number;
+    skipped_duplicate: number;
+    failed: number;
+  };
+  summary: Project;
+}
 
 export interface CardJobPreflight {
   schema_version: "review_ui_card_job_input.v1";
