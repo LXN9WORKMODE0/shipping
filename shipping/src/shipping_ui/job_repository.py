@@ -22,11 +22,26 @@ JOB_INPUT_TYPES = {
     TOPIC_SYNTHESIS_JOB_INPUT_SCHEMA: ("topic_synthesis", "synthesis"),
     FULL_PIPELINE_JOB_INPUT_SCHEMA: ("full_pipeline", "pipeline"),
 }
-TERMINAL_STATUSES = {"completed", "completed_with_failures", "failed"}
-ALLOWED_TRANSITIONS = {
-    "queued": {"running", "failed"},
-    "running": {"completed", "completed_with_failures", "failed"},
+TERMINAL_STATUSES = {
+    "completed",
+    "completed_with_failures",
+    "failed",
+    "cancelled",
+    "interrupted",
 }
+ALLOWED_TRANSITIONS = {
+    "queued": {"running", "cancelled", "interrupted", "failed"},
+    "running": {
+        "cancel_requested",
+        "completed",
+        "completed_with_failures",
+        "cancelled",
+        "interrupted",
+        "failed",
+    },
+    "cancel_requested": {"cancelled", "interrupted", "failed"},
+}
+INCOMPLETE_STATUSES = {"queued", "running", "cancel_requested"}
 
 
 class JobRepository:
@@ -63,7 +78,7 @@ class JobRepository:
             active = [
                 row
                 for row in self.list()
-                if row["status"] in {"queued", "running"}
+                if row["status"] in INCOMPLETE_STATUSES
             ]
             if active:
                 raise UIError(
@@ -100,6 +115,9 @@ class JobRepository:
                 "result": None,
                 "failure_code": None,
                 "failure_message": None,
+                "cancel_requested_at": None,
+                "cancelled_at": None,
+                "interrupted_at": None,
             }
             self._atomic_json(job_dir / "job.json", job)
             (job_dir / "logs" / "job.log").write_text("", encoding="utf-8")
@@ -213,6 +231,12 @@ class JobRepository:
             job["status"] = status
             if status == "running":
                 job["started_at"] = now
+            if status == "cancel_requested":
+                job["cancel_requested_at"] = now
+            if status == "cancelled":
+                job["cancelled_at"] = now
+            if status == "interrupted":
+                job["interrupted_at"] = now
             if status in TERMINAL_STATUSES:
                 job["finished_at"] = now
                 job["progress"]["current_paper_id"] = None
@@ -221,6 +245,62 @@ class JobRepository:
             self._atomic_json(self.root / job_id / "job.json", job)
             return job
 
+    def request_cancel(self, job_id: str) -> dict[str, Any]:
+        with self._lock:
+            job = self.get(job_id)
+            status = str(job["status"])
+            if status == "cancel_requested":
+                return job
+            if status == "queued":
+                return self.transition(job_id, "cancelled")
+            if status == "running":
+                progress = job["progress"]
+                if (
+                    progress["total"] > 0
+                    and progress["completed"] >= progress["total"]
+                ):
+                    raise UIError(
+                        "ui.job_finalizing",
+                        "Job 已完成全部计算，正在发布最终状态，不能取消。",
+                    )
+                return self.transition(job_id, "cancel_requested")
+            raise UIError(
+                "ui.job_not_cancellable",
+                f"Job 当前状态不能取消：{status}。",
+            )
+
+    def retry_candidates(self, job_id: str) -> dict[str, Any]:
+        job = self.get(job_id)
+        if job["job_type"] not in {"card_build", "topic_brief"}:
+            raise UIError(
+                "ui.job_retry_not_paper_scoped",
+                "只有 Card 和单篇分析 Job 支持逐论文重跑。",
+            )
+        if job["status"] not in TERMINAL_STATUSES:
+            raise UIError(
+                "ui.job_retry_not_ready",
+                "Job 尚未结束，不能计算重跑论文。",
+            )
+        job_input = self.get_input(job_id)
+        completed_ids = {
+            str(row["paper_id"])
+            for row in job["paper_results"]
+            if row["status"] == "completed"
+        }
+        candidates = [
+            str(row["paper_id"])
+            for row in job_input["papers"]
+            if str(row["paper_id"]) not in completed_ids
+        ]
+        return {
+            "job_id": job_id,
+            "job_type": job["job_type"],
+            "project_id": job["project_id"],
+            "paper_ids": candidates,
+            "completed_paper_ids": sorted(completed_ids),
+            "candidate_count": len(candidates),
+        }
+
     def record_paper_result(
         self,
         job_id: str,
@@ -228,10 +308,10 @@ class JobRepository:
     ) -> dict[str, Any]:
         with self._lock:
             job = self.get(job_id)
-            if job["status"] != "running":
+            if job["status"] not in {"running", "cancel_requested"}:
                 raise UIError(
                     "ui.job_not_running",
-                    f"Job 不在运行状态：{job_id}",
+                    f"Job 不在运行或取消收束状态：{job_id}",
                 )
             existing = {
                 str(row["paper_id"]) for row in job["paper_results"]
@@ -340,13 +420,24 @@ class JobRepository:
     def reconcile_incomplete(self) -> list[str]:
         reconciled: list[str] = []
         for job in self.list():
-            if job["status"] not in {"queued", "running"}:
+            if job["status"] not in INCOMPLETE_STATUSES:
                 continue
+            status = (
+                "cancelled"
+                if job["status"] == "cancel_requested"
+                else "interrupted"
+            )
             self.transition(
                 str(job["job_id"]),
-                "failed",
-                failure_code="ui.job_interrupted",
-                failure_message="服务上次停止时 Job 尚未结束；本次不自动恢复。",
+                status,
+                failure_code=(
+                    None if status == "cancelled" else "ui.job_interrupted"
+                ),
+                failure_message=(
+                    None
+                    if status == "cancelled"
+                    else "服务上次停止时 Job 尚未结束；本次不自动恢复。"
+                ),
             )
             reconciled.append(str(job["job_id"]))
         return reconciled
@@ -363,6 +454,9 @@ class JobRepository:
             "running",
             "completed",
             "completed_with_failures",
+            "cancel_requested",
+            "cancelled",
+            "interrupted",
             "failed",
         }:
             raise UIError(

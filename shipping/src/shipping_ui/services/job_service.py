@@ -36,6 +36,10 @@ from ..project_repository import PROJECT_SCHEMA, ProjectRepository
 SUPPORTED_CARD_SUFFIXES = {".pdf", ".md", ".markdown", ".txt"}
 
 
+class JobCancelled(Exception):
+    pass
+
+
 class JobService:
     def __init__(
         self,
@@ -80,11 +84,14 @@ class JobService:
         )
         self._executor: ThreadPoolExecutor | None = None
         self._lifecycle_lock = threading.Lock()
+        self._process_lock = threading.Lock()
+        self._active_processes: dict[str, subprocess.Popen[str]] = {}
 
     def start(self) -> list[str]:
         with self._lifecycle_lock:
             if self._executor is not None:
                 return []
+            self._reconcile_analysis_results()
             reconciled = self.jobs.reconcile_incomplete()
             self._executor = ThreadPoolExecutor(
                 max_workers=1,
@@ -98,6 +105,80 @@ class JobService:
             self._executor = None
         if executor is not None:
             executor.shutdown(wait=True, cancel_futures=False)
+
+    def request_cancel(self, job_id: str) -> dict[str, Any]:
+        job = self.jobs.request_cancel(job_id)
+        if job["status"] == "cancelled":
+            self.jobs.append_log(
+                job_id,
+                f"[{self._now()}] 排队中的 Job 已取消。",
+            )
+            return job
+        self.jobs.append_log(
+            job_id,
+            f"[{self._now()}] 已记录取消请求，正在停止当前子进程。",
+        )
+        with self._process_lock:
+            process = self._active_processes.get(job_id)
+            if process is not None and process.poll() is None:
+                try:
+                    process.terminate()
+                except OSError as exc:
+                    self.jobs.append_log(
+                        job_id,
+                        f"[{self._now()}] 子进程终止请求失败：{exc}",
+                    )
+        return self.jobs.get(job_id)
+
+    def _reconcile_analysis_results(self) -> None:
+        for job in self.jobs.list():
+            if (
+                job["status"] != "running"
+                or job["job_type"] != "topic_brief"
+                or not job["paper_results"]
+            ):
+                continue
+            try:
+                job_input = self.jobs.get_input(str(job["job_id"]))
+                published = self._publish_topic_brief_results(
+                    job_input,
+                    list(job["paper_results"]),
+                )
+                self.jobs.append_log(
+                    str(job["job_id"]),
+                    f"[{self._now()}] 重启对账已发布 "
+                    f"{len(job['paper_results'])} 个逐论文结果，"
+                    f"revision={published['revision']}。",
+                )
+            except UIError as exc:
+                self.jobs.append_log(
+                    str(job["job_id"]),
+                    f"[{self._now()}] 重启对账未能发布逐论文结果："
+                    f"{exc.code}: {exc}",
+                )
+
+    def _begin_job(self, job_id: str) -> bool:
+        job = self.jobs.get(job_id)
+        if job["status"] == "cancelled":
+            return False
+        if job["status"] == "cancel_requested":
+            self.jobs.transition(job_id, "cancelled")
+            return False
+        self.jobs.transition(job_id, "running")
+        return True
+
+    def _raise_if_cancel_requested(self, job_id: str) -> None:
+        if self.jobs.get(job_id)["status"] == "cancel_requested":
+            raise JobCancelled()
+
+    def _finish_cancelled(self, job_id: str) -> None:
+        current = self.jobs.get(job_id)
+        if current["status"] == "cancel_requested":
+            self.jobs.append_log(
+                job_id,
+                f"[{self._now()}] Job 已取消；已完成论文结果保持有效。",
+            )
+            self.jobs.transition(job_id, "cancelled")
 
     def preflight(
         self,
@@ -753,7 +834,8 @@ class JobService:
         job_input: dict[str, Any] | None = None
         try:
             job_input = self.jobs.get_input(job_id)
-            self.jobs.transition(job_id, "running")
+            if not self._begin_job(job_id):
+                return
             project = self.projects.get(str(job_input["project_id"]))
             if project["revision"] != job_input["project_revision"]:
                 raise UIError(
@@ -794,6 +876,7 @@ class JobService:
                 command.argv,
                 log_prefix="完整流程",
             )
+            self._raise_if_cancel_requested(job_id)
             result = self._verify_full_pipeline_artifact(
                 job_input,
                 payload,
@@ -828,12 +911,17 @@ class JobService:
                 f"revision={published['revision']}。",
             )
             self.jobs.transition(job_id, "completed")
+        except JobCancelled:
+            self._finish_cancelled(job_id)
         except Exception as exc:
             self.jobs.append_log(
                 job_id,
                 f"[{self._now()}] 完整流程 Job 异常："
                 f"{type(exc).__name__}: {exc}",
             )
+            if self.jobs.get(job_id)["status"] == "cancel_requested":
+                self._finish_cancelled(job_id)
+                return
             current = self.jobs.get(job_id)
             if current["status"] in {"queued", "running"}:
                 code = (
@@ -874,7 +962,8 @@ class JobService:
         job_input: dict[str, Any] | None = None
         try:
             job_input = self.jobs.get_input(job_id)
-            self.jobs.transition(job_id, "running")
+            if not self._begin_job(job_id):
+                return
             project = self.projects.get(str(job_input["project_id"]))
             if project["revision"] != job_input["project_revision"]:
                 raise UIError(
@@ -916,6 +1005,7 @@ class JobService:
                 command.argv,
                 log_prefix="综合",
             )
+            self._raise_if_cancel_requested(job_id)
             if return_code != 0:
                 child_codes = (
                     payload.get("failure_codes", [])
@@ -950,12 +1040,17 @@ class JobService:
                 f"revision={published['revision']}。",
             )
             self.jobs.transition(job_id, "completed")
+        except JobCancelled:
+            self._finish_cancelled(job_id)
         except Exception as exc:
             self.jobs.append_log(
                 job_id,
                 f"[{self._now()}] 跨论文综合 Job 异常："
                 f"{type(exc).__name__}: {exc}",
             )
+            if self.jobs.get(job_id)["status"] == "cancel_requested":
+                self._finish_cancelled(job_id)
+                return
             if job_input is not None:
                 try:
                     self.projects.set_synthesis_run_id(
@@ -1003,7 +1098,8 @@ class JobService:
     def _execute_topic_brief_job(self, job_id: str) -> None:
         try:
             job_input = self.jobs.get_input(job_id)
-            self.jobs.transition(job_id, "running")
+            if not self._begin_job(job_id):
+                return
             self.jobs.append_log(
                 job_id,
                 f"[{self._now()}] 单篇分析 Job 开始，共 "
@@ -1018,6 +1114,7 @@ class JobService:
             results: list[dict[str, Any]] = []
             failure_codes: list[str] = []
             for paper in job_input["papers"]:
+                self._raise_if_cancel_requested(job_id)
                 paper_id = str(paper["paper_id"])
                 self.jobs.set_current_paper(job_id, paper_id)
                 result = self._execute_topic_brief_paper(
@@ -1029,6 +1126,7 @@ class JobService:
                 self.jobs.record_paper_result(job_id, result)
                 if result["status"] != "completed":
                     failure_codes.append(str(result["failure_code"]))
+                self._raise_if_cancel_requested(job_id)
             published = self._publish_topic_brief_results(job_input, results)
             self.jobs.append_log(
                 job_id,
@@ -1064,12 +1162,30 @@ class JobService:
                     "全部验证通过的 run 已发布。",
                 )
                 self.jobs.transition(job_id, "completed")
+        except JobCancelled:
+            current = self.jobs.get(job_id)
+            if current["paper_results"]:
+                try:
+                    self._publish_topic_brief_results(
+                        self.jobs.get_input(job_id),
+                        list(current["paper_results"]),
+                    )
+                except UIError as exc:
+                    self.jobs.append_log(
+                        job_id,
+                        f"[{self._now()}] 取消收束未能发布已完成分析："
+                        f"{exc.code}: {exc}",
+                    )
+            self._finish_cancelled(job_id)
         except Exception as exc:
             self.jobs.append_log(
                 job_id,
                 f"[{self._now()}] 单篇分析 Job 异常："
                 f"{type(exc).__name__}: {exc}",
             )
+            if self.jobs.get(job_id)["status"] == "cancel_requested":
+                self._finish_cancelled(job_id)
+                return
             current = self.jobs.get(job_id)
             if current["status"] in {"queued", "running"}:
                 code = exc.code if isinstance(exc, UIError) else (
@@ -1131,41 +1247,15 @@ class JobService:
             f"generation={paper['generation_id']}，"
             f"Card={paper['material_count']}。",
         )
-        payload: dict[str, Any] | None = None
-        creationflags = (
-            subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0
-        )
-        env = dict(os.environ)
-        env["PYTHONUTF8"] = "1"
         try:
-            process = subprocess.Popen(
+            payload, return_code = self._run_process(
+                job_id,
                 command.argv,
-                cwd=self.project_root,
-                env=env,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.STDOUT,
-                text=True,
-                encoding="utf-8",
-                errors="strict",
-                creationflags=creationflags,
+                log_prefix=paper_id,
             )
-            if process.stdout is None:
-                raise UIError(
-                    "ui.job_stdout_missing",
-                    "子进程没有可读取的标准输出。",
-                )
-            with process.stdout:
-                for line in process.stdout:
-                    clean = line.rstrip("\r\n")
-                    self.jobs.append_log(job_id, f"[{paper_id}] {clean}")
-                    try:
-                        candidate = json.loads(clean)
-                    except json.JSONDecodeError:
-                        continue
-                    if isinstance(candidate, dict):
-                        payload = candidate
-            return_code = process.wait()
-        except (OSError, UnicodeError, UIError) as exc:
+        except JobCancelled:
+            raise
+        except UIError as exc:
             return self._topic_paper_failure(
                 paper,
                 started_at,
@@ -1319,9 +1409,7 @@ class JobService:
     ) -> dict[str, Any]:
         project_id = str(job_input["project_id"])
         project = self.projects.get(project_id)
-        selected_ids = {
-            str(row["paper_id"]) for row in job_input["papers"]
-        }
+        selected_ids = {str(row["paper_id"]) for row in results}
         retained: list[str] = []
         for run_id in project["analysis_run_ids"]:
             manifest = self._read_json(
@@ -1357,6 +1445,7 @@ class JobService:
         )
         env = dict(os.environ)
         env["PYTHONUTF8"] = "1"
+        process: subprocess.Popen[str] | None = None
         try:
             process = subprocess.Popen(
                 argv,
@@ -1369,6 +1458,10 @@ class JobService:
                 errors="strict",
                 creationflags=creationflags,
             )
+            with self._process_lock:
+                self._active_processes[job_id] = process
+            if self.jobs.get(job_id)["status"] == "cancel_requested":
+                process.terminate()
             if process.stdout is None:
                 raise UIError(
                     "ui.job_stdout_missing",
@@ -1387,12 +1480,23 @@ class JobService:
                         continue
                     if isinstance(candidate, dict):
                         payload = candidate
-            return payload, process.wait()
+            return_code = process.wait()
+            self._raise_if_cancel_requested(job_id)
+            return payload, return_code
+        except JobCancelled:
+            raise
         except (OSError, UnicodeError, UIError) as exc:
             raise UIError(
                 "ui.job_process_failed",
                 f"{type(exc).__name__}: {exc}",
             ) from exc
+        finally:
+            with self._process_lock:
+                if (
+                    process is not None
+                    and self._active_processes.get(job_id) is process
+                ):
+                    self._active_processes.pop(job_id, None)
 
     def _verify_full_pipeline_artifact(
         self,
@@ -1602,19 +1706,22 @@ class JobService:
     def _execute_card_job(self, job_id: str) -> None:
         try:
             job_input = self.jobs.get_input(job_id)
-            self.jobs.transition(job_id, "running")
+            if not self._begin_job(job_id):
+                return
             self.jobs.append_log(
                 job_id,
                 f"[{self._now()}] Job 开始，共 {len(job_input['papers'])} 篇论文。",
             )
             failure_codes: list[str] = []
             for paper in job_input["papers"]:
+                self._raise_if_cancel_requested(job_id)
                 paper_id = str(paper["paper_id"])
                 self.jobs.set_current_paper(job_id, paper_id)
                 result = self._execute_paper(job_id, job_input, paper)
                 self.jobs.record_paper_result(job_id, result)
                 if result["status"] != "completed":
                     failure_codes.append(str(result["failure_code"]))
+                self._raise_if_cancel_requested(job_id)
             if failure_codes:
                 succeeded = len(job_input["papers"]) - len(failure_codes)
                 self.jobs.append_log(
@@ -1642,11 +1749,16 @@ class JobService:
                     f"[{self._now()}] Job 完成，全部论文 Card 已发布。",
                 )
                 self.jobs.transition(job_id, "completed")
+        except JobCancelled:
+            self._finish_cancelled(job_id)
         except Exception as exc:
             self.jobs.append_log(
                 job_id,
                 f"[{self._now()}] Job 执行异常：{type(exc).__name__}: {exc}",
             )
+            if self.jobs.get(job_id)["status"] == "cancel_requested":
+                self._finish_cancelled(job_id)
+                return
             current = self.jobs.get(job_id)
             if current["status"] in {"queued", "running"}:
                 self.jobs.transition(
@@ -1686,43 +1798,15 @@ class JobService:
             job_id,
             f"[{self._now()}] 开始处理：{paper_id}",
         )
-        payload: dict[str, Any] | None = None
-        creationflags = (
-            subprocess.CREATE_NO_WINDOW
-            if os.name == "nt"
-            else 0
-        )
-        env = dict(os.environ)
-        env["PYTHONUTF8"] = "1"
         try:
-            process = subprocess.Popen(
+            payload, return_code = self._run_process(
+                job_id,
                 command.argv,
-                cwd=self.project_root,
-                env=env,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.STDOUT,
-                text=True,
-                encoding="utf-8",
-                errors="strict",
-                creationflags=creationflags,
+                log_prefix=paper_id,
             )
-            if process.stdout is None:
-                raise UIError(
-                    "ui.job_stdout_missing",
-                    "子进程没有可读取的标准输出。",
-                )
-            with process.stdout:
-                for line in process.stdout:
-                    clean = line.rstrip("\r\n")
-                    self.jobs.append_log(job_id, f"[{paper_id}] {clean}")
-                    try:
-                        candidate = json.loads(clean)
-                    except json.JSONDecodeError:
-                        continue
-                    if isinstance(candidate, dict):
-                        payload = candidate
-            return_code = process.wait()
-        except (OSError, UnicodeError, UIError) as exc:
+        except JobCancelled:
+            raise
+        except UIError as exc:
             return self._paper_failure(
                 paper_id,
                 workspace_paper_id,

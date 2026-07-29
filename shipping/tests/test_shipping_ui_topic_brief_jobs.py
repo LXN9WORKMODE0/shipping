@@ -4,6 +4,7 @@ import io
 import json
 import shutil
 import sys
+import threading
 import time
 import unittest
 import uuid
@@ -121,6 +122,24 @@ class FakeTopicBriefJobService(JobService):
                 "status": "completed",
             },
         }
+
+
+class ControlledTopicBriefJobService(FakeTopicBriefJobService):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.first_started = threading.Event()
+        self.release_first = threading.Event()
+
+    def _execute_topic_brief_paper(self, job_id, job_input, paper):
+        if paper["paper_id"] == "第一篇":
+            self.first_started.set()
+            if not self.release_first.wait(timeout=5):
+                raise RuntimeError("测试未释放第一篇分析。")
+        return super()._execute_topic_brief_paper(
+            job_id,
+            job_input,
+            paper,
+        )
 
 
 class ShippingUITopicBriefJobTests(unittest.TestCase):
@@ -349,12 +368,168 @@ class ShippingUITopicBriefJobTests(unittest.TestCase):
             ["test.analysis_failed"],
         )
 
+    def test_cancelled_topic_job_publishes_completed_paper_only(self):
+        project = self.project_service.create_project(
+            project_id="tc-review",
+            name="分析取消测试",
+            topic="通航调度",
+        )
+        project = self.project_service.import_sources(
+            "tc-review",
+            expected_revision=project["revision"],
+            sources=[
+                SourceInput(
+                    paper_id=paper_id,
+                    filename=f"{paper_id}.md",
+                    stream=io.BytesIO(
+                        (
+                            f"# {paper_id}\n\n"
+                            "## 摘要\n\n研究通航调度问题。\n\n"
+                            "## 方法\n\n构建调度模型。\n\n"
+                            "## 结论\n\n模型减少等待时间。\n"
+                        ).encode()
+                    ),
+                )
+                for paper_id in ("第一篇", "第二篇")
+            ],
+        )["project"]
+        card_job = self.service.create_card_job(
+            "tc-review",
+            expected_revision=project["revision"],
+            paper_ids=["第一篇", "第二篇"],
+            pdf_provider="none",
+        )
+        completed_card = self._wait(card_job["job_id"])
+        self.assertEqual(completed_card["status"], "completed", completed_card)
+        self.service.shutdown()
+        controlled = ControlledTopicBriefJobService(
+            project_root=PROJECT_ROOT,
+            workspace=self.workspace_relative,
+            projects=self.projects,
+            jobs=self.jobs,
+            command_factory=CardCommandFactory(
+                PROJECT_ROOT,
+                workspace=self.workspace_relative,
+            ),
+            topic_brief_command_factory=TopicBriefCommandFactory(
+                PROJECT_ROOT,
+                workspace=self.workspace_relative,
+                env_file=self.env_relative,
+            ),
+        )
+        self.service = controlled
+        controlled.start()
+        job = controlled.create_topic_brief_job(
+            "tc-review",
+            expected_revision=project["revision"],
+            paper_ids=["第一篇", "第二篇"],
+            external_service_confirmed=True,
+        )
+        self.assertTrue(controlled.first_started.wait(timeout=5))
+
+        controlled.request_cancel(str(job["job_id"]))
+        controlled.release_first.set()
+        cancelled = self._wait(job["job_id"])
+
+        self.assertEqual(cancelled["status"], "cancelled", cancelled)
+        self.assertEqual(cancelled["progress"]["succeeded"], 1)
+        published = self.projects.get("tc-review")
+        self.assertEqual(len(published["analysis_run_ids"]), 1)
+        manifest = json.loads(
+            (
+                PROJECT_ROOT
+                / self.workspace_relative
+                / "_topic_reviews"
+                / "runs"
+                / published["analysis_run_ids"][0]
+                / "manifest.json"
+            ).read_text(encoding="utf-8")
+        )
+        self.assertEqual(manifest["paper_id"], "第一篇")
+        retry = self.jobs.retry_candidates(str(job["job_id"]))
+        self.assertEqual(retry["paper_ids"], ["第二篇"])
+
+    def test_restart_reconciliation_publishes_recorded_analysis(self):
+        project = self.project_service.create_project(
+            project_id="tr-review",
+            name="分析重启对账",
+            topic="通航调度",
+        )
+        project = self.project_service.import_sources(
+            "tr-review",
+            expected_revision=project["revision"],
+            sources=[
+                SourceInput(
+                    paper_id="对账论文",
+                    filename="paper.md",
+                    stream=io.BytesIO(
+                        (
+                            "# 对账论文\n\n"
+                            "## 摘要\n\n研究通航调度。\n\n"
+                            "## 方法\n\n构建调度模型。\n\n"
+                            "## 结论\n\n模型减少等待时间。\n"
+                        ).encode()
+                    ),
+                )
+            ],
+        )["project"]
+        card_job = self.service.create_card_job(
+            "tr-review",
+            expected_revision=project["revision"],
+            paper_ids=["对账论文"],
+            pdf_provider="none",
+        )
+        self.assertEqual(self._wait(card_job["job_id"])["status"], "completed")
+        frozen = self.service.preflight_topic_brief(
+            "tr-review",
+            expected_revision=project["revision"],
+            paper_ids=["对账论文"],
+        )
+        self.service.shutdown()
+        job = self.jobs.create(frozen)
+        job_id = str(job["job_id"])
+        self.jobs.transition(job_id, "running")
+        result = self.service._execute_topic_brief_paper(
+            job_id,
+            frozen,
+            frozen["papers"][0],
+        )
+        self.jobs.record_paper_result(job_id, result)
+        restarted = FakeTopicBriefJobService(
+            project_root=PROJECT_ROOT,
+            workspace=self.workspace_relative,
+            projects=self.projects,
+            jobs=self.jobs,
+            command_factory=CardCommandFactory(
+                PROJECT_ROOT,
+                workspace=self.workspace_relative,
+            ),
+            topic_brief_command_factory=TopicBriefCommandFactory(
+                PROJECT_ROOT,
+                workspace=self.workspace_relative,
+                env_file=self.env_relative,
+            ),
+        )
+        self.service = restarted
+
+        reconciled = restarted.start()
+
+        self.assertEqual(reconciled, [job_id])
+        self.assertEqual(self.jobs.get(job_id)["status"], "interrupted")
+        published = self.projects.get("tr-review")
+        self.assertEqual(
+            published["analysis_run_ids"],
+            [result["analysis_run_id"]],
+        )
+
     def _wait(self, job_id: str) -> dict:
         deadline = time.monotonic() + 20
         current = self.jobs.get(job_id)
         while current["status"] not in {
             "completed",
             "completed_with_failures",
+            "cancelled",
+            "interrupted",
             "failed",
         }:
             if time.monotonic() >= deadline:

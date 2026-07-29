@@ -149,7 +149,7 @@ def create_app(
         status = store.system_status()
         status["job_count"] = len(job_repository.list())
         status["active_job_count"] = sum(
-            row["status"] in {"queued", "running"}
+            row["status"] in {"queued", "running", "cancel_requested"}
             for row in job_repository.list()
         )
         return status

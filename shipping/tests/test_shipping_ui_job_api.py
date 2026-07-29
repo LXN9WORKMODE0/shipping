@@ -93,7 +93,13 @@ class ShippingUIJobAPITests(unittest.TestCase):
         job_id = created_job.json()["job_id"]
         deadline = time.monotonic() + 20
         job = self.client.get(f"/api/jobs/{job_id}").json()
-        while job["status"] not in {"completed", "failed"}:
+        while job["status"] not in {
+            "completed",
+            "completed_with_failures",
+            "cancelled",
+            "interrupted",
+            "failed",
+        }:
             if time.monotonic() >= deadline:
                 self.fail("HTTP Card job 未在 20 秒内结束。")
             time.sleep(0.05)
@@ -111,6 +117,11 @@ class ShippingUIJobAPITests(unittest.TestCase):
         card_run = next(row for row in runs if row["run_id"] == job_id)
         self.assertEqual(card_run["run_type"], "card_build")
         self.assertEqual(card_run["status"], "completed")
+        retry = self.client.get(
+            f"/api/jobs/{job_id}/retry-candidates"
+        )
+        self.assertEqual(retry.status_code, 200)
+        self.assertEqual(retry.json()["paper_ids"], [])
 
         topic_request = {
             "expected_revision": imported["revision"],

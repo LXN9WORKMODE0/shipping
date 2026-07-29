@@ -146,6 +146,14 @@ def build_job_router(
     ) -> dict:
         return jobs.read_log(job_id, after_line=after_line)
 
+    @router.post("/jobs/{job_id}/cancel")
+    def cancel_job(job_id: str) -> dict:
+        return service.request_cancel(job_id)
+
+    @router.get("/jobs/{job_id}/retry-candidates")
+    def retry_candidates(job_id: str) -> dict:
+        return jobs.retry_candidates(job_id)
+
     @router.get("/projects/{project_id}/run-comparison")
     def compare_runs(
         project_id: str,

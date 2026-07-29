@@ -119,6 +119,8 @@ class ShippingUIFullPipelineJobTests(unittest.TestCase):
         while current["status"] not in {
             "completed",
             "completed_with_failures",
+            "cancelled",
+            "interrupted",
             "failed",
         }:
             if time.monotonic() >= deadline:
