@@ -1,0 +1,296 @@
+{
+  "schema_version": "reference_catalog.overrides.v1",
+  "records": [
+    {
+      "paper_id": "“双碳”行动下三峡库区智能航运示范建设研究",
+      "fields": {
+        "journal": "中国海事"
+      },
+      "field_sources": {
+        "journal": [
+          "journal-issn-1673-2278"
+        ]
+      },
+      "sources": [
+        {
+          "source_id": "journal-issn-1673-2278",
+          "source_type": "external_bibliographic_record",
+          "source_name": "《中国海事》期刊ISSN记录",
+          "url": "https://www.xueshushe.cn/zhong-guo-hai-shi-3",
+          "accessed_at": "2026-07-29",
+          "note": "该记录将ISSN 1673-2278对应到《中国海事》；年期页码由原文文章编号确定性解析。"
+        }
+      ]
+    },
+    {
+      "paper_id": "《长江三峡—葛洲坝水利枢纽通航指标体系》的应用",
+      "fields": {
+        "year": 2007,
+        "journal": "中国水运",
+        "issue": "10",
+        "pages": "44-45",
+        "doi": "10.13646/j.cnki.42-1395/u.2007.10.007"
+      },
+      "field_sources": {
+        "year": [
+          "managed-pdf-first-page"
+        ],
+        "journal": [
+          "managed-pdf-first-page"
+        ],
+        "issue": [
+          "managed-pdf-first-page"
+        ],
+        "pages": [
+          "managed-pdf-first-page"
+        ],
+        "doi": [
+          "managed-pdf-first-page"
+        ]
+      },
+      "sources": [
+        {
+          "source_id": "managed-pdf-first-page",
+          "source_type": "local_pdf_visual_verification",
+          "source_name": "项目托管原PDF首页及总页数",
+          "path": "workspace/_ui/projects/review-20260728/sources/294bcd546e154f6088a397b196cbbd5f.pdf",
+          "accessed_at": "2026-07-29",
+          "note": "首页可见DOI及“中国水运 2007·10”、页码44；文件共2个连续正文页，末页为45。"
+        }
+      ]
+    },
+    {
+      "paper_id": "2013年三峡坝区通航形势分析",
+      "fields": {
+        "journal": "武汉交通职业学院学报"
+      },
+      "field_sources": {
+        "journal": [
+          "journal-issn-1672-9846"
+        ]
+      },
+      "sources": [
+        {
+          "source_id": "journal-issn-1672-9846",
+          "source_type": "external_bibliographic_record",
+          "source_name": "武汉交通职业学院期刊ISSN记录",
+          "url": "https://jw.whtcc.edu.cn/__local/6/27/6C/9035E1F7D72D8D2E970B2F04E7C_6D15F0A2_869EF.pdf",
+          "accessed_at": "2026-07-29",
+          "note": "记录将ISSN 1672-9846对应到《武汉交通职业学院学报》。"
+        }
+      ]
+    },
+    {
+      "paper_id": "充分发挥三峡船闸通过能力的途径",
+      "fields": {
+        "journal": "人民长江",
+        "volume": "44"
+      },
+      "field_sources": {
+        "journal": [
+          "rmcj-2013-issue-5"
+        ],
+        "volume": [
+          "rmcj-2013-issue-5"
+        ]
+      },
+      "sources": [
+        {
+          "source_id": "rmcj-2013-issue-5",
+          "source_type": "official_journal_issue",
+          "source_name": "《人民长江》2013年第5期目录",
+          "url": "https://www.rmcjzz.cjw.cn/cn/article/2013/5",
+          "accessed_at": "2026-07-29",
+          "note": "期刊官网目录核验期刊名与卷号；年期页码同时由原文文章编号支持。"
+        }
+      ]
+    },
+    {
+      "paper_id": "川江及三峡库区标准化船舶统计分析",
+      "fields": {
+        "journal": "中国水运"
+      },
+      "field_sources": {
+        "journal": [
+          "journal-issn-1006-7973"
+        ]
+      },
+      "sources": [
+        {
+          "source_id": "journal-issn-1006-7973",
+          "source_type": "external_bibliographic_record",
+          "source_name": "期刊目录中的《中国水运》ISSN记录",
+          "url": "https://jqzn.usst.edu.cn/_upload/article/files/b0/1f/7886a7e44400a2ddef9b/c9140bae-3ff8-46ca-bee7-3e9078885d5d.pdf",
+          "accessed_at": "2026-07-29",
+          "note": "记录将ISSN 1006-7973对应到《中国水运》。"
+        }
+      ]
+    },
+    {
+      "paper_id": "船舶大型化条件下的船闸管理对策",
+      "fields": {
+        "year": 2015,
+        "journal": "中国水运",
+        "issue": "7",
+        "pages": "26-27"
+      },
+      "field_sources": {
+        "year": [
+          "china-water-transport-index"
+        ],
+        "journal": [
+          "china-water-transport-index"
+        ],
+        "issue": [
+          "china-water-transport-index"
+        ],
+        "pages": [
+          "china-water-transport-index"
+        ]
+      },
+      "sources": [
+        {
+          "source_id": "china-water-transport-index",
+          "source_type": "official_journal_index",
+          "source_name": "中国水运网论文目录",
+          "url": "https://www.zgsyb.com/news.html?aid=382757",
+          "accessed_at": "2026-07-29",
+          "note": "目录列出该文为《中国水运》2015年第7期26-27页。"
+        }
+      ]
+    },
+    {
+      "paper_id": "船舶过坝优化调度辅助决策系统研究",
+      "fields": {
+        "year": 1997,
+        "journal": "交通与计算机",
+        "volume": "15",
+        "issue": "5",
+        "pages": "18-22"
+      },
+      "field_sources": {
+        "year": [
+          "managed-pdf-pages"
+        ],
+        "journal": [
+          "managed-pdf-pages"
+        ],
+        "volume": [
+          "managed-pdf-pages"
+        ],
+        "issue": [
+          "managed-pdf-pages"
+        ],
+        "pages": [
+          "managed-pdf-pages"
+        ]
+      },
+      "sources": [
+        {
+          "source_id": "managed-pdf-pages",
+          "source_type": "local_pdf_visual_verification",
+          "source_name": "项目托管原PDF首页、次页和末页",
+          "path": "workspace/_ui/projects/review-20260728/sources/e85f8c0939944e48a1069d220a50fe4a.pdf",
+          "accessed_at": "2026-07-29",
+          "note": "首页刊头为《交通与计算机》1997年第15卷第5期；次页和末页页码为19和22，首页起始页为18。"
+        }
+      ]
+    },
+    {
+      "paper_id": "船舶过闸组织方式对三峡船闸运行效率的影响",
+      "fields": {
+        "year": 2015,
+        "journal": "中国水运",
+        "issue": "3",
+        "pages": "48-50"
+      },
+      "field_sources": {
+        "year": [
+          "china-water-transport-index"
+        ],
+        "journal": [
+          "china-water-transport-index"
+        ],
+        "issue": [
+          "china-water-transport-index"
+        ],
+        "pages": [
+          "china-water-transport-index"
+        ]
+      },
+      "sources": [
+        {
+          "source_id": "china-water-transport-index",
+          "source_type": "official_journal_index",
+          "source_name": "中国水运网论文目录",
+          "url": "https://www.zgsyb.com/news.html?aid=382757",
+          "accessed_at": "2026-07-29",
+          "note": "目录列出该文为《中国水运》2015年第3期48-50页。"
+        }
+      ]
+    },
+    {
+      "paper_id": "船舶积压常态化下的三峡枢纽挖潜扩能措施研究",
+      "fields": {
+        "journal": "中国水运"
+      },
+      "field_sources": {
+        "journal": [
+          "journal-issn-1006-7973"
+        ]
+      },
+      "sources": [
+        {
+          "source_id": "journal-issn-1006-7973",
+          "source_type": "external_bibliographic_record",
+          "source_name": "期刊目录中的《中国水运》ISSN记录",
+          "url": "https://jqzn.usst.edu.cn/_upload/article/files/b0/1f/7886a7e44400a2ddef9b/c9140bae-3ff8-46ca-bee7-3e9078885d5d.pdf",
+          "accessed_at": "2026-07-29",
+          "note": "记录将ISSN 1006-7973对应到《中国水运》。"
+        }
+      ]
+    },
+    {
+      "paper_id": "船舶积压条件下三峡过坝运输组织优化研究",
+      "fields": {
+        "institution": "武汉理工大学"
+      },
+      "field_sources": {
+        "institution": [
+          "managed-thesis-title-page"
+        ]
+      },
+      "sources": [
+        {
+          "source_id": "managed-thesis-title-page",
+          "source_type": "local_pdf_visual_verification",
+          "source_name": "项目托管学位论文扉页",
+          "path": "workspace/_ui/projects/review-20260728/sources/42c4decca050421c8c1b25fb0ca9c809.pdf",
+          "accessed_at": "2026-07-29",
+          "note": "扉页校名及学位授予单位均为“武汉理工大学”；Markdown的“武汉理大学”为OCR漏字。"
+        }
+      ]
+    },
+    {
+      "paper_id": "船型标准化率对三峡船闸实际通过能力的影响",
+      "fields": {
+        "journal": "水运工程"
+      },
+      "field_sources": {
+        "journal": [
+          "sygc-2017-issue-5"
+        ]
+      },
+      "sources": [
+        {
+          "source_id": "sygc-2017-issue-5",
+          "source_type": "official_journal_issue",
+          "source_name": "《水运工程》2017年第5期目录",
+          "url": "https://sygc.com.cn/sygc/article/issue/2017_5",
+          "accessed_at": "2026-07-29",
+          "note": "期刊官网目录核验期刊名；年期页码和DOI由原文首页支持。"
+        }
+      ]
+    }
+  ]
+}

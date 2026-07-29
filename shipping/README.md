@@ -263,6 +263,30 @@ Markdown 清单不需要 `--pdf-provider mineru`。同一阶段会处理全部�
 
 当前主题矩阵和提纲使用 v2 合同。模型只填写主题、综合单元和段落动作等语义草案；程序按独立论文数生成单来源类型，并由段落引用的综合单元生成章节 `theme_ids`、段落角色和 `evidence_unit_ids`。原始响应不会被覆盖，派生账本位于 `audit/contract_derivations.json`。设计与历史回放记录见 `docs/topic-synthesis-contract-v2-20260724.md`。
 
+### 参考文献目录
+
+`reference-catalog` 是独立于 Card、单篇分析和跨论文综合的确定性阶段。它只处理实际进入指定综合运行的论文，从本地 Markdown 提取题名、作者、DOI、文章编号、年期页码和学位信息；Markdown 缺失的字段只能由带字段级来源的显式核验表补充。
+
+```powershell
+.\.venv\Scripts\python.exe shipping/main.py reference-catalog `
+  --workspace shipping/workspace `
+  --project shipping/workspace/_ui/projects/review-20260728/project.json `
+  --synthesis-run-dir shipping/workspace/_topic_syntheses/runs/综合运行ID `
+  --overrides shipping/config/references/核验表.json `
+  --review-draft shipping/workspace/_review_drafts/runs/草稿运行ID/review/review_draft.md `
+  --run-id 参考文献运行ID
+```
+
+每次运行写入不可变目录 `workspace/_reference_catalogs/runs/<run_id>/`，主要产物包括：
+
+- `output/references.json`：结构化题录及逐字段来源链。
+- `output/references.bib`：BibTeX。
+- `review/references.md`：人工可读题录审核表。
+- `audit/incomplete_references.jsonl`：不完整题录；零行表示基本引用字段闭合。
+- `review/review_draft_with_references.md`：仅在提供 `--review-draft` 时生成。程序精确匹配正文中的“证据来源”题名，连续编号并只附加正文实际引用的文献；无法映射时直接失败。
+
+“完整”只表示当前文献类型所需的基本引用字段齐备，不表示来源均为一级权威记录，也不表示正文观点已通过事实核验。
+
 覆盖审计同时给出跨论文主题数和跨论文综合单元数。结构合同通过但没有形成跨论文综合单元时，结果保留并标记 `cross_paper_synthesis_absent`；该标记用于下游判断综合强度，不通过自动重试消除。
 
 当前 DeepSeek 模型使用一百万 Token 上下文，程序按 Evidence 数和主题数计算输出预算，不按字符拆批。超出上下文、任一请求失败或合同不成立时，运行状态为 `failed`，保留请求和中间审计，但不发布正式 output；只有 `completed` manifest 才表示 JSON 和中文报告已经共同发布。

@@ -42,6 +42,7 @@ from shipping_pipeline.topic_synthesis import (
 from shipping_pipeline.end_to_end import EndToEndPipelineRunner
 from shipping_pipeline.pdf_conversion import MinerUApiClient
 from shipping_pipeline.env import load_env_file
+from shipping_pipeline.reference_catalog import ReferenceCatalogRunner
 
 DEFAULT_ENV_FILE = Path(__file__).resolve().parent / ".env"
 DEFAULT_MODEL_PROFILE = (
@@ -242,6 +243,34 @@ def build_parser() -> argparse.ArgumentParser:
         default=DEFAULT_TOPIC_SYNTHESIS_CONFIG,
     )
     topic_synthesis_parser.add_argument("--timeout", type=int, default=120)
+
+    reference_catalog_parser = subparsers.add_parser(
+        "reference-catalog",
+        help="从本地 Markdown 与显式核验表生成可审计参考文献目录。",
+    )
+    reference_catalog_parser.add_argument(
+        "--workspace",
+        type=Path,
+        default=Path("workspace"),
+    )
+    reference_catalog_parser.add_argument("--project", type=Path, required=True)
+    reference_catalog_parser.add_argument(
+        "--synthesis-run-dir",
+        type=Path,
+        required=True,
+    )
+    reference_catalog_parser.add_argument(
+        "--overrides",
+        type=Path,
+        default=None,
+    )
+    reference_catalog_parser.add_argument(
+        "--review-draft",
+        type=Path,
+        default=None,
+        help="可选：为已有综述草稿的证据来源加入编号并附加参考文献。",
+    )
+    reference_catalog_parser.add_argument("--run-id", default=None)
 
     llm_revision_parser = subparsers.add_parser(
         "llm-analysis-revise",
@@ -455,6 +484,16 @@ def main(argv: list[str] | None = None) -> int:
         )
         print(json.dumps(result, ensure_ascii=False))
         return 0 if result["status"] == "completed" else 1
+    if args.command == "reference-catalog":
+        result = ReferenceCatalogRunner(args.workspace).run(
+            project_path=args.project,
+            synthesis_run_dir=args.synthesis_run_dir,
+            overrides_path=args.overrides,
+            review_draft_path=args.review_draft,
+            run_id=args.run_id,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0
     if args.command == "llm-analysis-revise":
         result = LLMStatementRevisionRunner(args.workspace).run(
             source_run_id=args.source_run_id,
