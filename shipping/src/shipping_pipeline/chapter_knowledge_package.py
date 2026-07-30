@@ -61,6 +61,175 @@ class ChapterPackageBuildSnapshot:
     input_sha256: str
 
 
+@dataclass(frozen=True)
+class ChapterKnowledgePackageRunSource:
+    run_id: str
+    manifest_sha256: str
+    output_sha256: str
+    package: dict[str, Any]
+    budget: dict[str, Any]
+    profile: ModelProfile
+    config: ReviewWritingConfig
+    schema: dict[str, Any]
+    framework: dict[str, Any]
+
+
+def load_chapter_knowledge_package_run(
+    workspace: str | Path,
+    run_id: str,
+) -> ChapterKnowledgePackageRunSource:
+    workspace_path = Path(workspace)
+    _safe_segment(run_id, "package_run_id")
+    run_dir = (
+        workspace_path / "_chapter_knowledge_packages" / "runs" / run_id
+    )
+    manifest_bytes = _read_bytes(
+        run_dir / "manifest.json",
+        "知识包manifest",
+    )
+    manifest = _json_object(manifest_bytes, "知识包manifest")
+    if (
+        manifest.get("schema_version")
+        != CHAPTER_KNOWLEDGE_PACKAGE_RUN_SCHEMA_VERSION
+    ):
+        raise ChapterKnowledgePackageError(
+            "package.run_schema_invalid",
+            "知识包运行Schema版本不受支持。",
+        )
+    if manifest.get("run_id") != run_id:
+        raise ChapterKnowledgePackageError(
+            "package.run_identity_mismatch",
+            "知识包目录名与manifest.run_id不一致。",
+        )
+    if manifest.get("status") != "completed":
+        raise ChapterKnowledgePackageError(
+            "package.run_status_invalid",
+            f"知识包运行状态不可用：{manifest.get('status')!r}。",
+        )
+    output_bytes = _read_bytes(
+        run_dir / "output" / "knowledge_package.json",
+        "知识包正式输出",
+    )
+    package = _json_object(output_bytes, "知识包正式输出")
+    candidate = _json_object(
+        _read_bytes(
+            run_dir / "input" / "knowledge_package_candidate.json",
+            "知识包候选输入",
+        ),
+        "知识包候选输入",
+    )
+    if package != candidate:
+        raise ChapterKnowledgePackageError(
+            "package.candidate_output_mismatch",
+            "知识包候选输入与正式输出不一致。",
+        )
+    if (
+        package.get("schema_version")
+        != CHAPTER_KNOWLEDGE_PACKAGE_SCHEMA_VERSION
+    ):
+        raise ChapterKnowledgePackageError(
+            "package.schema_invalid",
+            "知识包正式输出Schema版本不受支持。",
+        )
+    package_without_id = {
+        key: value for key, value in package.items() if key != "package_id"
+    }
+    expected_input_sha256 = _sha256_json(package_without_id)
+    expected_package_id = _stable_id("package", package_without_id)
+    if (
+        package.get("package_id") != expected_package_id
+        or manifest.get("package_id") != expected_package_id
+        or manifest.get("input_sha256") != expected_input_sha256
+    ):
+        raise ChapterKnowledgePackageError(
+            "package.identity_hash_mismatch",
+            "知识包ID或输入哈希无法重建。",
+        )
+    framework_run_id = str(manifest.get("framework_run_id", ""))
+    framework_source = load_review_framework_run(
+        workspace_path,
+        framework_run_id,
+    )
+    section = _select_section(
+        framework_source.framework,
+        section_id=str(manifest.get("section_id", "")),
+        section_index=None,
+    )
+    replay = _build_package_snapshot(
+        workspace_path,
+        framework_source=framework_source,
+        section=section,
+    )
+    if replay.package != package:
+        raise ChapterKnowledgePackageError(
+            "package.output_replay_mismatch",
+            "知识包正式输出无法由冻结来源重放。",
+        )
+    profile = load_model_profile(
+        run_dir / "input" / "model_profile.json"
+    )
+    config = load_review_writing_config(
+        run_dir / "input" / "writing_config.json"
+    )
+    schema = build_review_chapter_schema(
+        section_index=int(section["section_index"]),
+        section_title=str(section["title"]),
+        section_type=str(section["section_type"]),
+        allowed_citation_keys=[
+            str(value) for value in section["citation_keys"]
+        ],
+        config=config,
+    )
+    frozen_schema = _json_object(
+        _read_bytes(
+            run_dir / "input" / "chapter_output_schema.json",
+            "章节输出Schema",
+        ),
+        "章节输出Schema",
+    )
+    if schema != frozen_schema:
+        raise ChapterKnowledgePackageError(
+            "package.chapter_schema_mismatch",
+            "章节输出Schema无法由知识包重建。",
+        )
+    budget = _json_object(
+        _read_bytes(
+            run_dir / "audit" / "token_budget.json",
+            "知识包Token预算",
+        ),
+        "知识包Token预算",
+    )
+    if (
+        budget.get("model_profile_sha256") != profile.sha256
+        or manifest.get("model_profile_sha256") != profile.sha256
+        or budget.get("planned_max_output_tokens")
+        != config.chapter_max_output_tokens
+        or budget.get("system_prompt_sha256")
+        != _sha256_bytes(
+            REVIEW_CHAPTER_SYSTEM_PROMPT.encode("utf-8")
+        )
+        or budget.get("output_schema_sha256")
+        != _sha256_json(schema)
+        or not budget.get("within_budget")
+    ):
+        raise ChapterKnowledgePackageError(
+            "package.token_budget_identity_mismatch",
+            "知识包Token预算与当前模型、Prompt、Schema或写作配置不一致。",
+        )
+    _verify_file_hash_ledger(run_dir)
+    return ChapterKnowledgePackageRunSource(
+        run_id=run_id,
+        manifest_sha256=_sha256_bytes(manifest_bytes),
+        output_sha256=_sha256_bytes(output_bytes),
+        package=package,
+        budget=budget,
+        profile=profile,
+        config=config,
+        schema=schema,
+        framework=copy.deepcopy(framework_source.framework),
+    )
+
+
 class ChapterKnowledgePackageBuilder:
     def __init__(
         self,
@@ -937,6 +1106,42 @@ def _failure_stage(run_dir: Path) -> str:
     if (run_dir / "input").exists():
         return "input_written"
     return "source_replay"
+
+
+def _verify_file_hash_ledger(run_dir: Path) -> None:
+    ledger = _read_jsonl_bytes(
+        _read_bytes(
+            run_dir / "input" / "file_hashes.jsonl",
+            "知识包文件哈希账本",
+        ),
+        "知识包文件哈希账本",
+    )
+    seen: set[str] = set()
+    for index, row in enumerate(ledger):
+        relative_path = str(row.get("path", ""))
+        if (
+            not relative_path
+            or relative_path in seen
+            or Path(relative_path).is_absolute()
+            or ".." in Path(relative_path).parts
+        ):
+            raise ChapterKnowledgePackageError(
+                "package.file_ledger_path_invalid",
+                "知识包文件哈希账本路径为空、重复或越界。",
+                path=f"$.file_hashes[{index}].path",
+            )
+        path = run_dir / "input" / Path(relative_path)
+        raw = _read_bytes(path, f"知识包冻结文件{relative_path}")
+        if (
+            row.get("sha256") != _sha256_bytes(raw)
+            or row.get("bytes") != len(raw)
+        ):
+            raise ChapterKnowledgePackageError(
+                "package.file_ledger_hash_mismatch",
+                f"知识包冻结文件哈希或字节数不一致：{relative_path}",
+                path=f"$.file_hashes[{index}]",
+            )
+        seen.add(relative_path)
 
 
 def _safe_segment(value: str, field: str) -> str:

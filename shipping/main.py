@@ -44,6 +44,7 @@ from shipping_pipeline.research_landscape import (
     ResearchLandscapeRunner,
 )
 from shipping_pipeline.review_framework import ReviewFrameworkRunner
+from shipping_pipeline.review_writing import ReviewWritingRunner
 from shipping_pipeline.chapter_knowledge_package import (
     DEFAULT_REVIEW_WRITING_CONFIG,
     ChapterKnowledgePackageBuilder,
@@ -371,6 +372,33 @@ def build_parser() -> argparse.ArgumentParser:
         default=DEFAULT_REVIEW_WRITING_CONFIG,
     )
 
+    review_writing_parser = subparsers.add_parser(
+        "llm-review-writing",
+        help="按显式章节知识包集合逐章写作，并在全部成功后确定性装配综述。",
+    )
+    review_writing_parser.add_argument(
+        "--workspace",
+        type=Path,
+        default=Path("workspace"),
+    )
+    review_writing_parser.add_argument(
+        "--collection",
+        type=Path,
+        required=True,
+    )
+    review_writing_parser.add_argument("--run-id", default=None)
+    review_writing_parser.add_argument(
+        "--provider",
+        choices=["openai-compatible"],
+        default="openai-compatible",
+    )
+    review_writing_parser.add_argument("--api-url", default=None)
+    review_writing_parser.add_argument(
+        "--api-key-env",
+        default="LLM_ANALYSIS_API_KEY",
+    )
+    review_writing_parser.add_argument("--timeout", type=int, default=900)
+
     topic_synthesis_parser = subparsers.add_parser(
         "llm-topic-synthesis",
         help="把多篇单篇主题简报聚合为主题矩阵和段落级综述提纲。",
@@ -682,6 +710,17 @@ def main(argv: list[str] | None = None) -> int:
             run_id=args.run_id,
             model_profile_path=args.model_profile,
             writing_config_path=args.writing_config,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] == "completed" else 1
+    if args.command == "llm-review-writing":
+        result = ReviewWritingRunner(args.workspace).run(
+            collection_path=args.collection,
+            run_id=args.run_id,
+            provider=args.provider,
+            api_url=args.api_url,
+            api_key_env=args.api_key_env,
+            timeout=args.timeout,
         )
         print(json.dumps(result, ensure_ascii=False))
         return 0 if result["status"] == "completed" else 1

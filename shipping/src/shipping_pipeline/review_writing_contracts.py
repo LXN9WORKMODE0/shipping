@@ -3,6 +3,7 @@ from __future__ import annotations
 import copy
 import hashlib
 import json
+import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -11,8 +12,15 @@ from jsonschema import Draft202012Validator
 
 
 REVIEW_WRITING_CONFIG_SCHEMA_VERSION = "llm.review_writing_config.v1"
+REVIEW_WRITING_COLLECTION_SCHEMA_VERSION = (
+    "llm.review_writing_collection.v1"
+)
 REVIEW_CHAPTER_SCHEMA_VERSION = "llm.review_chapter.v1"
 SECTION_TYPES = ("introduction", "body", "conclusion")
+MACHINE_ID_PATTERN = re.compile(
+    r"(?i)(?:ref|evidence|material|contribution|package|section|"
+    r"chapter|paragraph|card)[_-][a-z0-9][a-z0-9_-]{5,}"
+)
 
 
 class ReviewWritingContractError(ValueError):
@@ -36,6 +44,83 @@ class ReviewWritingConfig:
             field: getattr(self, field)
             for field in self.__dataclass_fields__
         }
+
+
+@dataclass(frozen=True)
+class ReviewWritingCollection:
+    schema_version: str
+    framework_run_id: str
+    source_package_run_ids: tuple[str, ...]
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "schema_version": self.schema_version,
+            "framework_run_id": self.framework_run_id,
+            "source_package_run_ids": list(self.source_package_run_ids),
+        }
+
+
+def load_review_writing_collection(
+    path: Path,
+) -> ReviewWritingCollection:
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8-sig"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise ReviewWritingContractError(
+            "collection.read_failed",
+            f"无法读取综述写作集合：{path}",
+        ) from exc
+    if not isinstance(payload, dict):
+        raise ReviewWritingContractError(
+            "collection.invalid",
+            "综述写作集合必须是JSON对象。",
+        )
+    expected = {
+        "schema_version",
+        "framework_run_id",
+        "source_package_run_ids",
+    }
+    if set(payload) != expected:
+        raise ReviewWritingContractError(
+            "collection.fields_invalid",
+            f"集合字段不匹配：missing={sorted(expected - set(payload))}, "
+            f"unknown={sorted(set(payload) - expected)}",
+        )
+    if (
+        payload["schema_version"]
+        != REVIEW_WRITING_COLLECTION_SCHEMA_VERSION
+    ):
+        raise ReviewWritingContractError(
+            "collection.schema_version_invalid",
+            "综述写作集合版本不受支持。",
+            path="$.schema_version",
+        )
+    framework_run_id = _required_text(
+        payload["framework_run_id"],
+        "framework_run_id",
+    )
+    values = payload["source_package_run_ids"]
+    if not isinstance(values, list) or not values:
+        raise ReviewWritingContractError(
+            "collection.package_runs_invalid",
+            "source_package_run_ids必须是非空数组。",
+            path="$.source_package_run_ids",
+        )
+    package_run_ids = tuple(
+        _required_text(value, f"source_package_run_ids[{index}]")
+        for index, value in enumerate(values)
+    )
+    if len(package_run_ids) != len(set(package_run_ids)):
+        raise ReviewWritingContractError(
+            "collection.package_runs_duplicate",
+            "source_package_run_ids不得重复。",
+            path="$.source_package_run_ids",
+        )
+    return ReviewWritingCollection(
+        schema_version=REVIEW_WRITING_COLLECTION_SCHEMA_VERSION,
+        framework_run_id=framework_run_id,
+        source_package_run_ids=package_run_ids,
+    )
 
 
 def load_review_writing_config(path: Path) -> ReviewWritingConfig:
@@ -174,10 +259,30 @@ def validate_review_chapter(
         )
 
     for index, paragraph in enumerate(paragraphs):
-        if not paragraph["text"].strip():
+        text = paragraph["text"].strip()
+        if not text:
             raise ReviewWritingContractError(
                 "chapter.paragraph_text_empty",
                 "段落正文不得仅包含空白字符。",
+                path=f"$.paragraphs[{index}].text",
+            )
+        forbidden_keys = [
+            key
+            for key in schema["properties"]["paragraphs"]["items"][
+                "properties"
+            ]["citation_keys"]["items"]["enum"]
+            if key in text
+        ]
+        machine_id = MACHINE_ID_PATTERN.search(text)
+        if forbidden_keys or machine_id:
+            found = (
+                forbidden_keys[0]
+                if forbidden_keys
+                else machine_id.group(0)
+            )
+            raise ReviewWritingContractError(
+                "chapter.machine_id_in_text",
+                f"正文text不得包含引用Key或机器ID：{found!r}。",
                 path=f"$.paragraphs[{index}].text",
             )
     if not any(row["citation_keys"] for row in paragraphs):

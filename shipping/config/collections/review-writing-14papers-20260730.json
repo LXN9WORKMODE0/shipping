@@ -1,0 +1,15 @@
+{
+  "schema_version": "llm.review_writing_collection.v1",
+  "framework_run_id": "framework-14papers-20260730-v2",
+  "source_package_run_ids": [
+    "package-framework-v2-writing-v2-section-1-20260730",
+    "package-framework-v2-writing-v2-section-2-20260730",
+    "package-framework-v2-writing-v2-section-3-20260730",
+    "package-framework-v2-writing-v2-section-4-20260730",
+    "package-framework-v2-writing-v2-section-5-20260730",
+    "package-framework-v2-writing-v2-section-6-20260730",
+    "package-framework-v2-writing-v2-section-7-20260730",
+    "package-framework-v2-writing-v2-section-8-20260730",
+    "package-framework-v2-writing-v2-section-9-20260730"
+  ]
+}

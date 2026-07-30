@@ -507,3 +507,16 @@ Markdown 清单不需要 `--pdf-provider mineru`。同一阶段会处理全部�
 ```powershell
 .\.venv\Scripts\python.exe -m unittest discover -s shipping/tests -v
 ```
+### 章节知识包写作
+
+通过显式集合逐章调用模型；任一章节失败时保留其他章节结果，但不发布正式综述：
+
+```powershell
+..\.venv\Scripts\python.exe main.py llm-review-writing `
+  --workspace workspace `
+  --collection config/collections/review-writing-14papers-20260730.json `
+  --run-id writing-14papers-20260730-v2 `
+  --timeout 1800
+```
+
+正式草稿必须经过正文Claim审计。审计通过前，运行清单会把全文编辑标记为 `not_run_audit_required`。
