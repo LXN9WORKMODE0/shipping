@@ -780,7 +780,7 @@ class PaperUnderstandingRunner:
 - [x] 复用Evidence时展示Evidence；Evidence不足时回到Card和Markdown。
 - [x] 任何核心结论unsupported时整篇状态不得为publishable。
 
-### Task 11：同一14篇的A/B/C实验
+### Task 11：同一14篇的A/B/C实验（已完成，自动门槛未通过）
 
 **Files:**
 
@@ -821,6 +821,8 @@ API Token与费用
 - B若明显不如A，则项目收缩为论文池、材料索引、引用和写后审计系统，不继续强化自动写作。
 
 ## Phase 5：确认新方案有效后接入Pipeline与UI
+
+14篇A/B/C实验状态为`fail_automatic_gate`，因此本Phase未启动。
 
 仅当Phase 4达到门槛后实施：
 

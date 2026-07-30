@@ -296,11 +296,26 @@ def validate_chapter_claim_audit(
                     path=path,
                 )
         elif audit["claim_type"] == "review_synthesis":
-            if (
-                audit["importance"] == "navigation"
-                or audit["status"] != "not_applicable"
-                or citations
-                or assessments
+            if citations or assessments:
+                audit["claim_type"] = "factual"
+                if audit["importance"] == "navigation":
+                    audit["importance"] = "supporting"
+                tiers = [row["source_tier"] for row in assessments]
+                audit["status"] = (
+                    "supported"
+                    if any(tier != "none" for tier in tiers)
+                    else "unsupported"
+                )
+                flags.append(
+                    "review_synthesis_with_sources_changed_to_factual"
+                )
+            elif audit["importance"] == "navigation":
+                audit["claim_type"] = "navigation_synthesis"
+                flags.append(
+                    "review_synthesis_navigation_changed_to_navigation"
+                )
+            elif (
+                audit["status"] != "not_applicable"
                 or audit["result_type_check"] != "not_applicable"
                 or audit["validation_level_check"] != "not_applicable"
             ):

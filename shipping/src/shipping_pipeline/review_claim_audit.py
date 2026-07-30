@@ -257,7 +257,7 @@ class ReviewClaimAuditRunner:
                             task_name="review_claim_audit",
                             directory_name=stage_dir + "/llm",
                             system_prompt=CLAIM_AUDIT_SYSTEM_PROMPT,
-                            user_prompt=_build_prompt(
+                            user_prompt=build_claim_audit_prompt(
                                 chapter,
                                 source.package,
                                 catalogue,
@@ -296,7 +296,11 @@ class ReviewClaimAuditRunner:
                             "recorded_at": _now(),
                         }
                     )
-            summary = _summarize(audits, failures, len(chapters))
+            summary = summarize_claim_audits(
+                audits,
+                failures,
+                len(chapters),
+            )
             _write_json(run_dir / "output" / "audit_summary.json", summary)
             _write_jsonl(run_dir / "audit" / "failures.jsonl", failures)
             status = "completed" if not failures else "failed"
@@ -424,7 +428,7 @@ def _build_schema(
     )
 
 
-def _build_prompt(
+def build_claim_audit_prompt(
     chapter: dict[str, Any],
     package: dict[str, Any],
     catalogue: list[dict[str, Any]],
@@ -451,7 +455,7 @@ def _build_prompt(
     )
 
 
-def _summarize(
+def summarize_claim_audits(
     audits: list[dict[str, Any]],
     failures: list[dict[str, Any]],
     expected_chapters: int,

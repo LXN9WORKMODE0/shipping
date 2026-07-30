@@ -548,3 +548,31 @@ Markdown 清单不需要 `--pdf-provider mineru`。同一阶段会处理全部�
   --run-id claim-audit-replay `
   --response-replay-run-id claim-audit-source
 ```
+
+### A/B/C综述写作评价
+
+方案A只读取同一批论文的完整Markdown、题录和引用key，一次调用生成直接写作
+基线：
+
+```powershell
+..\.venv\Scripts\python.exe main.py llm-review-direct-baseline `
+  --workspace workspace `
+  --source-package-run-id package-framework-v2-writing-v2-section-1-20260730 `
+  --topic "三峡枢纽通航能力提升方法" `
+  --review-goal "比较不同提升方法的作用机制、验证水平和适用边界" `
+  --expected-paper-count 14 `
+  --run-id direct-14papers-20260730-v3
+```
+
+统一评价A直接全文、B丰富上下文和C Evidence-only三种方案：
+
+```powershell
+..\.venv\Scripts\python.exe main.py llm-review-evaluate `
+  --workspace workspace `
+  --config config/experiments/review-writing-abc-14papers-20260730.json `
+  --run-id review-evaluation-abc-14papers-20260730-v4
+```
+
+单个候选审计或结构评价格式失败时，使用
+`--resume-from-run-id <失败评价运行ID>` 复用已保存响应。自动评价与人工修改
+时间分开保存；未填写人工数据时不会推测。

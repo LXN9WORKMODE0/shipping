@@ -243,11 +243,34 @@ class ReviewClaimAuditContractTests(unittest.TestCase):
             }
         )
 
-        with self.assertRaisesRegex(
-            ReviewClaimAuditError,
-            "audit.review_synthesis_contract_invalid",
-        ):
-            self._validate(payload)
+        result = self._validate(payload)
+        claim = result["claim_audits"][0]
+        self.assertEqual(claim["claim_type"], "navigation_synthesis")
+        self.assertIn(
+            "review_synthesis_navigation_changed_to_navigation",
+            claim["normalization_flags"],
+        )
+
+    def test_review_synthesis_with_sources_becomes_factual(self):
+        payload = copy.deepcopy(self.payload)
+        payload["claim_audits"][0].update(
+            {
+                "claim_type": "review_synthesis",
+                "status": "not_applicable",
+                "result_type_check": "not_applicable",
+                "validation_level_check": "not_applicable",
+            }
+        )
+
+        result = self._validate(payload)
+
+        claim = result["claim_audits"][0]
+        self.assertEqual(claim["claim_type"], "factual")
+        self.assertEqual(claim["status"], "supported")
+        self.assertIn(
+            "review_synthesis_with_sources_changed_to_factual",
+            claim["normalization_flags"],
+        )
 
     def test_human_report_limits_source_previews_without_changing_audit(self):
         audit = self._validate(self.payload)

@@ -1,0 +1,31 @@
+{
+  "schema_version": "llm.review_evaluation_config.v1",
+  "experiment_id": "review-writing-abc-14papers-20260730",
+  "topic": "三峡枢纽通航能力提升方法",
+  "review_goal": "比较不同提升方法的作用机制、验证水平和适用边界",
+  "expected_paper_count": 14,
+  "source_package_run_id": "package-framework-v2-writing-v2-section-1-20260730",
+  "a_direct_run_id": "direct-14papers-20260730-v3",
+  "b_writing_run_id": "writing-14papers-20260730-v2",
+  "b_audit_run_id": "claim-audit-14papers-20260730-v12",
+  "c_draft_run_id": "draft-14papers-20260729",
+  "c_synthesis_run_id": "ui-synthesis-20260729T041531-bda9207f",
+  "structural_max_output_tokens": 12000,
+  "human_evaluation": {
+    "status": "pending",
+    "candidates": {
+      "A": {
+        "editing_minutes": null,
+        "edited_char_ratio": null
+      },
+      "B": {
+        "editing_minutes": null,
+        "edited_char_ratio": null
+      },
+      "C": {
+        "editing_minutes": null,
+        "edited_char_ratio": null
+      }
+    }
+  }
+}

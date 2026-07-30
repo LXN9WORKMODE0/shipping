@@ -49,6 +49,13 @@ from shipping_pipeline.review_claim_audit import (
     DEFAULT_REVIEW_CLAIM_AUDIT_CONFIG,
     ReviewClaimAuditRunner,
 )
+from shipping_pipeline.review_direct_baseline import (
+    DirectReviewBaselineRunner,
+)
+from shipping_pipeline.review_evaluation import (
+    DEFAULT_REVIEW_EVALUATION_CONFIG,
+    ReviewEvaluationRunner,
+)
 from shipping_pipeline.chapter_knowledge_package import (
     DEFAULT_REVIEW_WRITING_CONFIG,
     ChapterKnowledgePackageBuilder,
@@ -438,6 +445,81 @@ def build_parser() -> argparse.ArgumentParser:
     )
     claim_audit_parser.add_argument("--timeout", type=int, default=1800)
 
+    direct_review_parser = subparsers.add_parser(
+        "llm-review-direct-baseline",
+        help="仅基于完整Markdown和题录，一次调用生成直接写作基线。",
+    )
+    direct_review_parser.add_argument(
+        "--workspace", type=Path, default=Path("workspace")
+    )
+    direct_review_parser.add_argument(
+        "--source-package-run-id", required=True
+    )
+    direct_review_parser.add_argument("--topic", required=True)
+    direct_review_parser.add_argument("--review-goal", required=True)
+    direct_review_parser.add_argument(
+        "--expected-paper-count", type=int, default=14
+    )
+    direct_review_parser.add_argument("--run-id", default=None)
+    direct_review_parser.add_argument(
+        "--provider",
+        choices=["openai-compatible"],
+        default="openai-compatible",
+    )
+    direct_review_parser.add_argument("--api-url", default=None)
+    direct_review_parser.add_argument(
+        "--api-key-env", default="LLM_ANALYSIS_API_KEY"
+    )
+    direct_review_parser.add_argument(
+        "--min-body-chars", type=int, default=4000
+    )
+    direct_review_parser.add_argument(
+        "--max-body-chars", type=int, default=35000
+    )
+    direct_review_parser.add_argument(
+        "--max-output-tokens", type=int, default=32768
+    )
+    direct_review_parser.add_argument(
+        "--response-replay-run-id",
+        default=None,
+        help="不调用API，重放指定直接写作运行的冻结响应。",
+    )
+    direct_review_parser.add_argument("--timeout", type=int, default=1800)
+
+    review_evaluation_parser = subparsers.add_parser(
+        "llm-review-evaluate",
+        help="对同一论文集的A/B/C三种综述写作方案执行统一评价。",
+    )
+    review_evaluation_parser.add_argument(
+        "--workspace", type=Path, default=Path("workspace")
+    )
+    review_evaluation_parser.add_argument(
+        "--config",
+        type=Path,
+        default=DEFAULT_REVIEW_EVALUATION_CONFIG,
+    )
+    review_evaluation_parser.add_argument("--run-id", default=None)
+    review_evaluation_parser.add_argument(
+        "--provider",
+        choices=["openai-compatible"],
+        default="openai-compatible",
+    )
+    review_evaluation_parser.add_argument("--api-url", default=None)
+    review_evaluation_parser.add_argument(
+        "--api-key-env", default="LLM_ANALYSIS_API_KEY"
+    )
+    review_evaluation_parser.add_argument(
+        "--claim-audit-config",
+        type=Path,
+        default=DEFAULT_REVIEW_CLAIM_AUDIT_CONFIG,
+    )
+    review_evaluation_parser.add_argument(
+        "--resume-from-run-id",
+        default=None,
+        help="复用指定评价运行中已保存的候选审计和结构评价响应。",
+    )
+    review_evaluation_parser.add_argument("--timeout", type=int, default=1800)
+
     topic_synthesis_parser = subparsers.add_parser(
         "llm-topic-synthesis",
         help="把多篇单篇主题简报聚合为主题矩阵和段落级综述提纲。",
@@ -772,6 +854,37 @@ def main(argv: list[str] | None = None) -> int:
             api_key_env=args.api_key_env,
             audit_config_path=args.audit_config,
             response_replay_run_id=args.response_replay_run_id,
+            resume_from_run_id=args.resume_from_run_id,
+            timeout=args.timeout,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] == "completed" else 1
+    if args.command == "llm-review-direct-baseline":
+        result = DirectReviewBaselineRunner(args.workspace).run(
+            source_package_run_id=args.source_package_run_id,
+            topic=args.topic,
+            review_goal=args.review_goal,
+            expected_paper_count=args.expected_paper_count,
+            run_id=args.run_id,
+            provider=args.provider,
+            api_url=args.api_url,
+            api_key_env=args.api_key_env,
+            min_body_chars=args.min_body_chars,
+            max_body_chars=args.max_body_chars,
+            max_output_tokens=args.max_output_tokens,
+            response_replay_run_id=args.response_replay_run_id,
+            timeout=args.timeout,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] == "completed" else 1
+    if args.command == "llm-review-evaluate":
+        result = ReviewEvaluationRunner(args.workspace).run(
+            config_path=args.config,
+            run_id=args.run_id,
+            provider=args.provider,
+            api_url=args.api_url,
+            api_key_env=args.api_key_env,
+            claim_audit_config_path=args.claim_audit_config,
             resume_from_run_id=args.resume_from_run_id,
             timeout=args.timeout,
         )
