@@ -520,3 +520,31 @@ Markdown 清单不需要 `--pdf-provider mineru`。同一阶段会处理全部�
 ```
 
 正式草稿必须经过正文Claim审计。审计通过前，运行清单会把全文编辑标记为 `not_run_audit_required`。
+
+```powershell
+..\.venv\Scripts\python.exe main.py llm-review-claim-audit `
+  --workspace workspace `
+  --writing-run-id writing-14papers-20260730-v2 `
+  --run-id claim-audit-14papers-20260730-v12 `
+  --timeout 1800
+```
+
+单章失败时可复用成功章节，只调用API重试失败章节：
+
+```powershell
+..\.venv\Scripts\python.exe main.py llm-review-claim-audit `
+  --workspace workspace `
+  --writing-run-id writing-14papers-20260730-v2 `
+  --run-id claim-audit-retry `
+  --resume-from-run-id claim-audit-failed
+```
+
+调试契约时可完全离线重放指定运行的冻结响应：
+
+```powershell
+..\.venv\Scripts\python.exe main.py llm-review-claim-audit `
+  --workspace workspace `
+  --writing-run-id writing-14papers-20260730-v2 `
+  --run-id claim-audit-replay `
+  --response-replay-run-id claim-audit-source
+```

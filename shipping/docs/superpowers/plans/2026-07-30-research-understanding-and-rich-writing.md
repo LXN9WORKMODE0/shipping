@@ -774,11 +774,11 @@ class PaperUnderstandingRunner:
 - Create: `src/shipping_pipeline/review_claim_audit_report.py`
 - Create: `tests/test_review_claim_audit.py`
 
-- [ ] 将章节拆成可审计事实Claim和导航性综合判断。
-- [ ] 对每条事实标记 `supported`、`qualified`、`unsupported`。
-- [ ] 单独检查result type和validation level是否被写大。
-- [ ] 复用Evidence时展示Evidence；Evidence不足时回到Card和Markdown。
-- [ ] 任何核心结论unsupported时整篇状态不得为publishable。
+- [x] 将章节拆成可审计事实Claim和导航性综合判断。
+- [x] 对每条事实标记 `supported`、`qualified`、`unsupported`。
+- [x] 单独检查result type和validation level是否被写大。
+- [x] 复用Evidence时展示Evidence；Evidence不足时回到Card和Markdown。
+- [x] 任何核心结论unsupported时整篇状态不得为publishable。
 
 ### Task 11：同一14篇的A/B/C实验
 

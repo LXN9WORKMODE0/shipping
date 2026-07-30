@@ -45,6 +45,10 @@ from shipping_pipeline.research_landscape import (
 )
 from shipping_pipeline.review_framework import ReviewFrameworkRunner
 from shipping_pipeline.review_writing import ReviewWritingRunner
+from shipping_pipeline.review_claim_audit import (
+    DEFAULT_REVIEW_CLAIM_AUDIT_CONFIG,
+    ReviewClaimAuditRunner,
+)
 from shipping_pipeline.chapter_knowledge_package import (
     DEFAULT_REVIEW_WRITING_CONFIG,
     ChapterKnowledgePackageBuilder,
@@ -399,6 +403,41 @@ def build_parser() -> argparse.ArgumentParser:
     )
     review_writing_parser.add_argument("--timeout", type=int, default=900)
 
+    claim_audit_parser = subparsers.add_parser(
+        "llm-review-claim-audit",
+        help="逐章拆解并核验综述正文Claim，判定草稿是否可发布。",
+    )
+    claim_audit_parser.add_argument(
+        "--workspace", type=Path, default=Path("workspace")
+    )
+    claim_audit_parser.add_argument("--writing-run-id", required=True)
+    claim_audit_parser.add_argument("--run-id", default=None)
+    claim_audit_parser.add_argument(
+        "--provider",
+        choices=["openai-compatible"],
+        default="openai-compatible",
+    )
+    claim_audit_parser.add_argument("--api-url", default=None)
+    claim_audit_parser.add_argument(
+        "--api-key-env", default="LLM_ANALYSIS_API_KEY"
+    )
+    claim_audit_parser.add_argument(
+        "--audit-config",
+        type=Path,
+        default=DEFAULT_REVIEW_CLAIM_AUDIT_CONFIG,
+    )
+    claim_audit_parser.add_argument(
+        "--response-replay-run-id",
+        default=None,
+        help="不调用API，重放指定Claim审计运行中已冻结的九章响应。",
+    )
+    claim_audit_parser.add_argument(
+        "--resume-from-run-id",
+        default=None,
+        help="复用指定运行中已验证章节，仅调用API重试失败章节。",
+    )
+    claim_audit_parser.add_argument("--timeout", type=int, default=1800)
+
     topic_synthesis_parser = subparsers.add_parser(
         "llm-topic-synthesis",
         help="把多篇单篇主题简报聚合为主题矩阵和段落级综述提纲。",
@@ -720,6 +759,20 @@ def main(argv: list[str] | None = None) -> int:
             provider=args.provider,
             api_url=args.api_url,
             api_key_env=args.api_key_env,
+            timeout=args.timeout,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] == "completed" else 1
+    if args.command == "llm-review-claim-audit":
+        result = ReviewClaimAuditRunner(args.workspace).run(
+            writing_run_id=args.writing_run_id,
+            run_id=args.run_id,
+            provider=args.provider,
+            api_url=args.api_url,
+            api_key_env=args.api_key_env,
+            audit_config_path=args.audit_config,
+            response_replay_run_id=args.response_replay_run_id,
+            resume_from_run_id=args.resume_from_run_id,
             timeout=args.timeout,
         )
         print(json.dumps(result, ensure_ascii=False))
