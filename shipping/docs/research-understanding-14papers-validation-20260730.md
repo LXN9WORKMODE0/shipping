@@ -7,6 +7,9 @@
 - 14篇完整输入均能装入当前DeepSeek V4 Pro 100万Token上下文，不需要截断、拆批或缩减字段。
 - 用户已明确授权14篇完整Markdown、全部Card和已有Evidence发送给外部DeepSeek。
 - 短、中、长三篇首轮验收已经完成。短篇和长篇一次通过；中篇首次因模型输出空的`contribution_indexes`被合同拒绝，修订Prompt后使用新run ID通过。失败运行完整保留，未做结果修补。
+- 14篇均已形成被接受的显式运行，状态全部为`completed`，`finish_reason`全部为`stop`。
+- 当前合同重新回放14份原始模型响应后，结果与已发布JSON逐项一致；全部material/evidence引用有效。
+- Task 5通过，可以进入Research Landscape。
 
 ## 验收对象
 
@@ -78,12 +81,44 @@
 - 判断：识别出动态因子模型、混合分布EM估计、到闸交通流仿真和船闸排档分解算法；排档算法贡献标为`algorithm_benchmark`，没有写成工程实施。
 - 限制：保留了作者明确限制和审阅推断限制，包括指标选择不足、EM初值敏感、大船条件下算法间隙利用问题、20艘测试样本偏小及部分混合模型未通过K-S检验。
 
-## 待完成的质量检查
+## 全部14篇终审
 
-- 研究问题、研究对象、方法和贡献是否覆盖论文核心论证。
-- `result_type` 是否正确区分历史观察、实测、实验、仿真、算法benchmark、工程实施、系统设计、建议和概念论证。
-- `validation_level` 是否没有把仿真或算法测试写大为工程应用。
-- 每项方法、贡献和限制是否能在报告中直接看到Card原文和Markdown行号。
-- reviewer推断限制是否确有原文依据。
-- 未引用Card是否只是非核心材料，而不是静默遗漏主要贡献。
-- 三类规模均通过后，才把Task 5标记完成并开始Research Landscape。
+被接受的运行ID已经写入`config/pilots/research-understanding-14papers-20260730.json`。旧运行不会由后续阶段按时间自动选择。
+
+| 序号 | 论文 | 接受运行 | 状态 | 引用Card/全部Card | 使用Evidence |
+|---:|---|---|---|---:|---:|
+| 1 | 充分发挥三峡船闸通过能力的途径 | `understanding-pilot-short-20260730` | 完成 | 6/6 | 5 |
+| 2 | 船舶过坝优化调度辅助决策系统研究 | `understanding-pilot-medium-20260730-v2` | 完成 | 14/22 | 3 |
+| 3 | 船舶到闸模型及排档优化算法研究 | `understanding-pilot-long-20260730` | 完成 | 31/164 | 3 |
+| 4 | 船型标准化率对三峡船闸实际通过能力的影响 | `understanding-pilot-04-standardization-rate-20260730` | 完成 | 1/2 | 1 |
+| 5 | 《长江三峡—葛洲坝水利枢纽通航指标体系》的应用 | `understanding-pilot-05-indicator-system-20260730-v2` | 完成 | 10/10 | 4 |
+| 6 | 船舶积压常态化下的三峡枢纽挖潜扩能措施研究 | `understanding-pilot-06-capacity-measures-20260730` | 完成 | 10/10 | 5 |
+| 7 | 2013年三峡坝区通航形势分析 | `understanding-pilot-07-traffic-situation-20260730-v2` | 完成 | 10/18 | 1 |
+| 8 | 船舶大型化条件下的船闸管理对策 | `understanding-pilot-08-large-vessel-management-20260730` | 完成 | 18/19 | 3 |
+| 9 | 川江及三峡库区标准化船舶统计分析 | `understanding-pilot-09-standardized-vessels-20260730` | 完成 | 8/22 | 4 |
+| 10 | 船舶过闸组织方式对三峡船闸运行效率的影响 | `understanding-pilot-10-lock-organization-20260730` | 完成 | 13/23 | 3 |
+| 11 | “双碳”行动下三峡库区智能航运示范建设研究 | `understanding-pilot-11-smart-shipping-20260730` | 完成 | 20/26 | 2 |
+| 12 | 船舶过闸服务智能管控一体化平台研究 | `understanding-pilot-12-smart-platform-20260730-v2` | 完成 | 11/26 | 5 |
+| 13 | 船舶积压条件下三峡过坝运输组织优化研究 | `understanding-pilot-13-transport-optimization-20260730` | 完成 | 48/199 | 2 |
+| 14 | 船舶积压条件下三峡坝前转运港口分流能力仿真研究 | `understanding-pilot-14-port-diversion-20260730` | 完成 | 29/257 | 0 |
+
+### 失败和淘汰记录
+
+- `understanding-pilot-medium-20260730`：失败。空`contribution_indexes`被Schema拒绝。
+- `understanding-pilot-05-indicator-system-20260730`：运行完成但被语义终审淘汰。单项贡献混合了已上线系统和后续管理建议。
+- `understanding-pilot-07-traffic-situation-20260730`：运行完成但被语义终审淘汰。已试行吃水标准被误标为建议。
+- `understanding-pilot-12-smart-platform-20260730`：运行完成但被语义终审淘汰。工程实施与概念验证水平不一致。
+
+后三篇均使用新不可变run ID重新调用。程序没有改写旧输出，也没有通过删除字段使旧结果过关。
+
+### 验收条件核对
+
+- 14篇每篇都有显式接受运行，且全部状态为`completed`。
+- 当前动态Schema重新验证全部原始响应，14份结果均与发布对象一致。
+- Paper Understanding Schema不存在跨论文关系字段；回放扫描未发现相关字段。
+- `simulation_result`全部使用`simulation`验证，未标成工程实施。
+- `engineering_implementation`全部使用`engineering_application`。
+- `recommendation`只使用`none`或`conceptual`，未标成经验事实。
+- 报告直接展示Card标题、Markdown行号和原文摘录。
+- 164、199和257张Card的三篇长论文分别引用31、48和29张Card，但只使用3、2和0条已有Evidence，证明结果不是少量Evidence的复述。
+- 未引用Card继续保存在每篇运行的`audit/unreferenced_materials.jsonl`，不会从后续章节知识包中消失。

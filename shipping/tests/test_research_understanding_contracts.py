@@ -63,6 +63,13 @@ class ResearchUnderstandingContractTests(unittest.TestCase):
                 "contribution_"
             )
         )
+        self.assertTrue(
+            validated["limitations"][0]["limitation_id"].startswith("limitation_")
+        )
+        self.assertNotIn(
+            "research_question_id",
+            self._payload()["research_questions"][0],
+        )
 
     def test_excluded_paper_must_not_have_review_roles(self):
         payload = self._payload()
@@ -73,12 +80,51 @@ class ResearchUnderstandingContractTests(unittest.TestCase):
 
         self.assertEqual(validated["paper_relevance"], "exclude")
         self.assertEqual(validated["review_roles"], [])
-        self.assertTrue(
-            validated["limitations"][0]["limitation_id"].startswith("limitation_")
+
+    def test_engineering_implementation_requires_engineering_application(self):
+        payload = self._payload()
+        payload["contributions"][0]["result_type"] = "engineering_implementation"
+        payload["contributions"][0]["validation_level"] = "conceptual"
+
+        with self.assertRaisesRegex(
+            ResearchUnderstandingContractError,
+            "schema.paper_understanding_invalid",
+        ):
+            self._validate(payload)
+
+    def test_recommendation_cannot_claim_field_validation(self):
+        payload = self._payload()
+        payload["contributions"][0]["result_type"] = "recommendation"
+        payload["contributions"][0]["validation_level"] = "field_observation"
+
+        with self.assertRaisesRegex(
+            ResearchUnderstandingContractError,
+            "schema.paper_understanding_invalid",
+        ):
+            self._validate(payload)
+
+    def test_system_design_may_be_validated_by_simulation(self):
+        payload = self._payload()
+        payload["contributions"][0]["result_type"] = "system_design"
+        payload["contributions"][0]["validation_level"] = "simulation"
+
+        validated = self._validate(payload)
+
+        self.assertEqual(
+            validated["contributions"][0]["validation_level"],
+            "simulation",
         )
-        self.assertNotIn(
-            "research_question_id",
-            self._payload()["research_questions"][0],
+
+    def test_conceptual_argument_may_use_field_observation(self):
+        payload = self._payload()
+        payload["contributions"][0]["result_type"] = "conceptual_argument"
+        payload["contributions"][0]["validation_level"] = "field_observation"
+
+        validated = self._validate(payload)
+
+        self.assertEqual(
+            validated["contributions"][0]["validation_level"],
+            "field_observation",
         )
 
     def test_unknown_enum_is_rejected(self):

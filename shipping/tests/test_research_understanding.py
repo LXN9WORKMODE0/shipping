@@ -316,6 +316,14 @@ class ResearchUnderstandingTests(unittest.TestCase):
             "无法绑定到具体贡献的用途不要输出",
             PAPER_UNDERSTANDING_SYSTEM_PROMPT,
         )
+        self.assertIn(
+            "必须拆成两个contribution",
+            PAPER_UNDERSTANDING_SYSTEM_PROMPT,
+        )
+        self.assertIn(
+            "engineering_implementation只能使用engineering_application",
+            PAPER_UNDERSTANDING_SYSTEM_PROMPT,
+        )
 
     def test_cli_parser_requires_explicit_workspace_paper_id(self):
         args = build_parser().parse_args(

@@ -8,84 +8,98 @@
       "paper_id": "充分发挥三峡船闸通过能力的途径",
       "workspace_paper_id": "review-20260728--f88ea7248eb0",
       "source_topic_review_run_id": "ui-brief-20260729T033410-eba045ca-004",
+      "accepted_understanding_run_id": "understanding-pilot-short-20260730",
       "size_class": "short"
     },
     {
       "paper_id": "船舶过坝优化调度辅助决策系统研究",
       "workspace_paper_id": "review-20260728--97f29ab25e0b",
       "source_topic_review_run_id": "ui-brief-20260729T034846-f6b3719b-003",
+      "accepted_understanding_run_id": "understanding-pilot-medium-20260730-v2",
       "size_class": "medium"
     },
     {
       "paper_id": "船舶到闸模型及排档优化算法研究",
       "workspace_paper_id": "review-20260728--3ba46b81de25",
       "source_topic_review_run_id": "ui-brief-20260729T034846-0dd7d332-002",
+      "accepted_understanding_run_id": "understanding-pilot-long-20260730",
       "size_class": "long"
     },
     {
       "paper_id": "船型标准化率对三峡船闸实际通过能力的影响",
       "workspace_paper_id": "review-20260728--c399ae7ac48e",
       "source_topic_review_run_id": "ui-brief-20260729T034846-600a0586-009",
+      "accepted_understanding_run_id": "understanding-pilot-04-standardization-rate-20260730",
       "size_class": "short"
     },
     {
       "paper_id": "《长江三峡—葛洲坝水利枢纽通航指标体系》的应用",
       "workspace_paper_id": "review-20260728--65670e4dd664",
       "source_topic_review_run_id": "ui-brief-20260729T033410-7188841b-002",
+      "accepted_understanding_run_id": "understanding-pilot-05-indicator-system-20260730-v2",
       "size_class": "short"
     },
     {
       "paper_id": "船舶积压常态化下的三峡枢纽挖潜扩能措施研究",
       "workspace_paper_id": "review-20260728--009a06dc803d",
       "source_topic_review_run_id": "ui-brief-20260729T034846-f1f026e4-006",
+      "accepted_understanding_run_id": "understanding-pilot-06-capacity-measures-20260730",
       "size_class": "short"
     },
     {
       "paper_id": "2013年三峡坝区通航形势分析",
       "workspace_paper_id": "review-20260728--f3c9aafbeaeb",
       "source_topic_review_run_id": "ui-brief-20260729T033410-c11c7ce4-003",
+      "accepted_understanding_run_id": "understanding-pilot-07-traffic-situation-20260730-v2",
       "size_class": "medium"
     },
     {
       "paper_id": "船舶大型化条件下的船闸管理对策",
       "workspace_paper_id": "review-20260728--167a30d9f908",
       "source_topic_review_run_id": "ui-brief-20260729T034846-1f02d928-001",
+      "accepted_understanding_run_id": "understanding-pilot-08-large-vessel-management-20260730",
       "size_class": "medium"
     },
     {
       "paper_id": "川江及三峡库区标准化船舶统计分析",
       "workspace_paper_id": "review-20260728--4a85b2b915f7",
       "source_topic_review_run_id": "ui-brief-20260729T033410-463df679-005",
+      "accepted_understanding_run_id": "understanding-pilot-09-standardized-vessels-20260730",
       "size_class": "medium"
     },
     {
       "paper_id": "船舶过闸组织方式对三峡船闸运行效率的影响",
       "workspace_paper_id": "review-20260728--707cb1270b08",
       "source_topic_review_run_id": "ui-brief-20260729T034846-23d12a2f-005",
+      "accepted_understanding_run_id": "understanding-pilot-10-lock-organization-20260730",
       "size_class": "medium"
     },
     {
       "paper_id": "“双碳”行动下三峡库区智能航运示范建设研究",
       "workspace_paper_id": "review-20260728--dafe5f9e85b7",
       "source_topic_review_run_id": "ui-brief-20260729T033410-44dbf20f-001",
+      "accepted_understanding_run_id": "understanding-pilot-11-smart-shipping-20260730",
       "size_class": "medium"
     },
     {
       "paper_id": "船舶过闸服务智能管控一体化平台研究",
       "workspace_paper_id": "review-20260728--d71f06506e59",
       "source_topic_review_run_id": "ui-brief-20260729T034846-5c1f14ee-004",
+      "accepted_understanding_run_id": "understanding-pilot-12-smart-platform-20260730-v2",
       "size_class": "medium"
     },
     {
       "paper_id": "船舶积压条件下三峡过坝运输组织优化研究",
       "workspace_paper_id": "review-20260728--5df021da4420",
       "source_topic_review_run_id": "ui-brief-20260729T034846-f0dce5a0-008",
+      "accepted_understanding_run_id": "understanding-pilot-13-transport-optimization-20260730",
       "size_class": "long"
     },
     {
       "paper_id": "船舶积压条件下三峡坝前转运港口分流能力仿真研究",
       "workspace_paper_id": "review-20260728--b9b19d7d5b56",
       "source_topic_review_run_id": "ui-brief-20260729T034846-5f4a1d2d-007",
+      "accepted_understanding_run_id": "understanding-pilot-14-port-diversion-20260730",
       "size_class": "long"
     }
   ]

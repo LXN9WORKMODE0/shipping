@@ -60,6 +60,42 @@ VALIDATION_LEVELS = (
     "field_observation",
     "engineering_application",
 )
+RESULT_VALIDATION_LEVELS = {
+    "historical_observation": (
+        "none",
+        "conceptual",
+        "field_observation",
+        "engineering_application",
+    ),
+    "empirical_measurement": (
+        "field_observation",
+        "engineering_application",
+    ),
+    "experimental_result": (
+        "benchmark",
+        "field_observation",
+    ),
+    "simulation_result": ("simulation",),
+    "algorithm_benchmark": ("benchmark", "simulation"),
+    "engineering_implementation": ("engineering_application",),
+    "system_design": (
+        "none",
+        "conceptual",
+        "simulation",
+        "benchmark",
+        "field_observation",
+        "engineering_application",
+    ),
+    "recommendation": ("none", "conceptual"),
+    "conceptual_argument": (
+        "none",
+        "conceptual",
+        "simulation",
+        "benchmark",
+        "field_observation",
+        "engineering_application",
+    ),
+}
 EVIDENCE_STRENGTH_LEVELS = ("strong", "moderate", "limited", "uncertain")
 LIMITATION_BASES = ("author_stated", "reviewer_inferred")
 REVIEW_ROLES = (
@@ -308,6 +344,25 @@ def build_paper_understanding_schema(
                         "material_ids": material_refs,
                         "evidence_unit_ids": evidence_refs,
                     },
+                    "allOf": [
+                        {
+                            "if": {
+                                "properties": {
+                                    "result_type": {"const": result_type},
+                                },
+                                "required": ["result_type"],
+                            },
+                            "then": {
+                                "properties": {
+                                    "validation_level": {
+                                        "enum": list(validation_levels),
+                                    },
+                                },
+                            },
+                        }
+                        for result_type, validation_levels
+                        in RESULT_VALIDATION_LEVELS.items()
+                    ],
                 },
             },
             "limitations": {
