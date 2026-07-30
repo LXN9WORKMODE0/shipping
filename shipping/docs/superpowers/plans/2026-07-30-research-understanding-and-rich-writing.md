@@ -739,11 +739,11 @@ class PaperUnderstandingRunner:
 - Create: `src/shipping_pipeline/chapter_knowledge_package.py`
 - Create: `tests/test_chapter_knowledge_package.py`
 
-- [ ] 从Framework显式paper IDs组装相关完整Markdown。
-- [ ] 加入Paper Understanding、全部Card、Evidence逐字引文和题录引用key。
-- [ ] 计算真实token预算。
-- [ ] 超预算直接失败，报告导致超限的论文和输入token，不截断。
-- [ ] 快照保存所有输入文件和哈希。
+- [x] 从Framework显式paper IDs组装相关完整Markdown。
+- [x] 加入Paper Understanding、全部Card、Evidence逐字引文和题录引用key。
+- [x] 计算真实token预算。
+- [x] 超预算直接失败，报告导致超限的论文和输入token，不截断。
+- [x] 快照保存所有输入文件和哈希。
 
 ### Task 9：章节写作与全文装配
 

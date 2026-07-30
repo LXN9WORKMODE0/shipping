@@ -44,6 +44,10 @@ from shipping_pipeline.research_landscape import (
     ResearchLandscapeRunner,
 )
 from shipping_pipeline.review_framework import ReviewFrameworkRunner
+from shipping_pipeline.chapter_knowledge_package import (
+    DEFAULT_REVIEW_WRITING_CONFIG,
+    ChapterKnowledgePackageBuilder,
+)
 from shipping_pipeline.topic_synthesis import (
     DEFAULT_TOPIC_SYNTHESIS_CONFIG,
     TopicSynthesisRunner,
@@ -336,6 +340,36 @@ def build_parser() -> argparse.ArgumentParser:
         default=DEFAULT_MODEL_PROFILE,
     )
     review_framework_parser.add_argument("--timeout", type=int, default=900)
+
+    chapter_package_parser = subparsers.add_parser(
+        "chapter-knowledge-package",
+        help="为显式Review Framework章节装配完整知识包并校验Token预算。",
+    )
+    chapter_package_parser.add_argument(
+        "--workspace",
+        type=Path,
+        default=Path("workspace"),
+    )
+    chapter_package_parser.add_argument(
+        "--framework-run-id",
+        required=True,
+    )
+    section_selector = chapter_package_parser.add_mutually_exclusive_group(
+        required=True
+    )
+    section_selector.add_argument("--section-id")
+    section_selector.add_argument("--section-index", type=int)
+    chapter_package_parser.add_argument("--run-id", default=None)
+    chapter_package_parser.add_argument(
+        "--model-profile",
+        type=Path,
+        default=DEFAULT_MODEL_PROFILE,
+    )
+    chapter_package_parser.add_argument(
+        "--writing-config",
+        type=Path,
+        default=DEFAULT_REVIEW_WRITING_CONFIG,
+    )
 
     topic_synthesis_parser = subparsers.add_parser(
         "llm-topic-synthesis",
@@ -637,6 +671,17 @@ def main(argv: list[str] | None = None) -> int:
             api_key_env=args.api_key_env,
             model_profile_path=args.model_profile,
             timeout=args.timeout,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] == "completed" else 1
+    if args.command == "chapter-knowledge-package":
+        result = ChapterKnowledgePackageBuilder(args.workspace).build(
+            framework_run_id=args.framework_run_id,
+            section_id=args.section_id,
+            section_index=args.section_index,
+            run_id=args.run_id,
+            model_profile_path=args.model_profile,
+            writing_config_path=args.writing_config,
         )
         print(json.dumps(result, ensure_ascii=False))
         return 0 if result["status"] == "completed" else 1

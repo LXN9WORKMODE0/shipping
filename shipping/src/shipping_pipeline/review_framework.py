@@ -68,6 +68,15 @@ class ReviewFrameworkSnapshot:
     input_sha256: str
 
 
+@dataclass(frozen=True)
+class ReviewFrameworkRunSource:
+    run_id: str
+    manifest_sha256: str
+    output_sha256: str
+    snapshot: ReviewFrameworkSnapshot
+    framework: dict[str, Any]
+
+
 def create_review_framework_snapshot(
     workspace: str | Path,
     *,
@@ -127,6 +136,131 @@ def create_review_framework_snapshot(
         reference_catalog_sha256=reference_catalog_sha256,
         reference_by_paper=reference_by_paper,
         input_sha256=input_sha256,
+    )
+
+
+def load_review_framework_run(
+    workspace: str | Path,
+    run_id: str,
+) -> ReviewFrameworkRunSource:
+    workspace_path = Path(workspace)
+    _safe_segment(run_id, "framework_run_id")
+    run_dir = workspace_path / "_review_frameworks" / "runs" / run_id
+    manifest_bytes = _read_bytes(
+        run_dir / "manifest.json",
+        "Review Framework manifest",
+    )
+    manifest = _json_object(manifest_bytes, "Review Framework manifest")
+    if manifest.get("schema_version") != REVIEW_FRAMEWORK_RUN_SCHEMA_VERSION:
+        raise AnalysisInputError("Review Framework运行Schema版本不受支持。")
+    if manifest.get("run_id") != run_id:
+        raise AnalysisInputError(
+            "Review Framework目录名与manifest.run_id不一致。"
+        )
+    if manifest.get("status") != "completed":
+        raise AnalysisInputError(
+            "Review Framework运行状态不可用："
+            f"{manifest.get('status')!r}。"
+        )
+    source = _read_json(
+        run_dir / "input" / "source.json",
+        "Review Framework冻结来源",
+    )
+    landscape_run_id = str(source.get("landscape_run_id", ""))
+    reference_catalog_run_id = str(
+        source.get("reference_catalog_run_id", "")
+    )
+    review_goal = str(source.get("review_goal", ""))
+    if (
+        not landscape_run_id
+        or not reference_catalog_run_id
+        or not review_goal
+    ):
+        raise AnalysisInputError("Review Framework冻结来源身份不完整。")
+    if (
+        manifest.get("landscape_run_id") != landscape_run_id
+        or manifest.get("reference_catalog_run_id")
+        != reference_catalog_run_id
+        or manifest.get("review_goal") != review_goal
+    ):
+        raise AnalysisInputError(
+            "Review Framework manifest与冻结来源不一致。"
+        )
+    snapshot = create_review_framework_snapshot(
+        workspace_path,
+        landscape_run_id=landscape_run_id,
+        reference_catalog_run_id=reference_catalog_run_id,
+        review_goal=review_goal,
+    )
+    if snapshot.input_sha256 != manifest.get("input_sha256"):
+        raise AnalysisInputError("Review Framework输入哈希无法重放。")
+    expected_source_hashes = {
+        "landscape_manifest_sha256": snapshot.landscape_manifest_sha256,
+        "landscape_output_sha256": snapshot.landscape_output_sha256,
+        "reference_manifest_sha256": snapshot.reference_manifest_sha256,
+        "reference_catalog_sha256": snapshot.reference_catalog_sha256,
+        "input_sha256": snapshot.input_sha256,
+    }
+    if any(
+        source.get(field) != expected
+        for field, expected in expected_source_hashes.items()
+    ):
+        raise AnalysisInputError("Review Framework冻结来源哈希不一致。")
+    schema = build_review_framework_draft_schema(
+        topic=snapshot.topic,
+        review_goal=snapshot.review_goal,
+        dimension_indexes=[
+            int(row["dimension_index"])
+            for row in snapshot.landscape["dimensions"]
+        ],
+        controversy_ids=[
+            str(row["disagreement_id"])
+            for row in snapshot.landscape["disagreements"]
+        ],
+        corpus_gap_indexes=list(
+            range(1, len(snapshot.landscape["corpus_gaps"]) + 1)
+        ),
+    )
+    frozen_schema = _read_json(
+        run_dir / "input" / "output_schema.json",
+        "Review Framework输出Schema",
+    )
+    if frozen_schema != schema:
+        raise AnalysisInputError("Review Framework输出Schema无法重建。")
+    parsed = _read_json(
+        run_dir / "framework" / "parsed_response.json",
+        "Review Framework原始解析响应",
+    )
+    draft = validate_review_framework_draft(
+        parsed,
+        schema=schema,
+        landscape=snapshot.landscape,
+    )
+    output_bytes = _read_bytes(
+        run_dir / "output" / "review_framework.json",
+        "Review Framework正式输出",
+    )
+    output = _json_object(output_bytes, "Review Framework正式输出")
+    replay = derive_review_framework(
+        draft,
+        landscape=snapshot.landscape,
+        reference_by_paper=snapshot.reference_by_paper,
+        source_landscape_id=str(snapshot.landscape["landscape_id"]),
+    )
+    if replay != output:
+        raise AnalysisInputError(
+            "Review Framework正式输出无法由原始响应重放。"
+        )
+    if manifest.get("framework_id") != output.get("framework_id"):
+        raise AnalysisInputError(
+            "Review Framework manifest与正式输出身份不一致。"
+        )
+    return ReviewFrameworkRunSource(
+        run_id=run_id,
+        manifest_sha256=_sha256_bytes(manifest_bytes),
+        output_sha256=_sha256_bytes(output_bytes),
+        snapshot=snapshot,
+        framework=output,
     )
 
 

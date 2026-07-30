@@ -1,0 +1,7 @@
+{
+  "schema_version": "llm.review_writing_config.v1",
+  "max_paragraphs_per_section": 12,
+  "max_paragraph_chars": 4000,
+  "chapter_max_output_tokens": 32768,
+  "full_review_edit_max_output_tokens": 32768
+}

@@ -269,6 +269,20 @@ Markdown 清单不需要 `--pdf-provider mineru`。同一阶段会处理全部�
 
 结果写入 `workspace/_review_frameworks/runs/<run-id>/`。默认阅读 `review/review_framework.md`；正式机器输出为 `output/review_framework.json`，模型字段与程序派生字段记录在 `audit/derivation.json`，维度、论文和题录覆盖记录在 `audit/coverage.json`。
 
+## 章节知识包（实验链路）
+
+`chapter-knowledge-package` 为一个显式 Framework 章节确定性装配完整写作输入，不调用外部LLM。它读取对应 Understanding 运行冻结的完整Markdown、全部Card投影、Paper Understanding、Evidence逐字引文和题录，不读取论文工作区当前Card代次。
+
+```powershell
+.\.venv\Scripts\python.exe shipping/main.py chapter-knowledge-package --workspace shipping/workspace --framework-run-id "综述框架运行ID" --section-index 2 --run-id "章节知识包运行ID" --model-profile shipping/config/models/deepseek-v4-pro-official.json --writing-config shipping/config/review-writing-default.json
+```
+
+`--section-id` 与 `--section-index` 必须且只能提供一个。程序重放Framework、Landscape和Understanding来源，验证Card投影、Evidence逐字引文及原文坐标、题录引用Key，并只选择本节绑定的Landscape维度、双方论文均在本节的关系、显式争议和语料缺口。`research_evolution`不会自动带入。
+
+真实Token预算使用最终章节写作system prompt、完整知识包和动态输出Schema计算，而不是估算JSON文件大小。超出模型窗口时，完整候选输入和 `audit/token_budget.json` 仍保留，但不发布正式知识包；不会截断Markdown、跳过论文、只留Evidence或自动拆批。
+
+结果写入 `workspace/_chapter_knowledge_packages/runs/<run-id>/`。正式模型输入为 `output/knowledge_package.json`，人工规模审查为 `review/knowledge_package.md`，所有冻结文件的SHA-256账本位于 `input/file_hashes.jsonl`。
+
 ## 跨论文主题综合
 
 多篇论文完成 `llm-topic-brief` 后，使用 `llm-topic-synthesis` 生成跨论文主题矩阵、综合单元和段落级综述提纲。该阶段不重新解析 Markdown，也不重新抽取单篇 Evidence；它会读取单篇运行冻结的 Card 来重放校验 Evidence 引文，但不会把 Card 全文发送给跨论文模型，也不直接生成综述正文。
