@@ -1,0 +1,11 @@
+{
+  "schema_version": "llm.research_understanding_config.v1",
+  "max_research_questions": 8,
+  "max_methods": 12,
+  "max_contributions": 16,
+  "max_limitations": 10,
+  "max_review_roles": 8,
+  "max_unresolved_questions": 8,
+  "max_keywords": 20,
+  "understanding_max_output_tokens": 32768
+}
