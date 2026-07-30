@@ -1,0 +1,11 @@
+{
+  "schema_version": "llm.research_landscape_config.v1",
+  "max_dimensions": 12,
+  "max_relations": 30,
+  "max_evolution_items": 12,
+  "max_disagreements": 12,
+  "max_positions_per_disagreement": 6,
+  "max_corpus_gaps": 12,
+  "max_field_gap_candidates": 8,
+  "landscape_max_output_tokens": 32768
+}

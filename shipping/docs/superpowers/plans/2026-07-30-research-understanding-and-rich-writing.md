@@ -699,14 +699,14 @@ class PaperUnderstandingRunner:
 - Create: `tests/test_research_landscape.py`
 - Modify: `main.py`
 
-- [ ] 集合显式列出Understanding run，不猜最新代次。
-- [ ] 重验每个Understanding manifest、output和输入哈希。
-- [ ] 同一paper只允许一个Understanding运行。
-- [ ] 实现dimension、relation、evolution、disagreement和corpus gap合同。
-- [ ] targeted sample禁止field gap字段。
-- [ ] 所有论文必须进入dimension或显式unmapped。
-- [ ] 中文报告直接展开论文题名、贡献、结果类型和验证水平。
-- [ ] 用14篇真实Understanding生成Landscape并审查。
+- [x] 集合显式列出Understanding run，不猜最新代次。
+- [x] 重验每个Understanding manifest、output和输入哈希。
+- [x] 同一paper只允许一个Understanding运行。
+- [x] 实现dimension、relation、evolution、disagreement和corpus gap合同。
+- [x] targeted sample禁止field gap字段。
+- [x] 所有论文必须进入dimension或显式unmapped。
+- [x] 中文报告直接展开论文题名、贡献、结果类型和验证水平。
+- [x] 用14篇真实Understanding生成Landscape并审查。
 
 运行：
 

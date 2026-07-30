@@ -1,0 +1,22 @@
+{
+  "schema_version": "llm.research_landscape_collection.v1",
+  "topic": "三峡枢纽通航能力的提升方法",
+  "review_goal": "比较不同通航能力提升方法的作用机制、实施层次、验证水平、证据强度和适用边界，并识别本次14篇定向语料内部的互补关系、分歧与未回答问题。",
+  "corpus_scope": "targeted_sample",
+  "source_understanding_run_ids": [
+    "understanding-pilot-short-20260730",
+    "understanding-pilot-medium-20260730-v2",
+    "understanding-pilot-long-20260730",
+    "understanding-pilot-04-standardization-rate-20260730",
+    "understanding-pilot-05-indicator-system-20260730-v2",
+    "understanding-pilot-06-capacity-measures-20260730",
+    "understanding-pilot-07-traffic-situation-20260730-v2",
+    "understanding-pilot-08-large-vessel-management-20260730",
+    "understanding-pilot-09-standardized-vessels-20260730",
+    "understanding-pilot-10-lock-organization-20260730",
+    "understanding-pilot-11-smart-shipping-20260730",
+    "understanding-pilot-12-smart-platform-20260730-v2",
+    "understanding-pilot-13-transport-optimization-20260730",
+    "understanding-pilot-14-port-diversion-20260730"
+  ]
+}

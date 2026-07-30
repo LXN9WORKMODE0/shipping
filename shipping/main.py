@@ -39,6 +39,10 @@ from shipping_pipeline.research_understanding import (
     DEFAULT_UNDERSTANDING_CONFIG,
     PaperUnderstandingRunner,
 )
+from shipping_pipeline.research_landscape import (
+    DEFAULT_RESEARCH_LANDSCAPE_CONFIG,
+    ResearchLandscapeRunner,
+)
 from shipping_pipeline.topic_synthesis import (
     DEFAULT_TOPIC_SYNTHESIS_CONFIG,
     TopicSynthesisRunner,
@@ -258,6 +262,43 @@ def build_parser() -> argparse.ArgumentParser:
         default=DEFAULT_UNDERSTANDING_CONFIG,
     )
     paper_understanding_parser.add_argument("--timeout", type=int, default=900)
+
+    research_landscape_parser = subparsers.add_parser(
+        "llm-research-landscape",
+        help="基于显式Paper Understanding集合建立跨论文研究图谱。",
+    )
+    research_landscape_parser.add_argument(
+        "--workspace",
+        type=Path,
+        default=Path("workspace"),
+    )
+    research_landscape_parser.add_argument(
+        "--collection",
+        type=Path,
+        required=True,
+    )
+    research_landscape_parser.add_argument("--run-id", default=None)
+    research_landscape_parser.add_argument(
+        "--provider",
+        choices=["openai-compatible"],
+        default="openai-compatible",
+    )
+    research_landscape_parser.add_argument("--api-url", default=None)
+    research_landscape_parser.add_argument(
+        "--api-key-env",
+        default="LLM_ANALYSIS_API_KEY",
+    )
+    research_landscape_parser.add_argument(
+        "--model-profile",
+        type=Path,
+        default=DEFAULT_MODEL_PROFILE,
+    )
+    research_landscape_parser.add_argument(
+        "--landscape-config",
+        type=Path,
+        default=DEFAULT_RESEARCH_LANDSCAPE_CONFIG,
+    )
+    research_landscape_parser.add_argument("--timeout", type=int, default=900)
 
     topic_synthesis_parser = subparsers.add_parser(
         "llm-topic-synthesis",
@@ -531,6 +572,19 @@ def main(argv: list[str] | None = None) -> int:
             api_key_env=args.api_key_env,
             model_profile_path=args.model_profile,
             understanding_config_path=args.understanding_config,
+            timeout=args.timeout,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] == "completed" else 1
+    if args.command == "llm-research-landscape":
+        result = ResearchLandscapeRunner(args.workspace).run(
+            collection_path=args.collection,
+            run_id=args.run_id,
+            provider=args.provider,
+            api_url=args.api_url,
+            api_key_env=args.api_key_env,
+            model_profile_path=args.model_profile,
+            landscape_config_path=args.landscape_config,
             timeout=args.timeout,
         )
         print(json.dumps(result, ensure_ascii=False))

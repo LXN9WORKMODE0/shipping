@@ -245,6 +245,18 @@ Markdown 清单不需要 `--pdf-provider mineru`。同一阶段会处理全部�
 
 结果写入 `workspace/_paper_understandings/runs/<run-id>/`。人工默认阅读 `review/paper_understanding.md`，其中每项判断直接展开Card标题、Markdown行号和原文摘录。正式机器输出是 `output/paper_understanding.json`，来源绑定位于 `audit/source_bindings.jsonl`；任一输入、预算、API或合同校验失败时不发布正式输出。
 
+## 跨论文研究图谱（实验链路）
+
+`llm-research-landscape` 只读取显式 collection 中列出的 Paper Understanding 运行，不扫描目录猜测最新版，也不重新发送论文全文。程序会重放校验每个 Understanding 的 manifest、冻结输入哈希和正式输出，拒绝失败、排除、重复论文或来源损坏的运行。
+
+```powershell
+.\.venv\Scripts\python.exe shipping/main.py llm-research-landscape --workspace shipping/workspace --collection shipping/config/collections/research-landscape-14papers-20260730.json --run-id "研究图谱运行ID" --provider openai-compatible --model-profile shipping/config/models/deepseek-v4-pro-official.json --landscape-config shipping/config/research-landscape-default.json --timeout 900
+```
+
+模型生成研究维度、论文关系、年代关注变化、明确分歧和语料缺口；程序生成稳定ID并执行论文覆盖、贡献所有权、关系双方来源和定向语料边界校验。模型实际看到的动态所有权Schema保存在 `input/output_schema.json`，公开输出合同保存在 `input/validation_schema.json`。任一论文必须进入至少一个维度或显式列为未映射，二者不能重叠。
+
+结果写入 `workspace/_research_landscapes/runs/<run-id>/`。默认阅读 `review/research_landscape.md`，其中跨论文判断下直接展开论文贡献、结果类型、验证水平、Card摘录和Markdown行号。正式机器输出为 `output/research_landscape.json`，覆盖审计与来源绑定分别位于 `audit/coverage.json` 和 `audit/source_bindings.jsonl`。`corpus_scope=targeted_sample` 时只允许报告本次语料缺口，不能声称整个研究领域缺少相关工作。
+
 ## 跨论文主题综合
 
 多篇论文完成 `llm-topic-brief` 后，使用 `llm-topic-synthesis` 生成跨论文主题矩阵、综合单元和段落级综述提纲。该阶段不重新解析 Markdown，也不重新抽取单篇 Evidence；它会读取单篇运行冻结的 Card 来重放校验 Evidence 引文，但不会把 Card 全文发送给跨论文模型，也不直接生成综述正文。
