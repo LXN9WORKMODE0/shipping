@@ -528,11 +528,11 @@ v1按Framework显式 `paper_ids` 纳入相关论文全文。超过模型预算�
 - Create: `src/shipping_pipeline/research_understanding_contracts.py`
 - Create: `tests/test_research_understanding_contracts.py`
 
-- [ ] 写失败测试：未知枚举、空research question、contribution无material、未知material/evidence ID。
-- [ ] 运行测试并确认模块不存在而失败。
-- [ ] 实现 `ResearchUnderstandingConfig`、动态JSON Schema和 `validate_paper_understanding`。
-- [ ] 实现程序生成子对象ID，不接受模型ID。
-- [ ] 运行：
+- [x] 写失败测试：未知枚举、空research question、contribution无material、未知material/evidence ID。
+- [x] 运行测试并确认模块不存在而失败。
+- [x] 实现 `ResearchUnderstandingConfig`、动态JSON Schema和 `validate_paper_understanding`。
+- [x] 实现程序生成子对象ID，不接受模型ID。
+- [x] 运行：
 
 ```powershell
 ..\.venv\Scripts\python.exe -m pytest tests/test_research_understanding_contracts.py -q
@@ -570,12 +570,12 @@ def validate_paper_understanding(
 - Create: `src/shipping_pipeline/research_understanding.py`
 - Create: `tests/test_research_understanding.py`
 
-- [ ] 写测试：Card代次不一致、缺失 `normalized/document.md`、Topic Review论文身份不一致、Evidence引用未知Card。
-- [ ] 复用 `create_input_snapshot` 读取当前完整Card。
-- [ ] 从已验证 `workspace_paper_id` 定位 `normalized/document.md`，复制文本和SHA-256。
-- [ ] Topic Review run为可选显式参数；不提供时Evidence为空，不自动猜最新运行。
-- [ ] 将全部输入复制到 `_paper_understandings/runs/<run_id>/input/`。
-- [ ] 运行：
+- [x] 写测试：Card代次不一致、缺失 `normalized/document.md`、Topic Review论文身份不一致、Evidence引用未知Card。
+- [x] 复用 `create_input_snapshot` 读取当前完整Card。
+- [x] 从已验证 `workspace_paper_id` 定位 `normalized/document.md`，复制文本和SHA-256。
+- [x] Topic Review run为可选显式参数；不提供时Evidence为空，不自动猜最新运行。
+- [x] 将全部输入复制到 `_paper_understandings/runs/<run_id>/input/`。
+- [x] 运行：
 
 ```powershell
 ..\.venv\Scripts\python.exe -m pytest tests/test_research_understanding.py -q
@@ -609,12 +609,12 @@ class PaperUnderstandingSnapshot:
 - Modify: `src/shipping_pipeline/research_understanding.py`
 - Modify: `tests/test_research_understanding.py`
 
-- [ ] 写Fake Client测试，断言模型收到完整Markdown、全部Card和全部可用Evidence。
-- [ ] 写输入超预算测试，断言直接失败且没有正式output。
-- [ ] 实现 `PAPER_UNDERSTANDING_SYSTEM_PROMPT`，明确单篇隔离、结果类型和来源绑定。
-- [ ] 复用 `execute_json_stage` 保存request、raw response、usage和finish reason。
-- [ ] 验证全部material/evidence引用后才发布output和review。
-- [ ] 运行专项测试。
+- [x] 写Fake Client测试，断言模型收到完整Markdown、全部Card和全部可用Evidence。
+- [x] 写输入超预算测试，断言直接失败且没有正式output。
+- [x] 实现 `PAPER_UNDERSTANDING_SYSTEM_PROMPT`，明确单篇隔离、结果类型和来源绑定。
+- [x] 复用 `execute_json_stage` 保存request、raw response、usage和finish reason。
+- [x] 验证全部material/evidence引用后才发布output和review。
+- [x] 运行专项测试。
 
 Runner签名：
 
@@ -646,10 +646,10 @@ class PaperUnderstandingRunner:
 - Modify: `tests/test_research_understanding.py`
 - Modify: `README.md`
 
-- [ ] 报告按“研究问题、研究对象、方法、贡献、验证水平、限制、综述用途”展示。
-- [ ] 每个对象下直接展开Card标题、原文摘录和Markdown行号，不要求人工查ID。
-- [ ] 新增 `llm-paper-understanding` 命令。
-- [ ] 测试成功返回0、失败返回1、不可变run ID拒绝覆盖。
+- [x] 报告按“研究问题、研究对象、方法、贡献、验证水平、限制、综述用途”展示。
+- [x] 每个对象下直接展开Card标题、原文摘录和Markdown行号，不要求人工查ID。
+- [x] 新增 `llm-paper-understanding` 命令。
+- [x] 测试成功返回0、失败返回1、不可变run ID拒绝覆盖。
 
 命令：
 

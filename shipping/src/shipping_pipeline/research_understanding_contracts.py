@@ -329,7 +329,6 @@ def build_paper_understanding_schema(
             },
             "review_roles": {
                 "type": "array",
-                "minItems": 1,
                 "maxItems": config.max_review_roles,
                 "items": {
                     "type": "object",
@@ -378,6 +377,26 @@ def build_paper_understanding_schema(
                 "items": {"type": "string", "minLength": 1, "maxLength": 80},
             },
         },
+        "allOf": [
+            {
+                "if": {
+                    "properties": {
+                        "paper_relevance": {"const": "exclude"},
+                    },
+                    "required": ["paper_relevance"],
+                },
+                "then": {
+                    "properties": {
+                        "review_roles": {"maxItems": 0},
+                    },
+                },
+                "else": {
+                    "properties": {
+                        "review_roles": {"minItems": 1},
+                    },
+                },
+            }
+        ],
     }
 
 

@@ -233,6 +233,18 @@ Markdown 清单不需要 `--pdf-provider mineru`。同一阶段会处理全部�
 
 自动回查状态为 `not_triggered/no_candidate/completed/failed`。回查失败时运行状态为 `completed_with_revisit_failure`：基础 Evidence 和 `brief/base/validated_brief.json` 保持可用，回查错误完整记录，但任何部分补选结果都不会并入正式简报。CLI 对该显式部分状态返回成功，使批量流程可以继续处理其他论文；下游必须读取状态，不能把它当成回查已完成。
 
+## 单篇论文整体认知（实验链路）
+
+`llm-paper-understanding` 与轻量主题简报并列，不替代现有默认流程。它在一次模型请求中读取同一篇论文的完整规范化Markdown、全部Card和可选的显式Topic Review Evidence，形成研究问题、对象、方法、贡献、结果性质、验证水平、限制和综述用途。完整Markdown不会被截断或拆批；真实Token预算超出模型上下文时本次运行直接失败。
+
+```powershell
+.\.venv\Scripts\python.exe shipping/main.py llm-paper-understanding --workspace shipping/workspace --paper-id "论文ID" --workspace-paper-id "论文隔离目录ID" --topic "综述主题" --source-topic-review-run-id "显式Topic Review运行ID" --run-id "论文认知运行ID" --provider openai-compatible --model-profile shipping/config/models/deepseek-v4-pro-official.json --understanding-config shipping/config/research-understanding-default.json --timeout 900
+```
+
+`--source-topic-review-run-id` 可省略；省略时Evidence输入为空，程序不会根据时间猜测最新运行。若显式提供，论文身份、主题、Card代次、冻结Card指纹和Evidence引用必须全部与当前论文一致。
+
+结果写入 `workspace/_paper_understandings/runs/<run-id>/`。人工默认阅读 `review/paper_understanding.md`，其中每项判断直接展开Card标题、Markdown行号和原文摘录。正式机器输出是 `output/paper_understanding.json`，来源绑定位于 `audit/source_bindings.jsonl`；任一输入、预算、API或合同校验失败时不发布正式输出。
+
 ## 跨论文主题综合
 
 多篇论文完成 `llm-topic-brief` 后，使用 `llm-topic-synthesis` 生成跨论文主题矩阵、综合单元和段落级综述提纲。该阶段不重新解析 Markdown，也不重新抽取单篇 Evidence；它会读取单篇运行冻结的 Card 来重放校验 Evidence 引文，但不会把 Card 全文发送给跨论文模型，也不直接生成综述正文。

@@ -63,6 +63,16 @@ class ResearchUnderstandingContractTests(unittest.TestCase):
                 "contribution_"
             )
         )
+
+    def test_excluded_paper_must_not_have_review_roles(self):
+        payload = self._payload()
+        payload["paper_relevance"] = "exclude"
+        payload["review_roles"] = []
+
+        validated = self._validate(payload)
+
+        self.assertEqual(validated["paper_relevance"], "exclude")
+        self.assertEqual(validated["review_roles"], [])
         self.assertTrue(
             validated["limitations"][0]["limitation_id"].startswith("limitation_")
         )

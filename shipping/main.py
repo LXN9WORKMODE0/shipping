@@ -35,6 +35,10 @@ from shipping_pipeline.topic_review import (
     DEFAULT_TOPIC_REVIEW_CONFIG,
     TopicReviewRunner,
 )
+from shipping_pipeline.research_understanding import (
+    DEFAULT_UNDERSTANDING_CONFIG,
+    PaperUnderstandingRunner,
+)
 from shipping_pipeline.topic_synthesis import (
     DEFAULT_TOPIC_SYNTHESIS_CONFIG,
     TopicSynthesisRunner,
@@ -210,6 +214,50 @@ def build_parser() -> argparse.ArgumentParser:
         default=None,
         help="论文在 workspace 下的隔离目录 ID；省略时沿用 paper-id。",
     )
+
+    paper_understanding_parser = subparsers.add_parser(
+        "llm-paper-understanding",
+        help="读取单篇论文完整Markdown、全部Card和可选Evidence，生成论文认知报告。",
+    )
+    paper_understanding_parser.add_argument(
+        "--workspace",
+        type=Path,
+        default=Path("workspace"),
+    )
+    paper_understanding_parser.add_argument("--paper-id", required=True)
+    paper_understanding_parser.add_argument(
+        "--workspace-paper-id",
+        required=True,
+        help="论文在workspace下的隔离目录ID。",
+    )
+    paper_understanding_parser.add_argument("--topic", required=True)
+    paper_understanding_parser.add_argument(
+        "--source-topic-review-run-id",
+        default=None,
+        help="可选的显式Topic Review运行ID；不提供时不自动猜测Evidence来源。",
+    )
+    paper_understanding_parser.add_argument("--run-id", default=None)
+    paper_understanding_parser.add_argument(
+        "--provider",
+        choices=["openai-compatible"],
+        default="openai-compatible",
+    )
+    paper_understanding_parser.add_argument("--api-url", default=None)
+    paper_understanding_parser.add_argument(
+        "--api-key-env",
+        default="LLM_ANALYSIS_API_KEY",
+    )
+    paper_understanding_parser.add_argument(
+        "--model-profile",
+        type=Path,
+        default=DEFAULT_MODEL_PROFILE,
+    )
+    paper_understanding_parser.add_argument(
+        "--understanding-config",
+        type=Path,
+        default=DEFAULT_UNDERSTANDING_CONFIG,
+    )
+    paper_understanding_parser.add_argument("--timeout", type=int, default=900)
 
     topic_synthesis_parser = subparsers.add_parser(
         "llm-topic-synthesis",
@@ -471,6 +519,22 @@ def main(argv: list[str] | None = None) -> int:
             "completed_with_revisit_failure",
             "excluded",
         } else 1
+    if args.command == "llm-paper-understanding":
+        result = PaperUnderstandingRunner(args.workspace).run(
+            paper_id=args.paper_id,
+            workspace_paper_id=args.workspace_paper_id,
+            topic=args.topic,
+            source_topic_review_run_id=args.source_topic_review_run_id,
+            run_id=args.run_id,
+            provider=args.provider,
+            api_url=args.api_url,
+            api_key_env=args.api_key_env,
+            model_profile_path=args.model_profile,
+            understanding_config_path=args.understanding_config,
+            timeout=args.timeout,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] == "completed" else 1
     if args.command == "llm-topic-synthesis":
         result = TopicSynthesisRunner(args.workspace).run(
             collection_path=args.collection,
