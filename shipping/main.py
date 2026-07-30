@@ -43,6 +43,7 @@ from shipping_pipeline.research_landscape import (
     DEFAULT_RESEARCH_LANDSCAPE_CONFIG,
     ResearchLandscapeRunner,
 )
+from shipping_pipeline.review_framework import ReviewFrameworkRunner
 from shipping_pipeline.topic_synthesis import (
     DEFAULT_TOPIC_SYNTHESIS_CONFIG,
     TopicSynthesisRunner,
@@ -299,6 +300,42 @@ def build_parser() -> argparse.ArgumentParser:
         default=DEFAULT_RESEARCH_LANDSCAPE_CONFIG,
     )
     research_landscape_parser.add_argument("--timeout", type=int, default=900)
+
+    review_framework_parser = subparsers.add_parser(
+        "llm-review-framework",
+        help="基于显式Research Landscape和题录运行生成综述框架。",
+    )
+    review_framework_parser.add_argument(
+        "--workspace",
+        type=Path,
+        default=Path("workspace"),
+    )
+    review_framework_parser.add_argument(
+        "--landscape-run-id",
+        required=True,
+    )
+    review_framework_parser.add_argument(
+        "--reference-catalog-run-id",
+        required=True,
+    )
+    review_framework_parser.add_argument("--review-goal", default=None)
+    review_framework_parser.add_argument("--run-id", default=None)
+    review_framework_parser.add_argument(
+        "--provider",
+        choices=["openai-compatible"],
+        default="openai-compatible",
+    )
+    review_framework_parser.add_argument("--api-url", default=None)
+    review_framework_parser.add_argument(
+        "--api-key-env",
+        default="LLM_ANALYSIS_API_KEY",
+    )
+    review_framework_parser.add_argument(
+        "--model-profile",
+        type=Path,
+        default=DEFAULT_MODEL_PROFILE,
+    )
+    review_framework_parser.add_argument("--timeout", type=int, default=900)
 
     topic_synthesis_parser = subparsers.add_parser(
         "llm-topic-synthesis",
@@ -585,6 +622,20 @@ def main(argv: list[str] | None = None) -> int:
             api_key_env=args.api_key_env,
             model_profile_path=args.model_profile,
             landscape_config_path=args.landscape_config,
+            timeout=args.timeout,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] == "completed" else 1
+    if args.command == "llm-review-framework":
+        result = ReviewFrameworkRunner(args.workspace).run(
+            landscape_run_id=args.landscape_run_id,
+            reference_catalog_run_id=args.reference_catalog_run_id,
+            review_goal=args.review_goal,
+            run_id=args.run_id,
+            provider=args.provider,
+            api_url=args.api_url,
+            api_key_env=args.api_key_env,
+            model_profile_path=args.model_profile,
             timeout=args.timeout,
         )
         print(json.dumps(result, ensure_ascii=False))

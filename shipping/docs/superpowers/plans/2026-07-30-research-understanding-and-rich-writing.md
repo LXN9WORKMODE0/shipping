@@ -727,10 +727,10 @@ class PaperUnderstandingRunner:
 - Create: `tests/test_review_framework.py`
 - Modify: `main.py`
 
-- [ ] 输入Landscape、review goal和题录状态。
-- [ ] 章节绑定dimension、paper和contribution，不绑定段落Evidence。
-- [ ] 验证所有核心dimension进入正文，未使用论文显式记录。
-- [ ] 输出每节问题、比较任务、争议和语料限制。
+- [x] 输入Landscape、review goal和题录状态。
+- [x] 章节绑定dimension、paper和contribution，不绑定段落Evidence。
+- [x] 验证所有核心dimension进入正文，未使用论文显式记录。
+- [x] 输出每节问题、比较任务、争议和语料限制。
 
 ### Task 8：Chapter Knowledge Package
 

@@ -257,6 +257,18 @@ Markdown 清单不需要 `--pdf-provider mineru`。同一阶段会处理全部�
 
 结果写入 `workspace/_research_landscapes/runs/<run-id>/`。默认阅读 `review/research_landscape.md`，其中跨论文判断下直接展开论文贡献、结果类型、验证水平、Card摘录和Markdown行号。正式机器输出为 `output/research_landscape.json`，覆盖审计与来源绑定分别位于 `audit/coverage.json` 和 `audit/source_bindings.jsonl`。`corpus_scope=targeted_sample` 时只允许报告本次语料缺口，不能声称整个研究领域缺少相关工作。
 
+## 综述框架（实验链路）
+
+`llm-review-framework` 把显式 Research Landscape 和题录运行组织为章节问题与跨论文比较任务。模型不填写论文、贡献或引用Key；程序根据所选dimension和controversy确定性派生这些来源，并拒绝点名未绑定论文的比较任务。
+
+```powershell
+.\.venv\Scripts\python.exe shipping/main.py llm-review-framework --workspace shipping/workspace --landscape-run-id "研究图谱运行ID" --reference-catalog-run-id "题录运行ID" --run-id "综述框架运行ID" --provider openai-compatible --model-profile shipping/config/models/deepseek-v4-pro-official.json --timeout 900
+```
+
+输入不会根据时间选择“最新运行”。程序重放Landscape原始响应、14篇Understanding来源和题录论文集合，并校验请求目录名、manifest与catalog运行ID一致。每个Landscape dimension必须至少进入一个正文章节；引言和结论不能替代正文覆盖。显式 `--review-goal` 可以在主题不变的前提下细化写作目标。
+
+结果写入 `workspace/_review_frameworks/runs/<run-id>/`。默认阅读 `review/review_framework.md`；正式机器输出为 `output/review_framework.json`，模型字段与程序派生字段记录在 `audit/derivation.json`，维度、论文和题录覆盖记录在 `audit/coverage.json`。
+
 ## 跨论文主题综合
 
 多篇论文完成 `llm-topic-brief` 后，使用 `llm-topic-synthesis` 生成跨论文主题矩阵、综合单元和段落级综述提纲。该阶段不重新解析 Markdown，也不重新抽取单篇 Evidence；它会读取单篇运行冻结的 Card 来重放校验 Evidence 引文，但不会把 Card 全文发送给跨论文模型，也不直接生成综述正文。
