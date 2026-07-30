@@ -673,8 +673,8 @@ class PaperUnderstandingRunner:
 - Create: `config/pilots/research-understanding-14papers-20260730.json`
 - Create: `docs/research-understanding-14papers-validation-20260730.md`
 
-- [ ] 先运行1篇短论文、1篇中等论文、1篇长学位论文。
-- [ ] 检查模型是否正确区分算法benchmark、仿真、历史数据、工程实施和建议。
+- [x] 先运行1篇短论文、1篇中等论文、1篇长学位论文。
+- [x] 检查模型是否正确区分算法benchmark、仿真、历史数据、工程实施和建议。
 - [ ] 三篇通过后运行剩余11篇。
 - [ ] 记录失败，不截断输入或缩减字段后重跑。
 - [ ] 验收条件：

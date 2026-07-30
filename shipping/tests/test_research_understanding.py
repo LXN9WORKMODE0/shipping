@@ -18,6 +18,7 @@ from shipping_pipeline.llm_analysis import AnalysisInputError
 from shipping_pipeline.llm_provider import ProviderResult
 from shipping_pipeline.llm_tokenizer import TokenCount
 from shipping_pipeline.research_understanding import (
+    PAPER_UNDERSTANDING_SYSTEM_PROMPT,
     PaperUnderstandingRunner,
     create_paper_understanding_snapshot,
 )
@@ -306,6 +307,16 @@ class FakeUnderstandingClient:
 
 
 class ResearchUnderstandingTests(unittest.TestCase):
+    def test_prompt_forbids_unbound_review_roles(self):
+        self.assertIn(
+            "禁止输出空的contribution_indexes",
+            PAPER_UNDERSTANDING_SYSTEM_PROMPT,
+        )
+        self.assertIn(
+            "无法绑定到具体贡献的用途不要输出",
+            PAPER_UNDERSTANDING_SYSTEM_PROMPT,
+        )
+
     def test_cli_parser_requires_explicit_workspace_paper_id(self):
         args = build_parser().parse_args(
             [

@@ -5,7 +5,8 @@
 - 代码级Task 1至Task 4已完成。
 - 14篇显式样本的论文身份、Card代次、冻结Card指纹、Topic Review主题和Evidence引用全部通过本地快照校验。
 - 14篇完整输入均能装入当前DeepSeek V4 Pro 100万Token上下文，不需要截断、拆批或缩减字段。
-- 外部真实调用尚未开始。原因不是程序问题，而是已有授权只明确覆盖Card内容；新阶段还会外发完整Markdown，需要用户另行明确授权。
+- 用户已明确授权14篇完整Markdown、全部Card和已有Evidence发送给外部DeepSeek。
+- 短、中、长三篇首轮验收已经完成。短篇和长篇一次通过；中篇首次因模型输出空的`contribution_indexes`被合同拒绝，修订Prompt后使用新run ID通过。失败运行完整保留，未做结果修补。
 
 ## 验收对象
 
@@ -45,6 +46,37 @@
 3. 长篇：船舶到闸模型及排档优化算法研究。重点检查算法benchmark、仿真结果、论文多问题结构和限制是否被完整识别。
 
 三篇通过后再按配置顺序运行其余11篇。失败运行保留原始请求、响应或输入错误，不截断全文、不减少Card、不降低Schema要求。
+
+## 首轮三篇真实结果
+
+### 短篇：充分发挥三峡船闸通过能力的途径
+
+- 运行：`understanding-pilot-short-20260730`
+- 状态：完成
+- Token：输入8631，输出1964，`finish_reason=stop`
+- 判断：正确识别为定性影响因素分析、概念论证和治理/调度建议；所有贡献的验证水平为`none`，没有把建议写成工程实施。
+- 来源：5项贡献均绑定Card；4项同时绑定已有严格Evidence，未强迫所有贡献绑定Evidence。
+
+### 中篇：船舶过坝优化调度辅助决策系统研究
+
+- 首次运行：`understanding-pilot-medium-20260730`
+- 首次状态：失败
+- 失败代码：`schema.paper_understanding_invalid`
+- 原因：模型新增一条只基于论文背景的综述用途，但给出空的`contribution_indexes`。输入完整、`finish_reason=stop`，不是截断问题。
+- 处理：不自动删除或补写该用途；Prompt明确“无法绑定具体贡献的用途不要输出，禁止空索引”，使用新run ID重新调用。
+- 复验运行：`understanding-pilot-medium-20260730-v2`
+- 复验状态：完成
+- Token：输入16942，输出1702，`finish_reason=stop`
+- 判断：系统架构和优化模型被识别为`system_design`或保守的`recommendation`，验证水平为`none`，没有把设计方案误写为已部署系统。
+
+### 长篇：船舶到闸模型及排档优化算法研究
+
+- 运行：`understanding-pilot-long-20260730`
+- 状态：完成
+- Token：输入132172，输出2762，`finish_reason=stop`
+- 输入：完整107024字符Markdown、164张Card和5条Evidence，一次提交，未拆批。
+- 判断：识别出动态因子模型、混合分布EM估计、到闸交通流仿真和船闸排档分解算法；排档算法贡献标为`algorithm_benchmark`，没有写成工程实施。
+- 限制：保留了作者明确限制和审阅推断限制，包括指标选择不足、EM初值敏感、大船条件下算法间隙利用问题、20艘测试样本偏小及部分混合模型未通过K-S检验。
 
 ## 待完成的质量检查
 
