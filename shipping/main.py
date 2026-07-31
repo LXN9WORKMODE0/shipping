@@ -44,6 +44,7 @@ from shipping_pipeline.research_landscape import (
     ResearchLandscapeRunner,
 )
 from shipping_pipeline.review_framework import ReviewFrameworkRunner
+from shipping_pipeline.review_framework_b2 import ReviewFrameworkB2Builder
 from shipping_pipeline.review_writing import ReviewWritingRunner
 from shipping_pipeline.review_claim_audit import (
     DEFAULT_REVIEW_CLAIM_AUDIT_CONFIG,
@@ -67,6 +68,10 @@ from shipping_pipeline.source_window_contracts import MATERIAL_TIERS
 from shipping_pipeline.chapter_knowledge_package_b2 import (
     B2ChapterKnowledgePackageBuilder,
 )
+from shipping_pipeline.chapter_knowledge_package_b2_v2 import (
+    B2PackageV2Builder,
+)
+from shipping_pipeline.claim_ledger import ClaimLedgerRunner
 from shipping_pipeline.topic_synthesis import (
     DEFAULT_TOPIC_SYNTHESIS_CONFIG,
     TopicSynthesisRunner,
@@ -435,6 +440,89 @@ def build_parser() -> argparse.ArgumentParser:
         default=DEFAULT_MODEL_PROFILE,
     )
     chapter_package_b2_parser.add_argument(
+        "--writing-config",
+        type=Path,
+        default=DEFAULT_REVIEW_WRITING_CONFIG,
+    )
+
+    framework_b2_parser = subparsers.add_parser(
+        "review-framework-b2",
+        help="从冻结Review Framework v1生成带Claim预算的B2规划框架。",
+    )
+    framework_b2_parser.add_argument(
+        "--workspace",
+        type=Path,
+        default=Path("workspace"),
+    )
+    framework_b2_parser.add_argument(
+        "--source-framework-run-id",
+        required=True,
+    )
+    framework_b2_parser.add_argument(
+        "--target-total-chars",
+        type=int,
+        default=8000,
+    )
+    framework_b2_parser.add_argument("--run-id", default=None)
+
+    claim_ledger_parser = subparsers.add_parser(
+        "llm-claim-ledger",
+        help="基于Framework B2和Source Window生成并校验章节Claim Ledger。",
+    )
+    claim_ledger_parser.add_argument(
+        "--workspace",
+        type=Path,
+        default=Path("workspace"),
+    )
+    claim_ledger_parser.add_argument(
+        "--framework-b2-run-id",
+        required=True,
+    )
+    claim_ledger_parser.add_argument(
+        "--source-window-run-id",
+        required=True,
+    )
+    claim_ledger_parser.add_argument("--run-id", default=None)
+    claim_ledger_parser.add_argument(
+        "--provider",
+        default="openai-compatible",
+    )
+    claim_ledger_parser.add_argument("--api-url", default=None)
+    claim_ledger_parser.add_argument(
+        "--api-key-env",
+        default="LLM_ANALYSIS_API_KEY",
+    )
+    claim_ledger_parser.add_argument(
+        "--model-profile",
+        type=Path,
+        default=DEFAULT_MODEL_PROFILE,
+    )
+    claim_ledger_parser.add_argument("--timeout", type=int, default=900)
+
+    package_b2_v2_parser = subparsers.add_parser(
+        "chapter-knowledge-package-b2",
+        help="装配含Approved Claim Ledger的B2 Phase 2章节知识包。",
+    )
+    package_b2_v2_parser.add_argument(
+        "--workspace",
+        type=Path,
+        default=Path("workspace"),
+    )
+    package_b2_v2_parser.add_argument(
+        "--source-window-run-id",
+        required=True,
+    )
+    package_b2_v2_parser.add_argument(
+        "--claim-ledger-run-id",
+        required=True,
+    )
+    package_b2_v2_parser.add_argument("--run-id", default=None)
+    package_b2_v2_parser.add_argument(
+        "--model-profile",
+        type=Path,
+        default=DEFAULT_MODEL_PROFILE,
+    )
+    package_b2_v2_parser.add_argument(
         "--writing-config",
         type=Path,
         default=DEFAULT_REVIEW_WRITING_CONFIG,
@@ -904,6 +992,37 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "chapter-knowledge-package-b2-preview":
         result = B2ChapterKnowledgePackageBuilder(args.workspace).build(
             source_window_run_id=args.source_window_run_id,
+            run_id=args.run_id,
+            model_profile_path=args.model_profile,
+            writing_config_path=args.writing_config,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] == "completed" else 1
+    if args.command == "review-framework-b2":
+        result = ReviewFrameworkB2Builder(args.workspace).build(
+            source_framework_run_id=args.source_framework_run_id,
+            target_total_chars=args.target_total_chars,
+            run_id=args.run_id,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] == "completed" else 1
+    if args.command == "llm-claim-ledger":
+        result = ClaimLedgerRunner(args.workspace).run(
+            framework_b2_run_id=args.framework_b2_run_id,
+            source_window_run_id=args.source_window_run_id,
+            run_id=args.run_id,
+            provider=args.provider,
+            api_url=args.api_url,
+            api_key_env=args.api_key_env,
+            model_profile_path=args.model_profile,
+            timeout=args.timeout,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] == "completed" else 1
+    if args.command == "chapter-knowledge-package-b2":
+        result = B2PackageV2Builder(args.workspace).build(
+            source_window_run_id=args.source_window_run_id,
+            claim_ledger_run_id=args.claim_ledger_run_id,
             run_id=args.run_id,
             model_profile_path=args.model_profile,
             writing_config_path=args.writing_config,
