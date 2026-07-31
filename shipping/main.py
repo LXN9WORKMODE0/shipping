@@ -60,6 +60,13 @@ from shipping_pipeline.chapter_knowledge_package import (
     DEFAULT_REVIEW_WRITING_CONFIG,
     ChapterKnowledgePackageBuilder,
 )
+from shipping_pipeline.source_window_selection import (
+    SourceWindowSelectionBuilder,
+)
+from shipping_pipeline.source_window_contracts import MATERIAL_TIERS
+from shipping_pipeline.chapter_knowledge_package_b2 import (
+    B2ChapterKnowledgePackageBuilder,
+)
 from shipping_pipeline.topic_synthesis import (
     DEFAULT_TOPIC_SYNTHESIS_CONFIG,
     TopicSynthesisRunner,
@@ -378,6 +385,56 @@ def build_parser() -> argparse.ArgumentParser:
         default=DEFAULT_MODEL_PROFILE,
     )
     chapter_package_parser.add_argument(
+        "--writing-config",
+        type=Path,
+        default=DEFAULT_REVIEW_WRITING_CONFIG,
+    )
+
+    source_window_parser = subparsers.add_parser(
+        "source-window-selection",
+        help="为显式Review Framework章节选择B2原文窗口并生成认知投影。",
+    )
+    source_window_parser.add_argument(
+        "--workspace",
+        type=Path,
+        default=Path("workspace"),
+    )
+    source_window_parser.add_argument(
+        "--framework-run-id",
+        required=True,
+    )
+    source_window_selector = (
+        source_window_parser.add_mutually_exclusive_group(required=True)
+    )
+    source_window_selector.add_argument("--section-id")
+    source_window_selector.add_argument("--section-index", type=int)
+    source_window_parser.add_argument(
+        "--material-tier",
+        choices=list(MATERIAL_TIERS),
+        default="tier_1",
+    )
+    source_window_parser.add_argument("--run-id", default=None)
+
+    chapter_package_b2_parser = subparsers.add_parser(
+        "chapter-knowledge-package-b2-preview",
+        help="基于Source Window运行构建不可写作的B2 Phase 1精简知识包。",
+    )
+    chapter_package_b2_parser.add_argument(
+        "--workspace",
+        type=Path,
+        default=Path("workspace"),
+    )
+    chapter_package_b2_parser.add_argument(
+        "--source-window-run-id",
+        required=True,
+    )
+    chapter_package_b2_parser.add_argument("--run-id", default=None)
+    chapter_package_b2_parser.add_argument(
+        "--model-profile",
+        type=Path,
+        default=DEFAULT_MODEL_PROFILE,
+    )
+    chapter_package_b2_parser.add_argument(
         "--writing-config",
         type=Path,
         default=DEFAULT_REVIEW_WRITING_CONFIG,
@@ -828,6 +885,25 @@ def main(argv: list[str] | None = None) -> int:
             framework_run_id=args.framework_run_id,
             section_id=args.section_id,
             section_index=args.section_index,
+            run_id=args.run_id,
+            model_profile_path=args.model_profile,
+            writing_config_path=args.writing_config,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] == "completed" else 1
+    if args.command == "source-window-selection":
+        result = SourceWindowSelectionBuilder(args.workspace).build(
+            framework_run_id=args.framework_run_id,
+            section_id=args.section_id,
+            section_index=args.section_index,
+            material_tier=args.material_tier,
+            run_id=args.run_id,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] == "completed" else 1
+    if args.command == "chapter-knowledge-package-b2-preview":
+        result = B2ChapterKnowledgePackageBuilder(args.workspace).build(
+            source_window_run_id=args.source_window_run_id,
             run_id=args.run_id,
             model_profile_path=args.model_profile,
             writing_config_path=args.writing_config,
