@@ -72,6 +72,10 @@ from shipping_pipeline.chapter_knowledge_package_b2_v2 import (
     B2PackageV2Builder,
 )
 from shipping_pipeline.claim_ledger import ClaimLedgerRunner
+from shipping_pipeline.review_writing_b2 import ReviewWritingB2Runner
+from shipping_pipeline.review_writing_b2_assembly import (
+    ReviewWritingB2Assembler,
+)
 from shipping_pipeline.topic_synthesis import (
     DEFAULT_TOPIC_SYNTHESIS_CONFIG,
     TopicSynthesisRunner,
@@ -527,6 +531,55 @@ def build_parser() -> argparse.ArgumentParser:
         type=Path,
         default=DEFAULT_REVIEW_WRITING_CONFIG,
     )
+
+    writing_b2_parser = subparsers.add_parser(
+        "llm-review-writing-b2",
+        help="基于单章Approved Claim Ledger执行B2受约束写作。",
+    )
+    writing_b2_parser.add_argument(
+        "--workspace",
+        type=Path,
+        default=Path("workspace"),
+    )
+    writing_b2_parser.add_argument("--package-run-id", required=True)
+    writing_b2_parser.add_argument("--run-id", default=None)
+    writing_b2_parser.add_argument(
+        "--provider",
+        default="openai-compatible",
+    )
+    writing_b2_parser.add_argument("--api-url", default=None)
+    writing_b2_parser.add_argument(
+        "--api-key-env",
+        default="LLM_ANALYSIS_API_KEY",
+    )
+    writing_b2_parser.add_argument(
+        "--model-profile",
+        type=Path,
+        default=DEFAULT_MODEL_PROFILE,
+    )
+    writing_b2_parser.add_argument(
+        "--writing-config",
+        type=Path,
+        default=DEFAULT_REVIEW_WRITING_CONFIG,
+    )
+    writing_b2_parser.add_argument("--timeout", type=int, default=900)
+
+    assemble_b2_parser = subparsers.add_parser(
+        "assemble-review-b2-phase3a",
+        help="装配全部成功的B2引言和正文章节，不生成结论。",
+    )
+    assemble_b2_parser.add_argument(
+        "--workspace",
+        type=Path,
+        default=Path("workspace"),
+    )
+    assemble_b2_parser.add_argument(
+        "--chapter-run-id",
+        action="append",
+        required=True,
+        dest="chapter_run_ids",
+    )
+    assemble_b2_parser.add_argument("--run-id", default=None)
 
     review_writing_parser = subparsers.add_parser(
         "llm-review-writing",
@@ -1026,6 +1079,26 @@ def main(argv: list[str] | None = None) -> int:
             run_id=args.run_id,
             model_profile_path=args.model_profile,
             writing_config_path=args.writing_config,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] == "completed" else 1
+    if args.command == "llm-review-writing-b2":
+        result = ReviewWritingB2Runner(args.workspace).run(
+            package_run_id=args.package_run_id,
+            run_id=args.run_id,
+            provider=args.provider,
+            api_url=args.api_url,
+            api_key_env=args.api_key_env,
+            model_profile_path=args.model_profile,
+            writing_config_path=args.writing_config,
+            timeout=args.timeout,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] == "completed" else 1
+    if args.command == "assemble-review-b2-phase3a":
+        result = ReviewWritingB2Assembler(args.workspace).build(
+            chapter_run_ids=args.chapter_run_ids,
+            run_id=args.run_id,
         )
         print(json.dumps(result, ensure_ascii=False))
         return 0 if result["status"] == "completed" else 1
