@@ -1,0 +1,8 @@
+{
+  "schema_version": "llm.review_conclusion_b2_config.v1",
+  "max_output_tokens": 16384,
+  "target_chars": 1400,
+  "min_target_ratio": 0.6,
+  "max_target_ratio": 1.2,
+  "max_source_claims_per_paragraph": 12
+}

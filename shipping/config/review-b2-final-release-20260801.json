@@ -1,0 +1,6 @@
+{
+  "schema_version": "llm.review_b2_final_release.v1",
+  "audited_assembly_run_id": "review-b2-audited-14papers-20260801-v1",
+  "conclusion_run_id": "conclusion-revision-b2-14papers-20260801-v2",
+  "conclusion_audit_run_id": "conclusion-audit-b2-revision-14papers-20260801-v1"
+}

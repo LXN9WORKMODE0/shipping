@@ -92,6 +92,19 @@ from shipping_pipeline.review_writing_b2_revision import (
 from shipping_pipeline.review_writing_b2_audited_assembly import (
     ReviewWritingB2AuditedAssembler,
 )
+from shipping_pipeline.review_conclusion_b2 import (
+    DEFAULT_REVIEW_CONCLUSION_B2_CONFIG,
+    ReviewConclusionB2Runner,
+)
+from shipping_pipeline.review_conclusion_audit_b2 import (
+    ReviewConclusionAuditB2Runner,
+)
+from shipping_pipeline.review_conclusion_b2_revision import (
+    ReviewConclusionRevisionB2Runner,
+)
+from shipping_pipeline.review_b2_final_assembly import (
+    ReviewB2FinalAssembler,
+)
 from shipping_pipeline.topic_synthesis import (
     DEFAULT_TOPIC_SYNTHESIS_CONFIG,
     TopicSynthesisRunner,
@@ -729,6 +742,95 @@ def build_parser() -> argparse.ArgumentParser:
     )
     audited_assembly_b2_parser.add_argument("--run-id", default=None)
 
+    conclusion_b2_parser = subparsers.add_parser(
+        "llm-review-conclusion-b2",
+        help="只依据受审计正文Claim目录生成独立B2结论章。",
+    )
+    conclusion_b2_parser.add_argument(
+        "--workspace",
+        type=Path,
+        default=Path("workspace"),
+    )
+    conclusion_b2_parser.add_argument(
+        "--audited-assembly-run-id",
+        required=True,
+    )
+    conclusion_b2_parser.add_argument("--run-id", default=None)
+    conclusion_b2_parser.add_argument(
+        "--provider",
+        choices=["openai-compatible"],
+        default="openai-compatible",
+    )
+    conclusion_b2_parser.add_argument("--api-url", default=None)
+    conclusion_b2_parser.add_argument(
+        "--api-key-env",
+        default="LLM_ANALYSIS_API_KEY",
+    )
+    conclusion_b2_parser.add_argument(
+        "--model-profile",
+        type=Path,
+        default=DEFAULT_MODEL_PROFILE,
+    )
+    conclusion_b2_parser.add_argument(
+        "--conclusion-config",
+        type=Path,
+        default=DEFAULT_REVIEW_CONCLUSION_B2_CONFIG,
+    )
+    conclusion_b2_parser.add_argument("--timeout", type=int, default=900)
+
+    conclusion_audit_b2_parser = subparsers.add_parser(
+        "llm-review-conclusion-audit-b2",
+        help="逐句审计B2候选结论是否越出受审计来源Claim。",
+    )
+    conclusion_audit_b2_parser.add_argument(
+        "--workspace", type=Path, default=Path("workspace")
+    )
+    conclusion_audit_b2_parser.add_argument(
+        "--conclusion-run-id", required=True
+    )
+    conclusion_audit_b2_parser.add_argument("--run-id", default=None)
+    conclusion_audit_b2_parser.add_argument(
+        "--provider",
+        choices=["openai-compatible"],
+        default="openai-compatible",
+    )
+    conclusion_audit_b2_parser.add_argument("--api-url", default=None)
+    conclusion_audit_b2_parser.add_argument(
+        "--api-key-env", default="LLM_ANALYSIS_API_KEY"
+    )
+    conclusion_audit_b2_parser.add_argument(
+        "--model-profile", type=Path, default=DEFAULT_MODEL_PROFILE
+    )
+    conclusion_audit_b2_parser.add_argument(
+        "--audit-config",
+        type=Path,
+        default=DEFAULT_REVIEW_CLAIM_AUDIT_B2_CONFIG,
+    )
+    conclusion_audit_b2_parser.add_argument("--timeout", type=int, default=900)
+
+    conclusion_revision_b2_parser = subparsers.add_parser(
+        "apply-review-conclusion-revision-b2",
+        help="按显式决策集确定性修订B2候选结论。",
+    )
+    conclusion_revision_b2_parser.add_argument(
+        "--workspace", type=Path, default=Path("workspace")
+    )
+    conclusion_revision_b2_parser.add_argument("--audit-run-id", required=True)
+    conclusion_revision_b2_parser.add_argument(
+        "--decision-file", type=Path, required=True
+    )
+    conclusion_revision_b2_parser.add_argument("--run-id", default=None)
+
+    final_b2_parser = subparsers.add_parser(
+        "assemble-review-b2-final",
+        help="验证正文与结论审计来源链并装配B2正式候选综述。",
+    )
+    final_b2_parser.add_argument(
+        "--workspace", type=Path, default=Path("workspace")
+    )
+    final_b2_parser.add_argument("--release-file", type=Path, required=True)
+    final_b2_parser.add_argument("--run-id", default=None)
+
     review_writing_parser = subparsers.add_parser(
         "llm-review-writing",
         help="按显式章节知识包集合逐章写作，并在全部成功后确定性装配综述。",
@@ -1299,6 +1401,47 @@ def main(argv: list[str] | None = None) -> int:
         return 0 if result["status"] == "completed" else 1
     if args.command == "assemble-review-b2-audited":
         result = ReviewWritingB2AuditedAssembler(args.workspace).build(
+            release_file=args.release_file,
+            run_id=args.run_id,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] == "completed" else 1
+    if args.command == "llm-review-conclusion-b2":
+        result = ReviewConclusionB2Runner(args.workspace).run(
+            audited_assembly_run_id=args.audited_assembly_run_id,
+            run_id=args.run_id,
+            provider=args.provider,
+            api_url=args.api_url,
+            api_key_env=args.api_key_env,
+            model_profile_path=args.model_profile,
+            conclusion_config_path=args.conclusion_config,
+            timeout=args.timeout,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] == "completed" else 1
+    if args.command == "llm-review-conclusion-audit-b2":
+        result = ReviewConclusionAuditB2Runner(args.workspace).run(
+            conclusion_run_id=args.conclusion_run_id,
+            run_id=args.run_id,
+            provider=args.provider,
+            api_url=args.api_url,
+            api_key_env=args.api_key_env,
+            model_profile_path=args.model_profile,
+            audit_config_path=args.audit_config,
+            timeout=args.timeout,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] == "completed" else 1
+    if args.command == "apply-review-conclusion-revision-b2":
+        result = ReviewConclusionRevisionB2Runner(args.workspace).run(
+            audit_run_id=args.audit_run_id,
+            decision_file=args.decision_file,
+            run_id=args.run_id,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] == "completed" else 1
+    if args.command == "assemble-review-b2-final":
+        result = ReviewB2FinalAssembler(args.workspace).build(
             release_file=args.release_file,
             run_id=args.run_id,
         )

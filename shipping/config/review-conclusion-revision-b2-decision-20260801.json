@@ -1,0 +1,58 @@
+{
+  "schema_version": "llm.review_conclusion_revision_decisions_b2.v1",
+  "source_audit_run_id": "conclusion-audit-b2-14papers-20260801-v3",
+  "source_audit_manifest_sha256": "sha256:432d82b51333aaa56f6ce91ee7250a286a5c84b3065c5cb7f28a39c428b72390",
+  "decisions": [
+    {
+      "sentence_id": "conclusion_sentence_b2_f86749f95cb24d3aac99",
+      "action": "replace",
+      "replacement_text": "本次纳入的文献记录，2013年三峡船闸通过量达1.056亿吨，过闸货运量达9707万吨；对于通航能力不足的成因，样本文献的诊断存在根本分歧，一者聚焦下游航道条件，一者指向船闸自身规模。",
+      "retained_source_claim_ids": [
+        "claim_29c69b76476532b91a6c",
+        "claim_a45212f9093c4e932c2c"
+      ],
+      "rationale": "使第1节通航量背景得到实际表达，同时保留第2节已批准的成因诊断分歧。"
+    },
+    {
+      "sentence_id": "conclusion_sentence_b2_c9421a186e403cce8c92",
+      "action": "delete",
+      "replacement_text": null,
+      "retained_source_claim_ids": [],
+      "rationale": "删除把个别研究缺口上升为全部路径协同机制缺失的新增综合判断。"
+    },
+    {
+      "sentence_id": "conclusion_sentence_b2_da06424edd5d38b22868",
+      "action": "replace",
+      "replacement_text": "管理层面，并排成组方式可提升日闸次约11.7%，自动排档算法提高了排档运算效率但未量化日运行闸次增益；提高吃水控制标准等措施属于既有设施上的参数优化，而航道整治等基础设施改造被报告具有更显著的提升幅度。",
+      "retained_source_claim_ids": [
+        "claim_821c3f37fa3838862f17",
+        "claim_91f0ee6a5bacc306f2a0",
+        "claim_a90d5d9fe0ad68bf2f64"
+      ],
+      "rationale": "保留原比较内容，去除将工程提升幅度窄化为流量提升的含混表述。"
+    },
+    {
+      "sentence_id": "conclusion_sentence_b2_8c86772dfcafa3a536bb",
+      "action": "delete",
+      "replacement_text": null,
+      "retained_source_claim_ids": [],
+      "rationale": "该句完全依赖第一段已使用的智能化综合Claim，删除以维持Claim单段绑定。"
+    },
+    {
+      "sentence_id": "conclusion_sentence_b2_159bf54d08348a8f74f2",
+      "action": "replace",
+      "replacement_text": "组织方式优化与调度算法尚未在同一研究中直接对比。",
+      "retained_source_claim_ids": [
+        "claim_821c3f37fa3838862f17"
+      ],
+      "rationale": "删除未经批准的差异显著概括，只保留已批准的直接比较缺口。"
+    },
+    {
+      "sentence_id": "conclusion_sentence_b2_e5e09309b411ef41d54b",
+      "action": "delete",
+      "replacement_text": null,
+      "retained_source_claim_ids": [],
+      "rationale": "删除由多项独立语料缺口推导出的新增协同与综合效益结论。"
+    }
+  ]
+}
