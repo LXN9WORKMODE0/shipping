@@ -1,0 +1,43 @@
+{
+  "schema_version": "llm.review_writing_b2_revision_decisions.v1",
+  "decision_basis": "adjudication_exact_removal",
+  "confirmed_on": "2026-08-01",
+  "decisions": [
+    {
+      "revision_suggestion_run_id": "revision-b2-second-pass-section-1-20260801-v1",
+      "selections": [
+        {
+          "sentence_id": "sentence_b2_205e64a5474337d4e282",
+          "option_id": "adjudication_confirmed_delete"
+        }
+      ]
+    },
+    {
+      "revision_suggestion_run_id": "revision-b2-second-pass-section-2-20260801-v2",
+      "selections": [
+        {
+          "sentence_id": "sentence_b2_3d58c5a9d225d080fd6e",
+          "option_id": "revision_option_b2_41b494229faab09111bb"
+        }
+      ]
+    },
+    {
+      "revision_suggestion_run_id": "revision-b2-second-pass-section-4-20260801-v1",
+      "selections": [
+        {
+          "sentence_id": "sentence_b2_a1ad49203f4fef3c4131",
+          "option_id": "adjudication_confirmed_delete"
+        }
+      ]
+    },
+    {
+      "revision_suggestion_run_id": "revision-b2-second-pass-section-6-20260801-v1",
+      "selections": [
+        {
+          "sentence_id": "sentence_b2_fccc3a7f294b0255d7aa",
+          "option_id": "revision_option_b2_d8c81392421c715f8852"
+        }
+      ]
+    }
+  ]
+}

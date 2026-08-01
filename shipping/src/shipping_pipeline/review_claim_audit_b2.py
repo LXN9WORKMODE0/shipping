@@ -25,7 +25,6 @@ from .review_claim_audit_b2_report import (
 )
 from .review_writing_b2 import (
     ReviewWritingB2RunSource,
-    load_review_writing_b2_run,
 )
 
 
@@ -87,7 +86,7 @@ def load_review_claim_audit_b2_run(
             "audit_b2.run_unavailable",
             "B2审计运行Schema、身份或状态不可用。",
         )
-    load_writing = writing_loader or load_review_writing_b2_run
+    load_writing = writing_loader or _load_review_writing_b2_source
     writing_source = load_writing(
         workspace_path,
         str(manifest["writing_run_id"]),
@@ -166,7 +165,7 @@ class ReviewClaimAuditB2Runner:
         self.workspace = Path(workspace)
         self.analysis_client = analysis_client
         self.token_counter = token_counter
-        self.writing_loader = writing_loader or load_review_writing_b2_run
+        self.writing_loader = writing_loader or _load_review_writing_b2_source
 
     def run(
         self,
@@ -545,3 +544,12 @@ def _sha256_bytes(data: bytes) -> str:
 
 def _now() -> str:
     return datetime.now(UTC).astimezone().isoformat()
+
+
+def _load_review_writing_b2_source(
+    workspace: str | Path,
+    run_id: str,
+) -> ReviewWritingB2RunSource:
+    from .review_writing_b2_revision import load_review_writing_b2_source
+
+    return load_review_writing_b2_source(workspace, run_id)  # type: ignore[return-value]

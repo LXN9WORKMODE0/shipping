@@ -86,6 +86,12 @@ from shipping_pipeline.review_claim_audit_b2_adjudication import (
 from shipping_pipeline.review_claim_revision_b2 import (
     ReviewClaimRevisionB2Runner,
 )
+from shipping_pipeline.review_writing_b2_revision import (
+    ReviewWritingB2RevisionRunner,
+)
+from shipping_pipeline.review_writing_b2_audited_assembly import (
+    ReviewWritingB2AuditedAssembler,
+)
 from shipping_pipeline.topic_synthesis import (
     DEFAULT_TOPIC_SYNTHESIS_CONFIG,
     TopicSynthesisRunner,
@@ -687,6 +693,42 @@ def build_parser() -> argparse.ArgumentParser:
     )
     revise_b2_parser.add_argument("--timeout", type=int, default=900)
 
+    apply_revision_b2_parser = subparsers.add_parser(
+        "apply-review-writing-revision-b2",
+        help="按显式决策集确定性应用B2风险句修订，不覆盖旧章节。",
+    )
+    apply_revision_b2_parser.add_argument(
+        "--workspace",
+        type=Path,
+        default=Path("workspace"),
+    )
+    apply_revision_b2_parser.add_argument(
+        "--revision-suggestion-run-id",
+        required=True,
+    )
+    apply_revision_b2_parser.add_argument(
+        "--decision-file",
+        type=Path,
+        required=True,
+    )
+    apply_revision_b2_parser.add_argument("--run-id", default=None)
+
+    audited_assembly_b2_parser = subparsers.add_parser(
+        "assemble-review-b2-audited",
+        help="按显式审计发布集合装配B2前文章节，并验证零阻断门禁。",
+    )
+    audited_assembly_b2_parser.add_argument(
+        "--workspace",
+        type=Path,
+        default=Path("workspace"),
+    )
+    audited_assembly_b2_parser.add_argument(
+        "--release-file",
+        type=Path,
+        required=True,
+    )
+    audited_assembly_b2_parser.add_argument("--run-id", default=None)
+
     review_writing_parser = subparsers.add_parser(
         "llm-review-writing",
         help="按显式章节知识包集合逐章写作，并在全部成功后确定性装配综述。",
@@ -1244,6 +1286,21 @@ def main(argv: list[str] | None = None) -> int:
             model_profile_path=args.model_profile,
             audit_config_path=args.audit_config,
             timeout=args.timeout,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] == "completed" else 1
+    if args.command == "apply-review-writing-revision-b2":
+        result = ReviewWritingB2RevisionRunner(args.workspace).run(
+            revision_suggestion_run_id=args.revision_suggestion_run_id,
+            decision_file=args.decision_file,
+            run_id=args.run_id,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] == "completed" else 1
+    if args.command == "assemble-review-b2-audited":
+        result = ReviewWritingB2AuditedAssembler(args.workspace).build(
+            release_file=args.release_file,
+            run_id=args.run_id,
         )
         print(json.dumps(result, ensure_ascii=False))
         return 0 if result["status"] == "completed" else 1

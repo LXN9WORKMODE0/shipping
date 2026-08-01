@@ -1,0 +1,77 @@
+{
+  "schema_version": "llm.review_writing_b2_revision_decisions.v1",
+  "decision_basis": "user_confirmed_recommendation_set",
+  "confirmed_on": "2026-08-01",
+  "decisions": [
+    {
+      "revision_suggestion_run_id": "revision-b2-14papers-section-1-20260801-v1",
+      "selections": [
+        {
+          "sentence_id": "sentence_b2_ff970e97fa1c6a69e043",
+          "option_id": "user_confirmed_delete"
+        },
+        {
+          "sentence_id": "sentence_b2_6a50f94d86470308103a",
+          "option_id": "user_confirmed_delete"
+        }
+      ]
+    },
+    {
+      "revision_suggestion_run_id": "revision-b2-14papers-section-2-20260801-v1",
+      "selections": [
+        {
+          "sentence_id": "sentence_b2_c229e585675933ef4c10",
+          "option_id": "user_confirmed_delete"
+        }
+      ]
+    },
+    {
+      "revision_suggestion_run_id": "revision-b2-14papers-section-4-20260801-v1",
+      "selections": [
+        {
+          "sentence_id": "sentence_b2_4bff1654a9ee7fd82253",
+          "option_id": "user_confirmed_delete"
+        },
+        {
+          "sentence_id": "sentence_b2_ebddc0f4ede490385833",
+          "option_id": "revision_option_b2_d74bcbcd458175c69eef"
+        }
+      ]
+    },
+    {
+      "revision_suggestion_run_id": "revision-b2-14papers-section-5-20260801-v3",
+      "selections": [
+        {
+          "sentence_id": "sentence_b2_fdcb9ca8ffd06ef3a052",
+          "option_id": "revision_option_b2_890e81e5a7e10b3f5bed"
+        }
+      ]
+    },
+    {
+      "revision_suggestion_run_id": "revision-b2-14papers-section-6-20260801-v1",
+      "selections": [
+        {
+          "sentence_id": "sentence_b2_0df4270e949edb36aec2",
+          "option_id": "user_confirmed_delete"
+        },
+        {
+          "sentence_id": "sentence_b2_54750996dbd2da465c19",
+          "option_id": "user_confirmed_delete"
+        }
+      ]
+    },
+    {
+      "revision_suggestion_run_id": "revision-b2-14papers-section-8-20260801-v2",
+      "selections": [
+        {
+          "sentence_id": "sentence_b2_9a2f242ef9c2ba7e8c25",
+          "option_id": "user_confirmed_delete"
+        },
+        {
+          "sentence_id": "sentence_b2_6a12f8b673e65784f19a",
+          "option_id": "user_confirmed_delete"
+        }
+      ]
+    }
+  ]
+}

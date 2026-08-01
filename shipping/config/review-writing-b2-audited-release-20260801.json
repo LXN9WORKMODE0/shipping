@@ -1,0 +1,64 @@
+{
+  "schema_version": "llm.review_writing_b2_audited_release_set.v1",
+  "allowed_nonblocking_risks": [
+    "qualified"
+  ],
+  "chapters": [
+    {
+      "section_index": 1,
+      "chapter_run_id": "writing-revision-b2-second-pass-section-1-20260801-v1",
+      "audit_run_id": "audit-b2-second-pass-section-1-20260801-v1",
+      "adjudication_run_id": null,
+      "disposition": "audit_passed"
+    },
+    {
+      "section_index": 2,
+      "chapter_run_id": "writing-revision-b2-second-pass-section-2-20260801-v1",
+      "audit_run_id": "audit-b2-second-pass-section-2-20260801-v1",
+      "adjudication_run_id": "adjudication-b2-second-pass-section-2-20260801-v1",
+      "disposition": "adjudication_passed"
+    },
+    {
+      "section_index": 3,
+      "chapter_run_id": "writing-b2-14papers-section-3-20260801-v7",
+      "audit_run_id": "audit-b2-14papers-section-3-20260801-v3",
+      "adjudication_run_id": null,
+      "disposition": "audit_passed"
+    },
+    {
+      "section_index": 4,
+      "chapter_run_id": "writing-revision-b2-second-pass-section-4-20260801-v1",
+      "audit_run_id": "audit-b2-second-pass-section-4-20260801-v1",
+      "adjudication_run_id": null,
+      "disposition": "audit_passed"
+    },
+    {
+      "section_index": 5,
+      "chapter_run_id": "writing-revision-b2-14papers-section-5-20260801-v2",
+      "audit_run_id": "audit-b2-writing-revision-section-5-20260801-v1",
+      "adjudication_run_id": null,
+      "disposition": "audit_passed"
+    },
+    {
+      "section_index": 6,
+      "chapter_run_id": "writing-revision-b2-second-pass-section-6-20260801-v1",
+      "audit_run_id": "audit-b2-second-pass-section-6-20260801-v1",
+      "adjudication_run_id": "adjudication-b2-second-pass-section-6-20260801-v1",
+      "disposition": "accepted_nonblocking"
+    },
+    {
+      "section_index": 7,
+      "chapter_run_id": "writing-b2-14papers-section-7-20260801-v6",
+      "audit_run_id": "audit-b2-14papers-section-7-20260801-v4",
+      "adjudication_run_id": "adjudication-b2-14papers-section-7-20260801-v2",
+      "disposition": "adjudication_passed"
+    },
+    {
+      "section_index": 8,
+      "chapter_run_id": "writing-revision-b2-14papers-section-8-20260801-v2",
+      "audit_run_id": "audit-b2-writing-revision-section-8-20260801-v1",
+      "adjudication_run_id": null,
+      "disposition": "audit_passed"
+    }
+  ]
+}
