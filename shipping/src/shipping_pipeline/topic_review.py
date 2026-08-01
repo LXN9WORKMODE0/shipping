@@ -53,6 +53,7 @@ DEFAULT_TOPIC_REVIEW_CONFIG = PROJECT_ROOT / "config" / "topic-review-default.js
 
 SCOPE_SYSTEM_PROMPT = """你是面向特定综述主题的论文定界器。你的输入只来自同一篇论文。
 这不是完整论文解析任务，也不是证据抽取任务。只输出符合给定 JSON Schema 的 JSON 对象，不要输出 Markdown 或解释。
+relevance_reason、topic_summary和selection_reason必须使用中文，不得输出英文说明。
 先判断整篇论文对当前综述主题属于 core、supporting、peripheral 或 exclude，再只选择最值得进入严格证据抽取的少量 Card。
 必须按照最终 paper_relevance 对应的 selected_materials 上限计数；不得把 core 的上限用于 supporting 或 peripheral。
 不要为了覆盖论文结构而多选。优先选择能直接支持主题判断、主要发现、关键方法、重要比较或明确限制的 Card。
@@ -682,6 +683,13 @@ def _build_scope_projection(
         alias_to_material_id[alias] = str(row["material_id"])
         aliased.append({**row, "material_id": alias})
     return aliased, alias_to_material_id
+
+
+def build_scope_projection(
+    projected_cards: list[dict[str, Any]],
+) -> tuple[list[dict[str, Any]], dict[str, str]]:
+    """Build the stable short aliases used by the shared topic-scope contract."""
+    return _build_scope_projection(projected_cards)
 
 
 def _completed_status(

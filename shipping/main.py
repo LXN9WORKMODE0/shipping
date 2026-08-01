@@ -113,6 +113,9 @@ from shipping_pipeline.review_ab2_evaluation import (
     ReviewAB2EvaluationRunner,
     ReviewAB2StructuralStabilityRunner,
 )
+from shipping_pipeline.paper_pool_inventory import PaperPoolInventoryRunner
+from shipping_pipeline.paper_topic_screening import PaperPoolScreeningRunner
+from shipping_pipeline.paper_pool_card_preparation import PaperPoolCardPreparationRunner
 from shipping_pipeline.topic_synthesis import (
     DEFAULT_TOPIC_SYNTHESIS_CONFIG,
     TopicSynthesisRunner,
@@ -161,6 +164,53 @@ def build_parser() -> argparse.ArgumentParser:
     run_parser.add_argument("--mineru-model-version", default=None)
     run_parser.add_argument("--mineru-language", default=None)
     run_parser.add_argument("--mineru-page-ranges", default=None)
+
+    inventory_parser = subparsers.add_parser(
+        "paper-pool-inventory",
+        help="清点论文源目录、内容去重并与当前Card运行按哈希对账。",
+    )
+    inventory_parser.add_argument("source_dir", type=Path)
+    inventory_parser.add_argument("--workspace", type=Path, default=Path("workspace"))
+    inventory_parser.add_argument("--run-id", default=None)
+
+    pool_screen_parser = subparsers.add_parser(
+        "llm-paper-pool-screen",
+        help="对清点运行中Card已就绪的论文执行独立轻量主题筛选。",
+    )
+    pool_screen_parser.add_argument("--inventory-run-id", required=True)
+    pool_screen_parser.add_argument("--topic", required=True)
+    pool_screen_parser.add_argument("--workspace", type=Path, default=Path("workspace"))
+    pool_screen_parser.add_argument("--run-id", default=None)
+    pool_screen_parser.add_argument("--max-papers", type=int, default=None)
+    pool_screen_parser.add_argument("--resume-from-run-id", default=None)
+    pool_screen_parser.add_argument(
+        "--provider", choices=["openai-compatible"], default="openai-compatible"
+    )
+    pool_screen_parser.add_argument("--api-url", default=None)
+    pool_screen_parser.add_argument("--api-key-env", default="LLM_ANALYSIS_API_KEY")
+    pool_screen_parser.add_argument("--model-profile", type=Path, default=DEFAULT_MODEL_PROFILE)
+    pool_screen_parser.add_argument("--review-config", type=Path, default=DEFAULT_TOPIC_REVIEW_CONFIG)
+    pool_screen_parser.add_argument("--timeout", type=int, default=1800)
+
+    pool_card_parser = subparsers.add_parser(
+        "paper-pool-prepare-cards",
+        help="对清点账本中待制卡论文执行可续跑的部分成功批处理。",
+    )
+    pool_card_parser.add_argument("--inventory-run-id", required=True)
+    pool_card_parser.add_argument("--topic", required=True)
+    pool_card_parser.add_argument("--workspace", type=Path, default=Path("workspace"))
+    pool_card_parser.add_argument("--run-id", default=None)
+    pool_card_parser.add_argument("--max-papers", type=int, default=None)
+    pool_card_parser.add_argument("--resume-from-run-id", default=None)
+    pool_card_parser.add_argument("--pdf-provider", choices=["none", "mineru"], default="none")
+    pool_card_parser.add_argument("--mineru-api-url", default=None)
+    pool_card_parser.add_argument("--mineru-api-key-env", default="MINERU_API_KEY")
+    pool_card_parser.add_argument("--mineru-timeout", type=int, default=120)
+    pool_card_parser.add_argument("--mineru-max-wait-seconds", type=int, default=None)
+    pool_card_parser.add_argument("--mineru-poll-interval-seconds", type=float, default=None)
+    pool_card_parser.add_argument("--mineru-model-version", default=None)
+    pool_card_parser.add_argument("--mineru-language", default=None)
+    pool_card_parser.add_argument("--mineru-page-ranges", default=None)
 
     full_pipeline_parser = subparsers.add_parser(
         "full-pipeline",
@@ -1245,6 +1295,44 @@ def main(argv: list[str] | None = None) -> int:
             )
         )
         return 0 if result.status == "completed" else 1
+    if args.command == "paper-pool-inventory":
+        result = PaperPoolInventoryRunner(args.workspace).run(
+            args.source_dir, run_id=args.run_id
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] == "completed" else 1
+    if args.command == "llm-paper-pool-screen":
+        result = PaperPoolScreeningRunner(args.workspace).run(
+            inventory_run_id=args.inventory_run_id,
+            topic=args.topic,
+            run_id=args.run_id,
+            max_papers=args.max_papers,
+            provider=args.provider,
+            api_url=args.api_url,
+            api_key_env=args.api_key_env,
+            timeout=args.timeout,
+            model_profile_path=args.model_profile,
+            review_config_path=args.review_config,
+            resume_from_run_id=args.resume_from_run_id,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] in {
+            "completed", "completed_partial", "completed_with_failures"
+        } else 1
+    if args.command == "paper-pool-prepare-cards":
+        result = PaperPoolCardPreparationRunner(
+            args.workspace, pdf_converter=_build_pdf_converter(args)
+        ).run(
+            inventory_run_id=args.inventory_run_id,
+            topic=args.topic,
+            run_id=args.run_id,
+            max_papers=args.max_papers,
+            resume_from_run_id=args.resume_from_run_id,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] in {
+            "completed", "completed_partial", "completed_with_failures"
+        } else 1
     if args.command == "audit":
         result = BatchAuditRunner(args.workspace).run(args.source_root, topic=args.topic, run_id=args.run_id)
         print(json.dumps(result, ensure_ascii=False))
