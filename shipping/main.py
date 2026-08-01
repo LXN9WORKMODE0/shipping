@@ -105,6 +105,14 @@ from shipping_pipeline.review_conclusion_b2_revision import (
 from shipping_pipeline.review_b2_final_assembly import (
     ReviewB2FinalAssembler,
 )
+from shipping_pipeline.review_direct_a2 import (
+    DEFAULT_DIRECT_A2_CONFIG,
+    ReviewDirectA2Runner,
+)
+from shipping_pipeline.review_ab2_evaluation import (
+    ReviewAB2EvaluationRunner,
+    ReviewAB2StructuralStabilityRunner,
+)
 from shipping_pipeline.topic_synthesis import (
     DEFAULT_TOPIC_SYNTHESIS_CONFIG,
     TopicSynthesisRunner,
@@ -831,6 +839,66 @@ def build_parser() -> argparse.ArgumentParser:
     final_b2_parser.add_argument("--release-file", type=Path, required=True)
     final_b2_parser.add_argument("--run-id", default=None)
 
+    direct_a2_parser = subparsers.add_parser(
+        "llm-review-direct-a2",
+        help="以同一14篇全文和同一九章Framework生成公平对照A2。",
+    )
+    direct_a2_parser.add_argument(
+        "--workspace", type=Path, default=Path("workspace")
+    )
+    direct_a2_parser.add_argument("--source-package-run-id", required=True)
+    direct_a2_parser.add_argument("--audited-assembly-run-id", required=True)
+    direct_a2_parser.add_argument("--run-id", default=None)
+    direct_a2_parser.add_argument(
+        "--provider", choices=["openai-compatible"], default="openai-compatible"
+    )
+    direct_a2_parser.add_argument("--api-url", default=None)
+    direct_a2_parser.add_argument("--api-key-env", default="LLM_ANALYSIS_API_KEY")
+    direct_a2_parser.add_argument(
+        "--config", type=Path, default=DEFAULT_DIRECT_A2_CONFIG
+    )
+    direct_a2_parser.add_argument("--timeout", type=int, default=1800)
+
+    evaluate_ab2_parser = subparsers.add_parser(
+        "llm-review-evaluate-ab2",
+        help="以同一全文Claim审计器和盲化结构评价比较A2与B2。",
+    )
+    evaluate_ab2_parser.add_argument(
+        "--workspace", type=Path, default=Path("workspace")
+    )
+    evaluate_ab2_parser.add_argument("--config", type=Path, required=True)
+    evaluate_ab2_parser.add_argument("--run-id", default=None)
+    evaluate_ab2_parser.add_argument(
+        "--provider", choices=["openai-compatible"], default="openai-compatible"
+    )
+    evaluate_ab2_parser.add_argument("--api-url", default=None)
+    evaluate_ab2_parser.add_argument("--api-key-env", default="LLM_ANALYSIS_API_KEY")
+    evaluate_ab2_parser.add_argument(
+        "--audit-config", type=Path, default=DEFAULT_REVIEW_CLAIM_AUDIT_CONFIG
+    )
+    evaluate_ab2_parser.add_argument("--resume-from-run-id", default=None)
+    evaluate_ab2_parser.add_argument("--timeout", type=int, default=1800)
+
+    evaluate_ab2_stability_parser = subparsers.add_parser(
+        "llm-review-evaluate-ab2-stability",
+        help="反转候选展示顺序，复评A2/B2结构评分稳定性。",
+    )
+    evaluate_ab2_stability_parser.add_argument(
+        "--workspace", type=Path, default=Path("workspace")
+    )
+    evaluate_ab2_stability_parser.add_argument(
+        "--source-evaluation-run-id", required=True
+    )
+    evaluate_ab2_stability_parser.add_argument("--run-id", default=None)
+    evaluate_ab2_stability_parser.add_argument(
+        "--provider", choices=["openai-compatible"], default="openai-compatible"
+    )
+    evaluate_ab2_stability_parser.add_argument("--api-url", default=None)
+    evaluate_ab2_stability_parser.add_argument(
+        "--api-key-env", default="LLM_ANALYSIS_API_KEY"
+    )
+    evaluate_ab2_stability_parser.add_argument("--timeout", type=int, default=1800)
+
     review_writing_parser = subparsers.add_parser(
         "llm-review-writing",
         help="按显式章节知识包集合逐章写作，并在全部成功后确定性装配综述。",
@@ -1361,6 +1429,7 @@ def main(argv: list[str] | None = None) -> int:
             api_key_env=args.api_key_env,
             model_profile_path=args.model_profile,
             audit_config_path=args.audit_config,
+            resume_from_run_id=args.resume_from_run_id,
             timeout=args.timeout,
         )
         print(json.dumps(result, ensure_ascii=False))
@@ -1444,6 +1513,43 @@ def main(argv: list[str] | None = None) -> int:
         result = ReviewB2FinalAssembler(args.workspace).build(
             release_file=args.release_file,
             run_id=args.run_id,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] == "completed" else 1
+    if args.command == "llm-review-direct-a2":
+        result = ReviewDirectA2Runner(args.workspace).run(
+            source_package_run_id=args.source_package_run_id,
+            audited_assembly_run_id=args.audited_assembly_run_id,
+            run_id=args.run_id,
+            provider=args.provider,
+            api_url=args.api_url,
+            api_key_env=args.api_key_env,
+            config_path=args.config,
+            timeout=args.timeout,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] == "completed" else 1
+    if args.command == "llm-review-evaluate-ab2":
+        result = ReviewAB2EvaluationRunner(args.workspace).run(
+            config_path=args.config,
+            run_id=args.run_id,
+            provider=args.provider,
+            api_url=args.api_url,
+            api_key_env=args.api_key_env,
+            audit_config_path=args.audit_config,
+            resume_from_run_id=args.resume_from_run_id,
+            timeout=args.timeout,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] == "completed" else 1
+    if args.command == "llm-review-evaluate-ab2-stability":
+        result = ReviewAB2StructuralStabilityRunner(args.workspace).run(
+            source_evaluation_run_id=args.source_evaluation_run_id,
+            run_id=args.run_id,
+            provider=args.provider,
+            api_url=args.api_url,
+            api_key_env=args.api_key_env,
+            timeout=args.timeout,
         )
         print(json.dumps(result, ensure_ascii=False))
         return 0 if result["status"] == "completed" else 1

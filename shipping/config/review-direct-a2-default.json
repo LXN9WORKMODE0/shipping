@@ -1,0 +1,7 @@
+{
+  "schema_version": "llm.review_direct_a2_config.v1",
+  "min_body_chars": 6000,
+  "max_body_chars": 7000,
+  "max_paragraphs_per_section": 4,
+  "max_output_tokens": 32768
+}

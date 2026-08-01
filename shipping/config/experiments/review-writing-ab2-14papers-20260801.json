@@ -1,0 +1,20 @@
+{
+  "schema_version": "llm.review_ab2_evaluation_config.v1",
+  "experiment_id": "review-writing-ab2-14papers-20260801",
+  "source_package_run_id": "package-framework-v2-writing-v2-section-1-20260730",
+  "audited_assembly_run_id": "review-b2-audited-14papers-20260801-v1",
+  "a2_run_id": "direct-a2-14papers-20260801-v3",
+  "b2_final_run_id": "review-b2-final-14papers-20260801-v1",
+  "structural_max_output_tokens": 32768,
+  "human_evaluation": {
+    "status": "pending",
+    "editing_minutes": {
+      "A2": null,
+      "B2": null
+    },
+    "edited_char_ratio": {
+      "A2": null,
+      "B2": null
+    }
+  }
+}

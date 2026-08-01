@@ -1135,6 +1135,11 @@ def _audit_candidate(
     return audit, stage
 
 
+def audit_review_candidate(*args, **kwargs):
+    """Public adapter for applying the shared full-corpus Claim auditor."""
+    return _audit_candidate(*args, **kwargs)
+
+
 def _canonical_candidate(
     candidate: str,
     title: str,
@@ -1169,6 +1174,14 @@ def _canonical_candidate(
         "sections": sections,
         "paragraphs": paragraphs,
     }
+
+
+def canonicalize_review_candidate(
+    candidate: str,
+    title: str,
+    sections: list[dict[str, Any]],
+) -> dict[str, Any]:
+    return _canonical_candidate(candidate, title, sections)
 
 
 def _evidence_citations(
@@ -1211,6 +1224,10 @@ def _core_dimensions(framework: dict[str, Any]) -> list[dict[str, Any]]:
             "Review Framework没有核心正文维度。",
         )
     return dimensions
+
+
+def extract_core_dimensions(framework: dict[str, Any]) -> list[dict[str, Any]]:
+    return _core_dimensions(framework)
 
 
 def _architecture_decision(

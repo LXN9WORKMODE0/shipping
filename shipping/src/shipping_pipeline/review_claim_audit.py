@@ -38,7 +38,9 @@ supported表示原文直接支持该表述；qualified表示存在支持但正�
 只有章节导语、结构导航等不主张外部事实且不承载 substantive synthesis 的句子才可标为navigation_synthesis。
 Claim的citation_keys只能从待审计段落已有citation_keys中选择；如果需要段落外论文才能支持，应判为qualified或unsupported，不得擅自补引。source_id必须逐字复制Schema枚举值，不得使用“证据1”等自造简称。
 navigation_synthesis只能用于不主张外部事实的结构导航，必须使用importance=navigation、status=not_applicable、空citation_keys、空source_assessments，两项写大检查均为not_applicable。
-不要输出Evidence ID、Card ID、逐字引文或Claim文本；程序会依据citation_key和source_tier确定性展开冻结来源。"""
+不要输出Evidence ID、Card ID、逐字引文或Claim文本；程序会依据citation_key和source_tier确定性展开冻结来源。
+每个claim_audits条目只能输出JSON Schema列出的字段，尤其不得增加authors、title、paper_id、claim_text、evidence或解释性元数据。
+严格区分三个枚举：status只能是supported、qualified、unsupported、not_applicable；result_type_check只能是accurate、overstated、not_applicable；validation_level_check也只能是accurate、overstated、not_applicable。不得把qualified或unsupported填入后两个check字段。"""
 
 
 class ReviewClaimAuditRunner:

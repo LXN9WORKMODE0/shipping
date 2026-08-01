@@ -33,3 +33,15 @@ class ReviewConclusionB2CliTest(unittest.TestCase):
             ["assemble-review-b2-final", "--release-file", "release.json"]
         )
         self.assertEqual(args.command, "assemble-review-b2-final")
+
+    def test_cli_exposes_direct_a2_command(self) -> None:
+        args = main.build_parser().parse_args(
+            [
+                "llm-review-direct-a2",
+                "--source-package-run-id",
+                "package-run",
+                "--audited-assembly-run-id",
+                "body-run",
+            ]
+        )
+        self.assertEqual(args.command, "llm-review-direct-a2")
