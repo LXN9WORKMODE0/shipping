@@ -76,6 +76,10 @@ from shipping_pipeline.review_writing_b2 import ReviewWritingB2Runner
 from shipping_pipeline.review_writing_b2_assembly import (
     ReviewWritingB2Assembler,
 )
+from shipping_pipeline.review_claim_audit_b2 import (
+    DEFAULT_REVIEW_CLAIM_AUDIT_B2_CONFIG,
+    ReviewClaimAuditB2Runner,
+)
 from shipping_pipeline.topic_synthesis import (
     DEFAULT_TOPIC_SYNTHESIS_CONFIG,
     TopicSynthesisRunner,
@@ -580,6 +584,38 @@ def build_parser() -> argparse.ArgumentParser:
         dest="chapter_run_ids",
     )
     assemble_b2_parser.add_argument("--run-id", default=None)
+
+    audit_b2_parser = subparsers.add_parser(
+        "llm-review-claim-audit-b2",
+        help="对单章B2正文执行逐句Claim语义审计。",
+    )
+    audit_b2_parser.add_argument(
+        "--workspace",
+        type=Path,
+        default=Path("workspace"),
+    )
+    audit_b2_parser.add_argument("--writing-run-id", required=True)
+    audit_b2_parser.add_argument("--run-id", default=None)
+    audit_b2_parser.add_argument(
+        "--provider",
+        default="openai-compatible",
+    )
+    audit_b2_parser.add_argument("--api-url", default=None)
+    audit_b2_parser.add_argument(
+        "--api-key-env",
+        default="LLM_ANALYSIS_API_KEY",
+    )
+    audit_b2_parser.add_argument(
+        "--model-profile",
+        type=Path,
+        default=DEFAULT_MODEL_PROFILE,
+    )
+    audit_b2_parser.add_argument(
+        "--audit-config",
+        type=Path,
+        default=DEFAULT_REVIEW_CLAIM_AUDIT_B2_CONFIG,
+    )
+    audit_b2_parser.add_argument("--timeout", type=int, default=900)
 
     review_writing_parser = subparsers.add_parser(
         "llm-review-writing",
@@ -1099,6 +1135,19 @@ def main(argv: list[str] | None = None) -> int:
         result = ReviewWritingB2Assembler(args.workspace).build(
             chapter_run_ids=args.chapter_run_ids,
             run_id=args.run_id,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] == "completed" else 1
+    if args.command == "llm-review-claim-audit-b2":
+        result = ReviewClaimAuditB2Runner(args.workspace).run(
+            writing_run_id=args.writing_run_id,
+            run_id=args.run_id,
+            provider=args.provider,
+            api_url=args.api_url,
+            api_key_env=args.api_key_env,
+            model_profile_path=args.model_profile,
+            audit_config_path=args.audit_config,
+            timeout=args.timeout,
         )
         print(json.dumps(result, ensure_ascii=False))
         return 0 if result["status"] == "completed" else 1

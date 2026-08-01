@@ -1,0 +1,5 @@
+{
+  "schema_version": "llm.review_claim_audit_b2_config.v1",
+  "max_reason_chars": 800,
+  "audit_max_output_tokens": 32768
+}
