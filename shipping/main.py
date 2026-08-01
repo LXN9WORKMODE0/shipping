@@ -80,6 +80,12 @@ from shipping_pipeline.review_claim_audit_b2 import (
     DEFAULT_REVIEW_CLAIM_AUDIT_B2_CONFIG,
     ReviewClaimAuditB2Runner,
 )
+from shipping_pipeline.review_claim_audit_b2_adjudication import (
+    ReviewClaimAuditB2AdjudicationRunner,
+)
+from shipping_pipeline.review_claim_revision_b2 import (
+    ReviewClaimRevisionB2Runner,
+)
 from shipping_pipeline.topic_synthesis import (
     DEFAULT_TOPIC_SYNTHESIS_CONFIG,
     TopicSynthesisRunner,
@@ -617,6 +623,70 @@ def build_parser() -> argparse.ArgumentParser:
     )
     audit_b2_parser.add_argument("--timeout", type=int, default=900)
 
+    adjudicate_b2_parser = subparsers.add_parser(
+        "llm-review-claim-audit-b2-adjudicate",
+        help="对B2初审风险句执行独立二次裁决。",
+    )
+    adjudicate_b2_parser.add_argument(
+        "--workspace",
+        type=Path,
+        default=Path("workspace"),
+    )
+    adjudicate_b2_parser.add_argument("--audit-run-id", required=True)
+    adjudicate_b2_parser.add_argument("--run-id", default=None)
+    adjudicate_b2_parser.add_argument(
+        "--provider",
+        default="openai-compatible",
+    )
+    adjudicate_b2_parser.add_argument("--api-url", default=None)
+    adjudicate_b2_parser.add_argument(
+        "--api-key-env",
+        default="LLM_ANALYSIS_API_KEY",
+    )
+    adjudicate_b2_parser.add_argument(
+        "--model-profile",
+        type=Path,
+        default=DEFAULT_MODEL_PROFILE,
+    )
+    adjudicate_b2_parser.add_argument(
+        "--audit-config",
+        type=Path,
+        default=DEFAULT_REVIEW_CLAIM_AUDIT_B2_CONFIG,
+    )
+    adjudicate_b2_parser.add_argument("--timeout", type=int, default=900)
+
+    revise_b2_parser = subparsers.add_parser(
+        "llm-review-claim-revision-b2",
+        help="为B2裁决后风险句生成三类定向修订建议，不自动应用。",
+    )
+    revise_b2_parser.add_argument(
+        "--workspace",
+        type=Path,
+        default=Path("workspace"),
+    )
+    revise_b2_parser.add_argument("--adjudication-run-id", required=True)
+    revise_b2_parser.add_argument("--run-id", default=None)
+    revise_b2_parser.add_argument(
+        "--provider",
+        default="openai-compatible",
+    )
+    revise_b2_parser.add_argument("--api-url", default=None)
+    revise_b2_parser.add_argument(
+        "--api-key-env",
+        default="LLM_ANALYSIS_API_KEY",
+    )
+    revise_b2_parser.add_argument(
+        "--model-profile",
+        type=Path,
+        default=DEFAULT_MODEL_PROFILE,
+    )
+    revise_b2_parser.add_argument(
+        "--audit-config",
+        type=Path,
+        default=DEFAULT_REVIEW_CLAIM_AUDIT_B2_CONFIG,
+    )
+    revise_b2_parser.add_argument("--timeout", type=int, default=900)
+
     review_writing_parser = subparsers.add_parser(
         "llm-review-writing",
         help="按显式章节知识包集合逐章写作，并在全部成功后确定性装配综述。",
@@ -1141,6 +1211,32 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "llm-review-claim-audit-b2":
         result = ReviewClaimAuditB2Runner(args.workspace).run(
             writing_run_id=args.writing_run_id,
+            run_id=args.run_id,
+            provider=args.provider,
+            api_url=args.api_url,
+            api_key_env=args.api_key_env,
+            model_profile_path=args.model_profile,
+            audit_config_path=args.audit_config,
+            timeout=args.timeout,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] == "completed" else 1
+    if args.command == "llm-review-claim-audit-b2-adjudicate":
+        result = ReviewClaimAuditB2AdjudicationRunner(args.workspace).run(
+            audit_run_id=args.audit_run_id,
+            run_id=args.run_id,
+            provider=args.provider,
+            api_url=args.api_url,
+            api_key_env=args.api_key_env,
+            model_profile_path=args.model_profile,
+            audit_config_path=args.audit_config,
+            timeout=args.timeout,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] == "completed" else 1
+    if args.command == "llm-review-claim-revision-b2":
+        result = ReviewClaimRevisionB2Runner(args.workspace).run(
+            adjudication_run_id=args.adjudication_run_id,
             run_id=args.run_id,
             provider=args.provider,
             api_url=args.api_url,
