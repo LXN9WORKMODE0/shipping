@@ -178,6 +178,79 @@ English abstract.
         self.assertEqual(result.paper_title, "基于Arena的三峡船舶积压疏导策略效果研究")
         self.assertIn("parse.document_title_fuzzy_match", [issue["code"] for issue in result.issues])
 
+    def test_merges_bilingual_title_front_matter_before_body(self) -> None:
+        lines = """# 三峡葛洲坝联合调度模型
+
+摘要：中文摘要。
+
+关键词：联合调度
+
+# Co-scheduling Model of the Three Gorges and Gezhouba Dams
+
+Abstract: English abstract.
+
+Key words: co-scheduling
+
+## 1 引言
+
+正文内容。
+
+## 2 模型
+
+模型内容。
+""".splitlines()
+
+        result = build_document_map("三峡葛洲坝联合调度模型", lines)
+
+        self.assertIsNotNone(result.selected_segment)
+        assert result.selected_segment is not None
+        self.assertEqual(result.selected_segment.end_line, len(lines))
+        self.assertEqual(result.selected_segment.companion_h1_lines, (7,))
+        self.assertIn(
+            "parse.bilingual_title_scope_merged",
+            [issue["code"] for issue in result.issues],
+        )
+        self.assertEqual(
+            [
+                region.heading_path
+                for region in result.regions
+                if region.role == "body" and region.heading_path
+            ],
+            [("1 引言",), ("2 模型",)],
+        )
+        companion_assignment = next(
+            row for row in result.line_ledger if row.line_number == 7
+        )
+        self.assertEqual(companion_assignment.role, "scope_marker")
+
+    def test_does_not_merge_two_articles_when_first_segment_has_body(self) -> None:
+        lines = """# 第一篇论文
+
+摘要：第一篇摘要。
+
+## 1 引言
+
+第一篇正文。
+
+# Second Paper
+
+Abstract: second abstract.
+
+## 1 Introduction
+
+Second body.
+""".splitlines()
+
+        result = build_document_map("第一篇论文", lines)
+
+        self.assertIsNotNone(result.selected_segment)
+        assert result.selected_segment is not None
+        self.assertEqual(result.selected_segment.end_line, 8)
+        self.assertNotIn(
+            "parse.bilingual_title_scope_merged",
+            [issue["code"] for issue in result.issues],
+        )
+
     def test_selects_exact_h2_article_from_mixed_heading_level_bundle(self) -> None:
         lines = """## 三峡永久船闸水力学问题研究
 

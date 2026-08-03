@@ -115,7 +115,10 @@ from shipping_pipeline.review_ab2_evaluation import (
 )
 from shipping_pipeline.paper_pool_inventory import PaperPoolInventoryRunner
 from shipping_pipeline.paper_topic_screening import PaperPoolScreeningRunner
-from shipping_pipeline.paper_pool_card_preparation import PaperPoolCardPreparationRunner
+from shipping_pipeline.paper_pool_card_preparation import (
+    PaperPoolCardPreparationRunner,
+    request_paper_pool_card_action,
+)
 from shipping_pipeline.topic_synthesis import (
     DEFAULT_TOPIC_SYNTHESIS_CONFIG,
     TopicSynthesisRunner,
@@ -202,6 +205,10 @@ def build_parser() -> argparse.ArgumentParser:
     pool_card_parser.add_argument("--run-id", default=None)
     pool_card_parser.add_argument("--max-papers", type=int, default=None)
     pool_card_parser.add_argument("--resume-from-run-id", default=None)
+    pool_card_parser.add_argument("--max-workers", type=int, default=2)
+    pool_card_parser.add_argument(
+        "--min-start-interval-seconds", type=float, default=1.0
+    )
     pool_card_parser.add_argument("--pdf-provider", choices=["none", "mineru"], default="none")
     pool_card_parser.add_argument("--mineru-api-url", default=None)
     pool_card_parser.add_argument("--mineru-api-key-env", default="MINERU_API_KEY")
@@ -211,6 +218,14 @@ def build_parser() -> argparse.ArgumentParser:
     pool_card_parser.add_argument("--mineru-model-version", default=None)
     pool_card_parser.add_argument("--mineru-language", default=None)
     pool_card_parser.add_argument("--mineru-page-ranges", default=None)
+
+    pool_card_control_parser = subparsers.add_parser(
+        "paper-pool-card-control",
+        help="协作式暂停或取消正在运行的全论文池Card批次。",
+    )
+    pool_card_control_parser.add_argument("--workspace", type=Path, default=Path("workspace"))
+    pool_card_control_parser.add_argument("--run-id", required=True)
+    pool_card_control_parser.add_argument("--action", choices=["pause", "cancel"], required=True)
 
     full_pipeline_parser = subparsers.add_parser(
         "full-pipeline",
@@ -1328,11 +1343,22 @@ def main(argv: list[str] | None = None) -> int:
             run_id=args.run_id,
             max_papers=args.max_papers,
             resume_from_run_id=args.resume_from_run_id,
+            max_workers=args.max_workers,
+            min_start_interval_seconds=args.min_start_interval_seconds,
         )
         print(json.dumps(result, ensure_ascii=False))
         return 0 if result["status"] in {
-            "completed", "completed_partial", "completed_with_failures"
+            "completed", "completed_partial", "completed_with_failures",
+            "paused", "cancelled",
         } else 1
+    if args.command == "paper-pool-card-control":
+        result = request_paper_pool_card_action(
+            args.workspace,
+            run_id=args.run_id,
+            action=args.action,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0
     if args.command == "audit":
         result = BatchAuditRunner(args.workspace).run(args.source_root, topic=args.topic, run_id=args.run_id)
         print(json.dumps(result, ensure_ascii=False))

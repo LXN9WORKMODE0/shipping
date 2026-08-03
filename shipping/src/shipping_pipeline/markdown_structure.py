@@ -89,6 +89,7 @@ class DocumentSegment:
     h1_line: int | None
     match_score: float = 0.0
     title_level: int | None = 1
+    companion_h1_lines: tuple[int, ...] = ()
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -98,6 +99,7 @@ class DocumentSegment:
             "h1_line": self.h1_line,
             "match_score": self.match_score,
             "title_level": self.title_level,
+            "companion_h1_lines": list(self.companion_h1_lines),
         }
 
 
@@ -211,7 +213,8 @@ def build_document_map(paper_id: str, lines: list[str]) -> DocumentMap:
             issues=tuple(issues),
         )
 
-    selected = _expand_document_scope(selected, segments, lines)
+    selected, scope_issues = _expand_document_scope(selected, segments, lines)
+    issues.extend(scope_issues)
 
     if not _segment_has_visible_content(selected, lines):
         issues.append(
@@ -432,16 +435,90 @@ def _expand_document_scope(
     selected: DocumentSegment,
     segments: list[DocumentSegment],
     lines: list[str],
-) -> DocumentSegment:
+) -> tuple[DocumentSegment, list[dict[str, Any]]]:
     if selected.h1_line is None:
-        return selected
+        return selected, []
     if selected.title_level != 1:
-        return selected
+        return selected, []
     if len(segments) == 1:
-        return replace(selected, start_line=1, end_line=len(lines))
+        return replace(selected, start_line=1, end_line=len(lines)), []
     if _is_degree_document(segments, lines):
-        return replace(selected, start_line=1, end_line=len(lines))
-    return selected
+        return replace(selected, start_line=1, end_line=len(lines)), []
+    companion = _bilingual_front_matter_companion(selected, segments, lines)
+    if companion is not None:
+        expanded = replace(
+            selected,
+            end_line=companion.end_line,
+            companion_h1_lines=(companion.h1_line,) if companion.h1_line else (),
+        )
+        return expanded, [
+            _issue(
+                "parse.bilingual_title_scope_merged",
+                "检测到双语题名与摘要结构，已将相邻外文题名段并入同一论文范围。",
+                details={
+                    "selected": selected.to_dict(),
+                    "companion": companion.to_dict(),
+                    "expanded": expanded.to_dict(),
+                },
+            )
+        ]
+    return selected, []
+
+
+def _bilingual_front_matter_companion(
+    selected: DocumentSegment,
+    segments: list[DocumentSegment],
+    lines: list[str],
+) -> DocumentSegment | None:
+    try:
+        index = next(
+            index
+            for index, segment in enumerate(segments)
+            if segment.start_line == selected.start_line
+        )
+    except StopIteration:
+        return None
+    if index + 1 >= len(segments):
+        return None
+    companion = segments[index + 1]
+    if (
+        _segment_has_body_heading(selected, lines)
+        or not _segment_has_abstract(selected, lines)
+        or not _segment_has_abstract(companion, lines)
+        or not _segment_has_body_heading(companion, lines)
+    ):
+        return None
+    return companion
+
+
+def _segment_has_abstract(segment: DocumentSegment, lines: list[str]) -> bool:
+    lower = max(segment.start_line, 1)
+    upper = min(segment.end_line, len(lines))
+    for line in lines[lower - 1:upper]:
+        if INLINE_ABSTRACT_PATTERN.match(line):
+            return True
+        heading = MARKDOWN_HEADING_PATTERN.match(line)
+        if heading and canonical_heading_title(heading.group(2)) in ABSTRACT_TITLES:
+            return True
+    return False
+
+
+def _segment_has_body_heading(segment: DocumentSegment, lines: list[str]) -> bool:
+    special_titles = (
+        ABSTRACT_TITLES
+        | KEYWORD_TITLES
+        | FRONT_MATTER_TITLES
+        | BACK_MATTER_TITLES
+    )
+    lower = max(segment.start_line, 1)
+    upper = min(segment.end_line, len(lines))
+    for line in lines[lower - 1:upper]:
+        heading = MARKDOWN_HEADING_PATTERN.match(line)
+        if not heading or len(heading.group(1)) < 2:
+            continue
+        if canonical_heading_title(heading.group(2)) not in special_titles:
+            return True
+    return False
 
 
 def _is_degree_document(segments: list[DocumentSegment], lines: list[str]) -> bool:
@@ -517,7 +594,10 @@ def _parse_headings(
         if markdown:
             markdown_line_numbers.add(line_number)
             level = len(markdown.group(1))
-            if line_number == segment.h1_line:
+            if (
+                line_number == segment.h1_line
+                or line_number in segment.companion_h1_lines
+            ):
                 continue
             title = _normalize_whitespace(markdown.group(2))
             markdown_rows.append((line_number, level, title, parse_numbering(title)))
@@ -902,6 +982,7 @@ def _build_line_ledger(
     marker_lines = {heading.start_line for heading in headings}
     if segment.h1_line is not None:
         marker_lines.add(segment.h1_line)
+    marker_lines.update(segment.companion_h1_lines)
     ledger: list[LineAssignment] = []
     unassigned: list[int] = []
     overlapping: list[int] = []

@@ -4,6 +4,7 @@ import json
 import hashlib
 import re
 import shutil
+import threading
 from collections import Counter
 from dataclasses import dataclass
 from datetime import UTC, datetime
@@ -32,6 +33,11 @@ PINYIN_SLUG = {
     "证": "zheng",
     "据": "ju",
 }
+
+_WORKSPACE_INDEX_LOCKS: dict[str, threading.RLock] = {}
+_WORKSPACE_INDEX_LOCKS_GUARD = threading.Lock()
+
+
 @dataclass(frozen=True)
 class ParseOutput:
     document_map: DocumentMap
@@ -80,33 +86,69 @@ class LiteraturePipeline:
 
         content = self._convert(source, paper_workspace, stages, issues, artifacts)
         if content is None:
-            self._invalidate_current_materials(paper_workspace, generation_id, stages, issues)
-            self._write_run_record(
-                paper_workspace,
-                resolved_paper_id,
-                source,
-                status="failed",
-                structure_quality="red",
-                stages=stages,
-                issues=issues,
-                artifacts=artifacts,
-                generation_id=generation_id,
-            )
-            self._rebuild_corpus(stages, artifacts)
-            self._build_review_pack(review_topic, stages, artifacts)
+            with _workspace_index_lock(self.workspace):
+                self._invalidate_current_materials(
+                    paper_workspace, generation_id, stages, issues
+                )
+                self._write_run_record(
+                    paper_workspace,
+                    resolved_paper_id,
+                    source,
+                    status="failed",
+                    structure_quality="red",
+                    stages=stages,
+                    issues=issues,
+                    artifacts=artifacts,
+                    generation_id=generation_id,
+                )
+                self._refresh_workspace_outputs(review_topic, stages, artifacts)
             return PipelineResult(resolved_paper_id, "failed", "red", len(issues), str(paper_workspace))
 
         parsed = self._parse(resolved_paper_id, content, paper_workspace, stages, artifacts)
         issues.extend(parsed.issues)
-        effective_quality_label = parsed.quality_label
+        with _workspace_index_lock(self.workspace):
+            status, effective_quality_label = self._publish_parsed(
+                source=source,
+                paper_id=resolved_paper_id,
+                paper_workspace=paper_workspace,
+                parsed=parsed,
+                content=content,
+                review_topic=review_topic,
+                generation_id=generation_id,
+                stages=stages,
+                issues=issues,
+                artifacts=artifacts,
+            )
+        return PipelineResult(
+            resolved_paper_id,
+            status,
+            effective_quality_label,
+            len(issues),
+            str(paper_workspace),
+        )
 
+    def _publish_parsed(
+        self,
+        *,
+        source: Path,
+        paper_id: str,
+        paper_workspace: Path,
+        parsed: ParseOutput,
+        content: str,
+        review_topic: str,
+        generation_id: str,
+        stages: dict[str, dict[str, Any]],
+        issues: list[Issue],
+        artifacts: dict[str, str],
+    ) -> tuple[str, str]:
+        effective_quality_label = parsed.quality_label
         if parsed.quality_label == "red":
             self._invalidate_current_materials(paper_workspace, generation_id, stages, issues)
             status = "failed"
         else:
             try:
                 self._materialize(
-                    resolved_paper_id,
+                    paper_id,
                     parsed,
                     content,
                     paper_workspace,
@@ -132,24 +174,11 @@ class LiteraturePipeline:
                 self._invalidate_current_materials(paper_workspace, generation_id, stages, issues)
                 status = "failed"
             else:
-                self._write_run_record(
-                    paper_workspace,
-                    resolved_paper_id,
-                    source,
-                    status="completed",
-                    structure_quality=effective_quality_label,
-                    stages=stages,
-                    issues=issues,
-                    artifacts=artifacts,
-                    generation_id=generation_id,
-                )
-                self._rebuild_corpus(stages, artifacts)
-                self._build_review_pack(review_topic, stages, artifacts)
                 status = "completed"
 
         self._write_run_record(
             paper_workspace,
-            resolved_paper_id,
+            paper_id,
             source,
             status=status,
             structure_quality=effective_quality_label,
@@ -158,10 +187,30 @@ class LiteraturePipeline:
             artifacts=artifacts,
             generation_id=generation_id,
         )
-        if status == "failed":
+        self._refresh_workspace_outputs(review_topic, stages, artifacts)
+        self._write_run_record(
+            paper_workspace,
+            paper_id,
+            source,
+            status=status,
+            structure_quality=effective_quality_label,
+            stages=stages,
+            issues=issues,
+            artifacts=artifacts,
+            generation_id=generation_id,
+        )
+        return status, effective_quality_label
+
+    def _refresh_workspace_outputs(
+        self,
+        topic: str,
+        stages: dict[str, dict[str, Any]],
+        artifacts: dict[str, str],
+    ) -> None:
+        lock = _workspace_index_lock(self.workspace)
+        with lock:
             self._rebuild_corpus(stages, artifacts)
-            self._build_review_pack(review_topic, stages, artifacts)
-        return PipelineResult(resolved_paper_id, status, effective_quality_label, len(issues), str(paper_workspace))
+            self._build_review_pack(topic, stages, artifacts)
 
     def _convert(
         self,
@@ -788,6 +837,16 @@ def _relative_to_workspace(path: Path, workspace: Path) -> str:
         return path.relative_to(workspace).as_posix()
     except ValueError:
         return str(path)
+
+
+def _workspace_index_lock(workspace: Path) -> threading.RLock:
+    key = str(workspace.resolve())
+    with _WORKSPACE_INDEX_LOCKS_GUARD:
+        lock = _WORKSPACE_INDEX_LOCKS.get(key)
+        if lock is None:
+            lock = threading.RLock()
+            _WORKSPACE_INDEX_LOCKS[key] = lock
+        return lock
 
 
 def _now() -> str:
