@@ -353,6 +353,95 @@ Key words: co-scheduling
             [issue["code"] for issue in result.issues],
         )
 
+    def test_merges_empty_exact_title_with_adjacent_body_segment(self) -> None:
+        lines = """# 三峡工程施工通航期淤积问题的试验研究
+
+# Experimental Study on Sediment Problems of Navigation
+
+作者信息。
+
+摘要：论文摘要。
+
+## 0 引言
+
+正文内容。
+""".splitlines()
+
+        result = build_document_map("三峡工程施工通航期淤积问题的试验研究", lines)
+
+        self.assertIsNotNone(result.selected_segment)
+        assert result.selected_segment is not None
+        self.assertEqual(result.selected_segment.end_line, len(lines))
+        self.assertEqual(result.selected_segment.companion_h1_lines, (3,))
+        self.assertIn(
+            "parse.empty_title_companion_scope_merged",
+            [issue["code"] for issue in result.issues],
+        )
+
+    def test_does_not_merge_low_confidence_empty_title_with_next_article(self) -> None:
+        lines = """# 三峡工程施工通航期淤积研究
+
+# 另一篇完整文章
+
+## 1 引言
+
+另一篇正文。
+""".splitlines()
+
+        result = build_document_map("完全不同的来源题名", lines)
+
+        self.assertIsNone(result.selected_segment)
+        self.assertNotIn(
+            "parse.empty_title_companion_scope_merged",
+            [issue["code"] for issue in result.issues],
+        )
+
+    def test_merges_high_confidence_abstract_front_matter_with_body_companion(self) -> None:
+        lines = """# 目标论文
+
+摘要：中文摘要。
+
+关键词：测试
+
+# Garbled Foreign Title
+
+乱码外文摘要。
+
+## 1 研究方法
+
+正文。
+""".splitlines()
+
+        result = build_document_map("目标论文", lines)
+
+        self.assertIsNotNone(result.selected_segment)
+        assert result.selected_segment is not None
+        self.assertEqual(result.selected_segment.end_line, len(lines))
+        self.assertEqual(result.selected_segment.companion_h1_lines, (7,))
+        self.assertIn(
+            "parse.bilingual_title_scope_merged",
+            [issue["code"] for issue in result.issues],
+        )
+
+    def test_does_not_merge_low_confidence_abstract_with_next_article(self) -> None:
+        lines = """# 近似题名
+
+摘要：第一篇摘要。
+
+# 另一篇文章
+
+## 1 正文
+
+第二篇正文。
+""".splitlines()
+
+        result = build_document_map("完全不同的目标论文", lines)
+
+        self.assertNotIn(
+            "parse.bilingual_title_scope_merged",
+            [issue["code"] for issue in result.issues],
+        )
+
     def test_selects_exact_h2_article_from_mixed_heading_level_bundle(self) -> None:
         lines = """## 三峡永久船闸水力学问题研究
 

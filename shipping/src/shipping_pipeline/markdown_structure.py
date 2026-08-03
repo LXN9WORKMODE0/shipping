@@ -516,6 +516,26 @@ def _expand_document_scope(
         return selected, []
     if len(segments) == 1:
         return replace(selected, start_line=1, end_line=len(lines)), []
+    empty_companion = _empty_title_body_companion(selected, segments, lines)
+    if empty_companion is not None:
+        expanded = replace(
+            selected,
+            end_line=empty_companion.end_line,
+            companion_h1_lines=(empty_companion.h1_line,)
+            if empty_companion.h1_line
+            else (),
+        )
+        return expanded, [
+            _issue(
+                "parse.empty_title_companion_scope_merged",
+                "高置信论文题名段没有正文，已将相邻正文题名段并入同一论文范围。",
+                details={
+                    "selected": selected.to_dict(),
+                    "companion": empty_companion.to_dict(),
+                    "expanded": expanded.to_dict(),
+                },
+            )
+        ]
     companion = _bilingual_front_matter_companion(selected, segments, lines)
     if companion is not None:
         expanded = replace(
@@ -526,7 +546,7 @@ def _expand_document_scope(
         return expanded, [
             _issue(
                 "parse.bilingual_title_scope_merged",
-                "检测到双语题名与摘要结构，已将相邻外文题名段并入同一论文范围。",
+                "检测到双语或 OCR 异常题名后的正文结构，已将相邻题名段并入同一论文范围。",
                 details={
                     "selected": selected.to_dict(),
                     "companion": companion.to_dict(),
@@ -535,6 +555,30 @@ def _expand_document_scope(
             )
         ]
     return selected, []
+
+
+def _empty_title_body_companion(
+    selected: DocumentSegment,
+    segments: list[DocumentSegment],
+    lines: list[str],
+) -> DocumentSegment | None:
+    if (
+        selected.match_score < SINGLE_TITLE_CONFIDENT_SCORE
+        or _segment_has_non_title_content(selected, lines)
+    ):
+        return None
+    try:
+        index = next(
+            index
+            for index, segment in enumerate(segments)
+            if segment.start_line == selected.start_line
+        )
+    except StopIteration:
+        return None
+    if index + 1 >= len(segments):
+        return None
+    companion = segments[index + 1]
+    return companion if _segment_has_body_heading(companion, lines) else None
 
 
 def _bilingual_front_matter_companion(
@@ -554,9 +598,9 @@ def _bilingual_front_matter_companion(
         return None
     companion = segments[index + 1]
     if (
-        _segment_has_body_heading(selected, lines)
+        selected.match_score < SINGLE_TITLE_CONFIDENT_SCORE
+        or _segment_has_body_heading(selected, lines)
         or not _segment_has_abstract(selected, lines)
-        or not _segment_has_abstract(companion, lines)
         or not _segment_has_body_heading(companion, lines)
     ):
         return None
