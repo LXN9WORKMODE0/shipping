@@ -141,6 +141,38 @@ class DocumentScopeTests(unittest.TestCase):
             [region.heading_path for region in result.regions if region.role == "body"],
         )
 
+    def test_expands_degree_document_when_exact_title_is_h2(self) -> None:
+        lines = """# Central South University
+
+# 硕士学术学位论文
+
+## 三峡升船机与船闸梯级枢纽联合调度算法研究
+
+作者信息。
+
+# Cascade Hub Navigation Co-scheduling
+
+## 摘要
+
+摘要正文。
+
+## 第1章 绪论
+
+正文内容。
+""".splitlines()
+
+        result = build_document_map(
+            "三峡升船机与船闸梯级枢纽联合调度算法研究",
+            lines,
+        )
+
+        self.assertIsNotNone(result.selected_segment)
+        assert result.selected_segment is not None
+        self.assertEqual(result.selected_segment.title_level, 2)
+        self.assertEqual(result.selected_segment.start_line, 1)
+        self.assertEqual(result.selected_segment.end_line, len(lines))
+        self.assertNotEqual(result.quality_label, "red")
+
     def test_ignores_single_character_ocr_h1s_as_document_boundaries(self) -> None:
         lines = """# 工
 
@@ -276,6 +308,48 @@ Key words: co-scheduling
         self.assertEqual(result.selected_segment.end_line, len(lines))
         self.assertIn(
             "parse.bilingual_title_scope_merged",
+            [issue["code"] for issue in result.issues],
+        )
+
+    def test_merges_adjacent_ocr_title_fragments_by_combined_identity(self) -> None:
+        lines = """# 三 峡临时船问
+
+# 友其改建冲沙问议计
+
+摘要：论文摘要。
+
+## 1 工程设计
+
+正文内容。
+""".splitlines()
+
+        result = build_document_map("三峡临时船闸及其改建冲沙闸设计", lines)
+
+        self.assertIsNotNone(result.selected_segment)
+        assert result.selected_segment is not None
+        self.assertEqual(result.paper_title, "三峡临时船闸及其改建冲沙闸设计")
+        self.assertEqual(result.selected_segment.end_line, len(lines))
+        self.assertEqual(result.selected_segment.companion_h1_lines, (3,))
+        self.assertIn(
+            "parse.fragmented_title_scope_merged",
+            [issue["code"] for issue in result.issues],
+        )
+
+    def test_rejects_adjacent_h1_fragments_without_combined_identity_match(self) -> None:
+        lines = """# 无关碎片一
+
+# 无关碎片二
+
+## 1 正文
+
+正文内容。
+""".splitlines()
+
+        result = build_document_map("三峡临时船闸及其改建冲沙闸设计", lines)
+
+        self.assertIsNone(result.selected_segment)
+        self.assertIn(
+            "parse.document_scope_ambiguous",
             [issue["code"] for issue in result.issues],
         )
 

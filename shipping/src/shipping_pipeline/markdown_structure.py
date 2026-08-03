@@ -189,6 +189,7 @@ def build_document_map(paper_id: str, lines: list[str]) -> DocumentMap:
     selected, selection_issues = select_document_segment(
         paper_id,
         segments,
+        lines,
         allow_equivalent_ties=degree_document,
     )
     if any(issue["severity"] == "error" for issue in selection_issues):
@@ -233,7 +234,13 @@ def build_document_map(paper_id: str, lines: list[str]) -> DocumentMap:
     line_ledger, ledger_issues = _build_line_ledger(selected, headings, regions, lines)
     issues.extend(ledger_issues)
     quality_label = _quality_label(issues)
-    fuzzy_title = any(issue["code"] == "parse.document_title_fuzzy_match" for issue in issues)
+    fuzzy_title = any(
+        issue["code"] in {
+            "parse.document_title_fuzzy_match",
+            "parse.fragmented_title_scope_merged",
+        }
+        for issue in issues
+    )
     return DocumentMap(
         paper_id=paper_id,
         paper_title=paper_id if fuzzy_title else selected.title or paper_id,
@@ -345,6 +352,7 @@ def select_nested_document_segment(
 def select_document_segment(
     paper_id: str,
     segments: list[DocumentSegment],
+    lines: list[str],
     allow_equivalent_ties: bool = False,
 ) -> tuple[DocumentSegment | None, list[dict[str, Any]]]:
     if not segments:
@@ -405,6 +413,18 @@ def select_document_segment(
     if best.match_score < MIN_TITLE_MATCH_SCORE or (
         best.match_score - second_score < MIN_TITLE_MATCH_MARGIN and not equivalent_tie
     ):
+        fragmented = _select_fragmented_h1_segment(paper_id, segments, lines)
+        if fragmented is not None:
+            return fragmented, [
+                _issue(
+                    "parse.fragmented_title_scope_merged",
+                    "检测到相邻的碎片化一级题名，已在合并后通过论文身份校验。",
+                    details={
+                        "paper_id": paper_id,
+                        "selected": fragmented.to_dict(),
+                    },
+                )
+            ]
         return None, [
             _issue(
                 "parse.document_scope_ambiguous",
@@ -431,6 +451,58 @@ def select_document_segment(
     return best, issues
 
 
+def _select_fragmented_h1_segment(
+    paper_id: str,
+    segments: list[DocumentSegment],
+    lines: list[str],
+) -> DocumentSegment | None:
+    candidates: list[DocumentSegment] = []
+    for left, right in zip(segments, segments[1:]):
+        if (
+            left.h1_line is None
+            or right.h1_line is None
+            or _segment_has_non_title_content(left, lines)
+            or not _segment_has_body_heading(right, lines)
+        ):
+            continue
+        combined_title = _normalize_whitespace(f"{left.title}{right.title}")
+        score = _title_match_score(paper_id, combined_title)
+        if score < MIN_TITLE_MATCH_SCORE:
+            continue
+        candidates.append(
+            replace(
+                left,
+                title=combined_title,
+                end_line=right.end_line,
+                match_score=score,
+                companion_h1_lines=(right.h1_line,),
+            )
+        )
+    if not candidates:
+        return None
+    ranked = sorted(candidates, key=lambda item: item.match_score, reverse=True)
+    if (
+        len(ranked) > 1
+        and ranked[0].match_score - ranked[1].match_score < MIN_TITLE_MATCH_MARGIN
+    ):
+        return None
+    return ranked[0]
+
+
+def _segment_has_non_title_content(
+    segment: DocumentSegment,
+    lines: list[str],
+) -> bool:
+    lower = max(segment.start_line, 1)
+    upper = min(segment.end_line, len(lines))
+    for line_number in range(lower, upper + 1):
+        if line_number == segment.h1_line:
+            continue
+        if lines[line_number - 1].strip():
+            return True
+    return False
+
+
 def _expand_document_scope(
     selected: DocumentSegment,
     segments: list[DocumentSegment],
@@ -438,11 +510,11 @@ def _expand_document_scope(
 ) -> tuple[DocumentSegment, list[dict[str, Any]]]:
     if selected.h1_line is None:
         return selected, []
+    if _is_degree_document(segments, lines):
+        return replace(selected, start_line=1, end_line=len(lines)), []
     if selected.title_level != 1:
         return selected, []
     if len(segments) == 1:
-        return replace(selected, start_line=1, end_line=len(lines)), []
-    if _is_degree_document(segments, lines):
         return replace(selected, start_line=1, end_line=len(lines)), []
     companion = _bilingual_front_matter_companion(selected, segments, lines)
     if companion is not None:
