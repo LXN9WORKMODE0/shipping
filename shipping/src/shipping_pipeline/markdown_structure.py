@@ -757,6 +757,14 @@ def _is_degree_document(segments: list[DocumentSegment], lines: list[str]) -> bo
         for marker in DEGREE_H1_MARKERS
     )
     if not has_degree_marker:
+        for line in lines[:200]:
+            heading = MARKDOWN_HEADING_PATTERN.match(line)
+            title = heading.group(2) if heading else line
+            canonical = canonical_heading_title(title)
+            if any(marker in canonical for marker in DEGREE_H1_MARKERS):
+                has_degree_marker = True
+                break
+    if not has_degree_marker:
         return False
 
     for segment in segments:
@@ -916,12 +924,28 @@ def _plain_heading_exclusion_lines(
 ) -> set[int]:
     excluded: set[int] = set()
     special_titles = ABSTRACT_TITLES | KEYWORD_TITLES | FRONT_MATTER_TITLES | BACK_MATTER_TITLES
+    first_numbered_body_line = next(
+        (
+            line_number
+            for line_number, _, title, numbering in markdown_rows
+            if numbering is not None
+            and numbering.depth == 1
+            and canonical_heading_title(title) not in special_titles
+        ),
+        None,
+    )
     for index, (line_number, _, title, _) in enumerate(markdown_rows):
         if canonical_heading_title(title) not in special_titles:
             continue
         next_markdown = markdown_rows[index + 1][0] if index + 1 < len(markdown_rows) else segment_end + 1
         excluded.update(range(line_number, next_markdown))
-        if canonical_heading_title(title) in BACK_MATTER_TITLES:
+        if (
+            canonical_heading_title(title) in BACK_MATTER_TITLES
+            and (
+                first_numbered_body_line is None
+                or line_number > first_numbered_body_line
+            )
+        ):
             excluded.update(range(line_number, segment_end + 1))
             break
     return excluded
@@ -1197,6 +1221,26 @@ def _find_back_matter_marker(
         title = markdown.group(2) if markdown else stripped
         if len(title) <= 80 and canonical_heading_title(title) in BACK_MATTER_TITLES:
             candidates.append((line_number, _clean_heading_title(title)))
+    first_numbered_body_line = next(
+        (
+            heading.start_line
+            for heading in headings
+            if heading.depth == 1
+            and heading.ordinal_path
+            and canonical_heading_title(heading.clean_title)
+            not in ABSTRACT_TITLES
+            | KEYWORD_TITLES
+            | FRONT_MATTER_TITLES
+            | BACK_MATTER_TITLES
+        ),
+        None,
+    )
+    if first_numbered_body_line is not None:
+        candidates = [
+            candidate
+            for candidate in candidates
+            if candidate[0] > first_numbered_body_line
+        ]
     return min(candidates, key=lambda item: item[0]) if candidates else None
 
 

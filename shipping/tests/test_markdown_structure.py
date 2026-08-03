@@ -173,6 +173,62 @@ class DocumentScopeTests(unittest.TestCase):
         self.assertEqual(result.selected_segment.end_line, len(lines))
         self.assertNotEqual(result.quality_label, "red")
 
+    def test_expands_degree_document_with_non_h1_degree_marker(self) -> None:
+        lines = """# 目标论文
+
+## 硕士学位论文
+
+# Foreign Title
+
+## 摘要
+
+摘要正文。
+
+## 第1章 绪论
+
+正文内容。
+""".splitlines()
+
+        result = build_document_map("目标论文", lines)
+
+        self.assertIsNotNone(result.selected_segment)
+        assert result.selected_segment is not None
+        self.assertEqual(result.selected_segment.start_line, 1)
+        self.assertEqual(result.selected_segment.end_line, len(lines))
+        self.assertNotEqual(result.quality_label, "red")
+
+    def test_does_not_end_degree_body_at_front_acknowledgements(self) -> None:
+        lines = """# 博士学位论文
+
+# 目标论文
+
+## 致谢
+
+前置致谢。
+
+## 摘要
+
+摘要正文。
+
+## 1 绪论
+
+正文内容。
+
+## 参考文献
+
+文献列表。
+""".splitlines()
+
+        result = build_document_map("目标论文", lines)
+
+        body_regions = [region for region in result.regions if region.role == "body"]
+        back_regions = [
+            region for region in result.regions if region.role == "back_matter"
+        ]
+        self.assertTrue(any(region.span.start_line == 13 for region in body_regions))
+        self.assertEqual([region.span.start_line for region in back_regions], [17])
+        self.assertNotEqual(result.quality_label, "red")
+
     def test_expands_degree_document_with_trailing_h1_after_h2_chapters(self) -> None:
         lines = """申请工学博士学位论文
 
