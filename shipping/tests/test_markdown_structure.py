@@ -173,6 +173,38 @@ class DocumentScopeTests(unittest.TestCase):
         self.assertEqual(result.selected_segment.end_line, len(lines))
         self.assertNotEqual(result.quality_label, "red")
 
+    def test_expands_degree_document_with_trailing_h1_after_h2_chapters(self) -> None:
+        lines = """申请工学博士学位论文
+
+# 三峡枢纽河段应急通航控制技术研究
+
+# 学位论文
+
+## 题目 三峡枢纽河段应急通航控制技术研究
+
+# Research on Emergency Navigation
+
+## 摘要
+
+摘要正文。
+
+## 第1章 绪论
+
+正文内容。
+
+# 攻读博士学位期间的科研成果及参加的科研项目
+
+成果列表。
+""".splitlines()
+
+        result = build_document_map("三峡枢纽河段应急通航控制技术研究", lines)
+
+        self.assertIsNotNone(result.selected_segment)
+        assert result.selected_segment is not None
+        self.assertEqual(result.selected_segment.start_line, 1)
+        self.assertEqual(result.selected_segment.end_line, len(lines))
+        self.assertNotEqual(result.quality_label, "red")
+
     def test_ignores_single_character_ocr_h1s_as_document_boundaries(self) -> None:
         lines = """# 工
 

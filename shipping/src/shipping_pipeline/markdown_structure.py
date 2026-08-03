@@ -653,8 +653,7 @@ def _is_degree_document(segments: list[DocumentSegment], lines: list[str]) -> bo
         if numbering is not None and numbering.depth == 1:
             return True
 
-    last_h1_line = max((segment.h1_line or 0) for segment in segments)
-    for line in lines[last_h1_line:]:
+    for line in lines:
         match = MARKDOWN_HEADING_PATTERN.match(line)
         if not match or len(match.group(1)) == 1:
             continue
