@@ -205,6 +205,50 @@ class DocumentScopeTests(unittest.TestCase):
         self.assertEqual(result.selected_segment.end_line, len(lines))
         self.assertNotEqual(result.quality_label, "red")
 
+    def test_uses_spaced_degree_cover_title_for_document_identity(self) -> None:
+        lines = """# 硕 士 学 位 论 文（
+
+论 文 题 目 ： 三 峡 枢 纽 过 坝 货 运 量 预 测 及 路 径 选 择 研 究
+
+## 摘要
+
+摘要正文。
+
+## 第一章 绪论
+
+正文内容。
+""".splitlines()
+
+        result = build_document_map("三峡枢纽过坝货运量预测及路径选择研究", lines)
+
+        self.assertIsNotNone(result.selected_segment)
+        assert result.selected_segment is not None
+        self.assertEqual(result.selected_segment.start_line, 1)
+        self.assertEqual(result.selected_segment.end_line, len(lines))
+        self.assertIn(
+            "parse.degree_cover_title_match",
+            [issue["code"] for issue in result.issues],
+        )
+        self.assertNotEqual(result.quality_label, "red")
+
+    def test_does_not_use_low_confidence_degree_cover_title(self) -> None:
+        lines = """# 硕士学位论文
+
+论文题目：另一项完全不同的研究
+
+## 第一章 绪论
+
+正文内容。
+""".splitlines()
+
+        result = build_document_map("目标论文", lines)
+
+        self.assertIn(
+            "parse.document_identity_mismatch",
+            [issue["code"] for issue in result.issues],
+        )
+        self.assertEqual(result.quality_label, "red")
+
     def test_ignores_single_character_ocr_h1s_as_document_boundaries(self) -> None:
         lines = """# 工
 
@@ -450,6 +494,35 @@ Key words: co-scheduling
         assert result.selected_segment is not None
         self.assertEqual(result.selected_segment.end_line, len(lines))
         self.assertEqual(result.selected_segment.companion_h1_lines, (7,))
+        self.assertIn(
+            "parse.bilingual_title_scope_merged",
+            [issue["code"] for issue in result.issues],
+        )
+
+    def test_merges_fragmented_foreign_title_after_ocr_damaged_abstract(self) -> None:
+        lines = """# 三峡水库航运效益分析
+
+关键词：三峡水库；航运
+
+摘，要，摘要被 OCR 损坏。
+
+# Benefit analysis of navigation
+
+# in the Three Gorges Reservoir
+
+作者与外文摘要。
+
+## 1 计算条件
+
+正文。
+""".splitlines()
+
+        result = build_document_map("三峡水库航运效益分析", lines)
+
+        self.assertIsNotNone(result.selected_segment)
+        assert result.selected_segment is not None
+        self.assertEqual(result.selected_segment.end_line, len(lines))
+        self.assertEqual(result.selected_segment.companion_h1_lines, (7, 9))
         self.assertIn(
             "parse.bilingual_title_scope_merged",
             [issue["code"] for issue in result.issues],

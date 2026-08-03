@@ -51,6 +51,10 @@ FRONT_METADATA_PATTERN = re.compile(
     r"^\s*(?:中\s*图(?:法)?分?类号|文\s*献标识码|文\s*章编号|doi\b|收稿日期|基金项目|分类号|udc\b)",
     re.IGNORECASE,
 )
+DEGREE_COVER_TITLE_PATTERN = re.compile(
+    r"^\s*(?:论\s*文\s*题\s*目|题\s*目)\s*[:：]\s*(.+?)\s*$",
+    re.IGNORECASE,
+)
 
 
 @dataclass(frozen=True)
@@ -186,12 +190,20 @@ class _HeadingCandidate:
 def build_document_map(paper_id: str, lines: list[str]) -> DocumentMap:
     segments = split_h1_segments(lines)
     degree_document = _is_degree_document(segments, lines)
-    selected, selection_issues = select_document_segment(
-        paper_id,
-        segments,
-        lines,
-        allow_equivalent_ties=degree_document,
+    degree_cover_selection = (
+        _select_degree_cover_title_segment(paper_id, segments, lines)
+        if degree_document
+        else None
     )
+    if degree_cover_selection is not None:
+        selected, selection_issues = degree_cover_selection
+    else:
+        selected, selection_issues = select_document_segment(
+            paper_id,
+            segments,
+            lines,
+            allow_equivalent_ties=degree_document,
+        )
     if any(issue["severity"] == "error" for issue in selection_issues):
         nested_selected, nested_issues = select_nested_document_segment(
             paper_id,
@@ -286,6 +298,48 @@ def split_h1_segments(lines: list[str]) -> list[DocumentSegment]:
             )
         )
     return segments
+
+
+def _select_degree_cover_title_segment(
+    paper_id: str,
+    segments: list[DocumentSegment],
+    lines: list[str],
+) -> tuple[DocumentSegment, list[dict[str, Any]]] | None:
+    candidates: list[tuple[float, int, str]] = []
+    for line_number, line in enumerate(lines[:200], start=1):
+        match = DEGREE_COVER_TITLE_PATTERN.match(strip_html_markup(line))
+        if not match:
+            continue
+        title = _normalize_whitespace(match.group(1))
+        score = _title_match_score(paper_id, title)
+        if score >= SINGLE_TITLE_CONFIDENT_SCORE:
+            candidates.append((score, line_number, title))
+    if not candidates:
+        return None
+
+    score, line_number, title = max(candidates, key=lambda item: item[0])
+    segment = next(
+        (
+            segment
+            for segment in segments
+            if segment.start_line <= line_number <= segment.end_line
+        ),
+        segments[0],
+    )
+    selected = replace(segment, title=paper_id, match_score=score)
+    return selected, [
+        _issue(
+            "parse.degree_cover_title_match",
+            "学位论文封面题名与预期论文身份高置信匹配，已按整篇学位论文确定范围。",
+            details={
+                "paper_id": paper_id,
+                "cover_title": title,
+                "cover_title_line": line_number,
+                "match_score": score,
+                "selected": selected.to_dict(),
+            },
+        )
+    ]
 
 
 def select_nested_document_segment(
@@ -536,12 +590,15 @@ def _expand_document_scope(
                 },
             )
         ]
-    companion = _bilingual_front_matter_companion(selected, segments, lines)
-    if companion is not None:
+    companions = _bilingual_front_matter_companions(selected, segments, lines)
+    if companions:
+        companion = companions[-1]
         expanded = replace(
             selected,
             end_line=companion.end_line,
-            companion_h1_lines=(companion.h1_line,) if companion.h1_line else (),
+            companion_h1_lines=tuple(
+                item.h1_line for item in companions if item.h1_line is not None
+            ),
         )
         return expanded, [
             _issue(
@@ -581,11 +638,11 @@ def _empty_title_body_companion(
     return companion if _segment_has_body_heading(companion, lines) else None
 
 
-def _bilingual_front_matter_companion(
+def _bilingual_front_matter_companions(
     selected: DocumentSegment,
     segments: list[DocumentSegment],
     lines: list[str],
-) -> DocumentSegment | None:
+) -> tuple[DocumentSegment, ...]:
     try:
         index = next(
             index
@@ -593,18 +650,27 @@ def _bilingual_front_matter_companion(
             if segment.start_line == selected.start_line
         )
     except StopIteration:
-        return None
+        return ()
     if index + 1 >= len(segments):
-        return None
-    companion = segments[index + 1]
+        return ()
     if (
         selected.match_score < SINGLE_TITLE_CONFIDENT_SCORE
         or _segment_has_body_heading(selected, lines)
-        or not _segment_has_abstract(selected, lines)
-        or not _segment_has_body_heading(companion, lines)
+        or not (
+            _segment_has_abstract(selected, lines)
+            or _segment_has_keywords(selected, lines)
+        )
     ):
-        return None
-    return companion
+        return ()
+
+    companions: list[DocumentSegment] = []
+    for companion in segments[index + 1 : index + 5]:
+        companions.append(companion)
+        if _segment_has_body_heading(companion, lines):
+            return tuple(companions)
+        if _segment_has_non_title_content(companion, lines):
+            return ()
+    return ()
 
 
 def _segment_has_abstract(segment: DocumentSegment, lines: list[str]) -> bool:
@@ -616,6 +682,19 @@ def _segment_has_abstract(segment: DocumentSegment, lines: list[str]) -> bool:
             return True
         heading = MARKDOWN_HEADING_PATTERN.match(cleaned)
         if heading and canonical_heading_title(heading.group(2)) in ABSTRACT_TITLES:
+            return True
+    return False
+
+
+def _segment_has_keywords(segment: DocumentSegment, lines: list[str]) -> bool:
+    lower = max(segment.start_line, 1)
+    upper = min(segment.end_line, len(lines))
+    for line in lines[lower - 1:upper]:
+        cleaned = strip_html_markup(line)
+        if INLINE_KEYWORD_PATTERN.match(cleaned):
+            return True
+        heading = MARKDOWN_HEADING_PATTERN.match(cleaned)
+        if heading and canonical_heading_title(heading.group(2)) in KEYWORD_TITLES:
             return True
     return False
 
