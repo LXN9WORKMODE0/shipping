@@ -39,12 +39,14 @@ DEGREE_H1_MARKERS = (
     "degreeofdoctor",
     "原创性声明",
 )
+_ABSTRACT_LABEL = r"(?:摘\s*要|a\s*b\s*s\s*t\s*r\s*a\s*c\s*t)"
+_KEYWORD_LABEL = r"(?:关\s*键\s*[词字]|k\s*e\s*y\s*w\s*o\s*r\s*d\s*s?)"
 INLINE_ABSTRACT_PATTERN = re.compile(
-    r"^\s*(?:摘\s*要|a\s*b\s*s\s*t\s*r\s*a\s*c\s*t)(?:\s*[:：]\s*|\s+)",
+    rf"^\s*(?:[\[【]\s*{_ABSTRACT_LABEL}\s*[\]】]\s*|{_ABSTRACT_LABEL}(?:\s*[:：]\s*|\s+))",
     re.IGNORECASE,
 )
 INLINE_KEYWORD_PATTERN = re.compile(
-    r"^\s*(?:关\s*键\s*[词字]|k\s*e\s*y\s*w\s*o\s*r\s*d\s*s?)(?:\s*[:：]\s*|\s+)",
+    rf"^\s*(?:[\[【]\s*{_KEYWORD_LABEL}\s*[\]】]\s*|{_KEYWORD_LABEL}(?:\s*[:：]\s*|\s+))",
     re.IGNORECASE,
 )
 FRONT_METADATA_PATTERN = re.compile(
@@ -515,13 +517,29 @@ def _select_fragmented_h1_segment(
         if (
             left.h1_line is None
             or right.h1_line is None
-            or _segment_has_non_title_content(left, lines)
-            or not _segment_has_body_heading(right, lines)
+            or not _segment_has_non_title_content(right, lines)
         ):
             continue
-        combined_title = _normalize_whitespace(f"{left.title}{right.title}")
+        combined_titles = (
+            _normalize_whitespace(f"{left.title}{right.title}"),
+            _normalize_whitespace(f"{right.title}{left.title}"),
+        )
+        combined_title = max(
+            combined_titles,
+            key=lambda title: _title_match_score(paper_id, title),
+        )
         score = _title_match_score(paper_id, combined_title)
         if score < MIN_TITLE_MATCH_SCORE:
+            continue
+        if _segment_has_non_title_content(left, lines) and not (
+            score >= 0.95
+            and score
+            - max(
+                _title_match_score(paper_id, left.title),
+                _title_match_score(paper_id, right.title),
+            )
+            >= MIN_TITLE_MATCH_MARGIN
+        ):
             continue
         candidates.append(
             replace(
@@ -570,14 +588,17 @@ def _expand_document_scope(
         return selected, []
     if len(segments) == 1:
         return replace(selected, start_line=1, end_line=len(lines)), []
-    empty_companion = _empty_title_body_companion(selected, segments, lines)
-    if empty_companion is not None:
+    empty_companions = _empty_title_body_companions(selected, segments, lines)
+    if empty_companions:
+        empty_companion = empty_companions[-1]
         expanded = replace(
             selected,
             end_line=empty_companion.end_line,
-            companion_h1_lines=(empty_companion.h1_line,)
-            if empty_companion.h1_line
-            else (),
+            companion_h1_lines=tuple(
+                item.h1_line
+                for item in empty_companions
+                if item.h1_line is not None
+            ),
         )
         return expanded, [
             _issue(
@@ -614,16 +635,16 @@ def _expand_document_scope(
     return selected, []
 
 
-def _empty_title_body_companion(
+def _empty_title_body_companions(
     selected: DocumentSegment,
     segments: list[DocumentSegment],
     lines: list[str],
-) -> DocumentSegment | None:
+) -> tuple[DocumentSegment, ...]:
     if (
         selected.match_score < SINGLE_TITLE_CONFIDENT_SCORE
         or _segment_has_non_title_content(selected, lines)
     ):
-        return None
+        return ()
     try:
         index = next(
             index
@@ -631,11 +652,22 @@ def _empty_title_body_companion(
             if segment.start_line == selected.start_line
         )
     except StopIteration:
-        return None
+        return ()
     if index + 1 >= len(segments):
-        return None
-    companion = segments[index + 1]
-    return companion if _segment_has_body_heading(companion, lines) else None
+        return ()
+
+    companions: list[DocumentSegment] = []
+    for companion in segments[index + 1 : index + 5]:
+        companions.append(companion)
+        if _segment_has_body_heading(companion, lines):
+            return tuple(companions)
+        if _segment_has_abstract(companion, lines) or _segment_has_keywords(
+            companion, lines
+        ):
+            continue
+        if _segment_has_non_title_content(companion, lines):
+            return ()
+    return ()
 
 
 def _bilingual_front_matter_companions(

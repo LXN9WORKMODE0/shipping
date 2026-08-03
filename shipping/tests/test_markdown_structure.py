@@ -454,6 +454,75 @@ Key words: co-scheduling
             [issue["code"] for issue in result.issues],
         )
 
+    def test_merges_empty_title_across_abstract_companion_to_body(self) -> None:
+        lines = """# 目标论文
+
+# Foreign Title
+
+## 摘要
+
+摘要正文。
+
+# Foreign Title
+
+## 1 绪论
+
+正文。
+""".splitlines()
+
+        result = build_document_map("目标论文", lines)
+
+        self.assertIsNotNone(result.selected_segment)
+        assert result.selected_segment is not None
+        self.assertEqual(result.selected_segment.end_line, len(lines))
+        self.assertEqual(result.selected_segment.companion_h1_lines, (3, 9))
+        self.assertIn(
+            "parse.empty_title_companion_scope_merged",
+            [issue["code"] for issue in result.issues],
+        )
+
+    def test_merges_fragmented_exact_title_without_structured_body(self) -> None:
+        lines = """# 优化三峡临时船闸通航方式
+
+# 单向运行 定时换向
+
+短讯正文。
+""".splitlines()
+
+        result = build_document_map("单向运行 定时换向——优化三峡临时船闸通航方式", lines)
+
+        self.assertIsNotNone(result.selected_segment)
+        assert result.selected_segment is not None
+        self.assertEqual(result.selected_segment.end_line, len(lines))
+        self.assertIn(
+            "parse.fragmented_title_scope_merged",
+            [issue["code"] for issue in result.issues],
+        )
+
+    def test_merges_exact_fragmented_title_across_ocr_column_content(self) -> None:
+        lines = """# 客运翻坝货运过闸
+
+双栏 OCR 提前插入的正文。
+
+# 以航补航企稳货源
+
+作者。
+
+## 一、现状
+
+后续正文。
+""".splitlines()
+
+        result = build_document_map("客运翻坝货运过闸 以航补航企稳货源", lines)
+
+        self.assertIsNotNone(result.selected_segment)
+        assert result.selected_segment is not None
+        self.assertEqual(result.selected_segment.end_line, len(lines))
+        self.assertIn(
+            "parse.fragmented_title_scope_merged",
+            [issue["code"] for issue in result.issues],
+        )
+
     def test_does_not_merge_low_confidence_empty_title_with_next_article(self) -> None:
         lines = """# 三峡工程施工通航期淤积研究
 
@@ -523,6 +592,33 @@ Key words: co-scheduling
         assert result.selected_segment is not None
         self.assertEqual(result.selected_segment.end_line, len(lines))
         self.assertEqual(result.selected_segment.companion_h1_lines, (7, 9))
+        self.assertIn(
+            "parse.bilingual_title_scope_merged",
+            [issue["code"] for issue in result.issues],
+        )
+
+    def test_merges_foreign_title_after_bracketed_front_matter_labels(self) -> None:
+        lines = """# 目标论文
+
+【摘 要】中文摘要。
+
+[关键词]三峡；航运
+
+# Foreign title
+
+Abstract: English abstract.
+
+## 1 引言
+
+正文。
+""".splitlines()
+
+        result = build_document_map("目标论文", lines)
+
+        self.assertIsNotNone(result.selected_segment)
+        assert result.selected_segment is not None
+        self.assertEqual(result.selected_segment.end_line, len(lines))
+        self.assertEqual(result.selected_segment.companion_h1_lines, (7,))
         self.assertIn(
             "parse.bilingual_title_scope_merged",
             [issue["code"] for issue in result.issues],
