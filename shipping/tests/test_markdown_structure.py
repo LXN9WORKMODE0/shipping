@@ -251,6 +251,34 @@ Second body.
             [issue["code"] for issue in result.issues],
         )
 
+    def test_merges_bilingual_scope_when_english_abstract_uses_html(self) -> None:
+        lines = """# 三峡联合调度快速算法
+
+摘要：中文摘要。
+
+关键词：联合调度
+
+# Fast Algorithm for Co-scheduling
+
+<sup>Abstract：</sup>English abstract.
+
+Key words: co-scheduling
+
+## 0 引言
+
+正文内容。
+""".splitlines()
+
+        result = build_document_map("三峡联合调度快速算法", lines)
+
+        self.assertIsNotNone(result.selected_segment)
+        assert result.selected_segment is not None
+        self.assertEqual(result.selected_segment.end_line, len(lines))
+        self.assertIn(
+            "parse.bilingual_title_scope_merged",
+            [issue["code"] for issue in result.issues],
+        )
+
     def test_selects_exact_h2_article_from_mixed_heading_level_bundle(self) -> None:
         lines = """## 三峡永久船闸水力学问题研究
 

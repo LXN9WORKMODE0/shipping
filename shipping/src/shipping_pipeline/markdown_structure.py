@@ -495,9 +495,10 @@ def _segment_has_abstract(segment: DocumentSegment, lines: list[str]) -> bool:
     lower = max(segment.start_line, 1)
     upper = min(segment.end_line, len(lines))
     for line in lines[lower - 1:upper]:
-        if INLINE_ABSTRACT_PATTERN.match(line):
+        cleaned = strip_html_markup(line)
+        if INLINE_ABSTRACT_PATTERN.match(cleaned):
             return True
-        heading = MARKDOWN_HEADING_PATTERN.match(line)
+        heading = MARKDOWN_HEADING_PATTERN.match(cleaned)
         if heading and canonical_heading_title(heading.group(2)) in ABSTRACT_TITLES:
             return True
     return False
