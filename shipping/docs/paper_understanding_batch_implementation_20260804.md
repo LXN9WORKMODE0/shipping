@@ -28,6 +28,8 @@ llm-paper-understanding-batch
 
 默认只处理`core`。可重复传入`--relevance`扩大范围；`--max-papers`用于小批验证；`--resume-from-run-id`复用代际未变化的成功结果。
 
+真实3篇验证后新增`--record-id`：可以按筛选账本ID冻结和排序显式论文集合。指定ID不存在、筛选不可用或不属于当前纳入等级时直接拒绝，避免按账本顺序抽样造成规模偏差。
+
 ## 3. 判断与状态逻辑
 
 - `understood`：单篇理解运行完成，可进入下一层。
@@ -47,9 +49,15 @@ llm-paper-understanding-batch
 - 项目完整测试：601项通过，另有73个subtests通过。
 - 已验证失败隔离、部分批次、续跑复用、未入选可见和意外子任务异常隔离。
 
-## 5. 尚未完成的真实验证
+## 5. 首轮真实验证
 
-计划使用最终筛选运行`paper-pool-all-20260804-screen-final-reconcile-v3`中的3篇core论文执行真实DeepSeek验证。调用需要发送每篇完整规范化Markdown和全部Card。该用途超出此前全池轻量筛选授权范围，因此尚未执行。
+已使用最终筛选运行`paper-pool-all-20260804-screen-final-reconcile-v3`中的3篇core论文执行真实DeepSeek验证，运行ID为`paper-understanding-core-sample3-20260804-v1`。
 
-获得明确授权后，先完成3篇样本并审查输入规模、输出质量、失败类型、Token使用和下一层可用性；通过后再决定是否扩至30至50篇核心论文。
+- 3篇全部完成，0篇失败；
+- 输入Card数分别为18、16、18；
+- Token总量分别为13812、15404、15497，共44713；
+- finish_reason均为stop，reasoning字符均为0；
+- 输出均通过Schema和来源绑定校验；
+- 对运营实测、算法仿真、系统设计与建议的基本区分成立。
 
+这3篇均属于小论文，不能覆盖长上下文风险。本地统计317篇core论文Card数为：中位数23、P75为34、P90为165、最大527。下一轮应显式选择中位、P90和最大规模各1篇，而不是继续取账本前3篇。

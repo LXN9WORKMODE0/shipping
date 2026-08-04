@@ -61,6 +61,7 @@ class PaperUnderstandingBatchTest(unittest.TestCase):
         ])
         self.assertEqual(args.command, "llm-paper-understanding-batch")
         self.assertIsNone(args.relevance)
+        self.assertIsNone(args.record_id)
 
     def test_batch_isolates_failure_and_keeps_non_selected_visible(self) -> None:
         fake = FakePaperRunner(self.workspace, fail_paper_id="paper-two")
@@ -126,6 +127,37 @@ class PaperUnderstandingBatchTest(unittest.TestCase):
         records = self._read_output("batch-exception")["records"]
         failed = next(row for row in records if row["record_id"] == "record-2")
         self.assertEqual(failed["failure"]["error_code"], "RuntimeError")
+
+    def test_explicit_record_ids_preserve_requested_order(self) -> None:
+        fake = FakePaperRunner(self.workspace)
+        PaperUnderstandingBatchRunner(
+            self.workspace,
+            paper_runner=fake,
+            screening_loader=self._load_screening,
+        ).run(
+            screening_run_id="screening-one",
+            run_id="batch-explicit",
+            relevance=("core", "supporting"),
+            record_ids=("record-2", "record-1"),
+        )
+
+        self.assertEqual(
+            [call["paper_id"] for call in fake.calls],
+            ["paper-two", "paper-one"],
+        )
+
+    def test_explicit_record_id_outside_relevance_is_rejected(self) -> None:
+        with self.assertRaisesRegex(Exception, "record_unavailable"):
+            PaperUnderstandingBatchRunner(
+                self.workspace,
+                paper_runner=FakePaperRunner(self.workspace),
+                screening_loader=self._load_screening,
+            ).run(
+                screening_run_id="screening-one",
+                run_id="batch-invalid-record",
+                relevance=("core",),
+                record_ids=("record-2",),
+            )
 
     def _write_screening(self) -> None:
         root = self.workspace / "_paper_pool_screenings" / "runs" / "screening-one"

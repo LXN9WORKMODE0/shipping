@@ -44,6 +44,7 @@ class PaperUnderstandingBatchRunner:
         screening_run_id: str,
         run_id: str | None = None,
         relevance: Iterable[str] = ("core",),
+        record_ids: Iterable[str] | None = None,
         max_papers: int | None = None,
         resume_from_run_id: str | None = None,
         provider: str = "openai-compatible",
@@ -81,6 +82,30 @@ class PaperUnderstandingBatchRunner:
             selected_relevance=selected_relevance,
             screening_loader=self.screening_loader,
         )
+        requested_record_ids = tuple(
+            dict.fromkeys(str(value) for value in (record_ids or ()))
+        )
+        if requested_record_ids:
+            candidate_ids = {row["record_id"] for row in candidates}
+            unavailable = [
+                record_id
+                for record_id in requested_record_ids
+                if record_id not in candidate_ids
+            ]
+            if unavailable:
+                raise PaperUnderstandingBatchError(
+                    "understanding_batch.record_unavailable",
+                    f"指定论文不在当前筛选入选集中：{unavailable}",
+                )
+            requested_set = set(requested_record_ids)
+            candidates = [
+                row for row in candidates if row["record_id"] in requested_set
+            ]
+            order = {
+                record_id: index
+                for index, record_id in enumerate(requested_record_ids)
+            }
+            candidates.sort(key=lambda row: order[row["record_id"]])
         reused, resume_rejections = self._load_reusable(
             resume_from_run_id=resume_from_run_id,
             screening=screening,
@@ -93,6 +118,7 @@ class PaperUnderstandingBatchRunner:
             "screening_run_id": screening_run_id,
             "topic": screening["topic"],
             "selected_relevance": list(selected_relevance),
+            "requested_record_ids": list(requested_record_ids),
             "max_papers": max_papers,
             "resume_from_run_id": resume_from_run_id,
             "candidate_record_ids": [row["record_id"] for row in candidates],
@@ -178,6 +204,7 @@ class PaperUnderstandingBatchRunner:
             "screening_run_id": screening_run_id,
             "topic": screening["topic"],
             "selected_relevance": list(selected_relevance),
+            "requested_record_ids": list(requested_record_ids),
             "summary": summary,
             "records": records,
             "successful_understanding_run_ids": [

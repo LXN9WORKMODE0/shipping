@@ -412,6 +412,10 @@ def build_parser() -> argparse.ArgumentParser:
         "--relevance", action="append", choices=["core", "supporting", "peripheral"],
         default=None, help="可重复；默认只处理core。",
     )
+    understanding_batch_parser.add_argument(
+        "--record-id", action="append", default=None,
+        help="可重复；只处理显式指定且属于纳入等级的筛选记录。",
+    )
     understanding_batch_parser.add_argument("--max-papers", type=int, default=None)
     understanding_batch_parser.add_argument("--resume-from-run-id", default=None)
     understanding_batch_parser.add_argument(
@@ -1458,6 +1462,7 @@ def main(argv: list[str] | None = None) -> int:
             screening_run_id=args.screening_run_id,
             run_id=args.run_id,
             relevance=args.relevance or ("core",),
+            record_ids=args.record_id,
             max_papers=args.max_papers,
             resume_from_run_id=args.resume_from_run_id,
             provider=args.provider,
