@@ -42,6 +42,10 @@ from shipping_pipeline.research_understanding import (
 from shipping_pipeline.paper_understanding_batch import (
     PaperUnderstandingBatchRunner,
 )
+from shipping_pipeline.hierarchical_landscape import (
+    HierarchicalLocalLandscapeBatchRunner,
+    HierarchicalLandscapePlanRunner,
+)
 from shipping_pipeline.research_landscape import (
     DEFAULT_RESEARCH_LANDSCAPE_CONFIG,
     ResearchLandscapeRunner,
@@ -428,6 +432,33 @@ def build_parser() -> argparse.ArgumentParser:
         "--understanding-config", type=Path, default=DEFAULT_UNDERSTANDING_CONFIG
     )
     understanding_batch_parser.add_argument("--timeout", type=int, default=900)
+
+    hierarchical_plan_parser = subparsers.add_parser(
+        "hierarchical-landscape-plan",
+        help="严格重放Paper Understanding集合并生成可审计的主题簇与局部Landscape collections。",
+    )
+    hierarchical_plan_parser.add_argument("--collection", type=Path, required=True)
+    hierarchical_plan_parser.add_argument("--routing", type=Path, required=True)
+    hierarchical_plan_parser.add_argument("--workspace", type=Path, default=Path("workspace"))
+    hierarchical_plan_parser.add_argument("--run-id", default=None)
+    hierarchical_plan_parser.add_argument("--max-papers-per-cluster", type=int, default=40)
+    hierarchical_plan_parser.add_argument("--max-memberships-per-paper", type=int, default=2)
+
+    hierarchical_local_parser = subparsers.add_parser(
+        "hierarchical-landscape-local-run",
+        help="按层级计划逐主题簇运行旧Research Landscape，并保留部分成功账本。",
+    )
+    hierarchical_local_parser.add_argument("--plan-run-id", required=True)
+    hierarchical_local_parser.add_argument("--workspace", type=Path, default=Path("workspace"))
+    hierarchical_local_parser.add_argument("--run-id", default=None)
+    hierarchical_local_parser.add_argument("--max-clusters", type=int, default=None)
+    hierarchical_local_parser.add_argument("--resume-from-run-id", default=None)
+    hierarchical_local_parser.add_argument("--provider", choices=["openai-compatible"], default="openai-compatible")
+    hierarchical_local_parser.add_argument("--api-url", default=None)
+    hierarchical_local_parser.add_argument("--api-key-env", default="LLM_ANALYSIS_API_KEY")
+    hierarchical_local_parser.add_argument("--model-profile", type=Path, default=DEFAULT_MODEL_PROFILE)
+    hierarchical_local_parser.add_argument("--landscape-config", type=Path, default=DEFAULT_RESEARCH_LANDSCAPE_CONFIG)
+    hierarchical_local_parser.add_argument("--timeout", type=int, default=900)
 
     research_landscape_parser = subparsers.add_parser(
         "llm-research-landscape",
@@ -1470,6 +1501,33 @@ def main(argv: list[str] | None = None) -> int:
             api_key_env=args.api_key_env,
             model_profile_path=args.model_profile,
             understanding_config_path=args.understanding_config,
+            timeout=args.timeout,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] in {
+            "completed", "completed_partial", "completed_with_failures"
+        } else 1
+    if args.command == "hierarchical-landscape-plan":
+        result = HierarchicalLandscapePlanRunner(args.workspace).run(
+            collection_path=args.collection,
+            routing_path=args.routing,
+            run_id=args.run_id,
+            max_papers_per_cluster=args.max_papers_per_cluster,
+            max_memberships_per_paper=args.max_memberships_per_paper,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] == "completed" else 1
+    if args.command == "hierarchical-landscape-local-run":
+        result = HierarchicalLocalLandscapeBatchRunner(args.workspace).run(
+            plan_run_id=args.plan_run_id,
+            run_id=args.run_id,
+            max_clusters=args.max_clusters,
+            resume_from_run_id=args.resume_from_run_id,
+            provider=args.provider,
+            api_url=args.api_url,
+            api_key_env=args.api_key_env,
+            model_profile_path=args.model_profile,
+            landscape_config_path=args.landscape_config,
             timeout=args.timeout,
         )
         print(json.dumps(result, ensure_ascii=False))

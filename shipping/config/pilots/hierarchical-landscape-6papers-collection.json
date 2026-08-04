@@ -1,0 +1,14 @@
+{
+  "schema_version": "llm.research_landscape_collection.v1",
+  "topic": "三峡枢纽通航能力的提升方法",
+  "review_goal": "比较不同通航能力提升路径的方法、效果、验证水平和适用边界",
+  "corpus_scope": "targeted_sample",
+  "source_understanding_run_ids": [
+    "paper-understanding-core-sample3-20260804-v1--paper-0001",
+    "paper-understanding-core-sample3-20260804-v1--paper-0002",
+    "paper-understanding-core-sample3-20260804-v1--paper-0003",
+    "paper-understanding-core-scale3-20260804-v1--paper-0001",
+    "paper-understanding-core-scale3-20260804-v1--paper-0002",
+    "paper-understanding-core-scale3-20260804-v1--paper-0003"
+  ]
+}
