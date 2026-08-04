@@ -300,15 +300,20 @@ class PaperPoolScreeningRunner:
                     or old_source.get("content_id") != current_source.get("content_id")
                     or current_source.get("processing_status") != "card_ready"
                 ):
-                    raise PaperTopicScreeningError(
-                        "paper_pool_screen.reused_source_changed",
-                        f"已筛选论文的源身份或Card状态变化：{record_id}",
-                    )
+                    resume_rejections.append({
+                        "record_id": record_id,
+                        "screening_run_id": str(
+                            old_row.get("screening_run_id") or ""
+                        ),
+                        "reason_code": "paper_pool_screen.reused_source_changed",
+                        "reason": f"已筛选论文的源身份或Card状态变化：{record_id}",
+                    })
+                    continue
                 child_run_id = str(old_row.get("screening_run_id") or "")
                 try:
                     screening = load_paper_topic_screening(self.workspace, child_run_id)
                 except PaperTopicScreeningError as exc:
-                    if exc.code != "paper_screen.output_not_chinese":
+                    if not _is_resume_rejection(exc):
                         raise
                     resume_rejections.append({
                         "record_id": record_id,
@@ -323,10 +328,13 @@ class PaperPoolScreeningRunner:
                     or exact_runs[0]["workspace_paper_id"] != screening["workspace_paper_id"]
                     or exact_runs[0]["generation_id"] != screening["generation_id"]
                 ):
-                    raise PaperTopicScreeningError(
-                        "paper_pool_screen.reused_card_changed",
-                        f"已筛选论文的Card身份变化：{record_id}",
-                    )
+                    resume_rejections.append({
+                        "record_id": record_id,
+                        "screening_run_id": child_run_id,
+                        "reason_code": "paper_pool_screen.reused_card_changed",
+                        "reason": f"已筛选论文的Card身份变化：{record_id}",
+                    })
+                    continue
                 resumed_children[record_id] = {
                     "record_id": record_id,
                     "run_id": child_run_id,
@@ -437,6 +445,13 @@ class PaperPoolScreeningRunner:
             "report_path": str(run_dir / "review" / "paper_pool_screening.md"),
             "failure": None,
         }
+
+
+def _is_resume_rejection(exc: PaperTopicScreeningError) -> bool:
+    return exc.code in {
+        "paper_screen.output_not_chinese",
+        "paper_screen.source_changed",
+    }
 
 
 def _pool_summary(records):

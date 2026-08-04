@@ -6,6 +6,7 @@ from pathlib import Path
 import main
 from shipping_pipeline.paper_topic_screening import (
     PaperTopicScreeningError,
+    _is_resume_rejection,
     _pool_summary,
     _validate_chinese_scope,
 )
@@ -48,3 +49,19 @@ class PaperTopicScreeningTest(unittest.TestCase):
                     {"selection_reason": "选择论文结论。"}
                 ],
             })
+
+    def test_card_generation_change_is_a_resume_rejection(self) -> None:
+        error = PaperTopicScreeningError(
+            "paper_screen.source_changed",
+            "单篇筛选来源Card代际已变化。",
+        )
+
+        self.assertTrue(_is_resume_rejection(error))
+
+    def test_unexpected_resume_error_still_aborts(self) -> None:
+        error = PaperTopicScreeningError(
+            "paper_screen.schema_invalid",
+            "产物结构损坏。",
+        )
+
+        self.assertFalse(_is_resume_rejection(error))
