@@ -50,6 +50,10 @@ from shipping_pipeline.hierarchical_global_landscape import (
     DEFAULT_HIERARCHICAL_GLOBAL_CONFIG,
     HierarchicalGlobalLandscapeRunner,
 )
+from shipping_pipeline.hierarchical_lookback import (
+    DEFAULT_LOOKBACK_CONFIG,
+    HierarchicalLookbackRunner,
+)
 from shipping_pipeline.research_landscape import (
     DEFAULT_RESEARCH_LANDSCAPE_CONFIG,
     ResearchLandscapeRunner,
@@ -477,6 +481,21 @@ def build_parser() -> argparse.ArgumentParser:
     hierarchical_global_parser.add_argument("--model-profile", type=Path, default=DEFAULT_MODEL_PROFILE)
     hierarchical_global_parser.add_argument("--global-config", type=Path, default=DEFAULT_HIERARCHICAL_GLOBAL_CONFIG)
     hierarchical_global_parser.add_argument("--timeout", type=int, default=900)
+
+    lookback_parser = subparsers.add_parser(
+        "hierarchical-landscape-lookback",
+        help="根据全局Landscape回看请求，从全论文筛选池匹配候选论文。",
+    )
+    lookback_parser.add_argument("--global-run-id", required=True)
+    lookback_parser.add_argument("--screening-run-id", required=True)
+    lookback_parser.add_argument("--workspace", type=Path, default=Path("workspace"))
+    lookback_parser.add_argument("--run-id", default=None)
+    lookback_parser.add_argument("--provider", choices=["openai-compatible"], default="openai-compatible")
+    lookback_parser.add_argument("--api-url", default=None)
+    lookback_parser.add_argument("--api-key-env", default="LLM_ANALYSIS_API_KEY")
+    lookback_parser.add_argument("--model-profile", type=Path, default=DEFAULT_MODEL_PROFILE)
+    lookback_parser.add_argument("--lookback-config", type=Path, default=DEFAULT_LOOKBACK_CONFIG)
+    lookback_parser.add_argument("--timeout", type=int, default=900)
 
     research_landscape_parser = subparsers.add_parser(
         "llm-research-landscape",
@@ -1561,6 +1580,20 @@ def main(argv: list[str] | None = None) -> int:
             api_key_env=args.api_key_env,
             model_profile_path=args.model_profile,
             global_config_path=args.global_config,
+            timeout=args.timeout,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] == "completed" else 1
+    if args.command == "hierarchical-landscape-lookback":
+        result = HierarchicalLookbackRunner(args.workspace).run(
+            global_run_id=args.global_run_id,
+            screening_run_id=args.screening_run_id,
+            run_id=args.run_id,
+            provider=args.provider,
+            api_url=args.api_url,
+            api_key_env=args.api_key_env,
+            model_profile_path=args.model_profile,
+            lookback_config_path=args.lookback_config,
             timeout=args.timeout,
         )
         print(json.dumps(result, ensure_ascii=False))

@@ -86,3 +86,19 @@ H3已开始实现。新增`hierarchical-landscape-global-run`及独立Schema：�
 H3本地严格加载会从局部正式输出移除程序机器ID，重新执行旧Landscape Schema、论文覆盖和contribution ownership校验，再比较重新生成的稳定ID。三个真实局部Landscape共15个维度，已通过完整依赖链重放。
 
 当前尚未执行真实全局归并调用。H3假客户端已验证全局维度完整对账、跨簇双侧来源、稳定ID、coverage及回看请求账本。
+
+首次真实全局归并`hierarchical-landscape-6papers-global-20260809-v1`被完整性门禁拒绝：15个局部维度中有1个被跨簇关系引用，但既未进入全局维度，也未列入unmapped。失败运行使用10,664 tokens并完整保留。合同随后升级为v2，新增固定15条的`local_dimension_accounting`，要求模型逐维度声明映射状态并与正式输出交叉对账，不由程序自动补齐遗漏。
+
+v2首次运行已经完整覆盖15个维度，accounting中的目标编号也全部一致，但合同实现额外要求mapped项的`reason`必须为null，而Schema允许说明文字，导致内部约束冲突。现已允许mapped项保留解释；unmapped仍强制目标编号为null且必须填写原因。
+
+修正后真实全局运行`hierarchical-landscape-6papers-global-20260809-v3`完成：15个局部维度全部进入7个全局维度，形成2条跨簇关系和4个回看请求，覆盖率1.0，使用12,578 tokens。
+
+H4新增`hierarchical-landscape-lookback`：严格重放全局Landscape与最终筛选账本，把core/supporting筛选投影提交给候选匹配器。每个请求最多12篇候选，一篇论文最多匹配2个请求；没有候选允许显式空结果。候选只发布为建议补充，不自动运行Understanding或修改主题簇。
+
+首次真实回看`hierarchical-lookback-6papers-20260809-v1`使用233,171 tokens。模型对首个请求选入一篇同时明确判断“无法使用”的低置信候选，并填写no_match_reason，违反候选/无匹配互斥合同，运行被拒绝。Schema现已增加条件约束，负面判断只能形成空候选和no_match_reason，不能占用候选名额。
+
+第二次真实回看`hierarchical-lookback-6papers-20260809-v2`暴露了另一项合同缺口：不同请求虽然具有各自的`desired_source_levels`，但Schema共用全体候选ID枚举，模型可以把supporting论文放入仅允许core的请求，直到响应后校验才失败。H4现改为逐请求`prefixItems` Schema，固定请求顺序、请求ID和该请求允许使用的候选集合，约束不再依赖响应后的补救校验。
+
+修正后`hierarchical-lookback-6papers-20260809-v3`完成：4个回看请求中1个匹配到6篇候选，3个明确记录现有论文池无匹配；共使用256,982 tokens，其中缓存命中215,552 tokens。匹配请求针对2013年后运输量和船舶特征变化，其中至少3篇直接包含2014年、2018年或2017—2021年数据；另有1篇主要覆盖2012—2013年，只能视为间接背景候选。该结果说明H4适合作为自动建议召回层，但候选不能自动升级为新证据。当前实现因此只发布候选账本，不自动运行Paper Understanding、不修改主题簇，也不触发全局重写。
+
+至此6篇试点的H1路由、H2局部综合、H3全局归并和H4自动回看已经形成可运行闭环。下一阶段若要将回看候选真正纳入综述，应另行定义“候选再理解与受影响主题增量重算”的生产策略；这不是当前H4建议层的隐式行为。

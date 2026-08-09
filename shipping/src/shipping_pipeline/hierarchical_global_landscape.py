@@ -41,6 +41,7 @@ DEFAULT_HIERARCHICAL_GLOBAL_CONFIG = PROJECT_ROOT / "config" / "hierarchical-glo
 GLOBAL_SYSTEM_PROMPT = """你是层级文献综合的全局归并器。输入只包含多个已严格验证的局部Research Landscape投影，不包含完整论文、Card或Paper Understanding。
 只输出符合JSON Schema的对象，不输出Markdown或额外字段。你的任务是把局部维度归并为全局维度，描述局部主题簇之间由真实局部维度直接支持的关系，并把证据不足的问题记录为回看请求。
 每个局部dimension必须且只能进入一个global_dimension，或进入unmapped_local_dimensions；禁止静默遗漏和重复归并。global_dimension中的cluster_ids必须与所引local_dimension_ids的真实所有权完全一致，paper_ids只能来自所引局部维度。
+必须在local_dimension_accounting中按输入完整性清单逐项列出每个局部dimension，并声明mapped及其global_dimension_index，或unmapped及原因；条目数必须与输入局部维度总数完全相同。
 cross_cluster_relations必须连接两个不同cluster，并引用两侧各至少一个local_dimension_id。不得根据主题相邻自行补出因果、继承、整合成效或共同验证。局部gap只是当前语料缺口，不是已证实结论；需要补充论文时写入look_back_requests。
 不得生成任何机器ID，ID由程序生成。"""
 
@@ -281,8 +282,18 @@ def build_hierarchical_global_prompt(snapshot: HierarchicalGlobalSnapshot, *, sc
         "综述主题": snapshot.topic,
         "综述目标": snapshot.review_goal,
         "局部主题图谱": _projection(snapshot)["clusters"],
+        "局部维度完整性清单": [
+            {
+                "local_dimension_id": dimension["dimension_id"],
+                "cluster_id": cluster["cluster_id"],
+                "title": dimension["title"],
+            }
+            for cluster in snapshot.clusters
+            for dimension in cluster["landscape"]["dimensions"]
+        ],
         "输出前逐项核对": [
             "每个局部dimension只进入一个全局dimension或显式未映射",
+            "local_dimension_accounting条目数与局部维度完整性清单完全相同且ID不重复",
             "跨簇关系引用两侧真实局部dimension",
             "局部gap只形成全局gap或look_back_request，不写成已有事实",
         ],

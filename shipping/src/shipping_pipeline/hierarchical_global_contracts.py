@@ -10,7 +10,7 @@ from jsonschema import Draft202012Validator
 
 
 GLOBAL_CONFIG_SCHEMA_VERSION = "llm.hierarchical_global_landscape_config.v1"
-GLOBAL_LANDSCAPE_SCHEMA_VERSION = "llm.hierarchical_global_landscape.v1"
+GLOBAL_LANDSCAPE_SCHEMA_VERSION = "llm.hierarchical_global_landscape.v2"
 GLOBAL_RELATION_TYPES = (
     "converges",
     "complements",
@@ -95,7 +95,8 @@ def build_hierarchical_global_schema(
         "required": [
             "schema_version", "topic", "review_goal", "central_problem",
             "global_dimensions", "cross_cluster_relations", "global_gaps",
-            "unmapped_local_dimensions", "look_back_requests",
+            "unmapped_local_dimensions", "local_dimension_accounting",
+            "look_back_requests",
         ],
         "properties": {
             "schema_version": {"const": GLOBAL_LANDSCAPE_SCHEMA_VERSION},
@@ -151,6 +152,28 @@ def build_hierarchical_global_schema(
                     "properties": {
                         "local_dimension_id": {"type": "string", "enum": local_dimension_ids},
                         "reason": text,
+                    },
+                },
+            },
+            "local_dimension_accounting": {
+                "type": "array",
+                "minItems": len(local_dimension_ids),
+                "maxItems": len(local_dimension_ids),
+                "items": {
+                    "type": "object", "additionalProperties": False,
+                    "required": ["local_dimension_id", "disposition", "global_dimension_index", "reason"],
+                    "properties": {
+                        "local_dimension_id": {"type": "string", "enum": local_dimension_ids},
+                        "disposition": {"type": "string", "enum": ["mapped", "unmapped"]},
+                        "global_dimension_index": {
+                            "anyOf": [
+                                {"type": "integer", "minimum": 1, "maximum": config.max_global_dimensions},
+                                {"type": "null"},
+                            ]
+                        },
+                        "reason": {
+                            "anyOf": [text, {"type": "null"}]
+                        },
                     },
                 },
             },
@@ -224,6 +247,36 @@ def validate_hierarchical_global_landscape(
         raise HierarchicalGlobalContractError(
             "hierarchical_global.dimension_silently_missing", "存在未进入全局维度且未显式列出的局部维度。"
         )
+    accounting = value["local_dimension_accounting"]
+    accounted_ids = [str(row["local_dimension_id"]) for row in accounting]
+    if len(accounted_ids) != len(set(accounted_ids)) or set(accounted_ids) != set(dimension_owner):
+        raise HierarchicalGlobalContractError(
+            "hierarchical_global.accounting_incomplete", "局部维度完整性账本必须逐项且仅一次覆盖全部局部维度。"
+        )
+    mapped_to_index = {
+        str(dimension_id): int(row["global_dimension_index"])
+        for row in value["global_dimensions"]
+        for dimension_id in row["local_dimension_ids"]
+    }
+    unmapped_set = set(unmapped)
+    for row in accounting:
+        dimension_id = str(row["local_dimension_id"])
+        if row["disposition"] == "mapped":
+            if (
+                dimension_id not in mapped_to_index
+                or row["global_dimension_index"] != mapped_to_index[dimension_id]
+            ):
+                raise HierarchicalGlobalContractError(
+                    "hierarchical_global.accounting_mismatch", f"已映射维度账本与全局维度不一致：{dimension_id}"
+                )
+        elif (
+            dimension_id not in unmapped_set
+            or row["global_dimension_index"] is not None
+            or not isinstance(row["reason"], str)
+        ):
+            raise HierarchicalGlobalContractError(
+                "hierarchical_global.accounting_mismatch", f"未映射维度账本与unmapped列表不一致：{dimension_id}"
+            )
     for row in value["cross_cluster_relations"]:
         if row["from_cluster_id"] == row["to_cluster_id"]:
             raise HierarchicalGlobalContractError(

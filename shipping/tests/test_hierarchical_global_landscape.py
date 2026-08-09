@@ -70,7 +70,7 @@ def local_clusters():
 
 def global_payload():
     return {
-        "schema_version": "llm.hierarchical_global_landscape.v1",
+        "schema_version": "llm.hierarchical_global_landscape.v2",
         "topic": TOPIC,
         "review_goal": GOAL,
         "central_problem": "如何从运行瓶颈出发选择经过充分验证的提升方法？",
@@ -105,6 +105,12 @@ def global_payload():
             {"question": "工程部署效果如何？", "why_it_matters": "决定推广边界。", "related_global_dimension_indexes": [2]}
         ],
         "unmapped_local_dimensions": [],
+        "local_dimension_accounting": [
+            {"local_dimension_id": "dim-op-1", "disposition": "mapped", "global_dimension_index": 1, "reason": None},
+            {"local_dimension_id": "dim-op-2", "disposition": "mapped", "global_dimension_index": 1, "reason": None},
+            {"local_dimension_id": "dim-dis-1", "disposition": "mapped", "global_dimension_index": 1, "reason": None},
+            {"local_dimension_id": "dim-dis-2", "disposition": "mapped", "global_dimension_index": 2, "reason": None}
+        ],
         "look_back_requests": [
             {
                 "question": "是否存在现场调度验证？",
@@ -170,6 +176,14 @@ class HierarchicalGlobalLandscapeTest(unittest.TestCase):
         payload["global_dimensions"][0]["local_dimension_ids"].remove("dim-op-1")
         payload["global_dimensions"][0]["paper_ids"].remove("paper-a")
         with self.assertRaisesRegex(HierarchicalGlobalContractError, "silently_missing"):
+            validate_hierarchical_global_landscape(payload, schema=schema, clusters=local_clusters())
+
+    def test_validator_rejects_incomplete_dimension_accounting(self):
+        config = load_hierarchical_global_config(GLOBAL_CONFIG)
+        schema = build_hierarchical_global_schema(topic=TOPIC, review_goal=GOAL, clusters=local_clusters(), config=config)
+        payload = global_payload()
+        payload["local_dimension_accounting"].pop()
+        with self.assertRaisesRegex(HierarchicalGlobalContractError, "schema_invalid"):
             validate_hierarchical_global_landscape(payload, schema=schema, clusters=local_clusters())
 
     def test_validator_rejects_relation_without_both_cluster_sources(self):
