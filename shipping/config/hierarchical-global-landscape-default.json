@@ -1,0 +1,9 @@
+{
+  "schema_version": "llm.hierarchical_global_landscape_config.v1",
+  "max_global_dimensions": 12,
+  "max_cross_cluster_relations": 24,
+  "max_global_gaps": 12,
+  "max_look_back_requests": 12,
+  "max_local_dimensions_per_global_dimension": 24,
+  "global_max_output_tokens": 32768
+}

@@ -68,3 +68,21 @@
 首次6篇真实计划重放暴露了展示标题与`paper_id`可能因空格、连字符和OCR格式不同。路由必须读取程序导出的身份目录并使用准确`paper_id`，不得用标题模糊匹配；错误路由已被`paper_unknown`门禁拒绝，没有发布计划。
 
 H1现已在每次运行中导出`input/paper_identity_catalog.jsonl`。路由失败会写入failed manifest和`audit/failures.jsonl`，不再留下无状态目录。
+
+H3已开始实现。新增`hierarchical-landscape-global-run`及独立Schema：全局维度必须完整对账全部局部维度；跨簇关系必须引用两侧局部维度；语料缺口与回看请求分开发布。全局层不读取Markdown、Card或完整Paper Understanding。
+
+## 6篇真实局部综合验证
+
+获得授权后，运行`hierarchical-landscape-6papers-local-20260809-v1`：
+
+| 主题簇 | 论文 | 维度 | 关系 | 缺口 | 总tokens |
+|---|---:|---:|---:|---:|---:|
+| 通航能力现状与运行基线 | 2 | 6 | 2 | 3 | 11,793 |
+| 船闸与枢纽调度优化 | 4 | 4 | 6 | 3 | 20,058 |
+| 通航设施检测与资源协同 | 2 | 5 | 1 | 2 | 12,232 |
+
+三个局部运行全部完成，共使用44,083 tokens；6篇论文全部进入局部维度，没有unmapped论文，也没有制造disagreement。两个跨主题论文分别在运行基线/调度优化、调度优化/设施协同中承担不同用途。
+
+H3本地严格加载会从局部正式输出移除程序机器ID，重新执行旧Landscape Schema、论文覆盖和contribution ownership校验，再比较重新生成的稳定ID。三个真实局部Landscape共15个维度，已通过完整依赖链重放。
+
+当前尚未执行真实全局归并调用。H3假客户端已验证全局维度完整对账、跨簇双侧来源、稳定ID、coverage及回看请求账本。

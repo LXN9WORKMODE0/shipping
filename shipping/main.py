@@ -46,6 +46,10 @@ from shipping_pipeline.hierarchical_landscape import (
     HierarchicalLocalLandscapeBatchRunner,
     HierarchicalLandscapePlanRunner,
 )
+from shipping_pipeline.hierarchical_global_landscape import (
+    DEFAULT_HIERARCHICAL_GLOBAL_CONFIG,
+    HierarchicalGlobalLandscapeRunner,
+)
 from shipping_pipeline.research_landscape import (
     DEFAULT_RESEARCH_LANDSCAPE_CONFIG,
     ResearchLandscapeRunner,
@@ -459,6 +463,20 @@ def build_parser() -> argparse.ArgumentParser:
     hierarchical_local_parser.add_argument("--model-profile", type=Path, default=DEFAULT_MODEL_PROFILE)
     hierarchical_local_parser.add_argument("--landscape-config", type=Path, default=DEFAULT_RESEARCH_LANDSCAPE_CONFIG)
     hierarchical_local_parser.add_argument("--timeout", type=int, default=900)
+
+    hierarchical_global_parser = subparsers.add_parser(
+        "hierarchical-landscape-global-run",
+        help="读取完整局部Landscape批次并归并全局维度、跨簇关系和回看请求。",
+    )
+    hierarchical_global_parser.add_argument("--local-batch-run-id", required=True)
+    hierarchical_global_parser.add_argument("--workspace", type=Path, default=Path("workspace"))
+    hierarchical_global_parser.add_argument("--run-id", default=None)
+    hierarchical_global_parser.add_argument("--provider", choices=["openai-compatible"], default="openai-compatible")
+    hierarchical_global_parser.add_argument("--api-url", default=None)
+    hierarchical_global_parser.add_argument("--api-key-env", default="LLM_ANALYSIS_API_KEY")
+    hierarchical_global_parser.add_argument("--model-profile", type=Path, default=DEFAULT_MODEL_PROFILE)
+    hierarchical_global_parser.add_argument("--global-config", type=Path, default=DEFAULT_HIERARCHICAL_GLOBAL_CONFIG)
+    hierarchical_global_parser.add_argument("--timeout", type=int, default=900)
 
     research_landscape_parser = subparsers.add_parser(
         "llm-research-landscape",
@@ -1534,6 +1552,19 @@ def main(argv: list[str] | None = None) -> int:
         return 0 if result["status"] in {
             "completed", "completed_partial", "completed_with_failures"
         } else 1
+    if args.command == "hierarchical-landscape-global-run":
+        result = HierarchicalGlobalLandscapeRunner(args.workspace).run(
+            local_batch_run_id=args.local_batch_run_id,
+            run_id=args.run_id,
+            provider=args.provider,
+            api_url=args.api_url,
+            api_key_env=args.api_key_env,
+            model_profile_path=args.model_profile,
+            global_config_path=args.global_config,
+            timeout=args.timeout,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] == "completed" else 1
     if args.command == "llm-research-landscape":
         result = ResearchLandscapeRunner(args.workspace).run(
             collection_path=args.collection,
