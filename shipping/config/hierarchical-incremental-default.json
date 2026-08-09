@@ -1,0 +1,5 @@
+{
+  "schema_version": "llm.hierarchical_incremental_config.v1",
+  "max_promotions_per_request": 4,
+  "adjudication_max_output_tokens": 32768
+}

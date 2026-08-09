@@ -54,6 +54,10 @@ from shipping_pipeline.hierarchical_lookback import (
     DEFAULT_LOOKBACK_CONFIG,
     HierarchicalLookbackRunner,
 )
+from shipping_pipeline.hierarchical_incremental import (
+    DEFAULT_INCREMENTAL_CONFIG,
+    HierarchicalIncrementalRunner,
+)
 from shipping_pipeline.research_landscape import (
     DEFAULT_RESEARCH_LANDSCAPE_CONFIG,
     ResearchLandscapeRunner,
@@ -496,6 +500,24 @@ def build_parser() -> argparse.ArgumentParser:
     lookback_parser.add_argument("--model-profile", type=Path, default=DEFAULT_MODEL_PROFILE)
     lookback_parser.add_argument("--lookback-config", type=Path, default=DEFAULT_LOOKBACK_CONFIG)
     lookback_parser.add_argument("--timeout", type=int, default=900)
+
+    incremental_parser = subparsers.add_parser(
+        "hierarchical-landscape-incremental-run",
+        help="复核H4候选，晋级直接支持论文，并只重算受影响主题簇和全局Landscape。",
+    )
+    incremental_parser.add_argument("--lookback-run-id", required=True)
+    incremental_parser.add_argument("--workspace", type=Path, default=Path("workspace"))
+    incremental_parser.add_argument("--run-id", default=None)
+    incremental_parser.add_argument("--resume-from-run-id", default=None)
+    incremental_parser.add_argument("--provider", choices=["openai-compatible"], default="openai-compatible")
+    incremental_parser.add_argument("--api-url", default=None)
+    incremental_parser.add_argument("--api-key-env", default="LLM_ANALYSIS_API_KEY")
+    incremental_parser.add_argument("--model-profile", type=Path, default=DEFAULT_MODEL_PROFILE)
+    incremental_parser.add_argument("--understanding-config", type=Path, default=DEFAULT_UNDERSTANDING_CONFIG)
+    incremental_parser.add_argument("--landscape-config", type=Path, default=DEFAULT_RESEARCH_LANDSCAPE_CONFIG)
+    incremental_parser.add_argument("--global-config", type=Path, default=DEFAULT_HIERARCHICAL_GLOBAL_CONFIG)
+    incremental_parser.add_argument("--incremental-config", type=Path, default=DEFAULT_INCREMENTAL_CONFIG)
+    incremental_parser.add_argument("--timeout", type=int, default=900)
 
     research_landscape_parser = subparsers.add_parser(
         "llm-research-landscape",
@@ -1598,6 +1620,26 @@ def main(argv: list[str] | None = None) -> int:
         )
         print(json.dumps(result, ensure_ascii=False))
         return 0 if result["status"] == "completed" else 1
+    if args.command == "hierarchical-landscape-incremental-run":
+        result = HierarchicalIncrementalRunner(args.workspace).run(
+            lookback_run_id=args.lookback_run_id,
+            run_id=args.run_id,
+            resume_from_run_id=args.resume_from_run_id,
+            provider=args.provider,
+            api_url=args.api_url,
+            api_key_env=args.api_key_env,
+            model_profile_path=args.model_profile,
+            understanding_config_path=args.understanding_config,
+            landscape_config_path=args.landscape_config,
+            global_config_path=args.global_config,
+            incremental_config_path=args.incremental_config,
+            timeout=args.timeout,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] in {
+            "completed", "completed_no_changes", "completed_partial",
+            "completed_partial_no_changes",
+        } else 1
     if args.command == "llm-research-landscape":
         result = ResearchLandscapeRunner(args.workspace).run(
             collection_path=args.collection,
