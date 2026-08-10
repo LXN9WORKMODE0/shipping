@@ -171,10 +171,24 @@ class HierarchicalIncrementalRunner:
                 understandings, unavailable = _load_understandings(self.workspace, understanding_run_id, assignments)
                 _write_jsonl(run_dir / "audit" / "understanding_unavailable.jsonl", unavailable)
                 adjudicable = [row for row in assignments if row["record_id"] in understandings]
-                adjudications = self._adjudicate(
+                reused_adjudications = _load_reusable_adjudications(
+                    self.workspace,
+                    resume_from_run_id=resume_from_run_id,
+                    assignments=adjudicable,
+                    current_understandings=understandings,
+                )
+                reused_keys = {
+                    (row["look_back_request_id"], row["record_id"])
+                    for row in reused_adjudications
+                }
+                pending_adjudication = [
+                    row for row in adjudicable
+                    if (row["look_back_request_id"], row["record_id"]) not in reused_keys
+                ]
+                new_adjudications = self._adjudicate(
                     run_dir=run_dir,
                     topic=lineage["lookback_output"]["topic"],
-                    assignments=adjudicable,
+                    assignments=pending_adjudication,
                     understandings=understandings,
                     config=config,
                     provider=provider,
@@ -182,7 +196,16 @@ class HierarchicalIncrementalRunner:
                     api_key_env=api_key_env,
                     model_profile_path=Path(model_profile_path),
                     timeout=timeout,
-                ) if adjudicable else []
+                ) if pending_adjudication else []
+                adjudication_by_key = {
+                    (row["look_back_request_id"], row["record_id"]): row
+                    for row in reused_adjudications + new_adjudications
+                }
+                adjudications = [
+                    adjudication_by_key[(row["look_back_request_id"], row["record_id"])]
+                    for row in adjudicable
+                ]
+                _write_jsonl(run_dir / "audit" / "reused_adjudications.jsonl", reused_adjudications)
                 promotions = select_promotions(adjudications, assignments, config)
                 _write_jsonl(run_dir / "output" / "candidate_adjudications.jsonl", adjudications)
                 _write_jsonl(run_dir / "output" / "promotions.jsonl", promotions)
@@ -604,7 +627,7 @@ def _load_resume_understanding(
         or manifest.get("lookback_run_id") != lookback_run_id
         or manifest.get("status") not in {
             "completed", "completed_no_changes", "completed_partial",
-            "completed_partial_no_changes",
+            "completed_partial_no_changes", "failed",
         }
     ):
         raise AnalysisInputError("H5续跑父代际不可用或来源H4不一致。")
@@ -612,6 +635,46 @@ def _load_resume_understanding(
     if not batch_run_id:
         raise AnalysisInputError("H5续跑父代际没有可复用的Understanding批次。")
     return str(batch_run_id)
+
+
+def _load_reusable_adjudications(
+    workspace: Path,
+    *,
+    resume_from_run_id: str | None,
+    assignments: list[dict[str, Any]],
+    current_understandings: dict[str, dict[str, Any]],
+) -> list[dict[str, Any]]:
+    if resume_from_run_id is None:
+        return []
+    parent_dir = workspace / HIERARCHICAL_INCREMENTAL_ROOT / "runs" / resume_from_run_id
+    manifest = _read_json(parent_dir / "manifest.json")
+    parent_batch_run_id = manifest.get("children", {}).get("understanding_batch_run_id")
+    adjudication_path = parent_dir / "output" / "candidate_adjudications.jsonl"
+    if not parent_batch_run_id or not adjudication_path.exists():
+        return []
+    parent_understandings, _ = _load_understandings(
+        workspace, str(parent_batch_run_id), assignments
+    )
+    unchanged_records = {
+        record_id for record_id, current in current_understandings.items()
+        if record_id in parent_understandings
+        and current["run_id"] == parent_understandings[record_id]["run_id"]
+    }
+    allowed_keys = {
+        (row["look_back_request_id"], row["record_id"])
+        for row in assignments if row["record_id"] in unchanged_records
+    }
+    reusable = []
+    seen = set()
+    for row in _read_jsonl(adjudication_path):
+        key = (row.get("look_back_request_id"), row.get("record_id"))
+        if key not in allowed_keys or key in seen:
+            continue
+        if row.get("support_level") not in {"direct", "partial", "not_supported"} or row.get("confidence") not in {"high", "medium", "low"}:
+            continue
+        reusable.append(row)
+        seen.add(key)
+    return reusable
 
 
 def _load_global_retry(
@@ -636,11 +699,14 @@ def _load_global_retry(
     local_output = _read_json(local_dir / "output" / "local_landscape_batch.json")
     if (
         local_manifest.get("schema_version") != HIERARCHICAL_LOCAL_BATCH_RUN_SCHEMA_VERSION
-        or local_manifest.get("status") != "completed"
         or local_output.get("run_id") != local_batch_run_id
+    ):
+        raise AnalysisInputError("H5父代际局部批次身份无效。")
+    if (
+        local_manifest.get("status") != "completed"
         or any(row.get("local_status") != "completed" for row in local_output.get("records", []))
     ):
-        raise AnalysisInputError("H5父代际没有可复用的完整局部增量批次。")
+        return None
     adjudications = _read_jsonl(parent_dir / "output" / "candidate_adjudications.jsonl")
     promotions = _read_jsonl(parent_dir / "output" / "promotions.jsonl")
     if not promotions:

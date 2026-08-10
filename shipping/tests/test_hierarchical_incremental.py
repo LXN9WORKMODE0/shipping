@@ -12,6 +12,7 @@ from shipping_pipeline.hierarchical_incremental import (
     HierarchicalIncrementalRunner,
     IncrementalConfig,
     _load_global_retry,
+    _load_reusable_adjudications,
     _load_resume_understanding,
     build_adjudication_schema,
     select_promotions,
@@ -161,6 +162,91 @@ class HierarchicalIncrementalTest(unittest.TestCase):
         )
         self.assertEqual(retry["local_batch_run_id"], "local-one")
         self.assertEqual(retry["promotions"][0]["record_id"], "record-a")
+
+    def test_failed_incomplete_local_falls_back_to_understanding_resume(self):
+        parent = self.workspace / "_hierarchical_incremental_runs" / "runs" / "h5-local-failed"
+        parent.mkdir(parents=True)
+        (parent / "manifest.json").write_text(json.dumps({
+            "schema_version": INCREMENTAL_RUN_SCHEMA_VERSION,
+            "status": "failed", "lookback_run_id": "lookback-one",
+            "children": {"understanding_batch_run_id": "understanding-one", "local_batch_run_id": "local-failed"},
+        }), encoding="utf-8")
+        local = self.workspace / "_hierarchical_landscapes" / "local_runs" / "local-failed"
+        (local / "output").mkdir(parents=True)
+        (local / "manifest.json").write_text(json.dumps({
+            "schema_version": "llm.hierarchical_local_landscape_batch_run.v1",
+            "status": "completed_with_failures",
+        }), encoding="utf-8")
+        (local / "output" / "local_landscape_batch.json").write_text(json.dumps({
+            "run_id": "local-failed", "records": [{"cluster_id": "engineering", "local_status": "failed"}]
+        }), encoding="utf-8")
+        self.assertIsNone(_load_global_retry(
+            self.workspace, resume_from_run_id="h5-local-failed", lookback_run_id="lookback-one"
+        ))
+        self.assertEqual(_load_resume_understanding(
+            self.workspace, resume_from_run_id="h5-local-failed", lookback_run_id="lookback-one"
+        ), "understanding-one")
+
+    def test_adjudication_reuse_requires_parent_ledger(self):
+        parent = self.workspace / "_hierarchical_incremental_runs" / "runs" / "h5-parent"
+        parent.mkdir(parents=True)
+        (parent / "manifest.json").write_text(json.dumps({
+            "children": {"understanding_batch_run_id": "understanding-parent"}
+        }), encoding="utf-8")
+        self.assertEqual(_load_reusable_adjudications(
+            self.workspace,
+            resume_from_run_id="h5-parent",
+            assignments=assignments(),
+            current_understandings={},
+        ), [])
+
+    def test_adjudication_reuse_requires_unchanged_understanding_generation(self):
+        parent = self.workspace / "_hierarchical_incremental_runs" / "runs" / "h5-parent"
+        (parent / "output").mkdir(parents=True)
+        (parent / "manifest.json").write_text(json.dumps({
+            "children": {"understanding_batch_run_id": "understanding-parent"}
+        }), encoding="utf-8")
+        decision = {
+            **adjudication_payload()["adjudications"][0],
+            "paper_id": "paper-a", "paper_title": "现场验证研究",
+            "target_cluster_ids": ["dispatch"],
+        }
+        (parent / "output" / "candidate_adjudications.jsonl").write_text(
+            json.dumps(decision, ensure_ascii=False) + "\n", encoding="utf-8"
+        )
+        batch = self.workspace / "_paper_understanding_batches" / "runs" / "understanding-parent" / "output"
+        batch.mkdir(parents=True)
+        (batch / "paper_understanding_batch.json").write_text(json.dumps({
+            "records": [{
+                "record_id": "record-a", "understanding_status": "understood",
+                "understanding_run_id": "understanding-paper-a",
+            }]
+        }), encoding="utf-8")
+        understanding = self.workspace / "_paper_understandings" / "runs" / "understanding-paper-a"
+        (understanding / "output").mkdir(parents=True)
+        (understanding / "manifest.json").write_text(
+            json.dumps({"status": "completed"}), encoding="utf-8"
+        )
+        (understanding / "output" / "paper_understanding.json").write_text(
+            json.dumps({"paper_id": "paper-a"}), encoding="utf-8"
+        )
+
+        reused = _load_reusable_adjudications(
+            self.workspace, resume_from_run_id="h5-parent",
+            assignments=[assignments()[0]],
+            current_understandings={
+                "record-a": {"run_id": "understanding-paper-a", "understanding": {}}
+            },
+        )
+        self.assertEqual(reused, [decision])
+        changed = _load_reusable_adjudications(
+            self.workspace, resume_from_run_id="h5-parent",
+            assignments=[assignments()[0]],
+            current_understandings={
+                "record-a": {"run_id": "understanding-paper-a-v2", "understanding": {}}
+            },
+        )
+        self.assertEqual(changed, [])
 
     def test_local_increment_only_recomputes_affected_cluster(self):
         collections = self.workspace / "collections"

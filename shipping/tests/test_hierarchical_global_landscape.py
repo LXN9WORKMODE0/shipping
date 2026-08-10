@@ -70,7 +70,7 @@ def local_clusters():
 
 def global_payload():
     return {
-        "schema_version": "llm.hierarchical_global_landscape.v2",
+        "schema_version": "llm.hierarchical_global_landscape.v5",
         "topic": TOPIC,
         "review_goal": GOAL,
         "central_problem": "如何从运行瓶颈出发选择经过充分验证的提升方法？",
@@ -79,24 +79,19 @@ def global_payload():
                 "global_dimension_index": 1,
                 "title": "问题与方法",
                 "question": "运行瓶颈与调度方法如何对应？",
-                "cluster_ids": ["operation", "dispatch"],
                 "local_dimension_ids": ["dim-op-1", "dim-op-2", "dim-dis-1"],
-                "paper_ids": ["paper-a", "paper-b", "paper-c"],
             },
             {
                 "global_dimension_index": 2,
                 "title": "验证边界",
                 "question": "方法验证水平如何？",
-                "cluster_ids": ["dispatch"],
                 "local_dimension_ids": ["dim-dis-2"],
-                "paper_ids": ["paper-d"],
             },
         ],
         "cross_cluster_relations": [
             {
+                "relation_pair_id": "dispatch::operation",
                 "relation_type": "complements",
-                "from_cluster_id": "operation",
-                "to_cluster_id": "dispatch",
                 "statement": "运行瓶颈描述与调度方法研究分别回答问题和方法。",
                 "supporting_local_dimension_ids": ["dim-op-2", "dim-dis-1"],
             }
@@ -174,9 +169,17 @@ class HierarchicalGlobalLandscapeTest(unittest.TestCase):
         schema = build_hierarchical_global_schema(topic=TOPIC, review_goal=GOAL, clusters=local_clusters(), config=config)
         payload = global_payload()
         payload["global_dimensions"][0]["local_dimension_ids"].remove("dim-op-1")
-        payload["global_dimensions"][0]["paper_ids"].remove("paper-a")
         with self.assertRaisesRegex(HierarchicalGlobalContractError, "silently_missing"):
             validate_hierarchical_global_landscape(payload, schema=schema, clusters=local_clusters())
+
+    def test_validator_derives_global_dimension_ownership(self):
+        config = load_hierarchical_global_config(GLOBAL_CONFIG)
+        schema = build_hierarchical_global_schema(topic=TOPIC, review_goal=GOAL, clusters=local_clusters(), config=config)
+        result = validate_hierarchical_global_landscape(global_payload(), schema=schema, clusters=local_clusters())
+        self.assertEqual(result["global_dimensions"][0]["cluster_ids"], ["dispatch", "operation"])
+        self.assertEqual(result["global_dimensions"][0]["paper_ids"], ["paper-a", "paper-b", "paper-c"])
+        self.assertEqual(result["cross_cluster_relations"][0]["from_cluster_id"], "dispatch")
+        self.assertEqual(result["cross_cluster_relations"][0]["to_cluster_id"], "operation")
 
     def test_validator_rejects_incomplete_dimension_accounting(self):
         config = load_hierarchical_global_config(GLOBAL_CONFIG)
@@ -191,7 +194,7 @@ class HierarchicalGlobalLandscapeTest(unittest.TestCase):
         schema = build_hierarchical_global_schema(topic=TOPIC, review_goal=GOAL, clusters=local_clusters(), config=config)
         payload = global_payload()
         payload["cross_cluster_relations"][0]["supporting_local_dimension_ids"] = ["dim-op-1", "dim-op-2"]
-        with self.assertRaisesRegex(HierarchicalGlobalContractError, "relation_support_invalid"):
+        with self.assertRaisesRegex(HierarchicalGlobalContractError, "schema_invalid"):
             validate_hierarchical_global_landscape(payload, schema=schema, clusters=local_clusters())
 
     def test_runner_publishes_global_coverage_and_lookback_ledger(self):

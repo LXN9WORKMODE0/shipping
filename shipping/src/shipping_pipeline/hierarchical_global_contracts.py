@@ -10,7 +10,7 @@ from jsonschema import Draft202012Validator
 
 
 GLOBAL_CONFIG_SCHEMA_VERSION = "llm.hierarchical_global_landscape_config.v1"
-GLOBAL_LANDSCAPE_SCHEMA_VERSION = "llm.hierarchical_global_landscape.v2"
+GLOBAL_LANDSCAPE_SCHEMA_VERSION = "llm.hierarchical_global_landscape.v5"
 GLOBAL_RELATION_TYPES = (
     "converges",
     "complements",
@@ -80,14 +80,32 @@ def build_hierarchical_global_schema(
         for cluster in clusters
         for dimension in cluster["landscape"]["dimensions"]
     }
-    paper_ids = sorted({
-        str(paper_id)
-        for cluster in clusters
-        for dimension in cluster["landscape"]["dimensions"]
-        for paper_id in dimension["paper_ids"]
-    })
     local_dimension_ids = list(dimension_owner)
     text = {"type": "string", "minLength": 1, "maxLength": 1000}
+    relation_schemas = []
+    for left_index, left_cluster_id in enumerate(cluster_ids):
+        left_dimensions = [key for key, owner in dimension_owner.items() if owner == left_cluster_id]
+        for right_cluster_id in cluster_ids[left_index + 1:]:
+            right_dimensions = [key for key, owner in dimension_owner.items() if owner == right_cluster_id]
+            allowed_dimensions = left_dimensions + right_dimensions
+            relation_pair_id = "::".join(sorted([left_cluster_id, right_cluster_id]))
+            relation_schemas.append({
+                "type": "object", "additionalProperties": False,
+                "required": ["relation_pair_id", "relation_type", "statement", "supporting_local_dimension_ids"],
+                "properties": {
+                    "relation_pair_id": {"const": relation_pair_id},
+                    "relation_type": {"type": "string", "enum": list(GLOBAL_RELATION_TYPES)},
+                    "statement": text,
+                    "supporting_local_dimension_ids": {
+                        "type": "array", "minItems": 2, "uniqueItems": True,
+                        "items": {"type": "string", "enum": allowed_dimensions},
+                        "allOf": [
+                            {"contains": {"type": "string", "enum": left_dimensions}, "minContains": 1},
+                            {"contains": {"type": "string", "enum": right_dimensions}, "minContains": 1},
+                        ],
+                    },
+                },
+            })
     schema = {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "type": "object",
@@ -108,30 +126,18 @@ def build_hierarchical_global_schema(
                 "maxItems": config.max_global_dimensions,
                 "items": {
                     "type": "object", "additionalProperties": False,
-                    "required": ["global_dimension_index", "title", "question", "cluster_ids", "local_dimension_ids", "paper_ids"],
+                    "required": ["global_dimension_index", "title", "question", "local_dimension_ids"],
                     "properties": {
                         "global_dimension_index": {"type": "integer", "minimum": 1, "maximum": config.max_global_dimensions},
                         "title": {"type": "string", "minLength": 1, "maxLength": 160},
                         "question": text,
-                        "cluster_ids": {"type": "array", "minItems": 1, "uniqueItems": True, "items": {"type": "string", "enum": cluster_ids}},
                         "local_dimension_ids": {"type": "array", "minItems": 1, "maxItems": config.max_local_dimensions_per_global_dimension, "uniqueItems": True, "items": {"type": "string", "enum": local_dimension_ids}},
-                        "paper_ids": {"type": "array", "minItems": 1, "uniqueItems": True, "items": {"type": "string", "enum": paper_ids}},
                     },
                 },
             },
             "cross_cluster_relations": {
                 "type": "array", "maxItems": config.max_cross_cluster_relations,
-                "items": {
-                    "type": "object", "additionalProperties": False,
-                    "required": ["relation_type", "from_cluster_id", "to_cluster_id", "statement", "supporting_local_dimension_ids"],
-                    "properties": {
-                        "relation_type": {"type": "string", "enum": list(GLOBAL_RELATION_TYPES)},
-                        "from_cluster_id": {"type": "string", "enum": cluster_ids},
-                        "to_cluster_id": {"type": "string", "enum": cluster_ids},
-                        "statement": text,
-                        "supporting_local_dimension_ids": {"type": "array", "minItems": 2, "uniqueItems": True, "items": {"type": "string", "enum": local_dimension_ids}},
-                    },
-                },
+                "items": {"oneOf": relation_schemas},
             },
             "global_gaps": {
                 "type": "array", "maxItems": config.max_global_gaps,
@@ -209,6 +215,7 @@ def validate_hierarchical_global_landscape(
             "hierarchical_global.schema_invalid", error.message, path=path
         )
     value = json.loads(json.dumps(payload, ensure_ascii=False))
+    cluster_ids = [str(row["cluster_id"]) for row in clusters]
     dimension_owner = {
         str(dimension["dimension_id"]): str(cluster["cluster_id"])
         for cluster in clusters
@@ -228,16 +235,8 @@ def validate_hierarchical_global_landscape(
     for row in value["global_dimensions"]:
         refs = [str(item) for item in row["local_dimension_ids"]]
         mapped.extend(refs)
-        owners = {dimension_owner[item] for item in refs}
-        if owners != set(row["cluster_ids"]):
-            raise HierarchicalGlobalContractError(
-                "hierarchical_global.dimension_cluster_mismatch", "全局维度的cluster_ids与局部维度来源不一致。"
-            )
-        supported_papers = set().union(*(dimension_papers[item] for item in refs))
-        if set(row["paper_ids"]) - supported_papers:
-            raise HierarchicalGlobalContractError(
-                "hierarchical_global.dimension_paper_unsupported", "全局维度包含局部维度无法支持的论文。"
-            )
+        row["cluster_ids"] = sorted({dimension_owner[item] for item in refs})
+        row["paper_ids"] = sorted(set().union(*(dimension_papers[item] for item in refs)))
     unmapped = [str(row["local_dimension_id"]) for row in value["unmapped_local_dimensions"]]
     if len(mapped) != len(set(mapped)) or len(unmapped) != len(set(unmapped)) or set(mapped) & set(unmapped):
         raise HierarchicalGlobalContractError(
@@ -278,15 +277,18 @@ def validate_hierarchical_global_landscape(
                 "hierarchical_global.accounting_mismatch", f"未映射维度账本与unmapped列表不一致：{dimension_id}"
             )
     for row in value["cross_cluster_relations"]:
-        if row["from_cluster_id"] == row["to_cluster_id"]:
-            raise HierarchicalGlobalContractError(
-                "hierarchical_global.relation_same_cluster", "跨簇关系必须连接不同主题簇。"
-            )
         owners = {dimension_owner[str(item)] for item in row["supporting_local_dimension_ids"]}
-        if not {row["from_cluster_id"], row["to_cluster_id"]}.issubset(owners):
+        if len(owners) != 2:
             raise HierarchicalGlobalContractError(
-                "hierarchical_global.relation_support_invalid", "跨簇关系必须引用两侧主题簇的局部维度。"
+                "hierarchical_global.relation_support_invalid", "跨簇关系的局部维度必须且只能来自两个主题簇。"
             )
+        expected_pair_id = "::".join(sorted(owners))
+        if row["relation_pair_id"] != expected_pair_id:
+            raise HierarchicalGlobalContractError(
+                "hierarchical_global.relation_pair_mismatch", "跨簇关系临时簇对与局部维度来源不一致。"
+            )
+        row.pop("relation_pair_id")
+        row["from_cluster_id"], row["to_cluster_id"] = sorted(owners)
     result = value
     result["global_landscape_id"] = _stable_id("global_landscape", value)
     for row in result["global_dimensions"]:

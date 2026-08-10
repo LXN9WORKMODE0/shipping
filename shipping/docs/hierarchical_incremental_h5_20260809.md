@@ -33,13 +33,14 @@ H5不接受人工编辑后的独立候选文件。H4输入哈希、稳定ID和�
 
 失败运行保留审计文件，但不替换任何旧产物。
 
-新H5代际可通过`--resume-from-run-id`复用父代际已成功的Paper Understanding，只重试失败候选。续跑必须引用同一个H4运行；裁决和后续增量计算在新代际重新执行。
+新H5代际可通过`--resume-from-run-id`复用父代际已成功的Paper Understanding，只重试失败候选。续跑必须引用同一个H4运行。若候选的Understanding运行ID未变化，既有裁决也按原顺序冻结复用；只有新增或Understanding代际变化的候选重新裁决。受影响局部簇不完整时回到Understanding复用阶段，完整时可只重试全局归并。
 
 ## 输出与审计
 
 - `candidate_adjudications.jsonl`：每条H4候选分配的请求级裁决；
 - `promotions.jsonl`：实际晋级论文及目标主题簇；
 - `understanding_unavailable.jsonl`：Paper Understanding失败或不可用的候选；
+- `reused_adjudications.jsonl`：续跑中因Understanding代际未变化而冻结复用的裁决；
 - 新局部批次：同时记录重算簇和复用簇；
 - 新全局运行：只在局部批次完整成功后产生；
 - 中文审核报告：展示候选数、未裁决数、晋级数、受影响簇和复用簇。
@@ -59,3 +60,5 @@ H5不接受人工编辑后的独立候选文件。H4输入哈希、稳定ID和�
 v7最终完成全部6篇候选的Understanding和裁决。严格复核后仅《三峡河段通航调度需求分析》晋级：该文直接分析2017—2021年客货运输量、船舶通过量和船舶大型化趋势。H5为此只重算`operation-baseline`，继续复用`dispatch-optimization`和`facility-coordination`。
 
 同一v7局部批次的全局归并前两次分别因局部维度重复映射和主题簇来源字段不一致被合同拒绝，第三次运行`hierarchical-incremental-6papers-20260810-v9`成功。最终15个局部维度全部进入6个全局维度，形成3条跨簇关系、4个全局缺口和3个后续回看请求，覆盖率1.0；全局归并使用12,759 tokens。H5状态为`completed`，6条候选分配均已裁决，无未处理候选。
+
+18篇扩容基线的最终H5运行`hierarchical-incremental-18papers-20260810-v10`也已完成。23条候选分配全部完成Understanding与裁决，9篇论文晋级；3个受影响主题簇重算，1个主题簇复用。最终全局综合实际覆盖27篇唯一论文、28个局部维度和4个主题簇，归并为12个全局维度与6条跨簇关系，覆盖率1.0。扩容续跑期间曾发生同一批候选重复裁决后晋级数从9漂移到4，现已通过Understanding运行ID绑定的冻结裁决机制消除。

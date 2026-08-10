@@ -10,6 +10,7 @@ from typing import Any, Iterable
 from jsonschema import Draft202012Validator
 
 from .hierarchical_global_contracts import (
+    GLOBAL_LANDSCAPE_SCHEMA_VERSION,
     HierarchicalGlobalConfig,
     build_hierarchical_global_schema,
     validate_hierarchical_global_landscape,
@@ -235,12 +236,14 @@ def _load_global(workspace: Path, run_id: str) -> tuple[dict[str, Any], str]:
         topic=snapshot.topic, review_goal=snapshot.review_goal,
         clusters=list(snapshot.clusters), config=config,
     )
+    replay_input = _strip_global_ids(raw)
+    replay_input["schema_version"] = GLOBAL_LANDSCAPE_SCHEMA_VERSION
     replay = validate_hierarchical_global_landscape(
-        _strip_global_ids(raw), schema=schema, clusters=list(snapshot.clusters)
+        replay_input, schema=schema, clusters=list(snapshot.clusters)
     )
-    if replay != raw or snapshot.input_sha256 != manifest.get("input_sha256"):
+    if _strip_global_ids(replay) != replay_input or snapshot.input_sha256 != manifest.get("input_sha256"):
         raise AnalysisInputError("全局Landscape无法严格重放。")
-    return raw, snapshot.input_sha256
+    return replay, snapshot.input_sha256
 
 
 def load_lookback_config(path: Path) -> LookbackConfig:
@@ -371,8 +374,15 @@ def build_lookback_prompt(snapshot: LookbackSnapshot, *, schema: dict[str, Any],
 def _strip_global_ids(value: dict[str, Any]) -> dict[str, Any]:
     result = json.loads(json.dumps(value, ensure_ascii=False))
     result.pop("global_landscape_id", None)
-    for row in result.get("global_dimensions", []): row.pop("global_dimension_id", None)
+    for row in result.get("global_dimensions", []):
+        row.pop("global_dimension_id", None)
+        row.pop("cluster_ids", None)
+        row.pop("paper_ids", None)
     for row in result.get("cross_cluster_relations", []): row.pop("global_relation_id", None)
+    for row in result.get("cross_cluster_relations", []):
+        row["relation_pair_id"] = f"{row['from_cluster_id']}::{row['to_cluster_id']}"
+        row.pop("from_cluster_id", None)
+        row.pop("to_cluster_id", None)
     for row in result.get("look_back_requests", []): row.pop("look_back_request_id", None)
     return result
 
