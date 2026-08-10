@@ -21,6 +21,7 @@ from shipping_pipeline.research_landscape import (
     ResearchLandscapeRunner,
     build_research_landscape_prompt,
     create_research_landscape_snapshot,
+    restore_research_landscape_contribution_ids,
 )
 from shipping_pipeline.research_landscape_contracts import (
     build_research_landscape_schema,
@@ -227,6 +228,26 @@ class FakeLandscapeClient:
             model=self.model,
             prompt_tokens=int(context["planned_input_tokens"]),
         )
+
+
+class ContributionAliasTest(unittest.TestCase):
+    def test_restore_replaces_only_contribution_reference_fields(self):
+        payload = {
+            "dimensions": [{"contribution_ids": ["C0001"]}],
+            "relations": [{"supporting_contribution_ids": ["C0002"]}],
+            "research_evolution": [{"contribution_ids": ["C0001"]}],
+            "disagreements": [{"positions": [{"contribution_ids": ["C0002"]}]}],
+            "central_problem": "C0001只是正文，不应替换",
+        }
+        restored = restore_research_landscape_contribution_ids(
+            payload,
+            alias_to_contribution={"C0001": "long-contribution-a", "C0002": "long-contribution-b"},
+        )
+        self.assertEqual(restored["dimensions"][0]["contribution_ids"], ["long-contribution-a"])
+        self.assertEqual(restored["relations"][0]["supporting_contribution_ids"], ["long-contribution-b"])
+        self.assertEqual(restored["research_evolution"][0]["contribution_ids"], ["long-contribution-a"])
+        self.assertEqual(restored["disagreements"][0]["positions"][0]["contribution_ids"], ["long-contribution-b"])
+        self.assertEqual(restored["central_problem"], "C0001只是正文，不应替换")
 
 
 def _provider_result(

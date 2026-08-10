@@ -24,6 +24,7 @@ from .research_landscape import (
     RESEARCH_LANDSCAPE_RUN_SCHEMA_VERSION,
     ResearchLandscapeSnapshot,
     create_research_landscape_snapshot,
+    restore_research_landscape_contribution_ids,
 )
 from .research_landscape_contracts import (
     build_research_landscape_schema,
@@ -231,6 +232,16 @@ def load_review_framework_run(
         run_dir / "framework" / "parsed_response.json",
         "Review Framework原始解析响应",
     )
+    alias_path = run_dir / "input" / "contribution_aliases.json"
+    if alias_path.exists():
+        alias_ledger = _read_json(alias_path, "Landscape贡献别名账本")
+        parsed = restore_research_landscape_contribution_ids(
+            parsed,
+            alias_to_contribution={
+                str(alias): str(contribution_id)
+                for alias, contribution_id in alias_ledger["alias_to_contribution_id"].items()
+            },
+        )
     draft = validate_review_framework_draft(
         parsed,
         schema=schema,

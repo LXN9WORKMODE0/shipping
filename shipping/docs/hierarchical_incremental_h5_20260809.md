@@ -33,7 +33,7 @@ H5不接受人工编辑后的独立候选文件。H4输入哈希、稳定ID和�
 
 失败运行保留审计文件，但不替换任何旧产物。
 
-新H5代际可通过`--resume-from-run-id`复用父代际已成功的Paper Understanding，只重试失败候选。续跑必须引用同一个H4运行。若候选的Understanding运行ID未变化，既有裁决也按原顺序冻结复用；只有新增或Understanding代际变化的候选重新裁决。受影响局部簇不完整时回到Understanding复用阶段，完整时可只重试全局归并。
+新H5代际可通过`--resume-from-run-id`复用父代际已成功的Paper Understanding，只重试失败候选。续跑必须引用同一个H4运行。若候选的Understanding运行ID未变化，既有裁决也按原顺序冻结复用；只有新增或Understanding代际变化的候选重新裁决。受影响局部簇不完整时回到Understanding复用阶段，其中输入Understanding列表未变化且已经成功的受影响簇直接复用，只重试失败或输入变化簇；局部批次完整时可只重试全局归并。
 
 ## 输出与审计
 

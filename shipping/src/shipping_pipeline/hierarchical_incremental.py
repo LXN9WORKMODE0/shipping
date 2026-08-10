@@ -231,6 +231,7 @@ class HierarchicalIncrementalRunner:
                         model_profile_path=model_profile_path,
                         landscape_config_path=landscape_config_path,
                         timeout=timeout,
+                        resume_from_run_id=resume_from_run_id,
                     )
                     children["local_batch_run_id"] = local_run_id
                     if local_result["status"] != "completed":
@@ -404,6 +405,7 @@ class HierarchicalIncrementalRunner:
         model_profile_path: str | Path,
         landscape_config_path: str | Path,
         timeout: int,
+        resume_from_run_id: str | None = None,
     ) -> dict[str, Any]:
         baseline = lineage["baseline_local"]
         affected = {cluster_id for row in promotions for cluster_id in row["target_cluster_ids"]}
@@ -417,6 +419,9 @@ class HierarchicalIncrementalRunner:
         if local_dir.exists():
             raise AnalysisInputError(f"H5局部运行ID已存在：{local_run_id}")
         local_dir.mkdir(parents=True)
+        reusable_clusters = _load_reusable_incremental_clusters(
+            self.workspace, resume_from_run_id=resume_from_run_id
+        )
         records = []
         for index, old in enumerate(baseline["records"], start=1):
             cluster_id = str(old["cluster_id"])
@@ -429,6 +434,13 @@ class HierarchicalIncrementalRunner:
             old_collection = _read_json(Path(str(old_manifest["collection_path"])))
             source_ids = list(old_collection["source_understanding_run_ids"])
             source_ids.extend(run_id for run_id in promoted_by_cluster[cluster_id] if run_id not in source_ids)
+            reusable = reusable_clusters.get(cluster_id)
+            if reusable is not None and reusable["source_understanding_run_ids"] == source_ids:
+                records.append({
+                    **reusable["record"],
+                    "reused_from_run_id": reusable["parent_local_batch_run_id"],
+                })
+                continue
             collection = {**old_collection, "source_understanding_run_ids": source_ids}
             collection_path = run_dir / "input" / "local_collections" / f"{cluster_id}.json"
             _write_json(collection_path, collection)
@@ -674,6 +686,46 @@ def _load_reusable_adjudications(
             continue
         reusable.append(row)
         seen.add(key)
+    return reusable
+
+
+def _load_reusable_incremental_clusters(
+    workspace: Path,
+    *,
+    resume_from_run_id: str | None,
+) -> dict[str, dict[str, Any]]:
+    if resume_from_run_id is None:
+        return {}
+    parent_dir = workspace / HIERARCHICAL_INCREMENTAL_ROOT / "runs" / resume_from_run_id
+    parent_manifest = _read_json(parent_dir / "manifest.json")
+    parent_local_batch_run_id = parent_manifest.get("children", {}).get("local_batch_run_id")
+    if not parent_local_batch_run_id:
+        return {}
+    local_dir = workspace / HIERARCHICAL_LANDSCAPE_ROOT / "local_runs" / str(parent_local_batch_run_id)
+    local_output_path = local_dir / "output" / "local_landscape_batch.json"
+    if not local_output_path.exists():
+        return {}
+    local_output = _read_json(local_output_path)
+    reusable: dict[str, dict[str, Any]] = {}
+    for row in local_output.get("records", []):
+        if row.get("local_status") != "completed" or not row.get("promoted_understanding_run_ids"):
+            continue
+        landscape_run_id = str(row.get("landscape_run_id", ""))
+        landscape_dir = workspace / "_research_landscapes" / "runs" / landscape_run_id
+        manifest_path = landscape_dir / "manifest.json"
+        output_path = landscape_dir / "output" / "research_landscape.json"
+        if not manifest_path.exists() or not output_path.exists():
+            continue
+        landscape_manifest = _read_json(manifest_path)
+        collection_path = landscape_manifest.get("collection_path")
+        if landscape_manifest.get("status") != "completed" or not collection_path:
+            continue
+        collection = _read_json(Path(str(collection_path)))
+        reusable[str(row["cluster_id"])] = {
+            "record": row,
+            "source_understanding_run_ids": list(collection["source_understanding_run_ids"]),
+            "parent_local_batch_run_id": str(parent_local_batch_run_id),
+        }
     return reusable
 
 

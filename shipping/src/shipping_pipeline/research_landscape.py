@@ -45,7 +45,7 @@ DEFAULT_RESEARCH_LANDSCAPE_CONFIG = (
 )
 
 RESEARCH_LANDSCAPE_SYSTEM_PROMPT = """你是文献综述的跨论文研究图谱分析器。输入是一组显式选择、已通过代码重放验证的Paper Understanding，只输出符合给定JSON Schema的JSON对象，不要输出Markdown、解释或Schema之外字段。
-必须围绕综述目标组织研究维度、论文关系、年代关注变化、明确分歧和本次语料缺口。所有跨论文判断必须引用输入中真实存在的paper_id与contribution_id。
+必须围绕综述目标组织研究维度、论文关系、年代关注变化、明确分歧和本次语料缺口。所有跨论文判断必须引用输入中真实存在的paper_id与贡献短别名；短别名由程序回填为正式contribution_id。
 dimensions必须覆盖所有输入论文；无法合理进入任何维度的论文必须放入unmapped_papers，不能静默省略。unmapped_papers只能列出完全没有进入任何dimension的论文；已经进入一个或多个dimension的论文禁止再次列入unmapped_papers，如果全部论文都已进入dimension则输出空数组。dimension_index必须从1开始按输出顺序连续编号。每个dimension、research_evolution和disagreement position中，paper_ids列出的每一篇论文都必须至少有一条属于该论文的contribution_id；不能只列论文而不提供该论文贡献，也不能用另一篇论文的贡献代替。
 relation必须连接两个不同论文，且supporting_contribution_ids至少包含这两篇论文各自的一项贡献。relation的statement只能表达所引贡献可直接支持的关系，不得把相关概念自行等同，不得补出贡献未明确表达的机制、因果、立场、整合建议或承继关系。两项工作主题相邻时，不得自行声称“可整合”“是具体应用”“共同证明有效”或“为另一论文提供支持”；只能保守描述各自做了什么及其范围差异。contrasts只用于两篇论文贡献明确表达不相容的主张；一篇论文未提及某方案、未表态或证据较少，不构成contrasts，应改用scope_difference或不输出关系。
 不要因论文年份先后就声称后文继承、改进或影响前文；research_evolution只描述本次语料可见的时间顺序和研究关注变化。禁止使用“奠定基础”“奠定框架”“推动了”“促进了”“继承”“发展为”“演变为”等因果传承措辞。
@@ -202,6 +202,18 @@ class ResearchLandscapeRunner:
                 for source in snapshot.sources
                 for contribution in source.understanding["contributions"]
             }
+            contribution_aliases = {
+                contribution_id: f"C{index:04d}"
+                for index, contribution_id in enumerate(contribution_to_paper, start=1)
+            }
+            alias_to_contribution = {
+                alias: contribution_id
+                for contribution_id, alias in contribution_aliases.items()
+            }
+            alias_to_paper = {
+                contribution_aliases[contribution_id]: paper_id
+                for contribution_id, paper_id in contribution_to_paper.items()
+            }
             validation_schema = build_research_landscape_schema(
                 topic=snapshot.topic,
                 review_goal=snapshot.review_goal,
@@ -210,9 +222,17 @@ class ResearchLandscapeRunner:
                 corpus_scope=snapshot.corpus_scope,
                 config=config,
             )
+            alias_schema = build_research_landscape_schema(
+                topic=snapshot.topic,
+                review_goal=snapshot.review_goal,
+                paper_ids=[source.paper_id for source in snapshot.sources],
+                contribution_to_paper=alias_to_paper,
+                corpus_scope=snapshot.corpus_scope,
+                config=config,
+            )
             generation_schema = build_research_landscape_generation_schema(
-                validation_schema,
-                contribution_to_paper=contribution_to_paper,
+                alias_schema,
+                contribution_to_paper=alias_to_paper,
             )
             _write_json(
                 run_dir / "input" / "output_schema.json",
@@ -222,9 +242,17 @@ class ResearchLandscapeRunner:
                 run_dir / "input" / "validation_schema.json",
                 validation_schema,
             )
+            _write_json(
+                run_dir / "input" / "contribution_aliases.json",
+                {
+                    "alias_to_contribution_id": alias_to_contribution,
+                    "contribution_id_to_alias": contribution_aliases,
+                },
+            )
             user_prompt = build_research_landscape_prompt(
                 snapshot,
                 schema=generation_schema,
+                contribution_aliases=contribution_aliases,
             )
             parsed, stage_result = execute_json_stage(
                 run_dir=run_dir,
@@ -251,8 +279,11 @@ class ResearchLandscapeRunner:
                 profile=profile,
                 token_counter=token_counter,
             )
+            restored = restore_research_landscape_contribution_ids(
+                parsed, alias_to_contribution=alias_to_contribution
+            )
             landscape = validate_research_landscape(
-                parsed,
+                restored,
                 schema=validation_schema,
                 contribution_to_paper=contribution_to_paper,
             )
@@ -326,10 +357,16 @@ def build_research_landscape_prompt(
     snapshot: ResearchLandscapeSnapshot,
     *,
     schema: dict[str, Any],
+    contribution_aliases: dict[str, str] | None = None,
 ) -> str:
+    aliases = contribution_aliases or {
+        str(contribution["contribution_id"]): str(contribution["contribution_id"])
+        for source in snapshot.sources
+        for contribution in source.understanding["contributions"]
+    }
     contribution_ownership = {
         source.paper_id: [
-            contribution["contribution_id"]
+            aliases[str(contribution["contribution_id"])]
             for contribution in source.understanding["contributions"]
         ]
         for source in snapshot.sources
@@ -341,7 +378,8 @@ def build_research_landscape_prompt(
         "语料范围": snapshot.corpus_scope,
         "贡献所有权索引": contribution_ownership,
         "论文认知": [
-            _project_understanding(source) for source in snapshot.sources
+            _project_understanding(source, contribution_aliases=aliases)
+            for source in snapshot.sources
         ],
         "输出前逐项核对": [
             "每个dimension、research_evolution和disagreement position列出的每篇论文，均引用至少一条该论文在贡献所有权索引中的contribution_id",
@@ -356,6 +394,8 @@ def build_research_landscape_prompt(
 
 def _project_understanding(
     source: ResearchLandscapeSource,
+    *,
+    contribution_aliases: dict[str, str] | None = None,
 ) -> dict[str, Any]:
     understanding = source.understanding
     return {
@@ -388,15 +428,17 @@ def _project_understanding(
         ],
         "contributions": [
             {
-                key: row[key]
-                for key in (
-                    "contribution_id",
-                    "statement",
-                    "result_type",
-                    "validation_level",
-                    "evidence_strength",
-                    "strength_rationale",
-                )
+                "contribution_id": (
+                    contribution_aliases.get(str(row["contribution_id"]), str(row["contribution_id"]))
+                    if contribution_aliases is not None else row["contribution_id"]
+                ),
+                **{
+                    key: row[key]
+                    for key in (
+                        "statement", "result_type", "validation_level",
+                        "evidence_strength", "strength_rationale",
+                    )
+                },
             }
             for row in understanding["contributions"]
         ],
@@ -411,6 +453,38 @@ def _project_understanding(
         "unresolved_questions": understanding["unresolved_questions"],
         "keywords": understanding["keywords"],
     }
+
+
+def restore_research_landscape_contribution_ids(
+    payload: object,
+    *,
+    alias_to_contribution: dict[str, str],
+) -> object:
+    restored = json.loads(json.dumps(payload, ensure_ascii=False))
+    if not isinstance(restored, dict):
+        return restored
+    fields = (
+        ("dimensions", "contribution_ids"),
+        ("relations", "supporting_contribution_ids"),
+        ("research_evolution", "contribution_ids"),
+    )
+    for collection_name, field_name in fields:
+        for row in restored.get(collection_name, []):
+            if isinstance(row, dict) and isinstance(row.get(field_name), list):
+                row[field_name] = [
+                    alias_to_contribution.get(str(value), str(value))
+                    for value in row[field_name]
+                ]
+    for disagreement in restored.get("disagreements", []):
+        if not isinstance(disagreement, dict):
+            continue
+        for position in disagreement.get("positions", []):
+            if isinstance(position, dict) and isinstance(position.get("contribution_ids"), list):
+                position["contribution_ids"] = [
+                    alias_to_contribution.get(str(value), str(value))
+                    for value in position["contribution_ids"]
+                ]
+    return restored
 
 
 def _load_understanding_source(

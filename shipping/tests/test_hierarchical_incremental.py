@@ -13,6 +13,7 @@ from shipping_pipeline.hierarchical_incremental import (
     IncrementalConfig,
     _load_global_retry,
     _load_reusable_adjudications,
+    _load_reusable_incremental_clusters,
     _load_resume_understanding,
     build_adjudication_schema,
     select_promotions,
@@ -297,6 +298,73 @@ class HierarchicalIncrementalTest(unittest.TestCase):
         self.assertIn("understanding-new", collection["source_understanding_run_ids"])
         reused = next(row for row in result["records"] if row["cluster_id"] == "baseline")
         self.assertEqual(reused["reused_from_run_id"], "local-old")
+
+        child_run_id = fake.calls[0]["run_id"]
+        child = self.workspace / "_research_landscapes" / "runs" / child_run_id
+        (child / "output").mkdir(parents=True)
+        (child / "manifest.json").write_text(json.dumps({
+            "status": "completed", "collection_path": str(fake.calls[0]["collection_path"])
+        }), encoding="utf-8")
+        (child / "output" / "research_landscape.json").write_text("{}", encoding="utf-8")
+        parent = self.workspace / "_hierarchical_incremental_runs" / "runs" / "h5-parent"
+        parent.mkdir(parents=True)
+        (parent / "manifest.json").write_text(json.dumps({
+            "children": {"local_batch_run_id": "h5-one--local"}
+        }), encoding="utf-8")
+        second_fake = FakeLandscapeRunner()
+        second_runner = HierarchicalIncrementalRunner(self.workspace, landscape_runner=second_fake)
+        second = second_runner._run_incremental_local(
+            run_dir=self.workspace / "_hierarchical_incremental_runs" / "runs" / "h5-two",
+            local_run_id="h5-two--local", lineage=lineage,
+            promotions=[{"record_id": "record-a", "target_cluster_ids": ["dispatch"]}],
+            understandings={"record-a": {"run_id": "understanding-new"}},
+            provider="openai-compatible", api_url=None, api_key_env="KEY",
+            model_profile_path=PROJECT_ROOT / "config" / "models" / "siliconflow-deepseek-v4-pro.json",
+            landscape_config_path=PROJECT_ROOT / "config" / "research-landscape-default.json",
+            timeout=10, resume_from_run_id="h5-parent",
+        )
+        self.assertEqual(second["status"], "completed")
+        self.assertEqual(second_fake.calls, [])
+        dispatch = next(row for row in second["records"] if row["cluster_id"] == "dispatch")
+        self.assertEqual(dispatch["reused_from_run_id"], "h5-one--local")
+
+    def test_incremental_local_reuses_completed_affected_cluster_with_same_collection(self):
+        parent = self.workspace / "_hierarchical_incremental_runs" / "runs" / "h5-parent"
+        parent.mkdir(parents=True)
+        (parent / "manifest.json").write_text(json.dumps({
+            "children": {"local_batch_run_id": "h5-parent--local"}
+        }), encoding="utf-8")
+        local = self.workspace / "_hierarchical_landscapes" / "local_runs" / "h5-parent--local" / "output"
+        local.mkdir(parents=True)
+        record = {
+            "cluster_id": "dispatch", "cluster_title": "调度", "paper_count": 3,
+            "local_status": "completed", "landscape_run_id": "landscape-dispatch-new",
+            "landscape_id": "landscape-id", "coverage": {}, "failure": None,
+            "promoted_understanding_run_ids": ["understanding-new"],
+        }
+        (local / "local_landscape_batch.json").write_text(json.dumps({
+            "records": [record]
+        }), encoding="utf-8")
+        collection = self.workspace / "collections" / "dispatch-new.json"
+        collection.parent.mkdir()
+        collection.write_text(json.dumps({
+            "source_understanding_run_ids": ["old-dispatch-1", "old-dispatch-2", "understanding-new"]
+        }), encoding="utf-8")
+        landscape = self.workspace / "_research_landscapes" / "runs" / "landscape-dispatch-new"
+        (landscape / "output").mkdir(parents=True)
+        (landscape / "manifest.json").write_text(json.dumps({
+            "status": "completed", "collection_path": str(collection)
+        }), encoding="utf-8")
+        (landscape / "output" / "research_landscape.json").write_text("{}", encoding="utf-8")
+
+        reusable = _load_reusable_incremental_clusters(
+            self.workspace, resume_from_run_id="h5-parent"
+        )
+        self.assertEqual(reusable["dispatch"]["record"], record)
+        self.assertEqual(
+            reusable["dispatch"]["source_understanding_run_ids"],
+            ["old-dispatch-1", "old-dispatch-2", "understanding-new"],
+        )
 
 
 if __name__ == "__main__":
