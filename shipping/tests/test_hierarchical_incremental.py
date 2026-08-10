@@ -11,6 +11,7 @@ from shipping_pipeline.hierarchical_incremental import (
     INCREMENTAL_RUN_SCHEMA_VERSION,
     HierarchicalIncrementalRunner,
     IncrementalConfig,
+    _load_global_retry,
     _load_resume_understanding,
     build_adjudication_schema,
     select_promotions,
@@ -131,6 +132,35 @@ class HierarchicalIncrementalTest(unittest.TestCase):
             _load_resume_understanding(
                 self.workspace, resume_from_run_id="h5-old", lookback_run_id="lookback-two"
             )
+
+    def test_failed_global_can_reuse_completed_local_batch(self):
+        parent = self.workspace / "_hierarchical_incremental_runs" / "runs" / "h5-failed"
+        (parent / "output").mkdir(parents=True)
+        (parent / "manifest.json").write_text(json.dumps({
+            "schema_version": INCREMENTAL_RUN_SCHEMA_VERSION,
+            "status": "failed", "lookback_run_id": "lookback-one",
+            "children": {"understanding_batch_run_id": "understanding-one", "local_batch_run_id": "local-one", "global_run_id": "global-failed"},
+        }), encoding="utf-8")
+        (parent / "output" / "candidate_adjudications.jsonl").write_text(
+            json.dumps({"record_id": "record-a"}) + "\n", encoding="utf-8"
+        )
+        (parent / "output" / "promotions.jsonl").write_text(
+            json.dumps({"record_id": "record-a"}) + "\n", encoding="utf-8"
+        )
+        local = self.workspace / "_hierarchical_landscapes" / "local_runs" / "local-one"
+        (local / "output").mkdir(parents=True)
+        (local / "manifest.json").write_text(json.dumps({
+            "schema_version": "llm.hierarchical_local_landscape_batch_run.v1",
+            "status": "completed",
+        }), encoding="utf-8")
+        (local / "output" / "local_landscape_batch.json").write_text(json.dumps({
+            "run_id": "local-one", "records": [{"cluster_id": "dispatch", "local_status": "completed"}]
+        }), encoding="utf-8")
+        retry = _load_global_retry(
+            self.workspace, resume_from_run_id="h5-failed", lookback_run_id="lookback-one"
+        )
+        self.assertEqual(retry["local_batch_run_id"], "local-one")
+        self.assertEqual(retry["promotions"][0]["record_id"], "record-a")
 
     def test_local_increment_only_recomputes_affected_cluster(self):
         collections = self.workspace / "collections"

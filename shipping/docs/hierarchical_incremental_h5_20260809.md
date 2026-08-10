@@ -53,3 +53,9 @@ H5不接受人工编辑后的独立候选文件。H4输入哈希、稳定ID和�
 `hierarchical-incremental-6papers-20260809-v2`完成首轮处理：6篇候选中3篇Paper Understanding成功，3篇因模型输出不符合Understanding Schema而失败。成功的3篇分别被裁决为`not_supported`、`partial`、`partial`，没有晋级，因此未重算局部簇。失败的3篇包含H4中较强的2018年和2017—2021年数据候选，所以这次结果只能解释为部分完成，不能据此认定全部6篇均不支持请求。实现随后增加`completed_partial_no_changes`状态和新代际续跑。
 
 `hierarchical-incremental-6papers-20260809-v3`以v2为父代际，已验证能够复用3篇成功Understanding并只重试3篇失败论文。外部供应商随后对3次单篇重试及候选裁决返回HTTP 402，未产生新语义结果；运行按`failed`保留。API恢复后应继续从v2创建新代际，因为v3没有新增可复用的成功Understanding。
+
+供应商恢复后，v4完成5篇候选裁决并晋级2篇，只重算`operation-baseline`，但全局归并因维度来源字段不一致被拒绝。H5随后增加全局阶段续跑：父代际已有完整局部批次时，不再重复Understanding、裁决和局部综合，只重新运行全局归并。
+
+v7最终完成全部6篇候选的Understanding和裁决。严格复核后仅《三峡河段通航调度需求分析》晋级：该文直接分析2017—2021年客货运输量、船舶通过量和船舶大型化趋势。H5为此只重算`operation-baseline`，继续复用`dispatch-optimization`和`facility-coordination`。
+
+同一v7局部批次的全局归并前两次分别因局部维度重复映射和主题簇来源字段不一致被合同拒绝，第三次运行`hierarchical-incremental-6papers-20260810-v9`成功。最终15个局部维度全部进入6个全局维度，形成3条跨簇关系、4个全局缺口和3个后续回看请求，覆盖率1.0；全局归并使用12,759 tokens。H5状态为`completed`，6条候选分配均已裁决，无未处理候选。

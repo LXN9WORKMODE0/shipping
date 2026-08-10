@@ -116,6 +116,27 @@ class HierarchicalIncrementalRunner:
         try:
             config = load_incremental_config(Path(incremental_config_path))
             lineage = _load_lineage(self.workspace, lookback_run_id)
+            global_retry = _load_global_retry(
+                self.workspace,
+                resume_from_run_id=resume_from_run_id,
+                lookback_run_id=lookback_run_id,
+            )
+            if global_retry is not None:
+                return self._retry_global_only(
+                    run_dir=run_dir,
+                    run_id=resolved,
+                    started_at=started_at,
+                    lookback_run_id=lookback_run_id,
+                    resume_from_run_id=str(resume_from_run_id),
+                    lineage=lineage,
+                    retry=global_retry,
+                    provider=provider,
+                    api_url=api_url,
+                    api_key_env=api_key_env,
+                    model_profile_path=model_profile_path,
+                    global_config_path=global_config_path,
+                    timeout=timeout,
+                )
             resume_understanding_run_id = _load_resume_understanding(
                 self.workspace,
                 resume_from_run_id=resume_from_run_id,
@@ -235,6 +256,70 @@ class HierarchicalIncrementalRunner:
         }
         _write_json(run_dir / "manifest.json", manifest)
         return {"run_id": resolved, "status": status, "summary": summary, "children": children, "failure": failure, "run_dir": str(run_dir)}
+
+    def _retry_global_only(
+        self,
+        *,
+        run_dir: Path,
+        run_id: str,
+        started_at: str,
+        lookback_run_id: str,
+        resume_from_run_id: str,
+        lineage: dict[str, Any],
+        retry: dict[str, Any],
+        provider: str,
+        api_url: str | None,
+        api_key_env: str,
+        model_profile_path: str | Path,
+        global_config_path: str | Path,
+        timeout: int,
+    ) -> dict[str, Any]:
+        children = dict(retry["children"])
+        global_run_id = f"{run_id}--global"
+        result = self.global_runner.run(
+            local_batch_run_id=retry["local_batch_run_id"],
+            run_id=global_run_id,
+            provider=provider,
+            api_url=api_url,
+            api_key_env=api_key_env,
+            model_profile_path=model_profile_path,
+            global_config_path=global_config_path,
+            timeout=timeout,
+        )
+        children["global_run_id"] = global_run_id
+        assignments = _candidate_assignments(lineage)
+        summary = _summary(
+            assignments, retry["adjudications"], retry["promotions"], retry["local_records"]
+        )
+        if result["status"] == "completed":
+            status = "completed_partial" if summary["unadjudicated_assignment_count"] else "completed"
+            failure = None
+            _publish(
+                run_dir, run_id, lookback_run_id, lineage,
+                retry["adjudications"], retry["promotions"], children, summary,
+            )
+        else:
+            status = "failed"
+            failure = {
+                "error_code": "hierarchical_incremental.global_retry_failed",
+                "error_message": "已复用局部增量批次，但全局归并重试仍失败。",
+                "stage": "global_retry", "recorded_at": _now(),
+            }
+            _write_jsonl(run_dir / "audit" / "failures.jsonl", [failure])
+        manifest = {
+            "schema_version": INCREMENTAL_RUN_SCHEMA_VERSION,
+            "run_id": run_id, "status": status,
+            "started_at": started_at, "finished_at": _now(),
+            "lookback_run_id": lookback_run_id,
+            "resume_from_run_id": resume_from_run_id,
+            "resume_stage": "global_only",
+            "children": children, "summary": summary, "failure": failure,
+        }
+        _write_json(run_dir / "manifest.json", manifest)
+        return {
+            "run_id": run_id, "status": status, "summary": summary,
+            "children": children, "failure": failure, "run_dir": str(run_dir),
+        }
 
     def _adjudicate(
         self,
@@ -529,6 +614,46 @@ def _load_resume_understanding(
     return str(batch_run_id)
 
 
+def _load_global_retry(
+    workspace: Path, *, resume_from_run_id: str | None, lookback_run_id: str
+) -> dict[str, Any] | None:
+    if resume_from_run_id is None:
+        return None
+    parent_dir = workspace / HIERARCHICAL_INCREMENTAL_ROOT / "runs" / resume_from_run_id
+    manifest = _read_json(parent_dir / "manifest.json")
+    if manifest.get("status") != "failed":
+        return None
+    children = manifest.get("children") or {}
+    local_batch_run_id = children.get("local_batch_run_id")
+    if (
+        manifest.get("schema_version") != INCREMENTAL_RUN_SCHEMA_VERSION
+        or manifest.get("lookback_run_id") != lookback_run_id
+        or not local_batch_run_id
+    ):
+        raise AnalysisInputError("H5全局重试父代际无效或来源H4不一致。")
+    local_dir = workspace / HIERARCHICAL_LANDSCAPE_ROOT / "local_runs" / str(local_batch_run_id)
+    local_manifest = _read_json(local_dir / "manifest.json")
+    local_output = _read_json(local_dir / "output" / "local_landscape_batch.json")
+    if (
+        local_manifest.get("schema_version") != HIERARCHICAL_LOCAL_BATCH_RUN_SCHEMA_VERSION
+        or local_manifest.get("status") != "completed"
+        or local_output.get("run_id") != local_batch_run_id
+        or any(row.get("local_status") != "completed" for row in local_output.get("records", []))
+    ):
+        raise AnalysisInputError("H5父代际没有可复用的完整局部增量批次。")
+    adjudications = _read_jsonl(parent_dir / "output" / "candidate_adjudications.jsonl")
+    promotions = _read_jsonl(parent_dir / "output" / "promotions.jsonl")
+    if not promotions:
+        raise AnalysisInputError("H5父代际没有晋级论文，不应执行全局阶段重试。")
+    return {
+        "children": children,
+        "local_batch_run_id": str(local_batch_run_id),
+        "local_records": local_output["records"],
+        "adjudications": adjudications,
+        "promotions": promotions,
+    }
+
+
 def load_incremental_lookback_config():
     return load_lookback_config(DEFAULT_LOOKBACK_CONFIG)
 
@@ -642,6 +767,17 @@ def _write_json(path: Path, value: object) -> None:
 def _write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows), encoding="utf-8")
+
+
+def _read_jsonl(path: Path) -> list[dict[str, Any]]:
+    try:
+        lines = path.read_text(encoding="utf-8-sig").splitlines()
+        rows = [json.loads(line) for line in lines if line.strip()]
+    except (OSError, json.JSONDecodeError) as exc:
+        raise AnalysisInputError(f"无法读取JSONL：{path}") from exc
+    if any(not isinstance(row, dict) for row in rows):
+        raise AnalysisInputError("JSONL每行必须是对象。")
+    return rows
 
 
 def _write_text(path: Path, value: str) -> None:
