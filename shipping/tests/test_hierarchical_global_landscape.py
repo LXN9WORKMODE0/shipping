@@ -14,8 +14,13 @@ from shipping_pipeline.hierarchical_global_contracts import (
     validate_hierarchical_global_landscape,
 )
 from shipping_pipeline.hierarchical_global_landscape import (
+    build_global_relation_review_schema,
+    build_global_relation_selection_schema,
     HierarchicalGlobalLandscapeRunner,
     HierarchicalGlobalSnapshot,
+    restore_hierarchical_global_dimension_ids,
+    normalize_global_relation_selection,
+    normalize_global_relation_statement,
 )
 from shipping_pipeline.llm_provider import ProviderResult
 from shipping_pipeline.llm_tokenizer import TokenCount
@@ -70,7 +75,7 @@ def local_clusters():
 
 def global_payload():
     return {
-        "schema_version": "llm.hierarchical_global_landscape.v5",
+        "schema_version": "llm.hierarchical_global_landscape.v7",
         "topic": TOPIC,
         "review_goal": GOAL,
         "central_problem": "如何从运行瓶颈出发选择经过充分验证的提升方法？",
@@ -79,18 +84,15 @@ def global_payload():
                 "global_dimension_index": 1,
                 "title": "问题与方法",
                 "question": "运行瓶颈与调度方法如何对应？",
-                "local_dimension_ids": ["dim-op-1", "dim-op-2", "dim-dis-1"],
             },
             {
                 "global_dimension_index": 2,
                 "title": "验证边界",
                 "question": "方法验证水平如何？",
-                "local_dimension_ids": ["dim-dis-2"],
             },
         ],
         "cross_cluster_relations": [
             {
-                "relation_pair_id": "dispatch::operation",
                 "relation_type": "complements",
                 "statement": "运行瓶颈描述与调度方法研究分别回答问题和方法。",
                 "supporting_local_dimension_ids": ["dim-op-2", "dim-dis-1"],
@@ -128,11 +130,32 @@ class FakeGlobalClient:
     model = "deepseek-ai/DeepSeek-V4-Pro"
 
     def complete(self, task, request_payload, context):
-        if task != "hierarchical_global_landscape":
+        if task == "hierarchical_global_landscape":
+            content = global_payload()
+            content["cross_cluster_relations"] = []
+        elif task == "hierarchical_global_relation_selection":
+            content = {
+                "schema_version": "llm.hierarchical_global_relation_selection.v1",
+                "selected_cluster_pair_ids": ["operation::dispatch"],
+            }
+        elif task == "hierarchical_global_relations":
+            content = {
+                "schema_version": "llm.hierarchical_global_relations.v1",
+                "relations": [{
+                    "cluster_pair_id": "operation::dispatch",
+                    "relation": {
+                        "relation_type": "complements",
+                        "statement": "运行瓶颈描述与调度方法分别回答问题和方法。",
+                        "left_local_dimension_id": "D0002",
+                        "right_local_dimension_id": "D0003",
+                    },
+                }],
+            }
+        else:
             raise AssertionError(task)
         response = {
             "id": "response-global", "model": self.model,
-            "choices": [{"finish_reason": "stop", "message": {"content": json.dumps(global_payload(), ensure_ascii=False), "reasoning_content": ""}}],
+            "choices": [{"finish_reason": "stop", "message": {"content": json.dumps(content, ensure_ascii=False), "reasoning_content": ""}}],
             "usage": {"prompt_tokens": context["planned_input_tokens"], "completion_tokens": 512, "total_tokens": context["planned_input_tokens"] + 512},
         }
         return ProviderResult(
@@ -168,8 +191,8 @@ class HierarchicalGlobalLandscapeTest(unittest.TestCase):
         config = load_hierarchical_global_config(GLOBAL_CONFIG)
         schema = build_hierarchical_global_schema(topic=TOPIC, review_goal=GOAL, clusters=local_clusters(), config=config)
         payload = global_payload()
-        payload["global_dimensions"][0]["local_dimension_ids"].remove("dim-op-1")
-        with self.assertRaisesRegex(HierarchicalGlobalContractError, "silently_missing"):
+        payload["local_dimension_accounting"][0]["local_dimension_id"] = "dim-op-2"
+        with self.assertRaisesRegex(HierarchicalGlobalContractError, "schema_invalid"):
             validate_hierarchical_global_landscape(payload, schema=schema, clusters=local_clusters())
 
     def test_validator_derives_global_dimension_ownership(self):
@@ -194,8 +217,65 @@ class HierarchicalGlobalLandscapeTest(unittest.TestCase):
         schema = build_hierarchical_global_schema(topic=TOPIC, review_goal=GOAL, clusters=local_clusters(), config=config)
         payload = global_payload()
         payload["cross_cluster_relations"][0]["supporting_local_dimension_ids"] = ["dim-op-1", "dim-op-2"]
-        with self.assertRaisesRegex(HierarchicalGlobalContractError, "schema_invalid"):
+        with self.assertRaisesRegex(HierarchicalGlobalContractError, "relation_support_invalid"):
             validate_hierarchical_global_landscape(payload, schema=schema, clusters=local_clusters())
+
+    def test_restore_replaces_all_local_dimension_reference_fields(self):
+        payload = {
+            "global_dimensions": [{"local_dimension_ids": ["D0001"]}],
+            "cross_cluster_relations": [{"supporting_local_dimension_ids": ["D0001", "D0002"]}],
+            "unmapped_local_dimensions": [{"local_dimension_id": "D0002"}],
+            "local_dimension_accounting": [{"local_dimension_id": "D0001"}],
+            "central_problem": "D0001只是正文，不应替换",
+        }
+        restored = restore_hierarchical_global_dimension_ids(
+            payload,
+            alias_to_dimension={"D0001": "dimension-long-a", "D0002": "dimension-long-b"},
+        )
+        self.assertEqual(restored["global_dimensions"][0]["local_dimension_ids"], ["dimension-long-a"])
+        self.assertEqual(
+            restored["cross_cluster_relations"][0]["supporting_local_dimension_ids"],
+            ["dimension-long-a", "dimension-long-b"],
+        )
+        self.assertEqual(restored["unmapped_local_dimensions"][0]["local_dimension_id"], "dimension-long-b")
+        self.assertEqual(restored["local_dimension_accounting"][0]["local_dimension_id"], "dimension-long-a")
+        self.assertEqual(restored["central_problem"], "D0001只是正文，不应替换")
+
+    def test_relation_review_schema_fixes_cluster_pair_sides(self):
+        selection = build_global_relation_selection_schema(self.snapshot, max_relations=1)
+        self.assertEqual(
+            selection["properties"]["selected_cluster_pair_ids"]["maxItems"], 1
+        )
+        schema = build_global_relation_review_schema(
+            self.snapshot, selected_pair_ids=["operation::dispatch"]
+        )
+        relation = schema["properties"]["relations"]["prefixItems"][0]
+        self.assertEqual(relation["properties"]["cluster_pair_id"]["const"], "operation::dispatch")
+        value = relation["properties"]["relation"]["properties"]
+        self.assertEqual(value["left_local_dimension_id"]["enum"], ["dim-op-1", "dim-op-2"])
+        self.assertEqual(value["right_local_dimension_id"]["enum"], ["dim-dis-1", "dim-dis-2"])
+
+    def test_relation_selection_normalizes_reversed_pair_order(self):
+        schema = build_global_relation_selection_schema(self.snapshot, max_relations=1)
+        value = normalize_global_relation_selection({
+            "schema_version": "llm.hierarchical_global_relation_selection.v1",
+            "selected_cluster_pair_ids": ["dispatch::operation"],
+        }, schema)
+        self.assertEqual(value["selected_cluster_pair_ids"], ["operation::dispatch"])
+
+    def test_relation_statement_expands_pair_pronouns(self):
+        value = normalize_global_relation_statement({
+            "relations": [{"relation": {
+                "statement": "前者与后者互补，两者范围不同。",
+                "left_local_dimension_id": "dim-dis-1",
+                "right_local_dimension_id": "dim-op-1",
+            }}]
+        }, pair_id="operation::dispatch", snapshot=self.snapshot)
+        relation = value["relations"][0]["relation"]
+        statement = relation["statement"]
+        self.assertEqual(statement, "运行基线与调度优化互补，这两类研究范围不同。")
+        self.assertEqual(relation["left_local_dimension_id"], "dim-op-1")
+        self.assertEqual(relation["right_local_dimension_id"], "dim-dis-1")
 
     def test_runner_publishes_global_coverage_and_lookback_ledger(self):
         result = HierarchicalGlobalLandscapeRunner(

@@ -10,7 +10,7 @@ from jsonschema import Draft202012Validator
 
 
 GLOBAL_CONFIG_SCHEMA_VERSION = "llm.hierarchical_global_landscape_config.v1"
-GLOBAL_LANDSCAPE_SCHEMA_VERSION = "llm.hierarchical_global_landscape.v5"
+GLOBAL_LANDSCAPE_SCHEMA_VERSION = "llm.hierarchical_global_landscape.v7"
 GLOBAL_RELATION_TYPES = (
     "converges",
     "complements",
@@ -82,30 +82,6 @@ def build_hierarchical_global_schema(
     }
     local_dimension_ids = list(dimension_owner)
     text = {"type": "string", "minLength": 1, "maxLength": 1000}
-    relation_schemas = []
-    for left_index, left_cluster_id in enumerate(cluster_ids):
-        left_dimensions = [key for key, owner in dimension_owner.items() if owner == left_cluster_id]
-        for right_cluster_id in cluster_ids[left_index + 1:]:
-            right_dimensions = [key for key, owner in dimension_owner.items() if owner == right_cluster_id]
-            allowed_dimensions = left_dimensions + right_dimensions
-            relation_pair_id = "::".join(sorted([left_cluster_id, right_cluster_id]))
-            relation_schemas.append({
-                "type": "object", "additionalProperties": False,
-                "required": ["relation_pair_id", "relation_type", "statement", "supporting_local_dimension_ids"],
-                "properties": {
-                    "relation_pair_id": {"const": relation_pair_id},
-                    "relation_type": {"type": "string", "enum": list(GLOBAL_RELATION_TYPES)},
-                    "statement": text,
-                    "supporting_local_dimension_ids": {
-                        "type": "array", "minItems": 2, "uniqueItems": True,
-                        "items": {"type": "string", "enum": allowed_dimensions},
-                        "allOf": [
-                            {"contains": {"type": "string", "enum": left_dimensions}, "minContains": 1},
-                            {"contains": {"type": "string", "enum": right_dimensions}, "minContains": 1},
-                        ],
-                    },
-                },
-            })
     schema = {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "type": "object",
@@ -126,18 +102,29 @@ def build_hierarchical_global_schema(
                 "maxItems": config.max_global_dimensions,
                 "items": {
                     "type": "object", "additionalProperties": False,
-                    "required": ["global_dimension_index", "title", "question", "local_dimension_ids"],
+                    "required": ["global_dimension_index", "title", "question"],
                     "properties": {
                         "global_dimension_index": {"type": "integer", "minimum": 1, "maximum": config.max_global_dimensions},
                         "title": {"type": "string", "minLength": 1, "maxLength": 160},
                         "question": text,
-                        "local_dimension_ids": {"type": "array", "minItems": 1, "maxItems": config.max_local_dimensions_per_global_dimension, "uniqueItems": True, "items": {"type": "string", "enum": local_dimension_ids}},
                     },
                 },
             },
             "cross_cluster_relations": {
                 "type": "array", "maxItems": config.max_cross_cluster_relations,
-                "items": {"oneOf": relation_schemas},
+                "items": {
+                    "type": "object", "additionalProperties": False,
+                    "required": ["relation_type", "statement", "supporting_local_dimension_ids"],
+                    "properties": {
+                        "relation_type": {"type": "string", "enum": list(GLOBAL_RELATION_TYPES)},
+                        "statement": text,
+                        "supporting_local_dimension_ids": {
+                            "type": "array", "minItems": 2, "maxItems": 2,
+                            "uniqueItems": True,
+                            "items": {"type": "string", "enum": local_dimension_ids},
+                        },
+                    },
+                },
             },
             "global_gaps": {
                 "type": "array", "maxItems": config.max_global_gaps,
@@ -151,37 +138,43 @@ def build_hierarchical_global_schema(
                 },
             },
             "unmapped_local_dimensions": {
-                "type": "array", "uniqueItems": True,
-                "items": {
-                    "type": "object", "additionalProperties": False,
-                    "required": ["local_dimension_id", "reason"],
-                    "properties": {
-                        "local_dimension_id": {"type": "string", "enum": local_dimension_ids},
-                        "reason": text,
-                    },
-                },
+                "type": "array", "maxItems": 0,
             },
             "local_dimension_accounting": {
                 "type": "array",
                 "minItems": len(local_dimension_ids),
                 "maxItems": len(local_dimension_ids),
-                "items": {
-                    "type": "object", "additionalProperties": False,
-                    "required": ["local_dimension_id", "disposition", "global_dimension_index", "reason"],
-                    "properties": {
-                        "local_dimension_id": {"type": "string", "enum": local_dimension_ids},
-                        "disposition": {"type": "string", "enum": ["mapped", "unmapped"]},
-                        "global_dimension_index": {
-                            "anyOf": [
-                                {"type": "integer", "minimum": 1, "maximum": config.max_global_dimensions},
-                                {"type": "null"},
-                            ]
+                "prefixItems": [
+                    {
+                        "type": "object", "additionalProperties": False,
+                        "required": ["local_dimension_id", "disposition", "global_dimension_index", "reason"],
+                        "properties": {
+                            "local_dimension_id": {"const": dimension_id},
+                            "disposition": {"type": "string", "enum": ["mapped", "unmapped"]},
+                            "global_dimension_index": {
+                                "anyOf": [
+                                    {"type": "integer", "minimum": 1, "maximum": config.max_global_dimensions},
+                                    {"type": "null"},
+                                ]
+                            },
+                            "reason": {"anyOf": [text, {"type": "null"}]},
                         },
-                        "reason": {
-                            "anyOf": [text, {"type": "null"}]
-                        },
-                    },
-                },
+                        "allOf": [
+                            {
+                                "if": {"properties": {"disposition": {"const": "mapped"}}},
+                                "then": {"properties": {"global_dimension_index": {"type": "integer"}}},
+                            },
+                            {
+                                "if": {"properties": {"disposition": {"const": "unmapped"}}},
+                                "then": {"properties": {
+                                    "global_dimension_index": {"type": "null"},
+                                    "reason": text,
+                                }},
+                            },
+                        ],
+                    }
+                    for dimension_id in local_dimension_ids
+                ],
             },
             "look_back_requests": {
                 "type": "array", "maxItems": config.max_look_back_requests,
@@ -231,63 +224,37 @@ def validate_hierarchical_global_landscape(
         raise HierarchicalGlobalContractError(
             "hierarchical_global.dimension_index_invalid", "全局维度序号必须从1连续排列。"
         )
-    mapped = []
-    for row in value["global_dimensions"]:
-        refs = [str(item) for item in row["local_dimension_ids"]]
-        mapped.extend(refs)
-        row["cluster_ids"] = sorted({dimension_owner[item] for item in refs})
-        row["paper_ids"] = sorted(set().union(*(dimension_papers[item] for item in refs)))
-    unmapped = [str(row["local_dimension_id"]) for row in value["unmapped_local_dimensions"]]
-    if len(mapped) != len(set(mapped)) or len(unmapped) != len(set(unmapped)) or set(mapped) & set(unmapped):
-        raise HierarchicalGlobalContractError(
-            "hierarchical_global.dimension_assignment_conflict", "局部维度不得重复映射或同时映射和未映射。"
-        )
-    if set(mapped) | set(unmapped) != set(dimension_owner):
-        raise HierarchicalGlobalContractError(
-            "hierarchical_global.dimension_silently_missing", "存在未进入全局维度且未显式列出的局部维度。"
-        )
     accounting = value["local_dimension_accounting"]
-    accounted_ids = [str(row["local_dimension_id"]) for row in accounting]
-    if len(accounted_ids) != len(set(accounted_ids)) or set(accounted_ids) != set(dimension_owner):
-        raise HierarchicalGlobalContractError(
-            "hierarchical_global.accounting_incomplete", "局部维度完整性账本必须逐项且仅一次覆盖全部局部维度。"
-        )
-    mapped_to_index = {
-        str(dimension_id): int(row["global_dimension_index"])
-        for row in value["global_dimensions"]
-        for dimension_id in row["local_dimension_ids"]
-    }
-    unmapped_set = set(unmapped)
+    dimensions_by_index = {int(row["global_dimension_index"]): row for row in value["global_dimensions"]}
+    assigned: dict[int, list[str]] = {index: [] for index in dimensions_by_index}
+    unmapped_rows = []
     for row in accounting:
         dimension_id = str(row["local_dimension_id"])
         if row["disposition"] == "mapped":
-            if (
-                dimension_id not in mapped_to_index
-                or row["global_dimension_index"] != mapped_to_index[dimension_id]
-            ):
+            target = int(row["global_dimension_index"])
+            if target not in dimensions_by_index:
                 raise HierarchicalGlobalContractError(
-                    "hierarchical_global.accounting_mismatch", f"已映射维度账本与全局维度不一致：{dimension_id}"
+                    "hierarchical_global.accounting_target_unknown", f"账本引用不存在的全局维度：{target}"
                 )
-        elif (
-            dimension_id not in unmapped_set
-            or row["global_dimension_index"] is not None
-            or not isinstance(row["reason"], str)
-        ):
+            assigned[target].append(dimension_id)
+        else:
+            unmapped_rows.append({"local_dimension_id": dimension_id, "reason": row["reason"]})
+    for index, row in dimensions_by_index.items():
+        refs = assigned[index]
+        if not refs:
             raise HierarchicalGlobalContractError(
-                "hierarchical_global.accounting_mismatch", f"未映射维度账本与unmapped列表不一致：{dimension_id}"
+                "hierarchical_global.dimension_empty", f"全局维度没有局部维度支持：{index}"
             )
+        row["local_dimension_ids"] = refs
+        row["cluster_ids"] = sorted({dimension_owner[item] for item in refs})
+        row["paper_ids"] = sorted(set().union(*(dimension_papers[item] for item in refs)))
+    value["unmapped_local_dimensions"] = unmapped_rows
     for row in value["cross_cluster_relations"]:
         owners = {dimension_owner[str(item)] for item in row["supporting_local_dimension_ids"]}
         if len(owners) != 2:
             raise HierarchicalGlobalContractError(
                 "hierarchical_global.relation_support_invalid", "跨簇关系的局部维度必须且只能来自两个主题簇。"
             )
-        expected_pair_id = "::".join(sorted(owners))
-        if row["relation_pair_id"] != expected_pair_id:
-            raise HierarchicalGlobalContractError(
-                "hierarchical_global.relation_pair_mismatch", "跨簇关系临时簇对与局部维度来源不一致。"
-            )
-        row.pop("relation_pair_id")
         row["from_cluster_id"], row["to_cluster_id"] = sorted(owners)
     result = value
     result["global_landscape_id"] = _stable_id("global_landscape", value)

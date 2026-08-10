@@ -1,11 +1,15 @@
 from __future__ import annotations
 
 import hashlib
+import copy
 import json
+import re
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Iterable
+
+from jsonschema import Draft202012Validator
 
 from .hierarchical_global_contracts import (
     HierarchicalGlobalConfig,
@@ -40,10 +44,16 @@ DEFAULT_HIERARCHICAL_GLOBAL_CONFIG = PROJECT_ROOT / "config" / "hierarchical-glo
 
 GLOBAL_SYSTEM_PROMPT = """你是层级文献综合的全局归并器。输入只包含多个已严格验证的局部Research Landscape投影，不包含完整论文、Card或Paper Understanding。
 只输出符合JSON Schema的对象，不输出Markdown或额外字段。你的任务是把局部维度归并为全局维度，描述局部主题簇之间由真实局部维度直接支持的关系，并把证据不足的问题记录为回看请求。
-每个局部dimension必须且只能进入一个global_dimension，或进入unmapped_local_dimensions；禁止静默遗漏和重复归并。global_dimension只填写local_dimension_ids，cluster_ids和paper_ids由程序根据局部维度所有权生成，不得输出这两个字段。
-必须在local_dimension_accounting中按输入完整性清单逐项列出每个局部dimension，并声明mapped及其global_dimension_index，或unmapped及原因；条目数必须与输入局部维度总数完全相同。
-cross_cluster_relations先选择Schema提供的relation_pair_id，supporting_local_dimension_ids只能引用该簇对两侧的局部维度且两侧至少各一条；relation_pair_id随后由程序移除，from_cluster_id和to_cluster_id由程序生成。不得根据主题相邻自行补出因果、继承、整合成效或共同验证。局部gap只是当前语料缺口，不是已证实结论；需要补充论文时写入look_back_requests。
+每个局部dimension必须且只能在local_dimension_accounting中声明mapped及其global_dimension_index，或unmapped及原因。账本按输入完整性清单固定顺序输出，是唯一分配来源；global_dimensions只填写序号、标题和问题，不得输出local_dimension_ids、cluster_ids或paper_ids，这些字段以及unmapped_local_dimensions均由程序生成。
+cross_cluster_relations的supporting_local_dimension_ids必须恰好引用两个不同局部维度，且两个维度必须来自不同主题簇；from_cluster_id和to_cluster_id由程序根据维度所有权生成。不得根据主题相邻自行补出因果、继承、整合成效或共同验证。局部gap只是当前语料缺口，不是已证实结论；需要补充论文时写入look_back_requests。
 不得生成任何机器ID，ID由程序生成。"""
+
+GLOBAL_RELATION_SYSTEM_PROMPT = """你是层级文献综合的跨主题关系审查器。输入是固定顺序的主题簇对及其局部维度短别名。
+只输出符合JSON Schema的对象，不输出Markdown或额外字段。每个已选簇对必须返回一条关系。
+关系只能从左侧选择一个维度、从右侧选择一个维度。statement必须直接写出两个研究主题或研究内容，不得使用“前者、后者、两者、二者”等指代词；只能保守描述两条局部维度已经明确表达的互补、趋同、范围差异、对照或方法替代，不得出现D0001等短别名，不得推演因果、继承、促进或整合效果。"""
+
+GLOBAL_RELATION_SELECTION_SYSTEM_PROMPT = """你是层级文献综合的跨主题关系筛选器。只输出符合JSON Schema的对象。
+从全部主题簇对中只选择对综述结构最有价值、且有直接局部维度支持的少数簇对；数量不得超过Schema的maxItems。主题相邻、都涉及效率或可以想象联合使用，不足以构成关系。没有足够强的簇对时允许输出空数组。"""
 
 
 @dataclass(frozen=True)
@@ -89,7 +99,7 @@ class HierarchicalGlobalLandscapeRunner:
             raise AnalysisInputError(f"全局Landscape run_id已存在：{resolved}")
         run_dir.mkdir(parents=True)
         started_at = _now()
-        snapshot = profile = config = stage_result = output = None
+        snapshot = profile = config = stage_result = relation_selection_stage_result = relation_stage_result = output = None
         try:
             snapshot = self.snapshot_loader(
                 self.workspace, local_batch_run_id=local_batch_run_id
@@ -98,15 +108,44 @@ class HierarchicalGlobalLandscapeRunner:
             config = load_hierarchical_global_config(Path(global_config_path))
             if provider != profile.provider:
                 raise AnalysisInputError("provider与model profile不一致。")
-            schema = build_hierarchical_global_schema(
+            validation_schema = build_hierarchical_global_schema(
                 topic=snapshot.topic,
                 review_goal=snapshot.review_goal,
                 clusters=list(snapshot.clusters),
                 config=config,
             )
-            prompt = build_hierarchical_global_prompt(snapshot, schema=schema)
-            _write_json(run_dir / "input" / "local_projection.json", _projection(snapshot))
-            _write_json(run_dir / "input" / "output_schema.json", schema)
+            dimension_aliases = {
+                str(dimension["dimension_id"]): f"D{index:04d}"
+                for index, dimension in enumerate(
+                    (
+                        dimension
+                        for cluster in snapshot.clusters
+                        for dimension in cluster["landscape"]["dimensions"]
+                    ),
+                    start=1,
+                )
+            }
+            alias_to_dimension = {
+                alias: dimension_id for dimension_id, alias in dimension_aliases.items()
+            }
+            alias_snapshot = _alias_dimension_snapshot(snapshot, dimension_aliases)
+            generation_schema = build_hierarchical_global_schema(
+                topic=alias_snapshot.topic,
+                review_goal=alias_snapshot.review_goal,
+                clusters=list(alias_snapshot.clusters),
+                config=config,
+            )
+            generation_schema["properties"]["cross_cluster_relations"] = {
+                "type": "array", "maxItems": 0,
+            }
+            prompt = build_hierarchical_global_prompt(alias_snapshot, schema=generation_schema)
+            _write_json(run_dir / "input" / "local_projection.json", _projection(alias_snapshot))
+            _write_json(run_dir / "input" / "output_schema.json", generation_schema)
+            _write_json(run_dir / "input" / "validation_schema.json", validation_schema)
+            _write_json(run_dir / "input" / "local_dimension_aliases.json", {
+                "alias_to_local_dimension_id": alias_to_dimension,
+                "local_dimension_id_to_alias": dimension_aliases,
+            })
             _write_json(run_dir / "input" / "model_profile.json", profile.to_dict())
             _write_json(run_dir / "input" / "global_config.json", config.to_dict())
             client = self.analysis_client or OpenAICompatibleAnalysisClient.from_env(
@@ -134,8 +173,68 @@ class HierarchicalGlobalLandscapeRunner:
                 },
                 client=client, profile=profile, token_counter=counter,
             )
+            selection_schema = build_global_relation_selection_schema(
+                alias_snapshot, max_relations=config.max_cross_cluster_relations
+            )
+            _write_json(run_dir / "input" / "relation_selection_output_schema.json", selection_schema)
+            selection_parsed, relation_selection_stage_result = execute_json_stage(
+                run_dir=run_dir,
+                stage="global_relation_selection",
+                task_name="hierarchical_global_relation_selection",
+                directory_name="global_relation_selection",
+                system_prompt=GLOBAL_RELATION_SELECTION_SYSTEM_PROMPT,
+                user_prompt=build_global_relation_selection_prompt(alias_snapshot, selection_schema),
+                max_output_tokens=config.global_max_output_tokens,
+                context={
+                    "local_batch_run_id": local_batch_run_id,
+                    "cluster_pair_count": len(_cluster_pairs(alias_snapshot)),
+                    "max_selected_pairs": config.max_cross_cluster_relations,
+                    "input_sha256": snapshot.input_sha256,
+                },
+                client=client, profile=profile, token_counter=counter,
+            )
+            selection_parsed = normalize_global_relation_selection(
+                selection_parsed, selection_schema
+            )
+            validate_global_relation_review(selection_parsed, selection_schema, reject_aliases=False)
+            selected_pair_ids = [str(value) for value in selection_parsed["selected_cluster_pair_ids"]]
+            relation_stage_result = []
+            relation_rows = []
+            for relation_index, pair_id in enumerate(selected_pair_ids, start=1):
+                relation_schema = build_global_relation_review_schema(
+                    alias_snapshot, selected_pair_ids=[pair_id]
+                )
+                _write_json(
+                    run_dir / "input" / "relation_schemas" / f"pair_{relation_index:02d}.json",
+                    relation_schema,
+                )
+                relation_parsed, pair_stage_result = execute_json_stage(
+                    run_dir=run_dir,
+                    stage=f"global_relation_{relation_index:02d}",
+                    task_name="hierarchical_global_relations",
+                    directory_name=f"global_relations/pair_{relation_index:02d}",
+                    system_prompt=GLOBAL_RELATION_SYSTEM_PROMPT,
+                    user_prompt=build_global_relation_review_prompt(alias_snapshot, relation_schema),
+                    max_output_tokens=config.global_max_output_tokens,
+                    context={
+                        "local_batch_run_id": local_batch_run_id,
+                        "cluster_pair_id": pair_id,
+                        "input_sha256": snapshot.input_sha256,
+                    },
+                    client=client, profile=profile, token_counter=counter,
+                )
+                relation_parsed = normalize_global_relation_statement(
+                    relation_parsed, pair_id=pair_id, snapshot=alias_snapshot
+                )
+                validate_global_relation_review(relation_parsed, relation_schema)
+                relation_rows.extend(_relation_review_to_global(relation_parsed))
+                relation_stage_result.append(pair_stage_result)
+            parsed["cross_cluster_relations"] = relation_rows
+            restored = restore_hierarchical_global_dimension_ids(
+                parsed, alias_to_dimension=alias_to_dimension
+            )
             output = validate_hierarchical_global_landscape(
-                parsed, schema=schema, clusters=list(snapshot.clusters)
+                restored, schema=validation_schema, clusters=list(snapshot.clusters)
             )
             coverage = _coverage(snapshot, output)
             _write_json(run_dir / "global_landscape" / "validated_global_landscape.json", output)
@@ -167,6 +266,8 @@ class HierarchicalGlobalLandscapeRunner:
             "model": profile.request_model if profile else None,
             "global_config": config.to_dict() if config else None,
             "stage_result": stage_result,
+            "relation_selection_stage_result": relation_selection_stage_result,
+            "relation_stage_result": relation_stage_result,
             "global_landscape_id": output.get("global_landscape_id") if output else None,
             "coverage": coverage,
             "failure": failure,
@@ -294,12 +395,291 @@ def build_hierarchical_global_prompt(snapshot: HierarchicalGlobalSnapshot, *, sc
         "输出前逐项核对": [
             "每个局部dimension只进入一个全局dimension或显式未映射",
             "local_dimension_accounting条目数与局部维度完整性清单完全相同且ID不重复",
+            "global_dimensions不输出local_dimension_ids；所有分配只在local_dimension_accounting填写",
             "跨簇关系引用两侧真实局部dimension",
             "局部gap只形成全局gap或look_back_request，不写成已有事实",
+            "global_gap中能够由补充论文回答的问题必须形成look_back_request，并指定目标主题簇",
+            "本阶段cross_cluster_relations必须输出空数组，跨簇关系由独立阶段处理",
         ],
         "输出JSONSchema": schema,
     }
     return json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
+
+
+def _cluster_pairs(snapshot: HierarchicalGlobalSnapshot) -> list[tuple[dict[str, Any], dict[str, Any]]]:
+    clusters = list(snapshot.clusters)
+    return [
+        (left, right)
+        for left_index, left in enumerate(clusters)
+        for right in clusters[left_index + 1:]
+    ]
+
+
+def build_global_relation_selection_schema(
+    snapshot: HierarchicalGlobalSnapshot,
+    *,
+    max_relations: int,
+) -> dict[str, Any]:
+    pair_ids = [
+        f"{left['cluster_id']}::{right['cluster_id']}"
+        for left, right in _cluster_pairs(snapshot)
+    ]
+    return {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object", "additionalProperties": False,
+        "required": ["schema_version", "selected_cluster_pair_ids"],
+        "properties": {
+            "schema_version": {"const": "llm.hierarchical_global_relation_selection.v1"},
+            "selected_cluster_pair_ids": {
+                "type": "array", "maxItems": max_relations, "uniqueItems": True,
+                "items": {"type": "string", "enum": pair_ids},
+            },
+        },
+    }
+
+
+def build_global_relation_review_schema(
+    snapshot: HierarchicalGlobalSnapshot,
+    *,
+    selected_pair_ids: list[str],
+) -> dict[str, Any]:
+    items = []
+    for left, right in _cluster_pairs(snapshot):
+        pair_id = f"{left['cluster_id']}::{right['cluster_id']}"
+        if pair_id not in selected_pair_ids:
+            continue
+        left_ids = [str(row["dimension_id"]) for row in left["landscape"]["dimensions"]]
+        right_ids = [str(row["dimension_id"]) for row in right["landscape"]["dimensions"]]
+        items.append({
+                "type": "object", "additionalProperties": False,
+                "required": ["cluster_pair_id", "relation"],
+                "properties": {
+                    "cluster_pair_id": {"const": pair_id},
+                    "relation": {
+                                "type": "object", "additionalProperties": False,
+                                "required": ["relation_type", "statement", "left_local_dimension_id", "right_local_dimension_id"],
+                                "properties": {
+                                    "relation_type": {"type": "string", "enum": ["converges", "complements", "contrasts", "scope_difference", "methodological_alternative"]},
+                                    "statement": {"type": "string", "minLength": 1, "maxLength": 1000},
+                                    "left_local_dimension_id": {"type": "string", "enum": left_ids},
+                                    "right_local_dimension_id": {"type": "string", "enum": right_ids},
+                                },
+                    },
+                },
+            })
+    return {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object", "additionalProperties": False,
+        "required": ["schema_version", "relations"],
+        "properties": {
+            "schema_version": {"const": "llm.hierarchical_global_relations.v1"},
+            "relations": {
+                "type": "array", "minItems": len(items), "maxItems": len(items),
+                "prefixItems": items,
+            },
+        },
+    }
+
+
+def build_global_relation_review_prompt(
+    snapshot: HierarchicalGlobalSnapshot,
+    schema: dict[str, Any],
+) -> str:
+    pair_id = schema["properties"]["relations"]["prefixItems"][0]["properties"]["cluster_pair_id"]["const"]
+    selected_cluster_ids = set(pair_id.split("::"))
+    selected_clusters = [
+        cluster for cluster in _projection(snapshot)["clusters"]
+        if cluster["cluster_id"] in selected_cluster_ids
+    ]
+    payload = {
+        "任务": "为一个已选主题簇对生成一条由两条局部维度直接支持的跨簇关系",
+        "综述主题": snapshot.topic,
+        "cluster_pair_id": pair_id,
+        "局部主题图谱": selected_clusters,
+        "输出前逐项核对": [
+            "relations顺序和数量与Schema的固定簇对完全相同",
+            "每个关系只引用左侧和右侧各一个局部维度",
+            "statement使用主题和研究内容的自然语言，不出现D0001等短别名",
+        ],
+        "输出JSONSchema": schema,
+    }
+    return json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
+
+
+def build_global_relation_selection_prompt(
+    snapshot: HierarchicalGlobalSnapshot,
+    schema: dict[str, Any],
+) -> str:
+    payload = {
+        "任务": "从全部主题簇对中筛选少数具有直接证据和综述价值的跨簇关系候选",
+        "综述主题": snapshot.topic,
+        "局部主题图谱": _projection(snapshot)["clusters"],
+        "候选簇对": schema["properties"]["selected_cluster_pair_ids"]["items"]["enum"],
+        "输出JSONSchema": schema,
+    }
+    return json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
+
+
+def normalize_global_relation_selection(
+    payload: object,
+    schema: dict[str, Any],
+) -> object:
+    normalized = json.loads(json.dumps(payload, ensure_ascii=False))
+    if not isinstance(normalized, dict) or not isinstance(normalized.get("selected_cluster_pair_ids"), list):
+        return normalized
+    valid = set(schema["properties"]["selected_cluster_pair_ids"]["items"]["enum"])
+    values = []
+    for raw in normalized["selected_cluster_pair_ids"]:
+        value = str(raw)
+        if value not in valid and "::" in value:
+            left, right = value.split("::", 1)
+            reversed_value = f"{right}::{left}"
+            if reversed_value in valid:
+                value = reversed_value
+        values.append(value)
+    normalized["selected_cluster_pair_ids"] = values
+    return normalized
+
+
+def normalize_global_relation_statement(
+    payload: object,
+    *,
+    pair_id: str,
+    snapshot: HierarchicalGlobalSnapshot,
+) -> object:
+    normalized = json.loads(json.dumps(payload, ensure_ascii=False))
+    if not isinstance(normalized, dict) or not isinstance(normalized.get("relations"), list):
+        return normalized
+    left_id, right_id = pair_id.split("::", 1)
+    titles = {
+        str(cluster["cluster_id"]): str(cluster["cluster_title"])
+        for cluster in snapshot.clusters
+    }
+    dimensions = {
+        str(cluster["cluster_id"]): {
+            str(dimension["dimension_id"])
+            for dimension in cluster["landscape"]["dimensions"]
+        }
+        for cluster in snapshot.clusters
+    }
+    replacements = (
+        ("前者", titles[left_id]),
+        ("后者", titles[right_id]),
+        ("两者", "这两类研究"),
+        ("二者", "这两类研究"),
+    )
+    for row in normalized["relations"]:
+        if not isinstance(row, dict) or not isinstance(row.get("relation"), dict):
+            continue
+        relation = row["relation"]
+        left_value = str(relation.get("left_local_dimension_id", ""))
+        right_value = str(relation.get("right_local_dimension_id", ""))
+        if left_value in dimensions[right_id] and right_value in dimensions[left_id]:
+            relation["left_local_dimension_id"] = right_value
+            relation["right_local_dimension_id"] = left_value
+        statement = str(relation.get("statement", ""))
+        for source, target in replacements:
+            statement = statement.replace(source, target)
+        relation["statement"] = statement
+    return normalized
+
+
+def _relation_review_to_global(payload: object) -> list[dict[str, Any]]:
+    if not isinstance(payload, dict) or not isinstance(payload.get("relations"), list):
+        return []
+    result = []
+    for row in payload["relations"]:
+        if not isinstance(row, dict) or row.get("relation") is None:
+            continue
+        relation = row["relation"]
+        result.append({
+            "relation_type": relation["relation_type"],
+            "statement": relation["statement"],
+            "supporting_local_dimension_ids": [
+                relation["left_local_dimension_id"],
+                relation["right_local_dimension_id"],
+            ],
+        })
+    return result
+
+
+def validate_global_relation_review(
+    payload: object,
+    schema: dict[str, Any],
+    *,
+    reject_aliases: bool = True,
+) -> None:
+    errors = sorted(
+        Draft202012Validator(schema).iter_errors(payload),
+        key=lambda error: list(error.absolute_path),
+    )
+    if errors:
+        error = errors[0]
+        path = "$" + "".join(
+            f"[{part}]" if isinstance(part, int) else f".{part}"
+            for part in error.absolute_path
+        )
+        raise AnalysisInputError(f"全局关系审查Schema无效 at {path}: {error.message}")
+    if not reject_aliases:
+        return
+    for index, row in enumerate(payload["relations"]):
+        relation = row.get("relation")
+        if relation is None:
+            continue
+        statement = str(relation["statement"])
+        if re.search(r"\bD\d{4}\b", statement):
+            raise AnalysisInputError(f"全局关系审查statement不得泄露局部维度短别名：relations[{index}]")
+        if any(term in statement for term in ("前者", "后者", "两者", "二者")):
+            raise AnalysisInputError(f"全局关系审查statement不得使用指代词：relations[{index}]")
+
+
+def _alias_dimension_snapshot(
+    snapshot: HierarchicalGlobalSnapshot,
+    aliases: dict[str, str],
+) -> HierarchicalGlobalSnapshot:
+    clusters = copy.deepcopy(list(snapshot.clusters))
+    for cluster in clusters:
+        for dimension in cluster["landscape"]["dimensions"]:
+            dimension["dimension_id"] = aliases[str(dimension["dimension_id"])]
+    return HierarchicalGlobalSnapshot(
+        topic=snapshot.topic,
+        review_goal=snapshot.review_goal,
+        local_batch_run_id=snapshot.local_batch_run_id,
+        local_batch_sha256=snapshot.local_batch_sha256,
+        clusters=tuple(clusters),
+        input_sha256=snapshot.input_sha256,
+    )
+
+
+def restore_hierarchical_global_dimension_ids(
+    payload: object,
+    *,
+    alias_to_dimension: dict[str, str],
+) -> object:
+    restored = json.loads(json.dumps(payload, ensure_ascii=False))
+    if not isinstance(restored, dict):
+        return restored
+    for row in restored.get("global_dimensions", []):
+        if isinstance(row, dict) and isinstance(row.get("local_dimension_ids"), list):
+            row["local_dimension_ids"] = [
+                alias_to_dimension.get(str(value), str(value))
+                for value in row["local_dimension_ids"]
+            ]
+    for row in restored.get("cross_cluster_relations", []):
+        if isinstance(row, dict) and isinstance(row.get("supporting_local_dimension_ids"), list):
+            row["supporting_local_dimension_ids"] = [
+                alias_to_dimension.get(str(value), str(value))
+                for value in row["supporting_local_dimension_ids"]
+            ]
+    for row in restored.get("unmapped_local_dimensions", []):
+        if isinstance(row, dict) and "local_dimension_id" in row:
+            value = str(row["local_dimension_id"])
+            row["local_dimension_id"] = alias_to_dimension.get(value, value)
+    for row in restored.get("local_dimension_accounting", []):
+        if isinstance(row, dict) and "local_dimension_id" in row:
+            value = str(row["local_dimension_id"])
+            row["local_dimension_id"] = alias_to_dimension.get(value, value)
+    return restored
 
 
 def _projection(snapshot: HierarchicalGlobalSnapshot) -> dict[str, Any]:

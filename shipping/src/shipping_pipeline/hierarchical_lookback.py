@@ -376,11 +376,12 @@ def _strip_global_ids(value: dict[str, Any]) -> dict[str, Any]:
     result.pop("global_landscape_id", None)
     for row in result.get("global_dimensions", []):
         row.pop("global_dimension_id", None)
+        row.pop("local_dimension_ids", None)
         row.pop("cluster_ids", None)
         row.pop("paper_ids", None)
+    result["unmapped_local_dimensions"] = []
     for row in result.get("cross_cluster_relations", []): row.pop("global_relation_id", None)
     for row in result.get("cross_cluster_relations", []):
-        row["relation_pair_id"] = f"{row['from_cluster_id']}::{row['to_cluster_id']}"
         row.pop("from_cluster_id", None)
         row.pop("to_cluster_id", None)
     for row in result.get("look_back_requests", []): row.pop("look_back_request_id", None)

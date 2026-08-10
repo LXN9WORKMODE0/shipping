@@ -1,0 +1,31 @@
+{
+  "schema_version": "llm.hierarchical_scale_selection.v1",
+  "topic": "三峡枢纽通航能力的提升方法",
+  "target_total_papers": 48,
+  "baseline_papers": 27,
+  "new_papers": 21,
+  "model_profile": "deepseek-v4-pro-official",
+  "records": [
+    {"record_id": "source_3a2e42997ec0c56f2d84", "theme": "operation-baseline"},
+    {"record_id": "source_981f39f94f695eb9c389", "theme": "operation-baseline"},
+    {"record_id": "source_b356cfd83bd45adba1e3", "theme": "operation-baseline"},
+    {"record_id": "source_661e62f3040b67bb8a6d", "theme": "dispatch-optimization"},
+    {"record_id": "source_bfc2c313c377437d6fc2", "theme": "dispatch-optimization"},
+    {"record_id": "source_99358fee766f4bf69440", "theme": "dispatch-optimization"},
+    {"record_id": "source_57b5fd363bb55b610ce8", "theme": "engineering-capacity"},
+    {"record_id": "source_5eb19ffc1415a74b01da", "theme": "engineering-capacity"},
+    {"record_id": "source_14e179ace33c54e894d9", "theme": "engineering-capacity"},
+    {"record_id": "source_5d38ac4d3c0a8f944f7a", "theme": "hydraulic-navigation"},
+    {"record_id": "source_68e8eb4e8f5472c1031d", "theme": "hydraulic-navigation"},
+    {"record_id": "source_a5259501132569207053", "theme": "hydraulic-navigation"},
+    {"record_id": "source_43f5b3bd939741863bda", "theme": "safety-reliability"},
+    {"record_id": "source_efb2af759609285514ea", "theme": "safety-reliability"},
+    {"record_id": "source_b7c859e03392a794be9c", "theme": "safety-reliability"},
+    {"record_id": "source_e298277eb4507d8995f3", "theme": "vessel-traffic"},
+    {"record_id": "source_f61cdb06bfc45104a4d6", "theme": "vessel-traffic"},
+    {"record_id": "source_47c1bab94cc8fbe8b4ad", "theme": "vessel-traffic"},
+    {"record_id": "source_c7caa893153a67df78d5", "theme": "capacity-assessment"},
+    {"record_id": "source_e92f869cabf4f9dfa5c5", "theme": "capacity-assessment"},
+    {"record_id": "source_d9220e85cb96407a1b62", "theme": "capacity-assessment"}
+  ]
+}
