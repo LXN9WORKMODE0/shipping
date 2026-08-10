@@ -58,6 +58,9 @@ from shipping_pipeline.hierarchical_incremental import (
     DEFAULT_INCREMENTAL_CONFIG,
     HierarchicalIncrementalRunner,
 )
+from shipping_pipeline.hierarchical_review_writing import (
+    HierarchicalReviewWritingRunner,
+)
 from shipping_pipeline.research_landscape import (
     DEFAULT_RESEARCH_LANDSCAPE_CONFIG,
     ResearchLandscapeRunner,
@@ -518,6 +521,19 @@ def build_parser() -> argparse.ArgumentParser:
     incremental_parser.add_argument("--global-config", type=Path, default=DEFAULT_HIERARCHICAL_GLOBAL_CONFIG)
     incremental_parser.add_argument("--incremental-config", type=Path, default=DEFAULT_INCREMENTAL_CONFIG)
     incremental_parser.add_argument("--timeout", type=int, default=900)
+
+    hierarchical_writing_parser = subparsers.add_parser(
+        "hierarchical-review-write",
+        help="基于完整层级研究景观和论文理解生成带论文级引用的中文综述。",
+    )
+    hierarchical_writing_parser.add_argument("--global-run-id", required=True)
+    hierarchical_writing_parser.add_argument("--workspace", type=Path, default=Path("workspace"))
+    hierarchical_writing_parser.add_argument("--run-id", default=None)
+    hierarchical_writing_parser.add_argument("--provider", choices=["openai-compatible"], default="openai-compatible")
+    hierarchical_writing_parser.add_argument("--api-url", default=None)
+    hierarchical_writing_parser.add_argument("--api-key-env", default="LLM_ANALYSIS_API_KEY")
+    hierarchical_writing_parser.add_argument("--model-profile", type=Path, default=DEFAULT_MODEL_PROFILE)
+    hierarchical_writing_parser.add_argument("--timeout", type=int, default=1800)
 
     research_landscape_parser = subparsers.add_parser(
         "llm-research-landscape",
@@ -1640,6 +1656,18 @@ def main(argv: list[str] | None = None) -> int:
             "completed", "completed_no_changes", "completed_partial",
             "completed_partial_no_changes",
         } else 1
+    if args.command == "hierarchical-review-write":
+        result = HierarchicalReviewWritingRunner(args.workspace).run(
+            global_run_id=args.global_run_id,
+            run_id=args.run_id,
+            provider=args.provider,
+            api_url=args.api_url,
+            api_key_env=args.api_key_env,
+            model_profile_path=args.model_profile,
+            timeout=args.timeout,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0 if result["status"] == "completed" else 1
     if args.command == "llm-research-landscape":
         result = ResearchLandscapeRunner(args.workspace).run(
             collection_path=args.collection,
