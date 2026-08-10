@@ -677,6 +677,7 @@ function ProjectPage() {
   const [analysisJobOpen, setAnalysisJobOpen] = useState(false);
   const [synthesisJobOpen, setSynthesisJobOpen] = useState(false);
   const [fullPipelineOpen, setFullPipelineOpen] = useState(false);
+  const [landscapeJobOpen, setLandscapeJobOpen] = useState(false);
   const [selectedPaperIds, setSelectedPaperIds] = useState<Set<string>>(
     new Set(),
   );
@@ -690,6 +691,9 @@ function ProjectPage() {
     refetchInterval: 1000,
   });
   const latestJob = jobsQuery.data?.[0];
+  const latestLandscapeJob = jobsQuery.data?.find(
+    (job) => job.job_type === "hierarchical_incremental",
+  ) ?? null;
   const latestPaperJob =
     jobsQuery.data?.find(
       (job) =>
@@ -831,9 +835,9 @@ function ProjectPage() {
             </button>
           ) : (
             <>
-              <button
-                type="button"
-                className="secondary-button"
+            <button
+              type="button"
+              className="secondary-button"
                 onClick={() => setEditOpen(true)}
               >
                 <Pencil size={15} />
@@ -1119,8 +1123,18 @@ function ProjectPage() {
             }
           >
             <Layers3 size={14} />
-            严格完整流程
-          </button>
+              严格完整流程
+            </button>
+            <button
+              type="button"
+              className="secondary-button"
+              onClick={() => setLandscapeJobOpen(true)}
+              disabled={project.archived || activeJob}
+              title="从已完成的缺口回看继续构建研究景观"
+            >
+              <GitBranch size={14} />
+              研究景观增量
+            </button>
         </div>
         <div className="data-table-wrap">
           <table className="data-table">
@@ -1251,6 +1265,14 @@ function ProjectPage() {
           project={project}
           onClose={() => setFullPipelineOpen(false)}
           onStarted={() => setFullPipelineOpen(false)}
+        />
+      )}
+      {landscapeJobOpen && (
+        <HierarchicalIncrementalJobDialog
+          project={project}
+          resumeJob={latestLandscapeJob}
+          onClose={() => setLandscapeJobOpen(false)}
+          onStarted={() => setLandscapeJobOpen(false)}
         />
       )}
     </>
@@ -1892,6 +1914,94 @@ function FullPipelineJobDialog({
   );
 }
 
+function HierarchicalIncrementalJobDialog({
+  project,
+  resumeJob,
+  onClose,
+  onStarted,
+}: {
+  project: Project;
+  resumeJob: CardJob | null;
+  onClose: () => void;
+  onStarted: (job: CardJob) => void;
+}) {
+  const queryClient = useQueryClient();
+  const [selectedRun, setSelectedRun] = useState("");
+  const [resumeFailed, setResumeFailed] = useState(
+    Boolean(resumeJob?.result?.resumable),
+  );
+  const [externalConfirmed, setExternalConfirmed] = useState(false);
+  const runsQuery = useQuery({
+    queryKey: ["hierarchical-lookback-runs"],
+    queryFn: api.hierarchicalLookbackRuns,
+  });
+  const runId = selectedRun || runsQuery.data?.[0]?.run_id || "";
+  const request = {
+    expected_revision: project.revision,
+    lookback_run_id: runId,
+    resume_from_job_id: resumeFailed ? resumeJob?.job_id ?? null : null,
+    external_service_confirmed: false,
+  };
+  const preflight = useQuery({
+    queryKey: ["hierarchical-incremental-preflight", project.project_id, runId, request.resume_from_job_id],
+    queryFn: () => api.preflightHierarchicalIncrementalJob(project.project_id, request),
+    enabled: Boolean(runId),
+    retry: false,
+  });
+  const mutation = useMutation({
+    mutationFn: () => api.createHierarchicalIncrementalJob(project.project_id, {
+      ...request,
+      external_service_confirmed: externalConfirmed,
+    }),
+    onSuccess: (job) => {
+      void queryClient.invalidateQueries({ queryKey: ["jobs", project.project_id] });
+      onStarted(job);
+    },
+  });
+  return (
+    <div className="dialog-backdrop" role="presentation">
+      <section className="dialog-panel" role="dialog" aria-modal="true" aria-labelledby="landscape-job-title">
+        <div className="dialog-header">
+          <div>
+            <span>研究景观</span>
+            <h2 id="landscape-job-title">运行缺口回看与增量重算</h2>
+          </div>
+          <button type="button" className="icon-button" onClick={onClose} title="关闭"><X size={17} /></button>
+        </div>
+        {runsQuery.error && <InlineError error={runsQuery.error} />}
+        <label className="field-block">
+          <span>回看批次</span>
+          <select value={runId} onChange={(event) => setSelectedRun(event.target.value)}>
+            {(runsQuery.data ?? []).map((run) => (
+              <option key={run.run_id} value={run.run_id}>
+                {run.run_id} · {run.request_count} 个缺口
+              </option>
+            ))}
+          </select>
+        </label>
+        {resumeJob?.result?.resumable && (
+          <label className="confirmation-row">
+            <input type="checkbox" checked={resumeFailed} onChange={(event) => setResumeFailed(event.target.checked)} />
+            <span>继续上次未完成的 {resumeJob.result.unadjudicated_assignment_count ?? 0} 个候选，复用已完成结果</span>
+          </label>
+        )}
+        <label className="confirmation-row">
+          <input type="checkbox" checked={externalConfirmed} onChange={(event) => setExternalConfirmed(event.target.checked)} />
+          <span>允许将候选论文材料发送给 DeepSeek</span>
+        </label>
+        {preflight.error && <InlineError error={preflight.error} />}
+        {mutation.error && <InlineError error={mutation.error} />}
+        <div className="dialog-actions">
+          <button type="button" className="secondary-button" onClick={onClose}>取消</button>
+          <button type="button" className="primary-button" disabled={!runId || !externalConfirmed || mutation.isPending} onClick={() => mutation.mutate()}>
+            <Play size={14} />{mutation.isPending ? "正在创建" : resumeFailed ? "继续失败项" : "开始增量分析"}
+          </button>
+        </div>
+      </section>
+    </div>
+  );
+}
+
 function JobPanel({ job }: { job: CardJob }) {
   const queryClient = useQueryClient();
   const cancelMutation = useMutation({
@@ -1983,6 +2093,16 @@ function JobPanel({ job }: { job: CardJob }) {
           成功 {job.progress.succeeded} · 失败 {job.progress.failed}
         </span>
       </div>
+      {(job.progress.stages?.length ?? 0) > 0 && (
+        <div className="job-stage-progress">
+          {job.progress.stages!.map((stage, index) => (
+            <div key={stage.stage_id} className={`job-stage-item stage-${stage.status}`}>
+              <span>{index + 1}</span>
+              <div><strong>{stage.label}</strong><small>{stage.status === "pending" ? "等待" : stage.status === "running" ? "运行中" : stage.status === "completed" ? "完成" : "失败"}</small></div>
+            </div>
+          ))}
+        </div>
+      )}
       {job.progress.current_paper_id && (
         <p className="job-current-paper">
           正在处理：{job.progress.current_paper_id}
@@ -2041,6 +2161,16 @@ function JobPanel({ job }: { job: CardJob }) {
               </span>
             )}
           </div>
+        </div>
+      )}
+      {job.job_type === "hierarchical_incremental" && job.result && (
+        <div className="landscape-result-grid">
+          <Metric label="候选" value={job.result.candidate_assignment_count ?? 0} />
+          <Metric label="已裁定" value={job.result.adjudicated_assignment_count ?? 0} />
+          <Metric label="待继续" value={job.result.unadjudicated_assignment_count ?? 0} tone="warning" />
+          <Metric label="提升论文" value={job.result.promoted_paper_count ?? 0} />
+          <Metric label="重算主题" value={job.result.affected_cluster_count ?? 0} />
+          <Metric label="复用主题" value={job.result.reused_cluster_count ?? 0} />
         </div>
       )}
       <details className="job-log">

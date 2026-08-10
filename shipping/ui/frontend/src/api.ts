@@ -235,6 +235,24 @@ export const api = {
         body: JSON.stringify(input),
       },
     ),
+  hierarchicalLookbackRuns: () =>
+    fetchJson<Array<{ run_id: string; finished_at: string | null; request_count: number }>>(
+      "/api/hierarchical-lookback-runs",
+    ),
+  preflightHierarchicalIncrementalJob: (
+    projectId: string,
+    input: { expected_revision: number; lookback_run_id: string; resume_from_job_id: string | null; external_service_confirmed: boolean },
+  ) => fetchJson<Record<string, unknown>>(
+    `/api/projects/${encodeURIComponent(projectId)}/hierarchical-incremental-jobs/preflight`,
+    { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(input) },
+  ),
+  createHierarchicalIncrementalJob: (
+    projectId: string,
+    input: { expected_revision: number; lookback_run_id: string; resume_from_job_id: string | null; external_service_confirmed: boolean },
+  ) => fetchJson<CardJob>(
+    `/api/projects/${encodeURIComponent(projectId)}/hierarchical-incremental-jobs`,
+    { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(input) },
+  ),
   jobs: (projectId: string) =>
     fetchJson<CardJob[]>(
       `/api/jobs?project_id=${encodeURIComponent(projectId)}`,

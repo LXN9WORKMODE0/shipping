@@ -387,3 +387,71 @@ class FullPipelineCommandFactory:
             collection=collection_path,
             argv=tuple(argv),
         )
+
+
+@dataclass(frozen=True)
+class HierarchicalIncrementalCommand:
+    run_id: str
+    argv: tuple[str, ...]
+
+
+class HierarchicalIncrementalCommandFactory:
+    def __init__(
+        self,
+        project_root: str | Path,
+        *,
+        workspace: str | Path = "workspace",
+        python_executable: str | Path | None = None,
+        env_file: str | Path = ".env",
+        model_profile: str | Path = "config/models/deepseek-v4-pro-official.json",
+        understanding_config: str | Path = "config/research-understanding-default.json",
+        landscape_config: str | Path = "config/research-landscape-default.json",
+        global_config: str | Path = "config/hierarchical-global-landscape-default.json",
+        incremental_config: str | Path = "config/hierarchical-incremental-default.json",
+        timeout: int = 900,
+    ) -> None:
+        self.project_root = Path(project_root).resolve()
+        self.workspace = CardCommandFactory._inside(self.project_root, workspace)
+        self.main_path = CardCommandFactory._inside(self.project_root, "main.py")
+        self.env_path = CardCommandFactory._inside(self.project_root, env_file)
+        self.model_profile = CardCommandFactory._inside(self.project_root, model_profile)
+        self.understanding_config = CardCommandFactory._inside(self.project_root, understanding_config)
+        self.landscape_config = CardCommandFactory._inside(self.project_root, landscape_config)
+        self.global_config = CardCommandFactory._inside(self.project_root, global_config)
+        self.incremental_config = CardCommandFactory._inside(self.project_root, incremental_config)
+        self.python_executable = str(Path(python_executable or sys.executable).resolve())
+        self.timeout = timeout
+
+    def build(
+        self,
+        *,
+        lookback_run_id: str,
+        run_id: str,
+        resume_from_run_id: str | None,
+    ) -> HierarchicalIncrementalCommand:
+        required = {
+            "pipeline 入口": self.main_path,
+            "环境文件": self.env_path,
+            "模型配置": self.model_profile,
+            "论文理解配置": self.understanding_config,
+            "主题景观配置": self.landscape_config,
+            "全局景观配置": self.global_config,
+            "增量配置": self.incremental_config,
+        }
+        for label, path in required.items():
+            if not path.is_file():
+                raise UIError("ui.hierarchical_configuration_missing", f"缺少{label}：{path}")
+        argv = [
+            self.python_executable, str(self.main_path), "--env-file", str(self.env_path),
+            "hierarchical-landscape-incremental-run", "--workspace", str(self.workspace),
+            "--lookback-run-id", lookback_run_id, "--run-id", run_id,
+            "--model-profile", str(self.model_profile),
+            "--understanding-config", str(self.understanding_config),
+            "--landscape-config", str(self.landscape_config),
+            "--global-config", str(self.global_config),
+            "--incremental-config", str(self.incremental_config),
+            "--timeout", str(self.timeout),
+        ]
+        if resume_from_run_id:
+            argv.extend(["--resume-from-run-id", resume_from_run_id])
+        return HierarchicalIncrementalCommand(run_id=run_id, argv=tuple(argv))

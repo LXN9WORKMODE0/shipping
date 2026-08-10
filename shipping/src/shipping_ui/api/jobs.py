@@ -33,6 +33,13 @@ class FullPipelineJobRequest(BaseModel):
     external_service_confirmed: bool = False
 
 
+class HierarchicalIncrementalJobRequest(BaseModel):
+    expected_revision: int
+    lookback_run_id: str = Field(min_length=1)
+    resume_from_job_id: str | None = None
+    external_service_confirmed: bool = False
+
+
 def build_job_router(
     jobs: JobRepository,
     service: JobService,
@@ -131,9 +138,49 @@ def build_job_router(
             external_service_confirmed=request.external_service_confirmed,
         )
 
+    @router.post("/projects/{project_id}/hierarchical-incremental-jobs/preflight")
+    def preflight_hierarchical_incremental_job(
+        project_id: str,
+        request: HierarchicalIncrementalJobRequest,
+    ) -> dict:
+        return service.preflight_hierarchical_incremental(
+            project_id,
+            expected_revision=request.expected_revision,
+            lookback_run_id=request.lookback_run_id,
+            resume_from_job_id=request.resume_from_job_id,
+        )
+
+    @router.post("/projects/{project_id}/hierarchical-incremental-jobs")
+    def create_hierarchical_incremental_job(
+        project_id: str,
+        request: HierarchicalIncrementalJobRequest,
+    ) -> dict:
+        return service.create_hierarchical_incremental_job(
+            project_id,
+            expected_revision=request.expected_revision,
+            lookback_run_id=request.lookback_run_id,
+            resume_from_job_id=request.resume_from_job_id,
+            external_service_confirmed=request.external_service_confirmed,
+        )
+
     @router.get("/jobs")
     def list_jobs(project_id: str | None = None) -> list[dict]:
         return jobs.list(project_id)
+
+    @router.get("/hierarchical-lookback-runs")
+    def list_hierarchical_lookback_runs() -> list[dict]:
+        root = service.workspace / "_hierarchical_lookbacks" / "runs"
+        rows: list[dict] = []
+        if root.is_dir():
+            for path in root.glob("*/manifest.json"):
+                payload = service._read_json(path, code="ui.lookback_manifest_invalid")
+                if payload.get("status") == "completed":
+                    rows.append({
+                        "run_id": payload.get("run_id") or path.parent.name,
+                        "finished_at": payload.get("finished_at"),
+                        "request_count": (payload.get("summary") or {}).get("request_count", 0),
+                    })
+        return sorted(rows, key=lambda row: str(row.get("finished_at") or ""), reverse=True)
 
     @router.get("/jobs/{job_id}")
     def get_job(job_id: str) -> dict:

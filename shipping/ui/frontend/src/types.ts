@@ -129,7 +129,8 @@ export interface PipelineJob {
     | "card_build"
     | "topic_brief"
     | "topic_synthesis"
-    | "full_pipeline";
+    | "full_pipeline"
+    | "hierarchical_incremental";
   project_id: string;
   project_revision: number;
   status:
@@ -150,6 +151,12 @@ export interface PipelineJob {
     succeeded: number;
     failed: number;
     current_paper_id: string | null;
+    current_stage?: string | null;
+    stages?: Array<{
+      stage_id: string;
+      label: string;
+      status: "pending" | "running" | "completed" | "failed";
+    }>;
   };
   paper_results: JobPaperResult[];
   result?: {
@@ -169,6 +176,13 @@ export interface PipelineJob {
     usage?: Usage;
     failure_code?: string | null;
     failure_message?: string | null;
+    candidate_assignment_count?: number;
+    adjudicated_assignment_count?: number;
+    unadjudicated_assignment_count?: number;
+    promoted_paper_count?: number;
+    affected_cluster_count?: number;
+    reused_cluster_count?: number;
+    resumable?: boolean;
   } | null;
   failure_code: string | null;
   failure_message: string | null;

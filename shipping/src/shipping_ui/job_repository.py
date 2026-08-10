@@ -16,11 +16,18 @@ CARD_JOB_INPUT_SCHEMA = "review_ui_card_job_input.v1"
 TOPIC_BRIEF_JOB_INPUT_SCHEMA = "review_ui_topic_brief_job_input.v1"
 TOPIC_SYNTHESIS_JOB_INPUT_SCHEMA = "review_ui_topic_synthesis_job_input.v1"
 FULL_PIPELINE_JOB_INPUT_SCHEMA = "review_ui_full_pipeline_job_input.v1"
+HIERARCHICAL_INCREMENTAL_JOB_INPUT_SCHEMA = (
+    "review_ui_hierarchical_incremental_job_input.v1"
+)
 JOB_INPUT_TYPES = {
     CARD_JOB_INPUT_SCHEMA: ("card_build", "card"),
     TOPIC_BRIEF_JOB_INPUT_SCHEMA: ("topic_brief", "brief"),
     TOPIC_SYNTHESIS_JOB_INPUT_SCHEMA: ("topic_synthesis", "synthesis"),
     FULL_PIPELINE_JOB_INPUT_SCHEMA: ("full_pipeline", "pipeline"),
+    HIERARCHICAL_INCREMENTAL_JOB_INPUT_SCHEMA: (
+        "hierarchical_incremental",
+        "landscape",
+    ),
 }
 TERMINAL_STATUSES = {
     "completed",
@@ -110,6 +117,8 @@ class JobRepository:
                     "succeeded": 0,
                     "failed": 0,
                     "current_paper_id": None,
+                    "current_stage": None,
+                    "stages": [],
                 },
                 "paper_results": [],
                 "result": None,
@@ -345,6 +354,33 @@ class JobRepository:
             self._atomic_json(self.root / job_id / "job.json", job)
             return job
 
+    def set_stage_progress(
+        self,
+        job_id: str,
+        *,
+        current_stage: str,
+        stages: list[dict[str, Any]],
+    ) -> dict[str, Any]:
+        with self._lock:
+            job = self.get(job_id)
+            if job["status"] not in {"running", "cancel_requested"}:
+                raise UIError(
+                    "ui.job_not_running",
+                    f"Job 不在运行或取消收束状态：{job_id}",
+                )
+            job["progress"]["current_stage"] = current_stage
+            job["progress"]["stages"] = stages
+            completed = sum(row["status"] == "completed" for row in stages)
+            failed = sum(row["status"] == "failed" for row in stages)
+            job["progress"].update(
+                total=len(stages),
+                completed=completed + failed,
+                succeeded=completed,
+                failed=failed,
+            )
+            self._atomic_json(self.root / job_id / "job.json", job)
+            return job
+
     def record_result(
         self,
         job_id: str,
@@ -478,6 +514,7 @@ class JobRepository:
                 or job_id.startswith("brief-")
                 or job_id.startswith("synthesis-")
                 or job_id.startswith("pipeline-")
+                or job_id.startswith("landscape-")
             )
             or "/" in job_id
             or "\\" in job_id

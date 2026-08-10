@@ -21,11 +21,13 @@ from ..command_factory import (
     FullPipelineCommandFactory,
     TopicBriefCommandFactory,
     TopicSynthesisCommandFactory,
+    HierarchicalIncrementalCommandFactory,
 )
 from ..errors import UIError
 from ..job_repository import (
     CARD_JOB_INPUT_SCHEMA,
     FULL_PIPELINE_JOB_INPUT_SCHEMA,
+    HIERARCHICAL_INCREMENTAL_JOB_INPUT_SCHEMA,
     TOPIC_BRIEF_JOB_INPUT_SCHEMA,
     TOPIC_SYNTHESIS_JOB_INPUT_SCHEMA,
     JobRepository,
@@ -51,6 +53,7 @@ class JobService:
         topic_brief_command_factory: TopicBriefCommandFactory | None = None,
         topic_synthesis_command_factory: TopicSynthesisCommandFactory | None = None,
         full_pipeline_command_factory: FullPipelineCommandFactory | None = None,
+        hierarchical_incremental_command_factory: HierarchicalIncrementalCommandFactory | None = None,
         workspace: str | Path = "workspace",
     ) -> None:
         self.project_root = Path(project_root).resolve()
@@ -77,6 +80,14 @@ class JobService:
         self.full_pipeline_command_factory = (
             full_pipeline_command_factory
             or FullPipelineCommandFactory(
+                self.project_root,
+                workspace=workspace,
+                python_executable=command_factory.python_executable,
+            )
+        )
+        self.hierarchical_incremental_command_factory = (
+            hierarchical_incremental_command_factory
+            or HierarchicalIncrementalCommandFactory(
                 self.project_root,
                 workspace=workspace,
                 python_executable=command_factory.python_executable,
@@ -849,6 +860,176 @@ class JobService:
                 f"Job 无法提交：{exc}",
             ) from exc
         return job
+
+    def preflight_hierarchical_incremental(
+        self,
+        project_id: str,
+        *,
+        expected_revision: int,
+        lookback_run_id: str,
+        resume_from_job_id: str | None,
+    ) -> dict[str, Any]:
+        project = self.projects.get(project_id)
+        if project.get("archived_at"):
+            raise UIError("ui.project_archived", "项目已归档，只能读取。")
+        if project["revision"] != expected_revision:
+            raise UIError("ui.project_revision_conflict", "项目 revision 已变化。")
+        lookback_id = lookback_run_id.strip()
+        lookback_manifest = (
+            self.workspace / "_hierarchical_lookbacks" / "runs" / lookback_id / "manifest.json"
+        )
+        if not lookback_id or not lookback_manifest.is_file():
+            raise UIError("ui.lookback_run_not_found", f"回看运行不存在：{lookback_id}")
+        resume_run_id = None
+        if resume_from_job_id:
+            parent = self.jobs.get(resume_from_job_id)
+            if parent["project_id"] != project_id or parent["job_type"] != "hierarchical_incremental":
+                raise UIError("ui.hierarchical_resume_job_invalid", "恢复来源不是本项目的研究景观增量任务。")
+            parent_result = parent.get("result") or {}
+            resume_run_id = parent_result.get("pipeline_run_id")
+            if not resume_run_id:
+                resume_run_id = self.jobs.get_input(resume_from_job_id).get("incremental_run_id")
+        run_id = "ui-landscape-" + datetime.now(UTC).strftime("%Y%m%dT%H%M%S") + "-" + uuid4().hex[:8]
+        return {
+            "schema_version": HIERARCHICAL_INCREMENTAL_JOB_INPUT_SCHEMA,
+            "project_id": project_id,
+            "project_revision": project["revision"],
+            "topic": project["topic"],
+            "uses_external_service": True,
+            "external_service": "DeepSeek（OpenAI 兼容接口）",
+            "lookback_run_id": lookback_id,
+            "resume_from_job_id": resume_from_job_id,
+            "resume_from_run_id": resume_run_id,
+            "incremental_run_id": run_id,
+            "created_at": self._now(),
+        }
+
+    def create_hierarchical_incremental_job(
+        self,
+        project_id: str,
+        *,
+        expected_revision: int,
+        lookback_run_id: str,
+        resume_from_job_id: str | None,
+        external_service_confirmed: bool,
+    ) -> dict[str, Any]:
+        if not external_service_confirmed:
+            raise UIError("ui.external_service_confirmation_required", "必须确认向外部 DeepSeek 发送候选论文材料。")
+        job_input = self.preflight_hierarchical_incremental(
+            project_id,
+            expected_revision=expected_revision,
+            lookback_run_id=lookback_run_id,
+            resume_from_job_id=resume_from_job_id,
+        )
+        job_input["external_service_confirmed"] = True
+        self.start()
+        job = self.jobs.create(job_input)
+        assert self._executor is not None
+        self._executor.submit(self._execute_hierarchical_incremental_job, str(job["job_id"]))
+        return job
+
+    def _execute_hierarchical_incremental_job(self, job_id: str) -> None:
+        monitor_stop = threading.Event()
+        monitor: threading.Thread | None = None
+        try:
+            job_input = self.jobs.get_input(job_id)
+            if not self._begin_job(job_id):
+                return
+            stages = [
+                {"stage_id": "understanding", "label": "候选论文理解", "status": "running"},
+                {"stage_id": "local", "label": "受影响主题重算", "status": "pending"},
+                {"stage_id": "global", "label": "全局研究景观", "status": "pending"},
+            ]
+            self.jobs.set_stage_progress(job_id, current_stage="understanding", stages=stages)
+            monitor = threading.Thread(
+                target=self._monitor_hierarchical_progress,
+                args=(job_id, str(job_input["incremental_run_id"]), monitor_stop),
+                daemon=True,
+            )
+            monitor.start()
+            command = self.hierarchical_incremental_command_factory.build(
+                lookback_run_id=str(job_input["lookback_run_id"]),
+                run_id=str(job_input["incremental_run_id"]),
+                resume_from_run_id=job_input.get("resume_from_run_id"),
+            )
+            payload, return_code = self._run_process(job_id, command.argv, log_prefix="研究景观增量")
+            self._raise_if_cancel_requested(job_id)
+            manifest_path = self.workspace / "_hierarchical_incremental_runs" / "runs" / str(job_input["incremental_run_id"]) / "manifest.json"
+            manifest = self._read_json(manifest_path, code="ui.hierarchical_manifest_missing")
+            summary = manifest.get("summary") or {}
+            stage_paths = self._hierarchical_stage_paths(str(job_input["incremental_run_id"]))
+            for stage, (_, _, path) in zip(stages, stage_paths, strict=True):
+                stage["status"] = self._hierarchical_stage_status(path)
+            current_stage = next((row["stage_id"] for row in stages if row["status"] != "completed"), "completed")
+            self.jobs.set_stage_progress(job_id, current_stage=current_stage, stages=stages)
+            result = {
+                "status": "completed" if manifest.get("status") in {"completed", "completed_partial"} else "failed",
+                "pipeline_run_id": job_input["incremental_run_id"],
+                "candidate_assignment_count": int(summary.get("candidate_assignment_count", 0)),
+                "adjudicated_assignment_count": int(summary.get("adjudicated_assignment_count", 0)),
+                "unadjudicated_assignment_count": int(summary.get("unadjudicated_assignment_count", 0)),
+                "promoted_paper_count": int(summary.get("promoted_paper_count", 0)),
+                "affected_cluster_count": int(summary.get("affected_cluster_count", 0)),
+                "reused_cluster_count": int(summary.get("reused_cluster_count", 0)),
+                "resumable": int(summary.get("unadjudicated_assignment_count", 0)) > 0 or return_code != 0,
+            }
+            self.jobs.record_result(job_id, result)
+            self.jobs.set_stage_progress(job_id, current_stage=current_stage, stages=stages)
+            if result["status"] != "completed" or return_code != 0:
+                raise UIError("ui.hierarchical_incremental_failed", "研究景观增量任务未完成，可从本任务继续失败项。")
+            status = "completed_with_failures" if result["unadjudicated_assignment_count"] else "completed"
+            self.jobs.transition(job_id, status)
+        except JobCancelled:
+            self._finish_cancelled(job_id)
+        except Exception as exc:
+            current = self.jobs.get(job_id)
+            if current["status"] in {"running", "cancel_requested"}:
+                self.jobs.transition(job_id, "failed", failure_code=getattr(exc, "code", type(exc).__name__), failure_message=str(exc))
+        finally:
+            monitor_stop.set()
+            if monitor is not None:
+                monitor.join(timeout=2)
+
+    def _monitor_hierarchical_progress(
+        self,
+        job_id: str,
+        run_id: str,
+        stop: threading.Event,
+    ) -> None:
+        roots = self._hierarchical_stage_paths(run_id)
+        while not stop.wait(1):
+            stages: list[dict[str, Any]] = []
+            for stage_id, label, path in roots:
+                status = self._hierarchical_stage_status(path)
+                stages.append({"stage_id": stage_id, "label": label, "status": status})
+            current = next((row["stage_id"] for row in stages if row["status"] == "running"), None)
+            if current is None:
+                current = next((row["stage_id"] for row in stages if row["status"] == "pending"), "completed")
+            try:
+                self.jobs.set_stage_progress(job_id, current_stage=current, stages=stages)
+            except UIError:
+                return
+
+    def _hierarchical_stage_paths(self, run_id: str) -> list[tuple[str, str, Path]]:
+        return [
+            ("understanding", "候选论文理解", self.workspace / "_paper_understanding_batches" / "runs" / f"{run_id}--understanding" / "manifest.json"),
+            ("local", "受影响主题重算", self.workspace / "_hierarchical_landscapes" / "local_runs" / f"{run_id}--local" / "manifest.json"),
+            ("global", "全局研究景观", self.workspace / "_hierarchical_global_landscapes" / "runs" / f"{run_id}--global" / "manifest.json"),
+        ]
+
+    def _hierarchical_stage_status(self, manifest_path: Path) -> str:
+        if not manifest_path.is_file():
+            return "pending"
+        manifest = self._read_json(
+            manifest_path,
+            code="ui.hierarchical_stage_manifest_invalid",
+        )
+        raw = str(manifest.get("status") or "running")
+        if raw in {"completed", "completed_partial", "completed_with_failures"}:
+            return "completed"
+        if raw == "failed":
+            return "failed"
+        return "running"
 
     def _execute_full_pipeline_job(self, job_id: str) -> None:
         job_input: dict[str, Any] | None = None

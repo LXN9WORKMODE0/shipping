@@ -876,6 +876,48 @@ code {
   font-size: 10px;
 }
 
+.job-stage-progress {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.job-stage-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding: 12px 18px;
+  border-right: 1px solid var(--border);
+}
+
+.job-stage-item:last-child { border-right: 0; }
+.job-stage-item > span {
+  display: grid;
+  width: 26px;
+  height: 26px;
+  place-items: center;
+  border: 1px solid var(--border-strong);
+  border-radius: 50%;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+.job-stage-item div { display: grid; min-width: 0; }
+.job-stage-item strong { font-size: 13px; }
+.job-stage-item small { color: var(--text-muted); }
+.job-stage-item.stage-running > span { border-color: var(--primary); color: var(--primary); }
+.job-stage-item.stage-completed > span { border-color: var(--success); color: var(--success); }
+.job-stage-item.stage-failed > span { border-color: var(--danger); color: var(--danger); }
+
+.landscape-result-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  border-top: 1px solid var(--border);
+}
+.landscape-result-grid .metric { border-right: 1px solid var(--border); }
+.landscape-result-grid .metric:last-child { border-right: 0; }
+
 .job-progress-row > span {
   color: var(--muted);
 }
@@ -2760,6 +2802,10 @@ code {
 }
 
 @media (max-width: 760px) {
+  .job-stage-progress { grid-template-columns: 1fr; }
+  .job-stage-item { border-right: 0; border-bottom: 1px solid var(--border); }
+  .job-stage-item:last-child { border-bottom: 0; }
+  .landscape-result-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .app-shell {
     display: block;
   }
