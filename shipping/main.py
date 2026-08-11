@@ -533,6 +533,7 @@ def build_parser() -> argparse.ArgumentParser:
     hierarchical_writing_parser.add_argument("--api-url", default=None)
     hierarchical_writing_parser.add_argument("--api-key-env", default="LLM_ANALYSIS_API_KEY")
     hierarchical_writing_parser.add_argument("--model-profile", type=Path, default=DEFAULT_MODEL_PROFILE)
+    hierarchical_writing_parser.add_argument("--reuse-draft-from-run-id", default=None)
     hierarchical_writing_parser.add_argument("--timeout", type=int, default=1800)
 
     research_landscape_parser = subparsers.add_parser(
@@ -1664,6 +1665,7 @@ def main(argv: list[str] | None = None) -> int:
             api_url=args.api_url,
             api_key_env=args.api_key_env,
             model_profile_path=args.model_profile,
+            reuse_draft_from_run_id=args.reuse_draft_from_run_id,
             timeout=args.timeout,
         )
         print(json.dumps(result, ensure_ascii=False))
