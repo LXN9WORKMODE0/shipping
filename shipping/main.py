@@ -61,6 +61,7 @@ from shipping_pipeline.hierarchical_incremental import (
 from shipping_pipeline.hierarchical_review_writing import (
     HierarchicalReviewWritingRunner,
 )
+from shipping_pipeline.hierarchical_review_audit import HierarchicalReviewAuditRunner
 from shipping_pipeline.research_landscape import (
     DEFAULT_RESEARCH_LANDSCAPE_CONFIG,
     ResearchLandscapeRunner,
@@ -535,6 +536,19 @@ def build_parser() -> argparse.ArgumentParser:
     hierarchical_writing_parser.add_argument("--model-profile", type=Path, default=DEFAULT_MODEL_PROFILE)
     hierarchical_writing_parser.add_argument("--reuse-draft-from-run-id", default=None)
     hierarchical_writing_parser.add_argument("--timeout", type=int, default=1800)
+
+    hierarchical_audit_parser = subparsers.add_parser(
+        "hierarchical-review-audit",
+        help="审计层级综述的数值、主张和参考文献题录。",
+    )
+    hierarchical_audit_parser.add_argument("--workspace", type=Path, default=Path("workspace"))
+    hierarchical_audit_parser.add_argument("--writing-run-id", required=True)
+    hierarchical_audit_parser.add_argument("--run-id", default=None)
+    hierarchical_audit_parser.add_argument("--api-url", default=None)
+    hierarchical_audit_parser.add_argument("--api-key-env", default="LLM_ANALYSIS_API_KEY")
+    hierarchical_audit_parser.add_argument("--reuse-audit-from-run-id", default=None)
+    hierarchical_audit_parser.add_argument("--model-profile", type=Path, default=DEFAULT_MODEL_PROFILE)
+    hierarchical_audit_parser.add_argument("--timeout", type=int, default=1800)
 
     research_landscape_parser = subparsers.add_parser(
         "llm-research-landscape",
@@ -1670,6 +1684,19 @@ def main(argv: list[str] | None = None) -> int:
         )
         print(json.dumps(result, ensure_ascii=False))
         return 0 if result["status"] == "completed" else 1
+
+    if args.command == "hierarchical-review-audit":
+        result = HierarchicalReviewAuditRunner(args.workspace).run(
+            writing_run_id=args.writing_run_id,
+            run_id=args.run_id,
+            api_url=args.api_url,
+            api_key_env=args.api_key_env,
+            model_profile_path=args.model_profile,
+            reuse_audit_from_run_id=args.reuse_audit_from_run_id,
+            timeout=args.timeout,
+        )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0
     if args.command == "llm-research-landscape":
         result = ResearchLandscapeRunner(args.workspace).run(
             collection_path=args.collection,
