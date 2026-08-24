@@ -45,6 +45,30 @@ DOI 编码： 1 0<sub>.</sub> 1 3646/j <sub>.</sub>cnki<sub>.</sub>42- 1 395/u<s
     )
 
 
+def test_extract_year_from_unicode_article_number_and_spaced_thesis_marker(tmp_path: Path) -> None:
+    article = extract_local_reference(
+        "文章编号：0253‐374X（2025）09-1444-13\n",
+        paper_id="article-unicode",
+        paper_title="调度算法",
+        workspace_paper_id="article-unicode-workspace",
+        markdown_path=tmp_path / "article.md",
+        source_run_id="run-article",
+    )
+    assert article["year"] == 2025
+    assert article["pages"] == "1444-1456"
+
+    thesis = extract_local_reference(
+        "（申请工学博士 学位论文）\n论文提交日期2024年3月\n学位授予单位武汉理工大学\n",
+        paper_id="thesis-spaced",
+        paper_title="调度优化",
+        workspace_paper_id="thesis-spaced-workspace",
+        markdown_path=tmp_path / "thesis.md",
+        source_run_id="run-thesis",
+    )
+    assert thesis["entry_type"] == "doctoral_thesis"
+    assert thesis["year"] == 2024
+
+
 def test_extract_embedded_citation_and_thesis_metadata(tmp_path: Path) -> None:
     article = extract_local_reference(
         """引用本文：刘祖伟，王忠民，潘诚，等. 平台研究[J]. 人民长江，2024，55（增1）：221-225

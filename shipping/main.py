@@ -528,13 +528,30 @@ def build_parser() -> argparse.ArgumentParser:
         help="基于完整层级研究景观和论文理解生成带论文级引用的中文综述。",
     )
     hierarchical_writing_parser.add_argument("--global-run-id", required=True)
+    hierarchical_writing_parser.add_argument(
+        "--reference-catalog-run-id",
+        required=True,
+        help="提供全部写作论文的年份，用于近似事实的新旧证据决策。",
+    )
     hierarchical_writing_parser.add_argument("--workspace", type=Path, default=Path("workspace"))
     hierarchical_writing_parser.add_argument("--run-id", default=None)
     hierarchical_writing_parser.add_argument("--provider", choices=["openai-compatible"], default="openai-compatible")
     hierarchical_writing_parser.add_argument("--api-url", default=None)
     hierarchical_writing_parser.add_argument("--api-key-env", default="LLM_ANALYSIS_API_KEY")
     hierarchical_writing_parser.add_argument("--model-profile", type=Path, default=DEFAULT_MODEL_PROFILE)
+    hierarchical_writing_parser.add_argument(
+        "--writing-profile",
+        choices=["baseline", "skill_guided"],
+        default="skill_guided",
+    )
+    hierarchical_writing_parser.add_argument("--reuse-argument-plan-from-run-id", default=None)
     hierarchical_writing_parser.add_argument("--reuse-draft-from-run-id", default=None)
+    hierarchical_writing_parser.add_argument(
+        "--review-as-of-year",
+        type=int,
+        default=None,
+        help="综述判断现状时采用的年份锚点；默认当前年份。",
+    )
     hierarchical_writing_parser.add_argument("--timeout", type=int, default=1800)
 
     hierarchical_audit_parser = subparsers.add_parser(
@@ -1674,11 +1691,15 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "hierarchical-review-write":
         result = HierarchicalReviewWritingRunner(args.workspace).run(
             global_run_id=args.global_run_id,
+            reference_catalog_run_id=args.reference_catalog_run_id,
             run_id=args.run_id,
             provider=args.provider,
             api_url=args.api_url,
             api_key_env=args.api_key_env,
             model_profile_path=args.model_profile,
+            writing_profile=args.writing_profile,
+            review_as_of_year=args.review_as_of_year,
+            reuse_argument_plan_from_run_id=args.reuse_argument_plan_from_run_id,
             reuse_draft_from_run_id=args.reuse_draft_from_run_id,
             timeout=args.timeout,
         )

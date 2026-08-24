@@ -1,0 +1,17 @@
+# Keep routine Codex/ripgrep discovery focused on the active implementation.
+# These files remain available through explicit paths or `rg --no-ignore`.
+shipping1/
+shipping2/
+shipping3/
+shipping4/
+
+# Generated runtime state; also covered by .gitignore, repeated here for tools
+# that honor .ignore without loading Git metadata.
+shipping/workspace/
+shipping/.model_cache/
+shipping/.test_tmp/
+
+# Historical implementation journals and superseded plans are not source code.
+shipping/docs/superpowers/
+shipping/docs/progress-*.md
+

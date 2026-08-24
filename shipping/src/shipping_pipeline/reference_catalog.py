@@ -44,7 +44,7 @@ _ARTICLE_NUMBER_RE = re.compile(
     r"(?P<issn>\d{4}-\d{3}[\dXx])"
     r"\((?P<year>20\d{2})\)"
     r"(?P<issue>[0-9A-Za-z增]+)-"
-    r"(?P<start>\d{4})-(?P<count>\d{2})"
+    r"(?P<start>\d{3,4})-(?P<count>\d{1,3})"
 )
 _CHINESE_NAME_RE = re.compile(r"^[\u3400-\u9fff]{2,4}$")
 
@@ -757,9 +757,9 @@ def _finalize_reference(reference: dict[str, Any]) -> None:
 
 def _detect_entry_type(markdown: str) -> str:
     normalized = _normalize_line(markdown[:8000])
-    if "博士学位论文" in normalized:
+    if re.search(r"博士\s*学位论文", normalized):
         return "doctoral_thesis"
-    if "硕士学位论文" in normalized or "申请学位级别 硕士" in normalized:
+    if re.search(r"硕士\s*学位论文", normalized) or re.search(r"申请学位级别\s*硕士", normalized):
         return "master_thesis"
     return "article"
 
@@ -847,11 +847,12 @@ def _apply_article_number_derivations(
 ) -> None:
     start = int(match.group("start"))
     count = int(match.group("count"))
-    derived = {
+    derived: dict[str, Any] = {
         "year": int(match.group("year")),
         "issue": _normalize_issue(match.group("issue")),
-        "pages": f"{start}-{start + count - 1}",
     }
+    if count > 0:
+        derived["pages"] = f"{start}-{start + count - 1}"
     for field, value in derived.items():
         if fields[field] is None:
             fields[field] = value
@@ -1030,7 +1031,8 @@ def _markdown_provenance(
 
 
 def _normalize_line(value: str) -> str:
-    return unicodedata.normalize("NFKC", _strip_markup(value)).replace("—", "-")
+    normalized = unicodedata.normalize("NFKC", _strip_markup(value))
+    return normalized.translate(str.maketrans({"—": "-", "–": "-", "‐": "-", "‑": "-", "−": "-"}))
 
 
 def _strip_markup(value: str) -> str:
